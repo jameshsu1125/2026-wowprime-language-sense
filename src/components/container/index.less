@@ -1,0 +1,21 @@
+@import url('@/settings/global.css');
+
+.Container {
+  @bgSize: 720px;
+  @ratio: 94/562;
+
+  .body {
+    background-image: url('./img/white-grid.png');
+    background-position: left bottom;
+    background-size: @bgSize / 24;
+    @apply flex-1;
+  }
+  .footer {
+    height: @ratio * @bgSize;
+    background-image: url('./img/red-grid.png');
+    background-position: left bottom;
+    background-size: @bgSize;
+    background-repeat: repeat-x;
+    @apply w-full;
+  }
+}
