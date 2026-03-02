@@ -1,4 +1,4 @@
 {
   "upgrade": false,
-  "reject": ["less","eslint"]
+  "reject": ["less","eslint","eslint-plugin-react-refresh"]
 }
