@@ -8,8 +8,18 @@
     background-image: url('./img/white-grid.png');
     background-position: left bottom;
     background-size: @bgSize / 24;
-    @apply flex-1;
+    @apply relative flex-1 overflow-hidden;
+
+    &::before {
+      background-image: url('./img/texture.svg');
+      background-position: center top;
+      background-size: 1710px;
+      background-repeat: repeat-x;
+      content: '';
+      @apply absolute top-0 h-full w-full;
+    }
   }
+
   .footer {
     height: @ratio * @bgSize;
     background-image: url('./img/red-grid.png');
