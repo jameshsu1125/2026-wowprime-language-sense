@@ -7,4 +7,5 @@
   --color-secondary: #f29aab;
   --color-tertiary: #ff0066;
   --color-quaternary: #00ff00;
+  --breakpoint-xs: 30rem;
 }

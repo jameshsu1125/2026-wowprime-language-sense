@@ -1,14 +1,32 @@
 @import url('@/settings/global.css');
+@import url('@/settings/config.less');
 
 .Container {
-  @bgSize: 720px;
-  @ratio: 94/562;
+  .logo {
+    width: (unit(image-width(@img))) / 1280 * 100%;
 
-  .body {
-    background-image: url('./img/white-grid.png');
-    background-position: left bottom;
-    background-size: @bgSize / 24;
-    @apply relative flex-1 overflow-hidden;
+    @img: './img/logo.svg';
+
+    &::before {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+      content: '';
+
+      @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+    }
+
+    @apply w-5/12;
+  }
+
+  .options {
+    @apply h-full flex-1;
+  }
+
+  .texture {
+    @bgSize: 720px;
+    @ratio: 94/562;
+
+    @apply relative;
 
     &::before {
       background-image: url('./img/texture.svg');
@@ -18,14 +36,37 @@
       content: '';
       @apply absolute top-0 h-full w-full;
     }
-  }
 
-  .footer {
-    height: @ratio * @bgSize;
-    background-image: url('./img/red-grid.png');
-    background-position: left bottom;
-    background-size: @bgSize;
-    background-repeat: repeat-x;
-    @apply w-full;
+    .body {
+      background-image: url('./img/white-grid.png');
+      background-position: left bottom;
+      background-size: @bgSize / 24;
+      @apply relative flex-1 overflow-hidden;
+    }
+
+    .footer {
+      height: @ratio * @bgSize;
+      background-image: url('./img/red-grid.png');
+      background-position: left bottom;
+      background-size: @bgSize;
+      background-repeat: repeat-x;
+      @apply w-full;
+    }
+
+    @media only screen and (max-width: @SM) {
+      & {
+        @bgSize: 320px;
+        &::before {
+          background-size: 1210px;
+        }
+        .body {
+          background-size: @bgSize / 24;
+        }
+        .footer {
+          height: @ratio * @bgSize;
+          background-size: @bgSize;
+        }
+      }
+    }
   }
 }
