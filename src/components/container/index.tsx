@@ -1,26 +1,50 @@
 import { IReactProps } from '@/settings/type';
-import { memo } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import Div100vh from 'react-div-100vh';
 import { twMerge } from 'tailwind-merge';
+import dialog from './img/dialog.svg';
 import './index.less';
 
 const Container = memo(({ children, className }: { className?: string } & IReactProps) => {
+  const imageRef = useRef<HTMLImageElement>(null);
+  const [imageSize, setImageSize] = useState(0);
+  useEffect(() => {
+    const resize = () => {
+      if (imageRef.current) {
+        const { height } = imageRef.current.getBoundingClientRect();
+        setImageSize(height);
+      }
+    };
+    resize();
+    window.addEventListener('resize', resize);
+    return () => window.removeEventListener('resize', resize);
+  }, []);
   return (
     <Div100vh className={twMerge('Container w-full', className)}>
       <div className='absolute flex h-full w-full flex-col'>
-        <div className='bg-primary xs:h-32 h-24 w-full sm:h-44 md:h-60' />
+        <div className='bg-primary h-[32vw] w-full md:h-60' />
         <div className='texture flex w-full flex-1 flex-col bg-white'>
           <div className='body' />
           <div className='footer' />
         </div>
       </div>
       <div className='relative flex h-full w-full justify-center'>
-        <div className='flex w-full max-w-3xl flex-col items-center justify-start p-2 md:p-4'>
+        <div className='flex w-full max-w-3xl flex-col items-center justify-start p-[3%]'>
           <div className='flex w-full flex-row items-center justify-start'>
             <div className='logo' />
             <div className='options'>{/** options */}</div>
           </div>
-          <div className='w-full'>{children}</div>
+          <div className='flex h-full w-full flex-1 justify-center overflow-hidden p-6'>
+            <div className='dialog relative flex items-center justify-center overflow-hidden'>
+              <img ref={imageRef} src={dialog} />
+              <div
+                className='absolute top-1/2 h-full w-full'
+                style={{ marginTop: `-${imageSize / 2}px` }}
+              >
+                {children}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </Div100vh>
