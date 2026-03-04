@@ -1,0 +1,87 @@
+@import url('@/settings/global.css');
+
+.Examiner {
+  @apply h-full w-full p-5 pt-10;
+
+  .frame {
+    margin-top: -10%;
+    padding: 0 1rem;
+    @apply relative z-20;
+
+    & > div {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      width: 100%;
+      background-image: url(@img);
+      background-size: cover;
+
+      @img: './img/frame.svg';
+
+      & > div {
+        @apply absolute top-0 right-0 bottom-0 left-0 px-12 pt-16;
+
+        .subtitle {
+          width: (unit(image-width(@img))) / 360 * 100%;
+
+          @img: './img/content.svg';
+
+          &::before {
+            padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+            background-image: url(@img);
+            content: '';
+
+            @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+          }
+        }
+
+        .play-button {
+          right: 9%;
+          bottom: 7%;
+          width: (unit(image-width(@img))) / 640 * 100%;
+
+          @img: './img/play-button.svg';
+          @apply absolute cursor-pointer;
+
+          &:hover {
+            & {
+              transform: scale(1.05);
+            }
+          }
+
+          &::before {
+            padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+            background-image: url(@img);
+            content: '';
+
+            @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+          }
+        }
+      }
+    }
+  }
+
+  .video {
+    width: (unit(image-width(@img))) / 1280 * 100%;
+
+    @img: './img/mask.svg';
+    @apply relative z-10 w-full px-5 pt-3;
+
+    & > div {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+
+      @apply relative w-full;
+
+      & > div {
+        mask-image: url(@img);
+        mask-size: 100%;
+        mask-repeat: no-repeat;
+
+        @apply bg-primary absolute top-0 right-0 bottom-0 left-0;
+
+        .cover {
+          background-image: url('./img/video-cover.png');
+          @apply h-full w-full bg-cover bg-center;
+        }
+      }
+    }
+  }
+}

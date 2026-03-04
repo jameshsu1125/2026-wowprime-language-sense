@@ -1,0 +1,24 @@
+@import url('@/settings/global.css');
+
+@size: 34px;
+
+.Literal {
+  @apply text-primary flex w-full flex-row flex-wrap items-start justify-start gap-0 text-3xl font-black;
+
+  & > div {
+    width: @size;
+    height: @size * 2;
+
+    @apply mb-8 flex flex-col gap-2;
+
+    .letter {
+      height: @size;
+
+      @apply flex w-full flex-col items-center justify-start text-center;
+    }
+
+    .tone {
+      @apply border-primary flex w-full flex-1 cursor-pointer items-center justify-center border;
+    }
+  }
+}

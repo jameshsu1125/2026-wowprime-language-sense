@@ -1,0 +1,68 @@
+@import url('@/settings/global.css');
+
+.Landing {
+  @apply flex h-full w-full flex-col items-center justify-between p-14 py-20;
+
+  .btn {
+    @apply mb-12 w-full;
+
+    .btn-start {
+      width: 55%;
+
+      @img: './img/btn.svg';
+
+      &::before {
+        padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+        background-image: url(@img);
+        content: '';
+
+        @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+      }
+    }
+  }
+
+  .heading {
+    width: (unit(image-width(@img))) / 380 * 100%;
+
+    @img: './img/heading.svg';
+
+    &::before {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+      content: '';
+
+      @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+    }
+  }
+
+  .logo {
+    width: (unit(image-width(@img))) / 740 * 100%;
+
+    @img: './img/logo.svg';
+
+    &::before {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+      content: '';
+
+      @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+    }
+  }
+}
+
+.Pen {
+  bottom: -0.8%;
+  left: 11%;
+  width: (unit(image-width(@img))) / 900 * 100%;
+
+  @img: './img/pen.svg';
+  @apply absolute;
+
+  &::before {
+    padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+    background-image: url(@img);
+    content: '';
+
+    @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+  }
+}

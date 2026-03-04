@@ -1,0 +1,27 @@
+@import url('@/settings/global.css');
+
+.Radio {
+  @apply flex w-full flex-col items-start justify-start gap-4;
+
+  & > span {
+    @apply text-primary text-3xl font-bold tracking-widest;
+  }
+
+  .radio-group {
+    @apply flex w-full flex-col items-start justify-start gap-4 pl-10;
+
+    & > div {
+      @apply text-primary flex flex-row items-center justify-start gap-4 text-2xl;
+
+      & > input[type='radio'] {
+        -webkit-appearance: none;
+        appearance: none;
+        @apply border-primary h-8 w-8 cursor-pointer border;
+
+        &:checked {
+          @apply bg-primary;
+        }
+      }
+    }
+  }
+}

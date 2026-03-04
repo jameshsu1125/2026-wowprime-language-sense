@@ -1,0 +1,32 @@
+@import url('@/settings/global.css');
+
+.Heading {
+  top: 8.6%;
+  left: 2.5%;
+
+  @apply absolute w-full;
+
+  & > div {
+    @apply relative w-1/2;
+
+    & > div {
+      width: 100%;
+
+      @img: './img/flag.svg';
+
+      &::before {
+        padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+        background-image: url(@img);
+        content: '';
+
+        @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+      }
+
+      & > div {
+        padding: 5%;
+        height: 82%;
+        @apply absolute top-0 left-0 w-full;
+      }
+    }
+  }
+}

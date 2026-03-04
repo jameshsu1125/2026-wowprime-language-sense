@@ -1,0 +1,32 @@
+@import url('@/settings/global.css');
+
+.btn {
+  &:active {
+    & {
+      .btn-large {
+        background-position-y: 100%;
+        & > div {
+          transform: translateX(2%) translateY(8%);
+        }
+      }
+    }
+  }
+  .btn-large {
+    padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 50%);
+    width: 100%;
+    background-image: url(@img);
+    background-position-x: center;
+    background-position-y: 0%;
+    background-size: 100%;
+
+    @img: './img/lg.svg';
+
+    @apply flex w-full;
+    @apply relative;
+
+    & > div {
+      transform: translateX(-3%) translateY(-3%);
+      @apply absolute top-0 right-0 bottom-0 left-0 flex items-center justify-center;
+    }
+  }
+}
