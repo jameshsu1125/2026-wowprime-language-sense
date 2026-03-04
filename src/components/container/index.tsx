@@ -15,7 +15,7 @@ const Container = memo(({ children, className }: { className?: string } & IReact
         setImageSize(height);
         setTimeout(() => {
           setImageSize(height);
-        }, 10);
+        }, 50);
       }
     };
     resize();
