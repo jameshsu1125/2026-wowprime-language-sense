@@ -1,8 +1,9 @@
 import Button from '@/components/button';
 import Heading from '@/components/heading';
 import Literal from '@/components/literal';
-import { memo } from 'react';
+import { memo, useContext } from 'react';
 import './index.less';
+import { GameContext, GameStepType } from '../config';
 
 const QUESTION = '愛好好吃的你，可以和我一起好好吃好吃的嗎?';
 const ANSWER = [
@@ -14,6 +15,8 @@ const ANSWER = [
 ];
 
 const Question1 = memo(() => {
+  const [, setState] = useContext(GameContext);
+
   return (
     <div className='Question1 list-decimal'>
       <Heading>
@@ -31,7 +34,11 @@ const Question1 = memo(() => {
         </div>
         <div className='flex w-full justify-end'>
           <div className='mr-2 mb-5 w-[48%]'>
-            <Button>
+            <Button
+              onClick={() => {
+                setState((S) => ({ ...S, step: GameStepType.question2 }));
+              }}
+            >
               <Button.large>
                 <div className='btn-next' />
               </Button.large>

@@ -1,7 +1,9 @@
-import { memo, useEffect } from 'react';
+import { memo, useContext, useEffect } from 'react';
+import { HomeContext, HomePageType } from '../home/config';
 import './index.less';
 
 const Examiner = memo(() => {
+  const [, setState] = useContext(HomeContext);
   useEffect(() => {}, []);
   return (
     <div className='Examiner'>
@@ -16,7 +18,12 @@ const Examiner = memo(() => {
         <div>
           <div>
             <div className='subtitle' />
-            <div className='play-button' />
+            <button
+              className='play-button'
+              onClick={() => {
+                setState((S) => ({ ...S, page: HomePageType.Game }));
+              }}
+            />
           </div>
         </div>
       </div>

@@ -11,5 +11,5 @@ export enum GameStepType {
 export type TGameState = { step: GameStepType };
 export type TGameContext = [TGameState, Dispatch<SetStateAction<TGameState>>];
 
-export const GameState: TGameState = { step: GameStepType.question2 };
+export const GameState: TGameState = { step: GameStepType.question1 };
 export const GameContext = createContext<TGameContext>([GameState, () => {}]);
