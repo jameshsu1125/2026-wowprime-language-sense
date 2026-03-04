@@ -10,13 +10,12 @@ const Container = memo(({ children, className }: { className?: string } & IReact
   const [imageSize, setImageSize] = useState(0);
   useEffect(() => {
     const resize = () => {
-      if (imageRef.current) {
-        const { height } = imageRef.current.getBoundingClientRect();
-        setImageSize(height);
-        setTimeout(() => {
+      requestAnimationFrame(() => {
+        if (imageRef.current) {
+          const { height } = imageRef.current.getBoundingClientRect();
           setImageSize(height);
-        }, 50);
-      }
+        }
+      });
     };
     resize();
     window.addEventListener('resize', resize);
