@@ -2,6 +2,11 @@
 @import url('@/settings/config.less');
 
 .Container {
+  .container-extra {
+    height: 4%;
+    @apply w-full;
+  }
+
   .container-logo {
     width: (unit(image-width(@img))) / 1280 * 100%;
 
@@ -15,7 +20,7 @@
       @apply inline-block w-full bg-contain bg-center bg-no-repeat;
     }
 
-    @apply w-5/12;
+    @apply w-4/12;
   }
 
   & > .container-options {

@@ -36,6 +36,7 @@ const Container = memo(({ children, className }: { className?: string } & IReact
             <div className='container-logo' />
             <div className='container-options'>{/** options */}</div>
           </div>
+          <div className='container-extra'>{/* extra */}</div>
           <div className='flex h-full w-full flex-1 justify-center overflow-hidden'>
             <div className='container-dialog relative flex items-center justify-center px-5 pt-5 pb-10'>
               <img ref={imageRef} src={dialog} />

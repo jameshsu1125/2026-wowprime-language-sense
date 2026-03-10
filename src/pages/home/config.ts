@@ -12,5 +12,5 @@ export enum HomeStepType {
 export type THomeState = { step: HomeStepType; page: HomePageType };
 export type THomeContext = [THomeState, Dispatch<SetStateAction<THomeState>>];
 
-export const HomeState: THomeState = { step: HomeStepType.unset, page: HomePageType.Game };
+export const HomeState: THomeState = { step: HomeStepType.unset, page: HomePageType.Examiner };
 export const HomeContext = createContext<THomeContext>([HomeState, () => {}]);
