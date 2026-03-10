@@ -9,8 +9,21 @@
           transform: translateX(2%) translateY(8%);
         }
       }
+
+      .btn-rounded {
+        @apply bg-gray-300;
+      }
     }
   }
+
+  &:hover {
+    & {
+      .btn-rounded {
+        @apply bg-gray-200;
+      }
+    }
+  }
+
   .btn-large {
     padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 50%);
     width: 100%;
@@ -28,5 +41,9 @@
       transform: translateX(-3%) translateY(-3%);
       @apply absolute top-0 right-0 bottom-0 left-0 flex items-center justify-center;
     }
+  }
+
+  .btn-rounded {
+    @apply pointer-events-none relative rounded-l-full rounded-r-full border-4 border-black bg-white;
   }
 }

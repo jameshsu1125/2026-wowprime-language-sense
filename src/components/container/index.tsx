@@ -1,26 +1,60 @@
+import { HomeContext, HomeStepType } from '@/pages/home/config';
 import { IReactProps } from '@/settings/type';
-import { memo, useEffect, useRef, useState } from 'react';
+import useTween from 'lesca-use-tween';
+import { memo, useContext, useEffect, useRef, useState } from 'react';
 import Div100vh from 'react-div-100vh';
 import { twMerge } from 'tailwind-merge';
 import dialog from './img/dialog.svg';
 import './index.less';
+import Menu from '../menu';
 
-const Container = memo(({ children, className }: { className?: string } & IReactProps) => {
+const Dialog = memo(({ children }: IReactProps) => {
   const imageRef = useRef<HTMLImageElement>(null);
+
+  const [style, setStyle] = useTween({ y: window.innerHeight });
+  const [state] = useContext(HomeContext);
+  useEffect(() => {
+    if (state.step === HomeStepType.loaded) setStyle({ y: 0 }, 500);
+  }, [state.step]);
+
   const [imageSize, setImageSize] = useState(0);
   useEffect(() => {
     const resize = () => {
-      requestAnimationFrame(() => {
+      const getSize = () => {
         if (imageRef.current) {
           const { height } = imageRef.current.getBoundingClientRect();
-          setImageSize(height);
+          if (height !== 0) {
+            setImageSize(height);
+            requestAnimationFrame(() => getSize());
+          } else {
+            requestAnimationFrame(() => getSize());
+          }
         }
-      });
+      };
+      getSize();
     };
     resize();
     window.addEventListener('resize', resize);
     return () => window.removeEventListener('resize', resize);
   }, []);
+
+  return (
+    <div
+      className='container-dialog relative z-10 flex items-center justify-center px-5 pt-5 pb-10'
+      style={style}
+    >
+      <img ref={imageRef} src={dialog} />
+      <div
+        className='absolute top-1/2 h-full w-full'
+        style={{ marginTop: `-${imageSize / 2 + 40}px` }}
+      >
+        {children}
+      </div>
+    </div>
+  );
+});
+
+const Container = memo(({ children, className }: { className?: string } & IReactProps) => {
   return (
     <Div100vh className={twMerge('Container w-full', className)}>
       <div className='absolute flex h-full w-full flex-col'>
@@ -32,21 +66,15 @@ const Container = memo(({ children, className }: { className?: string } & IReact
       </div>
       <div className='relative flex h-full w-full justify-center'>
         <div className='flex w-full max-w-3xl flex-col items-center justify-start p-[3%] md:p-[0%]'>
-          <div className='flex w-full flex-row items-center justify-start pt-0 md:pt-[3%]'>
+          <div className='flex w-full flex-row items-center justify-between pt-0 md:pt-[3%]'>
             <div className='container-logo' />
-            <div className='container-options'>{/** options */}</div>
+            <div className='container-options'>
+              <Menu />
+            </div>
           </div>
           <div className='container-extra'>{/* extra */}</div>
           <div className='flex h-full w-full flex-1 justify-center overflow-hidden'>
-            <div className='container-dialog relative flex items-center justify-center px-5 pt-5 pb-10'>
-              <img ref={imageRef} src={dialog} />
-              <div
-                className='absolute top-1/2 h-full w-full'
-                style={{ marginTop: `-${imageSize / 2 + 40}px` }}
-              >
-                {children}
-              </div>
-            </div>
+            <Dialog>{children}</Dialog>
           </div>
         </div>
       </div>

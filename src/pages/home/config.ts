@@ -8,6 +8,7 @@ export enum HomePageType {
 
 export enum HomeStepType {
   unset,
+  loaded,
 }
 export type THomeState = { step: HomeStepType; page: HomePageType };
 export type THomeContext = [THomeState, Dispatch<SetStateAction<THomeState>>];

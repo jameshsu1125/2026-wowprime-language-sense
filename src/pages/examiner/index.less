@@ -17,35 +17,44 @@
       @img: './img/frame.svg';
 
       & > div {
-        @apply absolute top-0 right-0 bottom-0 left-0 px-12 pt-16;
+        @apply absolute top-0 right-0 bottom-0 left-0 flex flex-col px-12 pt-16;
 
-        .subtitle {
-          width: (unit(image-width(@img))) / 360 * 100%;
+        .btn-next {
+          @img: './img/btn-next.svg';
+          gap: 5%;
+          padding-inline: 12%;
+          padding-block: 5%;
 
-          @img: './img/content.svg';
+          @apply flex w-full flex-row items-center justify-center;
+
+          & > div {
+            width: 16%;
+
+            @img: './img/arrow.svg';
+
+            &::before {
+              padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+              background-image: url(@img);
+              content: '';
+
+              @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+            }
+            @apply flex h-full items-center justify-center;
+          }
 
           &::before {
             padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
             background-image: url(@img);
             content: '';
 
-            @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+            @apply pointer-events-none inline-block w-full bg-contain bg-center bg-no-repeat;
           }
         }
 
-        .play-button {
-          right: 9%;
-          bottom: 7%;
-          width: (unit(image-width(@img))) / 640 * 100%;
+        .subtitle {
+          width: 100%;
 
-          @img: './img/play-button.svg';
-          @apply absolute cursor-pointer;
-
-          &:hover {
-            & {
-              transform: scale(1.05);
-            }
-          }
+          @img: './img/content.svg';
 
           &::before {
             padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
@@ -79,7 +88,32 @@
 
         .cover {
           background-image: url('./img/video-cover.png');
-          @apply h-full w-full bg-cover bg-center;
+          @apply flex h-full w-full items-center justify-center bg-cover bg-center;
+
+          .video-player {
+            @apply h-full w-full;
+          }
+
+          .play-button {
+            width: 25%;
+
+            @img: './img/play-button.svg';
+            @apply absolute cursor-pointer;
+
+            &:hover {
+              & {
+                transform: scale(1.05);
+              }
+            }
+
+            &::before {
+              padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+              background-image: url(@img);
+              content: '';
+
+              @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+            }
+          }
         }
       }
     }

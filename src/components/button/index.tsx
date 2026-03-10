@@ -4,6 +4,7 @@ import { twMerge } from 'tailwind-merge';
 import { useEffect, useId } from 'react';
 import './index.less';
 import Click from 'lesca-click';
+import Rounded from './rounded';
 
 type TRegularProps = IReactProps & {
   className?: string;
@@ -29,5 +30,6 @@ const Button = ({ children, className, style, onClick }: TRegularProps) => {
 };
 
 Button.large = Large;
+Button.rounded = Rounded;
 
 export default Button;

@@ -1,11 +1,15 @@
 import Container from '@/components/container';
-import { memo, useMemo, useState } from 'react';
+import { memo, useContext, useMemo, useState } from 'react';
 import Landing from '../landing';
-import { HomeContext, HomePageType, HomeState, THomeState } from './config';
+import { HomeContext, HomePageType, HomeState, HomeStepType, THomeState } from './config';
 import Examiner from '../examiner';
 import Game from '../game';
+import OnloadProvider from 'lesca-react-onload';
+import { Context } from '@/settings/constant';
+import { ActionType } from '@/settings/type';
 
 const Home = memo(() => {
+  const [, setContext] = useContext(Context);
   const [state, setState] = useState<THomeState>(HomeState);
 
   const Page = useMemo(() => {
@@ -25,9 +29,18 @@ const Home = memo(() => {
   }, [state.page]);
 
   return (
-    <Container className='Home'>
-      <HomeContext.Provider value={[state, setState]}>{Page}</HomeContext.Provider>
-    </Container>
+    <OnloadProvider
+      onload={() => {
+        setState((S) => ({ ...S, step: HomeStepType.loaded }));
+        setContext({ type: ActionType.LoadingProcess, state: { enabled: false } });
+      }}
+    >
+      <div>
+        <HomeContext.Provider value={[state, setState]}>
+          <Container className='Home'>{Page}</Container>
+        </HomeContext.Provider>
+      </div>
+    </OnloadProvider>
   );
 });
 
