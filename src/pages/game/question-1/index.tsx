@@ -36,7 +36,7 @@ const Question1 = memo(() => {
           <div className='mr-2 mb-5 w-[48%]'>
             <Button
               onClick={() => {
-                setState((S) => ({ ...S, step: GameStepType.question2 }));
+                setState((S) => ({ ...S, step: GameStepType.Question2 }));
               }}
             >
               <Button.large>

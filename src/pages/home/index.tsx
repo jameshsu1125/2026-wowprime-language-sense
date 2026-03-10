@@ -1,21 +1,27 @@
 import Container from '@/components/container';
-import { lazy, memo, Suspense, useMemo, useState } from 'react';
+import { memo, useMemo, useState } from 'react';
+import Landing from '../landing';
 import { HomeContext, HomePageType, HomeState, THomeState } from './config';
+import Examiner from '../examiner';
+import Game from '../game';
 
 const Home = memo(() => {
   const [state, setState] = useState<THomeState>(HomeState);
 
   const Page = useMemo(() => {
     const [target] = Object.values(HomePageType).filter((data) => data === state.page);
-    if (target) {
-      const Element = lazy(() => import(`..${target}/index.tsx`));
-      return (
-        <Suspense fallback=''>
-          <Element />
-        </Suspense>
-      );
+
+    switch (target) {
+      default:
+      case HomePageType.Landing:
+        return <Landing />;
+
+      case HomePageType.Examiner:
+        return <Examiner />;
+
+      case HomePageType.Game:
+        return <Game />;
     }
-    return null;
   }, [state.page]);
 
   return (

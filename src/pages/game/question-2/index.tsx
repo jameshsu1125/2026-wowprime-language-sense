@@ -1,13 +1,15 @@
-import { memo, useEffect } from 'react';
-import './index.less';
-import Heading from '@/components/heading';
 import Button from '@/components/button';
+import Heading from '@/components/heading';
 import Radio from '@/components/radio';
+import { memo, useContext } from 'react';
+import { GameContext, GameStepType } from '../config';
+import './index.less';
 
 const OPTIONS = ['曖昧對象', '大學學長', '白雪公主'];
 
 const Question2 = memo(() => {
-  useEffect(() => {}, []);
+  const [, setState] = useContext(GameContext);
+
   return (
     <div className='Question2'>
       <Heading>
@@ -25,7 +27,11 @@ const Question2 = memo(() => {
         </div>
         <div className='flex w-full justify-end'>
           <div className='mr-2 mb-5 w-[48%]'>
-            <Button>
+            <Button
+              onClick={() => {
+                setState((S) => ({ ...S, step: GameStepType.Question3 }));
+              }}
+            >
               <Button.large>
                 <div className='btn-next' />
               </Button.large>

@@ -2,7 +2,7 @@
 @import url('@/settings/config.less');
 
 .Container {
-  .logo {
+  .container-logo {
     width: (unit(image-width(@img))) / 1280 * 100%;
 
     @img: './img/logo.svg';
@@ -18,11 +18,11 @@
     @apply w-5/12;
   }
 
-  .options {
+  & > .container-options {
     @apply h-full flex-1;
   }
 
-  .texture {
+  .container-texture {
     @bgSize: 720px;
     @ratio: 94/562;
 
@@ -70,7 +70,7 @@
     }
   }
 
-  .dialog {
+  .container-dialog {
     & > img {
       max-width: 100% !important;
       max-height: 100% !important;

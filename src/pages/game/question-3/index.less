@@ -1,0 +1,62 @@
+@import url('@/settings/global.css');
+
+.Question3 {
+  @apply relative flex h-full w-full items-center justify-center;
+
+  .btn-start {
+    width: 55%;
+
+    @img: './img/btn.svg';
+
+    &::before {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+      content: '';
+
+      @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+    }
+  }
+
+  .content {
+    @img: './img/content.svg';
+
+    &::before {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+      content: '';
+
+      @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+    }
+
+    @apply w-full;
+  }
+
+  .description {
+    width: 100%;
+
+    @img: './img/description.svg';
+
+    &::before {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+      content: '';
+
+      @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+    }
+  }
+
+  .heading {
+    width: 100%;
+
+    @img: './img/heading.svg';
+
+    &::before {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+      content: '';
+
+      @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+    }
+    @apply bg-black px-6 pt-3 pb-2;
+  }
+}

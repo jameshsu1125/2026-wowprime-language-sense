@@ -25,7 +25,7 @@ const Container = memo(({ children, className }: { className?: string } & IReact
     <Div100vh className={twMerge('Container w-full', className)}>
       <div className='absolute flex h-full w-full flex-col'>
         <div className='bg-primary h-[38vw] w-full md:h-72' />
-        <div className='texture flex w-full flex-1 flex-col bg-white'>
+        <div className='container-texture flex w-full flex-1 flex-col bg-white'>
           <div className='body' />
           <div className='footer' />
         </div>
@@ -33,11 +33,11 @@ const Container = memo(({ children, className }: { className?: string } & IReact
       <div className='relative flex h-full w-full justify-center'>
         <div className='flex w-full max-w-3xl flex-col items-center justify-start p-[3%] md:p-[0%]'>
           <div className='flex w-full flex-row items-center justify-start pt-0 md:pt-[3%]'>
-            <div className='logo' />
-            <div className='options'>{/** options */}</div>
+            <div className='container-logo' />
+            <div className='container-options'>{/** options */}</div>
           </div>
           <div className='flex h-full w-full flex-1 justify-center overflow-hidden'>
-            <div className='dialog relative flex items-center justify-center px-5 pt-5 pb-10'>
+            <div className='container-dialog relative flex items-center justify-center px-5 pt-5 pb-10'>
               <img ref={imageRef} src={dialog} />
               <div
                 className='absolute top-1/2 h-full w-full'
