@@ -12,7 +12,7 @@ import Extra from '../extra';
 const Dialog = memo(({ children }: IReactProps) => {
   const imageRef = useRef<HTMLImageElement>(null);
 
-  const [style, setStyle] = useTween({ y: 0 });
+  const [style, setStyle] = useTween({ y: window.innerHeight });
   const [state] = useContext(HomeContext);
 
   useEffect(() => {
