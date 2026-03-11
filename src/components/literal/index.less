@@ -3,7 +3,7 @@
 @size: 34px;
 
 .Literal {
-  @apply text-primary flex w-full flex-row flex-wrap items-start justify-start gap-0 text-3xl font-black;
+  @apply flex w-full flex-row flex-wrap items-start justify-start gap-0 text-3xl font-black text-black;
 
   & > div {
     width: @size;
@@ -17,8 +17,34 @@
       @apply flex w-full flex-col items-center justify-start text-center;
     }
 
+    .tone-0 {
+      background-image: url('./img/s0.svg');
+      background-size: 50%;
+    }
+
+    .tone-1 {
+      background-image: url('./img/s1.svg');
+      background-size: 50%;
+    }
+
+    .tone-2 {
+      background-image: url('./img/s2.svg');
+      background-size: 50%;
+    }
+
+    .tone-3 {
+      background-image: url('./img/s3.svg');
+      background-size: 50%;
+    }
+
+    .tone-4 {
+      background-image: url('./img/s4.svg');
+      background-size: 50%;
+    }
+
     .tone {
-      @apply border-primary flex w-full flex-1 cursor-pointer items-center justify-center border;
+      padding-bottom: 100%;
+      @apply border-primary flex w-full flex-1 cursor-pointer items-center justify-center border bg-center bg-no-repeat;
     }
   }
 }

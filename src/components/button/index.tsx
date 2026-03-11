@@ -1,10 +1,11 @@
 import { IReactProps } from '@/settings/type';
-import Large from './large';
-import { twMerge } from 'tailwind-merge';
-import { useEffect, useId } from 'react';
-import './index.less';
 import Click from 'lesca-click';
+import { useEffect, useId } from 'react';
+import { twMerge } from 'tailwind-merge';
+import './index.less';
+import Large from './large';
 import Rounded from './rounded';
+import Skip from './skip';
 
 type TRegularProps = IReactProps & {
   className?: string;
@@ -20,7 +21,7 @@ const Button = ({ children, className, style, onClick }: TRegularProps) => {
     return () => {
       if (onClick) Click.remove(`#${id}`);
     };
-  }, [id]);
+  }, [id, onClick]);
 
   return (
     <button id={id} className={twMerge('btn w-full cursor-pointer', className)} style={style}>
@@ -31,5 +32,6 @@ const Button = ({ children, className, style, onClick }: TRegularProps) => {
 
 Button.large = Large;
 Button.rounded = Rounded;
+Button.Skip = Skip;
 
 export default Button;

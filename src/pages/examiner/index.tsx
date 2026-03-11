@@ -61,7 +61,7 @@ const Examiner = memo(() => {
               <div className='w-8/12'>
                 <Button
                   onClick={() => {
-                    setState((S) => ({ ...S, page: HomePageType.Game }));
+                    setState((S) => ({ ...S, page: HomePageType.Login }));
                   }}
                 >
                   <Button.rounded>

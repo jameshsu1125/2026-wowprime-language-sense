@@ -1,11 +1,11 @@
 import Button from '@/components/button';
-import { memo, useContext, useEffect } from 'react';
+import { memo, useContext } from 'react';
 import { HomeContext, HomePageType } from '../home/config';
 import './index.less';
 
 const Landing = memo(() => {
   const [, setState] = useContext(HomeContext);
-  useEffect(() => {}, []);
+
   return (
     <>
       <div className='Landing'>

@@ -11,7 +11,7 @@ import Menu from '../menu';
 const Dialog = memo(({ children }: IReactProps) => {
   const imageRef = useRef<HTMLImageElement>(null);
 
-  const [style, setStyle] = useTween({ y: window.innerHeight });
+  const [style, setStyle] = useTween({ y: 0 });
   const [state] = useContext(HomeContext);
   useEffect(() => {
     if (state.step === HomeStepType.loaded) setStyle({ y: 0 }, 500);
@@ -56,7 +56,7 @@ const Dialog = memo(({ children }: IReactProps) => {
 
 const Container = memo(({ children, className }: { className?: string } & IReactProps) => {
   return (
-    <Div100vh className={twMerge('Container w-full', className)}>
+    <Div100vh className={twMerge('Container w-full min-w-140', className)}>
       <div className='absolute flex h-full w-full flex-col'>
         <div className='bg-primary h-[38vw] w-full md:h-72' />
         <div className='container-texture flex w-full flex-1 flex-col bg-white'>

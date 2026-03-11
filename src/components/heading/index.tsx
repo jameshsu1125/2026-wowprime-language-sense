@@ -1,17 +1,30 @@
 import { IReactProps } from '@/settings/type';
-import { memo, useEffect } from 'react';
+import { memo } from 'react';
 import './index.less';
 
-const Heading = memo(({ children }: IReactProps) => {
-  useEffect(() => {}, []);
-  return (
-    <div className='Heading'>
+const H2 = memo(({ children, style }: IReactProps & { style?: React.CSSProperties }) => (
+  <div className='HeadingH2' style={style}>
+    <div>
       <div>
-        <div>
-          <div>{children}</div>
-        </div>
+        <div>{children}</div>
       </div>
     </div>
-  );
-});
+  </div>
+));
+
+const H1 = memo(({ children, style }: IReactProps & { style?: React.CSSProperties }) => (
+  <div className='HeadingH1' style={style}>
+    <div>
+      <div>
+        <div>{children}</div>
+      </div>
+    </div>
+  </div>
+));
+
+const Heading = {
+  H1,
+  H2,
+};
+
 export default Heading;

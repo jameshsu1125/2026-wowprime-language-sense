@@ -1,27 +1,15 @@
 import { memo, useMemo, useState } from 'react';
-import { GameContext, GameState } from './config';
+import { GameContext, GameState, GameStepType } from './config';
 import './index.less';
-import Question1 from './question-1';
-import Question2 from './question-2';
-import Question3 from './question-3';
-import Taiko from './taiko';
+import Tones from './tones';
 
 const Game = memo(() => {
   const value = useState(GameState);
 
   const page = useMemo(() => {
     switch (value[0].step) {
-      case 'question-1':
-        return <Question1 />;
-
-      case 'question-2':
-        return <Question2 />;
-
-      case 'question-3':
-        return <Question3 />;
-
-      case 'taiko':
-        return <Taiko />;
+      case GameStepType.Tones:
+        return <Tones />;
 
       default:
         return null;

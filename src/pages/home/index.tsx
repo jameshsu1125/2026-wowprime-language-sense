@@ -7,6 +7,7 @@ import Game from '../game';
 import OnloadProvider from 'lesca-react-onload';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
+import Login from '../login';
 
 const Home = memo(() => {
   const [, setContext] = useContext(Context);
@@ -22,6 +23,9 @@ const Home = memo(() => {
 
       case HomePageType.Examiner:
         return <Examiner />;
+
+      case HomePageType.Login:
+        return <Login />;
 
       case HomePageType.Game:
         return <Game />;

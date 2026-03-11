@@ -3,6 +3,7 @@ import { createContext, Dispatch, SetStateAction } from 'react';
 export enum HomePageType {
   Landing = '/landing',
   Examiner = '/examiner',
+  Login = '/login',
   Game = '/game',
 }
 
@@ -13,5 +14,5 @@ export enum HomeStepType {
 export type THomeState = { step: HomeStepType; page: HomePageType };
 export type THomeContext = [THomeState, Dispatch<SetStateAction<THomeState>>];
 
-export const HomeState: THomeState = { step: HomeStepType.unset, page: HomePageType.Examiner };
+export const HomeState: THomeState = { step: HomeStepType.unset, page: HomePageType.Game };
 export const HomeContext = createContext<THomeContext>([HomeState, () => {}]);
