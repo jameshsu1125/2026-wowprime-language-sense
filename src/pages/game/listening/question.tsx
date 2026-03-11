@@ -1,6 +1,5 @@
 import Button from '@/components/button';
 import Heading from '@/components/heading';
-import Literal from '@/components/literal';
 import { SETTING } from '@/settings/config';
 import { IReactProps } from '@/settings/type';
 import { shuffleArray } from '@/utils';
@@ -9,7 +8,8 @@ import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect, useRef, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { GameContext, GameStepType } from '../config';
-import { TonesContext, TonesQuestions } from './config';
+
+import { ListeningContext, ListeningQuestions } from './config';
 import './question.less';
 
 type TQuestionProps = IReactProps & {
@@ -73,15 +73,15 @@ const NextButton = memo(({ transition, onClick }: { transition: boolean; onClick
   );
 });
 
-const TonesQuestion = memo(() => {
+const ListeningQuestion = memo(() => {
   const ref = useRef<{ check: () => void }>(null);
 
   const [transition, setTransition] = useState(false);
-  const [state, setState] = useContext(TonesContext);
+  const [state, setState] = useContext(ListeningContext);
   const [, setGameState] = useContext(GameContext);
 
   const [questionIndex] = useState(() => {
-    const unselectedData = [...new Array(TonesQuestions.length).keys()].filter(
+    const unselectedData = [...new Array(ListeningQuestions.length).keys()].filter(
       (i) => !state.selected.includes(i),
     );
     const [currentIndex] = shuffleArray(unselectedData);
@@ -95,7 +95,7 @@ const TonesQuestion = memo(() => {
     });
   }, [questionIndex, setState]);
 
-  const questionData = TonesQuestions[questionIndex] ?? TonesQuestions[0];
+  const questionData = ListeningQuestions[questionIndex] ?? ListeningQuestions[0];
 
   return (
     <OnloadProvider
@@ -103,17 +103,10 @@ const TonesQuestion = memo(() => {
         setTransition(true);
       }}
     >
-      <div className='TonesQuestion'>
+      <div className='ListeningQuestion'>
         <Headline transition={transition} />
         <div className='body'>
-          <Question transition={transition}>
-            <Literal
-              ref={ref}
-              text={questionData.question}
-              answer={questionData.answer}
-              onComplete={() => {}}
-            />
-          </Question>
+          <Question transition={transition}>{JSON.stringify(questionData.question)}</Question>
           <div className='flex w-full justify-end'>
             <NextButton
               transition={transition}
@@ -134,4 +127,4 @@ const TonesQuestion = memo(() => {
     </OnloadProvider>
   );
 });
-export default TonesQuestion;
+export default ListeningQuestion;

@@ -1,0 +1,25 @@
+@import url('@/settings/global.css');
+
+.Extra {
+  @apply mt-2 flex w-full flex-row items-center justify-end gap-5;
+
+  .nickname {
+    max-width: 250px;
+    @apply flex flex-row items-center justify-between gap-12 rounded-l-full rounded-r-full bg-black px-4 py-1 text-2xl text-white;
+    @apply font-black;
+
+    &::before {
+      content: '考生';
+      @apply text-primary inline-block text-lg whitespace-nowrap;
+    }
+  }
+  .score {
+    @apply flex flex-row items-center justify-between gap-12 rounded-l-full rounded-r-full bg-black px-4 py-1 text-2xl text-white;
+    @apply font-black;
+
+    &::before {
+      content: '分數';
+      @apply text-primary inline-block text-lg whitespace-nowrap;
+    }
+  }
+}

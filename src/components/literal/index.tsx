@@ -49,7 +49,12 @@ const Letter = memo(({ children, tone, idx, onChange, shouldCheck }: LetterProps
       {tone >= 0 && (
         <div
           id={id}
-          className={twMerge('tone', index >= 0 && `tone-${index}`, incorrect && 'tone-incorrect')}
+          className={twMerge(
+            'tone',
+            index >= 0 && `tone-${index}`,
+            incorrect && 'tone-incorrect',
+            incorrect && `tone-${tone}`,
+          )}
         >
           <div className='absolute top-0 right-0 bottom-0 left-0'>
             <select
@@ -58,9 +63,10 @@ const Letter = memo(({ children, tone, idx, onChange, shouldCheck }: LetterProps
                 setIndex(Number(e.target.value));
               }}
               disabled={shouldCheck}
+              defaultValue={0}
             >
               {['請選擇', '-(一聲)', 'ˊ(二聲)', 'ˇ(三聲)', 'ˋ(四聲)', '˙(輕聲)'].map((txt, idx) => (
-                <option key={txt} value={idx} disabled={txt === '請選擇'}>
+                <option key={txt} value={idx} disabled={idx === 0}>
                   {txt}
                 </option>
               ))}

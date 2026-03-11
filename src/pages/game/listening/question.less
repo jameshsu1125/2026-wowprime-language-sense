@@ -1,0 +1,44 @@
+@import url('@/settings/global.css');
+
+.ListeningQuestion {
+  @apply relative h-full w-full;
+
+  .body {
+    top: 14.7%;
+    height: 76.3%;
+
+    @apply absolute flex w-full flex-col justify-between px-14 pt-6;
+
+    & > div:nth-child(1) {
+      @apply mt-14 flex flex-col items-center justify-start gap-20;
+
+      .question {
+        @apply text-xl font-bold;
+      }
+    }
+
+    .btn-next {
+      margin-top: 2%;
+      width: 55%;
+
+      @img: '../img/btn-next.svg';
+
+      &::before {
+        padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+        background-image: url(@img);
+        content: '';
+
+        @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+      }
+    }
+  }
+
+  .heading {
+    padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+    width: 100%;
+    background-image: url(@img);
+    background-size: cover;
+
+    @img: './img/heading-1.svg';
+  }
+}

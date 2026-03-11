@@ -11,9 +11,10 @@ type TRegularProps = IReactProps & {
   className?: string;
   style?: React.CSSProperties;
   onClick?: () => void;
+  disabled?: boolean;
 };
 
-const Button = ({ children, className, style, onClick }: TRegularProps) => {
+const Button = ({ children, className, style, onClick, disabled }: TRegularProps) => {
   const id = useId();
 
   useEffect(() => {
@@ -24,7 +25,12 @@ const Button = ({ children, className, style, onClick }: TRegularProps) => {
   }, [id, onClick]);
 
   return (
-    <button id={id} className={twMerge('btn w-full cursor-pointer', className)} style={style}>
+    <button
+      id={id}
+      disabled={disabled}
+      className={twMerge('btn w-full cursor-pointer', className)}
+      style={style}
+    >
       {children}
     </button>
   );

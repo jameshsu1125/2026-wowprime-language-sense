@@ -1,7 +1,11 @@
 @import url('@/settings/global.css');
 
+button:disabled {
+  @apply visible block cursor-default grayscale;
+}
+
 .btn {
-  &:active {
+  &:not(:disabled):active {
     & {
       .btn-large {
         background-position-y: 100%;
@@ -16,7 +20,7 @@
     }
   }
 
-  &:hover {
+  &:not(:disabled):hover {
     & {
       .btn-rounded {
         @apply bg-gray-200;

@@ -2,6 +2,7 @@ import { memo, useMemo, useState } from 'react';
 import { GameContext, GameState, GameStepType } from './config';
 import './index.less';
 import Tones from './tones';
+import Listening from './listening';
 
 const Game = memo(() => {
   const value = useState(GameState);
@@ -10,6 +11,9 @@ const Game = memo(() => {
     switch (value[0].step) {
       case GameStepType.Tones:
         return <Tones />;
+
+      case GameStepType.Listening:
+        return <Listening />;
 
       default:
         return null;

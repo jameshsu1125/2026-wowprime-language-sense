@@ -1,0 +1,67 @@
+@import url('@/settings/global.css');
+
+.ListeningIntro {
+  @apply relative flex h-full w-full items-center justify-center;
+
+  .btn-start {
+    width: 55%;
+
+    @img: './img/btn.svg';
+
+    &::before {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+      content: '';
+
+      @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+    }
+  }
+
+  .content {
+    width: (unit(image-width(@img))) / 720 * 100%;
+
+    @img: './img/content.svg';
+    @apply relative;
+
+    &::before {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+      content: '';
+
+      @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+    }
+
+    & > div {
+      left: 0%;
+      width: 20%;
+
+      @apply absolute top-0;
+
+      &::before {
+        padding-bottom: 73%;
+        content: '';
+        transform: translateX(-25%) translateY(-27%);
+        @apply border-primary inline-block w-full border-8;
+      }
+    }
+  }
+
+  .description {
+    @apply w-full px-14 text-xl font-bold;
+  }
+
+  .heading {
+    width: 100%;
+
+    @img: './img/heading.svg';
+
+    &::before {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+      content: '';
+
+      @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+    }
+    @apply bg-black px-6 pt-3 pb-2;
+  }
+}

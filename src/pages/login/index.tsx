@@ -1,9 +1,11 @@
-import { memo, useCallback, useContext, useMemo, useState } from 'react';
-import './index.less';
 import Button from '@/components/button';
+import { Context } from '@/settings/constant';
+import { ActionType } from '@/settings/type';
 import { ValidatePhone } from 'lesca-validate';
+import { memo, useCallback, useContext, useMemo, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { HomeContext, HomePageType } from '../home/config';
+import './index.less';
 
 const TelValidate = memo(
   ({
@@ -84,9 +86,10 @@ const Group = memo(
 );
 
 const Login = memo(() => {
+  const [, setContext] = useContext(Context);
   const [, setState] = useContext(HomeContext);
   const [userData, setUserData] = useState({ nickname: '', tel: '', code: '', isAgree: false });
-  const [passed, setPassed] = useState(true);
+  const [passed, setPassed] = useState(false);
 
   const checkValidate = useCallback(() => {
     if (userData.nickname === 'james') {
@@ -103,11 +106,15 @@ const Login = memo(() => {
     } else {
       if (userData.code !== '' && userData.isAgree) {
         setState((S) => ({ ...S, page: HomePageType.Game }));
+        setContext({
+          type: ActionType.User,
+          state: { nickname: userData.nickname, tel: userData.tel },
+        });
       } else {
         alert('請輸入驗證碼並同意相關條款');
       }
     }
-  }, [userData, passed, setState]);
+  }, [userData, passed, setState, setContext]);
 
   return (
     <div className='Login'>

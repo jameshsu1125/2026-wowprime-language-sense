@@ -7,6 +7,7 @@ import { twMerge } from 'tailwind-merge';
 import Menu from '../menu';
 import dialog from './img/dialog.svg';
 import './index.less';
+import Extra from '../extra';
 
 const Dialog = memo(({ children }: IReactProps) => {
   const imageRef = useRef<HTMLImageElement>(null);
@@ -27,14 +28,11 @@ const Dialog = memo(({ children }: IReactProps) => {
           const { height, width } = imageRef.current.getBoundingClientRect();
           if (height !== 0) {
             setImageSize({ width, height });
-          } else {
-            requestAnimationFrame(() => getSize());
-          }
-        } else {
-          requestAnimationFrame(() => getSize());
-        }
+          } else requestAnimationFrame(() => getSize());
+        } else requestAnimationFrame(() => getSize());
       };
-      getSize();
+      setImageSize({ width: 0, height: 0 });
+      requestAnimationFrame(() => getSize());
     };
 
     const image = new Image();
@@ -43,7 +41,6 @@ const Dialog = memo(({ children }: IReactProps) => {
       window.addEventListener('resize', resize);
     };
     image.src = dialog;
-
     return () => window.removeEventListener('resize', resize);
   }, []);
 
@@ -51,13 +48,17 @@ const Dialog = memo(({ children }: IReactProps) => {
     <div
       className='container-dialog relative z-10 flex items-center justify-center pt-5 pb-10'
       style={
-        imageSize.width === 0 ? { width: '100%' } : { ...style, width: `${imageSize.width}px` }
+        imageSize.width === 0 ? { width: '100%' } : { ...style, width: `${imageSize.width + 37}px` }
       }
     >
       <img ref={imageRef} src={dialog} />
       <div
         className='absolute top-1/2 h-full'
-        style={{ marginTop: `-${imageSize.height / 2 + 40}px`, width: `${imageSize.width}px` }}
+        style={{
+          marginTop: `-${imageSize.height / 2 + 40}px`,
+          width: `${imageSize.width + 37}px`,
+          display: imageSize.width === 0 ? 'none' : 'block',
+        }}
       >
         {children}
       </div>
@@ -83,7 +84,9 @@ const Container = memo(({ children, className }: { className?: string } & IReact
               <Menu />
             </div>
           </div>
-          <div className='container-extra'>{/* extra */}</div>
+          <div className='container-extra'>
+            <Extra />
+          </div>
           <div className='relative flex h-full w-fit flex-1 justify-center overflow-hidden'>
             <Dialog>{children}</Dialog>
           </div>

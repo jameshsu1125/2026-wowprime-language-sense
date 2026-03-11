@@ -3,6 +3,7 @@ import { Dispatch, ReactNode } from 'react';
 export enum ActionType {
   Page = 'page',
   LoadingProcess = 'loadingProcess',
+  User = 'user',
 }
 
 export enum LoadingProcessType {
@@ -32,13 +33,19 @@ export type TLoadingProcessState = {
   body?: '';
 };
 
+export type TUser = {
+  nickname: string;
+  tel: string;
+};
+
 export interface IState {
   page?: string;
   loadingProcess?: TLoadingProcessState;
+  user?: TUser;
 }
 
 export interface IAction {
-  state: IState | TLoadingProcessState;
+  state: IState | TLoadingProcessState | TUser;
   type: ActionType;
 }
 
