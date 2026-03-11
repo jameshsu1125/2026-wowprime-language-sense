@@ -13,7 +13,7 @@ export type TTonesState = {
 export type TTonesContext = [TTonesState, Dispatch<SetStateAction<TTonesState>>];
 
 export const TonesState: TTonesState = {
-  step: TonesStepType.question,
+  step: TonesStepType.intro,
   index: 0,
   selected: [],
 };
