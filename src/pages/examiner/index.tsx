@@ -3,11 +3,63 @@ import { memo, useContext, useEffect, useRef, useState } from 'react';
 import { HomeContext, HomePageType } from '../home/config';
 import videoURL from './vid/video-cover.mp4';
 import './index.less';
+import OnloadProvider from 'lesca-react-onload';
+import useTween, { Bezier } from 'lesca-use-tween';
+
+const NextButton = memo(({ transition }: { transition: boolean }) => {
+  const [style, setStyle] = useTween({ opacity: 0, x: -50 });
+
+  useEffect(() => {
+    if (transition) {
+      setStyle({ opacity: 1, x: 0 }, { duration: 500, delay: 500, easing: Bezier.outBack });
+    }
+  }, [transition]);
+
+  const [, setState] = useContext(HomeContext);
+  return (
+    <div className='w-8/12' style={style}>
+      <Button
+        onClick={() => {
+          setState((S) => ({ ...S, page: HomePageType.Login }));
+        }}
+      >
+        <Button.rounded>
+          <div className='btn-next'>
+            <div />
+          </div>
+        </Button.rounded>
+      </Button>
+    </div>
+  );
+});
+
+const Frame = memo(({ transition }: { transition: boolean }) => {
+  const [style, setStyle] = useTween({ opacity: 0, y: 50 });
+
+  useEffect(() => {
+    if (transition) {
+      setStyle({ opacity: 1, y: 0 }, { duration: 500, easing: Bezier.outBack });
+    }
+  }, [transition]);
+
+  return (
+    <div className='frame' style={style}>
+      <div>
+        <div>
+          <div className='subtitle' />
+          <div className='flex w-full flex-1 justify-end'>
+            <NextButton transition={transition} />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+});
 
 const Examiner = memo(() => {
   const ref = useRef<HTMLVideoElement>(null);
-  const [, setState] = useContext(HomeContext);
   const [isPlay, setIsPlay] = useState(false);
+  const [transition, setTransition] = useState(false);
 
   useEffect(() => {
     const videoElement = ref.current;
@@ -29,53 +81,38 @@ const Examiner = memo(() => {
   }, []);
 
   return (
-    <div className='Examiner'>
-      <div className='video'>
-        <div>
+    <OnloadProvider
+      onload={() => {
+        setTransition(true);
+      }}
+    >
+      <div className='Examiner'>
+        <div className='video'>
           <div>
-            <div className='cover'>
-              <div className='video-player'>
-                <video ref={ref} className='h-full w-full' playsInline>
-                  <source src={videoURL} type='video/mp4' />
-                </video>
-              </div>
-              {!isPlay && (
-                <button
-                  className='play-button'
-                  onClick={() => {
-                    if (ref.current) {
-                      ref.current.play();
-                    }
-                  }}
-                />
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className='frame'>
-        <div>
-          <div>
-            <div className='subtitle' />
-            <div className='flex w-full flex-1 justify-end'>
-              <div className='w-8/12'>
-                <Button
-                  onClick={() => {
-                    setState((S) => ({ ...S, page: HomePageType.Login }));
-                  }}
-                >
-                  <Button.rounded>
-                    <div className='btn-next'>
-                      <div />
-                    </div>
-                  </Button.rounded>
-                </Button>
+            <div>
+              <div className='cover'>
+                <div className='video-player'>
+                  <video ref={ref} className='h-full w-full' playsInline>
+                    <source src={videoURL} type='video/mp4' />
+                  </video>
+                </div>
+                {!isPlay && (
+                  <button
+                    className='play-button'
+                    onClick={() => {
+                      if (ref.current) {
+                        ref.current.play();
+                      }
+                    }}
+                  />
+                )}
               </div>
             </div>
           </div>
         </div>
+        <Frame transition={transition} />
       </div>
-    </div>
+    </OnloadProvider>
   );
 });
 export default Examiner;
