@@ -11,7 +11,7 @@ const UserName = memo(({ children }: IReactProps) => {
   );
 });
 
-const Score = memo(({ children }: IReactProps) => {
+export const Score = memo(({ children }: IReactProps) => {
   return (
     <div className='score'>
       <div className='truncate whitespace-nowrap'>{children}</div>
@@ -26,7 +26,7 @@ const Extra = memo(() => {
   useEffect(() => {}, []);
   return (
     <div className='Extra'>
-      <Score>100000</Score>
+      {/* <Score>100000</Score> */}
       {nickname === '' ? null : <UserName>{nickname}</UserName>}
     </div>
   );
