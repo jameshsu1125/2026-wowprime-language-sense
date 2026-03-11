@@ -38,7 +38,7 @@ const Question = memo(({ children, transition }: TQuestionProps) => {
 
   useEffect(() => {
     if (transition) {
-      setStyle({ opacity: 1, y: 0 }, { duration: 500, delay: 300 });
+      setStyle({ opacity: 1, y: 0 }, { duration: 500, delay: 400 });
     }
   }, [transition]);
 
@@ -79,7 +79,7 @@ const ListeningDescription = memo(({ transition }: { transition: boolean }) => {
 
   useEffect(() => {
     if (transition) {
-      setStyle({ opacity: 1, y: 0 }, { duration: 500, delay: 1000 });
+      setStyle({ opacity: 1, y: 0 }, { duration: 500, delay: 300 });
     }
   }, [transition]);
   return (
@@ -87,6 +87,23 @@ const ListeningDescription = memo(({ transition }: { transition: boolean }) => {
       <Button>
         <div className='sounds' />
       </Button>
+    </div>
+  );
+});
+
+const ListeningDescription2 = memo(({ transition }: { transition: boolean }) => {
+  const [style, setStyle] = useTween({ opacity: 0, y: 50 });
+
+  useEffect(() => {
+    if (transition) {
+      setStyle({ opacity: 1, y: 0 }, { duration: 500, delay: 200 });
+    }
+  }, [transition]);
+  return (
+    <div className='w-full text-lg font-black tracking-wide' style={style}>
+      請按下下方聲音鍵，在聽完對話後，
+      <br />
+      選出正確答案。
     </div>
   );
 });
@@ -124,22 +141,21 @@ const ListeningQuestion = memo(() => {
       <div className='ListeningQuestion'>
         <Headline transition={transition} />
         <div className='body'>
-          <div className='w-full text-lg font-black tracking-wide'>
-            請按下下方聲音鍵，在聽完對話後，
-            <br />
-            選出正確答案。
+          <div className='flex w-full flex-col items-center gap-5'>
+            <ListeningDescription2 transition={transition} />
+            <div className='flex w-full flex-row justify-start'>
+              <ListeningDescription transition={transition} />
+            </div>
+            <Question transition={transition}>
+              <Radio
+                ref={ref}
+                text={questionData.question.text}
+                options={questionData.answer}
+                index={state.index + 1}
+              />
+            </Question>
           </div>
-          <div className='flex w-full flex-row justify-start'>
-            <ListeningDescription transition={transition} />
-          </div>
-          <Question transition={transition}>
-            <Radio
-              ref={ref}
-              text={questionData.question.text}
-              options={questionData.answer}
-              index={state.index + 1}
-            />
-          </Question>
+
           <div className='flex w-full justify-end'>
             <NextButton
               transition={transition}
