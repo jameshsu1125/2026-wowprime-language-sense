@@ -1,14 +1,27 @@
-import { memo, useEffect } from 'react';
+import { forwardRef, useImperativeHandle } from 'react';
 import './index.less';
 
 type TRadioProps = {
   text: string;
-  options: string[];
+  options: { label: string; isAnswer: boolean }[];
   index: number;
 };
 
-const Radio = memo(({ text, options, index }: TRadioProps) => {
-  useEffect(() => {}, []);
+const Radio = forwardRef(({ text, options, index }: TRadioProps, ref) => {
+  useImperativeHandle(ref, () => ({
+    check() {
+      const [currentAnswer] = options
+        .map((option, idx) => ({ ...option, idx }))
+        .filter((option) => option.isAnswer);
+      const currentIndex = currentAnswer?.idx ?? 0;
+      document.querySelectorAll('.radio-group input').forEach((input, idx) => {
+        if (idx === currentIndex) {
+          input.classList.add('correct');
+        }
+        input.setAttribute('disabled', 'true');
+      });
+    },
+  }));
   return (
     <div className='Radio'>
       <span>
@@ -18,7 +31,7 @@ const Radio = memo(({ text, options, index }: TRadioProps) => {
       <div>
         <div className='radio-group'>
           {options.map((option, idx) => (
-            <div key={option}>
+            <div key={option.label}>
               <input
                 type='radio'
                 id={`option${idx}`}
@@ -26,7 +39,7 @@ const Radio = memo(({ text, options, index }: TRadioProps) => {
                 defaultChecked={idx === 0}
               />
               <label htmlFor={`option${idx}`}>
-                {String.fromCharCode(65 + idx)}.{option}
+                {String.fromCharCode(65 + idx)}.{option.label}
               </label>
             </div>
           ))}

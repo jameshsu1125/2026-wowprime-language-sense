@@ -10,6 +10,10 @@
   .radio-group {
     @apply flex w-full flex-col items-start justify-start gap-4 pl-10;
 
+    .correct {
+      @apply bg-primary;
+    }
+
     & > div {
       @apply text-primary flex flex-row items-center justify-start gap-4 text-2xl;
 
@@ -18,8 +22,17 @@
         appearance: none;
         @apply border-primary h-8 w-8 cursor-pointer border;
 
+        &::after {
+          content: '✓';
+          transform: translateX(9%) translateY(-10%);
+
+          @apply invisible inline-block h-full w-full text-3xl text-black;
+        }
+
         &:checked {
-          @apply bg-primary;
+          &::after {
+            @apply visible;
+          }
         }
       }
     }

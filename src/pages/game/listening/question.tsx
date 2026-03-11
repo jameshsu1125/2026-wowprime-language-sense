@@ -11,6 +11,7 @@ import { GameContext, GameStepType } from '../config';
 
 import { ListeningContext, ListeningQuestions } from './config';
 import './question.less';
+import Radio from '@/components/radio';
 
 type TQuestionProps = IReactProps & {
   transition: boolean;
@@ -106,7 +107,14 @@ const ListeningQuestion = memo(() => {
       <div className='ListeningQuestion'>
         <Headline transition={transition} />
         <div className='body'>
-          <Question transition={transition}>{JSON.stringify(questionData.question)}</Question>
+          <Question transition={transition}>
+            <Radio
+              ref={ref}
+              text={questionData.question.text}
+              options={questionData.answer}
+              index={state.index + 1}
+            />
+          </Question>
           <div className='flex w-full justify-end'>
             <NextButton
               transition={transition}
@@ -114,7 +122,7 @@ const ListeningQuestion = memo(() => {
                 ref.current?.check();
                 setTimeout(() => {
                   if (state.index >= 2) {
-                    setGameState((S) => ({ ...S, step: GameStepType.Listening }));
+                    setGameState((S) => ({ ...S, step: GameStepType.Taiko }));
                   } else {
                     setState((S) => ({ ...S, index: S.index + 1 }));
                   }

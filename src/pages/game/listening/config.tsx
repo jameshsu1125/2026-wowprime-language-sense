@@ -16,7 +16,7 @@ export const ListeningContext = createContext<TListeningContext>([ListeningState
 
 export const ListeningQuestions = [
   {
-    question: 'sound1',
+    question: { sound: 'sound1', text: '請問說話者最有可能是在對誰說話?' },
     answer: [
       { label: '曖昧對象', isAnswer: false },
       { label: '大學學長', isAnswer: false },
@@ -24,7 +24,7 @@ export const ListeningQuestions = [
     ],
   },
   {
-    question: 'sound2',
+    question: { sound: 'sound2', text: '請問說話者最有可能是在對誰說話?' },
     answer: [
       { label: '曖昧對象', isAnswer: false },
       { label: '大學學長', isAnswer: false },
@@ -32,7 +32,7 @@ export const ListeningQuestions = [
     ],
   },
   {
-    question: 'sound3',
+    question: { sound: 'sound3', text: '請問說話者最有可能是在對誰說話?' },
     answer: [
       { label: '曖昧對象', isAnswer: false },
       { label: '大學學長', isAnswer: false },
@@ -40,7 +40,7 @@ export const ListeningQuestions = [
     ],
   },
   {
-    question: 'sound3',
+    question: { sound: 'sound4', text: '請問說話者最有可能是在對誰說話?' },
     answer: [
       { label: '曖昧對象', isAnswer: false },
       { label: '大學學長', isAnswer: false },
@@ -48,15 +48,7 @@ export const ListeningQuestions = [
     ],
   },
   {
-    question: 'sound4',
-    answer: [
-      { label: '曖昧對象', isAnswer: false },
-      { label: '大學學長', isAnswer: false },
-      { label: '白雪公主', isAnswer: true },
-    ],
-  },
-  {
-    question: 'sound5',
+    question: { sound: 'sound5', text: '請問說話者最有可能是在對誰說話?' },
     answer: [
       { label: '曖昧對象', isAnswer: false },
       { label: '大學學長', isAnswer: false },
