@@ -31,8 +31,8 @@ const TelValidate = memo(
           </div>
         </div>
         <div className='flex w-full justify-center py-3'>
-          <div className='flex flex-row gap-2 text-base whitespace-nowrap'>
-            <input type='checkbox' id='agree' name='agree' onChange={onAgree} />
+          <div className='flex flex-row items-center gap-2 text-base whitespace-nowrap'>
+            <input type='checkbox' id='agree' name='agree' onChange={onAgree} className='h- w-4' />
             我已詳閱並同意
             <a href='#' className='text-blue-500 underline underline-offset-2'>
               《個資告知事項暨同意書》
@@ -86,7 +86,7 @@ const Group = memo(
 const Login = memo(() => {
   const [, setState] = useContext(HomeContext);
   const [userData, setUserData] = useState({ nickname: '', tel: '', code: '', isAgree: false });
-  const [passed, setPassed] = useState(false);
+  const [passed, setPassed] = useState(true);
 
   const checkValidate = useCallback(() => {
     if (userData.nickname === 'james') {

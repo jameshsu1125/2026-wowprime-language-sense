@@ -4,11 +4,14 @@ import Literal from '@/components/literal';
 import { shuffleArray } from '@/utils';
 import OnloadProvider from 'lesca-react-onload';
 import useTween from 'lesca-use-tween';
-import { memo, useContext, useEffect, useState } from 'react';
-import { twMerge } from 'tailwind-merge';
-import { GameContext, GameStepType } from '../config';
+import { memo, useContext, useEffect, useRef, useState } from 'react';
 import { TonesContext, TonesQuestions } from './config';
 import './question.less';
+import { IReactProps } from '@/settings/type';
+
+type TQuestionProps = IReactProps & {
+  transition: boolean;
+};
 
 const Headline = memo(({ transition }: { transition: boolean }) => {
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });
@@ -26,42 +29,19 @@ const Headline = memo(({ transition }: { transition: boolean }) => {
   );
 });
 
-const Question = memo(
-  ({
-    questionData,
-    transition,
-    setIsPassed,
-  }: {
-    questionData: (typeof TonesQuestions)[0];
-    transition: boolean;
-    setIsPassed: React.Dispatch<React.SetStateAction<boolean>>;
-  }) => {
-    const [style, setStyle] = useTween({ opacity: 0, y: 50 });
+const Question = memo(({ children, transition }: TQuestionProps) => {
+  const [style, setStyle] = useTween({ opacity: 0, y: 50 });
 
-    useEffect(() => {
-      if (transition) {
-        setStyle({ opacity: 1, y: 0 }, { duration: 500, delay: 300 });
-      }
-    }, [transition]);
+  useEffect(() => {
+    if (transition) {
+      setStyle({ opacity: 1, y: 0 }, { duration: 500, delay: 300 });
+    }
+  }, [transition]);
 
-    return (
-      <div style={style}>
-        <Literal
-          text={questionData.question}
-          answer={questionData.answer}
-          onComplete={() => {
-            setIsPassed(true);
-          }}
-        />
-      </div>
-    );
-  },
-);
+  return <div style={style}>{children}</div>;
+});
 
-const NextButton = memo(({ transition, isPassed }: { transition: boolean; isPassed: boolean }) => {
-  const [, setGameState] = useContext(GameContext);
-  const [state, setState] = useContext(TonesContext);
-
+const NextButton = memo(({ transition, onClick }: { transition: boolean; onClick: () => void }) => {
   const [style, setStyle] = useTween({ opacity: 0, x: -50 });
 
   useEffect(() => {
@@ -72,18 +52,7 @@ const NextButton = memo(({ transition, isPassed }: { transition: boolean; isPass
 
   return (
     <div className='mr-2 mb-5 w-[48%]' style={style}>
-      <Button
-        className={twMerge(isPassed && 'grayscale duration-200')}
-        onClick={() => {
-          if (isPassed === false) return;
-
-          if (state.index < 2) {
-            setState((S) => ({ ...S, index: S.index + 1 }));
-          } else {
-            setGameState((S) => ({ ...S, step: GameStepType.Listening }));
-          }
-        }}
-      >
+      <Button onClick={onClick}>
         <Button.large>
           <div className='btn-next' />
         </Button.large>
@@ -93,9 +62,10 @@ const NextButton = memo(({ transition, isPassed }: { transition: boolean; isPass
 });
 
 const TonesQuestion = memo(() => {
+  const ref = useRef<{ check: () => void }>(null);
+
   const [transition, setTransition] = useState(false);
   const [state, setState] = useContext(TonesContext);
-  const [isPassed, setIsPassed] = useState(false);
 
   const [questionIndex] = useState(() => {
     const unselectedData = [...new Array(TonesQuestions.length).keys()].filter(
@@ -123,9 +93,21 @@ const TonesQuestion = memo(() => {
       <div className='TonesQuestion'>
         <Headline transition={transition} />
         <div className='body'>
-          <Question questionData={questionData} transition={transition} setIsPassed={setIsPassed} />
+          <Question transition={transition}>
+            <Literal
+              ref={ref}
+              text={questionData.question}
+              answer={questionData.answer}
+              onComplete={() => {}}
+            />
+          </Question>
           <div className='flex w-full justify-end'>
-            <NextButton transition={transition} isPassed={isPassed} />
+            <NextButton
+              transition={transition}
+              onClick={() => {
+                ref.current?.check();
+              }}
+            />
           </div>
         </div>
       </div>

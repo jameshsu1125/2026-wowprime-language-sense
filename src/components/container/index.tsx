@@ -4,49 +4,60 @@ import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect, useRef, useState } from 'react';
 import Div100vh from 'react-div-100vh';
 import { twMerge } from 'tailwind-merge';
+import Menu from '../menu';
 import dialog from './img/dialog.svg';
 import './index.less';
-import Menu from '../menu';
 
 const Dialog = memo(({ children }: IReactProps) => {
   const imageRef = useRef<HTMLImageElement>(null);
 
   const [style, setStyle] = useTween({ y: 0 });
   const [state] = useContext(HomeContext);
+
   useEffect(() => {
     if (state.step === HomeStepType.loaded) setStyle({ y: 0 }, 500);
   }, [state.step]);
 
-  const [imageSize, setImageSize] = useState(0);
+  const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
+
   useEffect(() => {
     const resize = () => {
       const getSize = () => {
         if (imageRef.current) {
-          const { height } = imageRef.current.getBoundingClientRect();
+          const { height, width } = imageRef.current.getBoundingClientRect();
           if (height !== 0) {
-            setImageSize(height);
-            requestAnimationFrame(() => getSize());
+            setImageSize({ width, height });
           } else {
             requestAnimationFrame(() => getSize());
           }
+        } else {
+          requestAnimationFrame(() => getSize());
         }
       };
       getSize();
     };
-    resize();
-    window.addEventListener('resize', resize);
+
+    const image = new Image();
+    image.onload = () => {
+      resize();
+      window.addEventListener('resize', resize);
+    };
+    image.src = dialog;
+
     return () => window.removeEventListener('resize', resize);
   }, []);
 
   return (
     <div
-      className='container-dialog relative z-10 flex items-center justify-center px-5 pt-5 pb-10'
-      style={style}
+      className='container-dialog relative z-10 flex items-center justify-center pt-5 pb-10'
+      style={
+        imageSize.width === 0 ? { width: '100%' } : { ...style, width: `${imageSize.width}px` }
+      }
     >
       <img ref={imageRef} src={dialog} />
       <div
-        className='absolute top-1/2 h-full w-full'
-        style={{ marginTop: `-${imageSize / 2 + 40}px` }}
+        className='absolute top-1/2 h-full'
+        style={{ marginTop: `-${imageSize.height / 2 + 40}px`, width: `${imageSize.width}px` }}
       >
         {children}
       </div>
@@ -73,7 +84,7 @@ const Container = memo(({ children, className }: { className?: string } & IReact
             </div>
           </div>
           <div className='container-extra'>{/* extra */}</div>
-          <div className='flex h-full w-full flex-1 justify-center overflow-hidden'>
+          <div className='relative flex h-full w-fit flex-1 justify-center overflow-hidden'>
             <Dialog>{children}</Dialog>
           </div>
         </div>

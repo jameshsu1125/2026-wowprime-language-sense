@@ -1,4 +1,5 @@
 @import url('../../tailwind.config.css');
+@import url('./fonts/stylesheet.css');
 
 body {
   margin: 0;

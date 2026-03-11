@@ -53,17 +53,10 @@ export const TonesQuestions = [
     question: '四是四，十是十，十四是十四，四十是四十',
     answer: [
       { index: 0, tone: 4 },
-      { index: 2, tone: 4 },
       { index: 4, tone: 2 },
-      { index: 6, tone: 2 },
-      { index: 8, tone: 2 },
       { index: 9, tone: 4 },
       { index: 11, tone: 2 },
-      { index: 12, tone: 4 },
-      { index: 14, tone: 4 },
-      { index: 15, tone: 2 },
       { index: 17, tone: 4 },
-      { index: 18, tone: 2 },
     ],
   },
   {

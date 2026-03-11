@@ -17,7 +17,7 @@
       @apply flex w-full flex-col items-center justify-start text-center;
     }
 
-    .tone-0 {
+    .tone-5 {
       background-image: url('./img/s0.svg');
       background-size: 50%;
     }
@@ -42,9 +42,28 @@
       background-size: 50%;
     }
 
+    .tone-incorrect {
+      @apply bg-primary;
+    }
+
     .tone {
-      padding-bottom: 100%;
-      @apply border-primary flex w-full flex-1 cursor-pointer items-center justify-center border bg-center bg-no-repeat;
+      padding-bottom: 95%;
+      font: 'line' !important;
+      font-family: 'line' !important;
+      @apply border-primary relative flex w-full flex-1 items-center justify-center border bg-center bg-no-repeat;
+    }
+
+    select {
+      padding-right: 30px;
+      background-image: none;
+
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
+
+    select::-ms-expand {
+      display: none;
     }
   }
 }
