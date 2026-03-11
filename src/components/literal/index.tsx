@@ -1,57 +1,79 @@
 import { IReactProps } from '@/settings/type';
 import Click from 'lesca-click';
-import { memo, useEffect, useId, useState } from 'react';
+import { memo, useContext, useEffect, useId, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
+import { isEqual } from 'lodash';
 import './index.less';
+import { TonesContext } from '@/pages/game/tones/config';
 
 type LiteralProps = {
   text: string;
   answer: { index: number; tone: number }[];
-  index?: number;
   onComplete: () => void;
 };
 
-const Letter = memo(({ children, tone }: IReactProps & { tone?: number }) => {
+type LetterProps = IReactProps & {
+  tone: number;
+  idx: number;
+  onChange?: (idx: number, value: number) => void;
+};
+
+const Letter = memo(({ children, tone, idx, onChange }: LetterProps) => {
   const id = useId();
-  const [index, setIndex] = useState<number | ''>('');
+  const [index, setIndex] = useState<number>(-1);
 
   useEffect(() => {
     Click.add(`#${id}`, () => {
-      setIndex((S) => (S === '' ? 0 : (S + 1) % 4));
+      setIndex((S) => (S < 0 ? 0 : (S + 1) % 5));
     });
     return () => {
       Click.remove(`#${id}`);
     };
   }, [id]);
 
+  useEffect(() => {
+    onChange?.(idx, index);
+  }, [index]);
+
   return (
     <div>
       <div className='letter'>{children}</div>
-      {tone !== undefined && (
-        <div id={id} className={twMerge('tone', index !== '' && `tone-${index}`)}></div>
-      )}
+      {tone >= 0 && <div id={id} className={twMerge('tone', index >= 0 && `tone-${index}`)}></div>}
     </div>
   );
 });
 
-const Literal = memo(({ text, answer, index, onComplete }: LiteralProps) => {
+const Literal = memo(({ text, answer, onComplete }: LiteralProps) => {
+  const [state] = useContext(TonesContext);
   const [currentAnswer, setCurrentAnswer] = useState(
     [...new Array(answer.length).keys()].map((idx) => ({
       idx,
       index: answer[idx].index,
-      tone: '',
+      tone: -1,
     })),
   );
 
-  const onChange = (idx, value) => {
-    setCurrentAnswer;
+  const onChange = (idx: number, value: number) => {
+    setCurrentAnswer((S) => S.map((a) => (a.index === idx ? { ...a, tone: value } : a)));
   };
+
+  useEffect(() => {
+    const removeIdxAnswer = currentAnswer.map((a) => ({ index: a.index, tone: a.tone }));
+    if (isEqual(answer, removeIdxAnswer)) {
+      onComplete();
+    }
+  }, [answer, currentAnswer]);
 
   return (
     <div className='Literal'>
-      {`${index ? `${index}. ` : ''}`}
+      {`${state.index + 1}.`}
       {text.split('').map((char, idx) => (
-        <Letter key={idx} tone={answer.find((a) => a.index === idx)?.tone} onChange={onChange}>
+        <Letter
+          key={idx}
+          idx={idx}
+          tone={answer.find((a) => a.index === idx)?.tone ?? -1}
+          onChange={onChange}
+        >
           {char}
         </Letter>
       ))}

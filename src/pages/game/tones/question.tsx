@@ -5,6 +5,7 @@ import { shuffleArray } from '@/utils';
 import OnloadProvider from 'lesca-react-onload';
 import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect, useState } from 'react';
+import { twMerge } from 'tailwind-merge';
 import { GameContext, GameStepType } from '../config';
 import { TonesContext, TonesQuestions } from './config';
 import './question.less';
@@ -29,9 +30,11 @@ const Question = memo(
   ({
     questionData,
     transition,
+    setIsPassed,
   }: {
     questionData: (typeof TonesQuestions)[0];
     transition: boolean;
+    setIsPassed: React.Dispatch<React.SetStateAction<boolean>>;
   }) => {
     const [style, setStyle] = useTween({ opacity: 0, y: 50 });
 
@@ -43,13 +46,19 @@ const Question = memo(
 
     return (
       <div style={style}>
-        <Literal text={questionData.question} answer={questionData.answer} index={1} />
+        <Literal
+          text={questionData.question}
+          answer={questionData.answer}
+          onComplete={() => {
+            setIsPassed(true);
+          }}
+        />
       </div>
     );
   },
 );
 
-const NextButton = memo(({ transition }: { transition: boolean }) => {
+const NextButton = memo(({ transition, isPassed }: { transition: boolean; isPassed: boolean }) => {
   const [, setGameState] = useContext(GameContext);
   const [state, setState] = useContext(TonesContext);
 
@@ -64,7 +73,10 @@ const NextButton = memo(({ transition }: { transition: boolean }) => {
   return (
     <div className='mr-2 mb-5 w-[48%]' style={style}>
       <Button
+        className={twMerge(isPassed && 'grayscale duration-200')}
         onClick={() => {
+          if (isPassed === false) return;
+
           if (state.index < 2) {
             setState((S) => ({ ...S, index: S.index + 1 }));
           } else {
@@ -83,6 +95,7 @@ const NextButton = memo(({ transition }: { transition: boolean }) => {
 const TonesQuestion = memo(() => {
   const [transition, setTransition] = useState(false);
   const [state, setState] = useContext(TonesContext);
+  const [isPassed, setIsPassed] = useState(false);
 
   const [questionIndex] = useState(() => {
     const unselectedData = [...new Array(TonesQuestions.length).keys()].filter(
@@ -110,9 +123,9 @@ const TonesQuestion = memo(() => {
       <div className='TonesQuestion'>
         <Headline transition={transition} />
         <div className='body'>
-          <Question questionData={questionData} transition={transition} />
+          <Question questionData={questionData} transition={transition} setIsPassed={setIsPassed} />
           <div className='flex w-full justify-end'>
-            <NextButton transition={transition} />
+            <NextButton transition={transition} isPassed={isPassed} />
           </div>
         </div>
       </div>

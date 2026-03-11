@@ -19,6 +19,7 @@
     "lesca-react-onload": "^2.0.10",
     "lesca-use-tween": "^4.0.2",
     "lesca-validate": "^2.0.1",
+    "lodash": "^4.17.23",
     "react": "^19.2.4",
     "react-div-100vh": "^0.7.0",
     "react-dom": "^19.2.4",
@@ -27,6 +28,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.2.1",
+    "@types/lodash": "^4.17.24",
     "@types/node": "^25.3.3",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
