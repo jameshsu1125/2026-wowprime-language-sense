@@ -1,20 +1,25 @@
-import { memo, useEffect, useId } from 'react';
-import img from './img/share.png';
+import { memo, useMemo, useState } from 'react';
+import { TaikoContext, TaikoState, TaikoStepType } from './config';
 import './index.less';
-import Click from 'lesca-click';
-import { shareImage } from '@/utils';
+import TaikoIntro from './intro';
 
 const Taiko = memo(() => {
-  const id = useId();
-  useEffect(() => {
-    Click.add(`#${id}`, () => {
-      shareImage(img);
-    });
-  }, []);
+  const [state, setState] = useState(TaikoState);
+
+  const page = useMemo(() => {
+    switch (state.step) {
+      case TaikoStepType.intro:
+        return <TaikoIntro />;
+
+      case TaikoStepType.game:
+        return <div />;
+    }
+  }, [state.step]);
+
   return (
-    <div className='Taiko flex h-full w-full items-center justify-center'>
-      <img id={id} src={img} />
-    </div>
+    <TaikoContext.Provider value={[state, setState]}>
+      <div className='Taiko'>{page}</div>
+    </TaikoContext.Provider>
   );
 });
 export default Taiko;
