@@ -8,7 +8,7 @@ export type TListeningState = { step: ListeningStepType; index: number; selected
 export type TListeningContext = [TListeningState, Dispatch<SetStateAction<TListeningState>>];
 
 export const ListeningState: TListeningState = {
-  step: ListeningStepType.intro,
+  step: ListeningStepType.question,
   index: 0,
   selected: [],
 };

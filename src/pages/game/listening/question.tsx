@@ -74,6 +74,23 @@ const NextButton = memo(({ transition, onClick }: { transition: boolean; onClick
   );
 });
 
+const ListeningDescription = memo(({ transition }: { transition: boolean }) => {
+  const [style, setStyle] = useTween({ opacity: 0, y: 50 });
+
+  useEffect(() => {
+    if (transition) {
+      setStyle({ opacity: 1, y: 0 }, { duration: 500, delay: 1000 });
+    }
+  }, [transition]);
+  return (
+    <div className='w-[18%]' style={style}>
+      <Button>
+        <div className='sounds' />
+      </Button>
+    </div>
+  );
+});
+
 const ListeningQuestion = memo(() => {
   const ref = useRef<{ check: () => void }>(null);
 
@@ -107,6 +124,14 @@ const ListeningQuestion = memo(() => {
       <div className='ListeningQuestion'>
         <Headline transition={transition} />
         <div className='body'>
+          <div className='w-full text-lg font-black tracking-wide'>
+            請按下下方聲音鍵，在聽完對話後，
+            <br />
+            選出正確答案。
+          </div>
+          <div className='flex w-full flex-row justify-start'>
+            <ListeningDescription transition={transition} />
+          </div>
           <Question transition={transition}>
             <Radio
               ref={ref}
