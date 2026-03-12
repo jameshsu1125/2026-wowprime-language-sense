@@ -1,13 +1,25 @@
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
-import { memo, useContext } from 'react';
+import { memo, useContext, useEffect, useId } from 'react';
 import Button from '../button';
 import './list.less';
+import Click from 'lesca-click';
 
 const MenuList = memo(() => {
+  const id = useId();
   const [, setContext] = useContext(Context);
+
+  useEffect(() => {
+    Click.add(`#${id}`, () => {
+      setContext({ type: ActionType.Menu, state: { enabled: false } });
+    });
+
+    return () => Click.remove(`#${id}`);
+  }, []);
+
   return (
     <>
+      <div id={id} className='fixed top-0 left-0 h-full w-full bg-transparent' />
       <div className='MenuList'>
         <Button
           onClick={() => {
