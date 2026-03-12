@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 import useLogin from '@/hooks/useLogin';
 import useVerify from '@/hooks/useVerify';
 import { Context } from '@/settings/constant';
@@ -169,7 +170,10 @@ const Login = memo(() => {
 
   useEffect(() => {
     if (loginRes) {
-      if (loginRes.status === 'success') {
+      if (loginRes.status === 'needsVerification') {
+        alert('請輸入簡訊驗證碼，請查閱手機簡訊');
+        setPassed(true);
+      } else if (loginRes.status === 'success') {
         setState((S) => ({ ...S, page: HomePageType.Game }));
         setContext({
           type: ActionType.User,
@@ -179,17 +183,8 @@ const Login = memo(() => {
             token: loginRes.token || '',
           },
         });
-      }
-      if (loginRes.status === 'error' && loginRes.message === '手機號碼與暱稱不符') {
-        alert('手機號碼與暱稱不符，請重新輸入，請查閱手機簡訊');
-      }
-      if (loginRes.status === 'error' && loginRes.message === '網路錯誤，請稍後再試') {
-        alert('該號碼已經傳送，請稍後再試');
-      }
-      if (loginRes.status === 'needsVerification') {
-        alert('請輸入簡訊驗證碼，請查閱手機簡訊');
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        setPassed(true);
+      } else {
+        alert(loginRes.message);
       }
     }
   }, [loginRes]);
