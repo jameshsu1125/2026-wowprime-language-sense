@@ -205,11 +205,6 @@ const Login = memo(() => {
     } else {
       if (userData.otp !== '' && userData.isAgree) {
         verify(userData);
-        // setState((S) => ({ ...S, page: HomePageType.Game }));
-        // setContext({
-        //   type: ActionType.User,
-        //   state: { nickname: userData.nickname, phone: userData.phone },
-        // });
       } else {
         alert('請輸入驗證碼並同意相關條款');
       }

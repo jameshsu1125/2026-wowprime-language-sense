@@ -51,7 +51,7 @@ const Letter = memo(({ children, tone, idx, onChange, shouldCheck }: LetterProps
           id={id}
           className={twMerge(
             'tone',
-            index >= 0 && `tone-${index}`,
+            !incorrect && index >= 0 && `tone-${index}`,
             incorrect && 'tone-incorrect',
             incorrect && `tone-${tone}`,
           )}
