@@ -4,8 +4,11 @@ export enum TaikoStepType {
   intro,
   game,
 }
-export type TTaikoState = { step: TaikoStepType };
+export type TTaikoState = { step: TaikoStepType; heart: number };
 export type TTaikoContext = [TTaikoState, Dispatch<SetStateAction<TTaikoState>>];
 
-export const TaikoState: TTaikoState = { step: TaikoStepType.intro };
+export const TaikoState: TTaikoState = { step: TaikoStepType.game, heart: 3 };
 export const TaikoContext = createContext<TTaikoContext>([TaikoState, () => {}]);
+
+export const TaikoBullseye = 84.2;
+export const TaikoTolerance = 10;

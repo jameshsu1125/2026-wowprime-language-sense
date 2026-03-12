@@ -1,0 +1,70 @@
+@import url('@/settings/global.css');
+
+.TaikoGame {
+  @apply relative h-full w-full;
+
+  &::before {
+    bottom: 7.3%;
+    left: 11.3%;
+    width: 77.1%;
+    height: 1.7%;
+    content: '';
+
+    @apply absolute bg-white;
+  }
+
+  & > div {
+    @apply relative h-full w-full;
+
+    &::before {
+      top: 1.8%;
+      left: 15%;
+      width: 70%;
+      height: 5.7%;
+      content: '';
+
+      @apply absolute bg-black;
+    }
+
+    &::after {
+      bottom: 3.6%;
+      left: 15%;
+      width: 70%;
+      height: 4.3%;
+      content: '';
+
+      @apply absolute bg-black;
+    }
+
+    .life {
+      top: 1.8%;
+      left: 15%;
+      width: 70%;
+      height: 5.7%;
+      @apply absolute z-30 flex flex-row items-center justify-center gap-3 bg-black;
+
+      & > div {
+        margin-top: 1.4%;
+        width: 8%;
+        @apply relative;
+
+        & > div {
+          padding-bottom: 100%;
+          content: '';
+          @apply relative inline-block w-full;
+
+          & > div {
+            @apply absolute top-0 right-0 bottom-0 left-0;
+
+            .heart {
+              @apply border-primary bg-primary h-full w-full rounded-full border-4;
+            }
+            .off {
+              @apply bg-black;
+            }
+          }
+        }
+      }
+    }
+  }
+}

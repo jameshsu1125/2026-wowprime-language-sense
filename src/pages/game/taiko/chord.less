@@ -1,0 +1,52 @@
+@import url('@/settings/global.css');
+
+.Chord {
+  padding-top: 6.5%;
+  padding-bottom: 9%;
+  @apply relative h-full w-full;
+
+  & > div {
+    gap: 23%;
+    @apply relative flex h-full w-full flex-row justify-center overflow-hidden;
+
+    .string {
+      width: 3px;
+      @apply relative h-full bg-black;
+
+      .sound-hole {
+        @apply absolute bottom-10 left-1/2 -ml-10 flex h-20 w-20 items-center justify-center;
+
+        .hole {
+          @apply relative h-9/12 w-9/12 cursor-pointer rounded-full;
+
+          & > .dot {
+            margin-top: -50%;
+            margin-left: -50%;
+
+            @apply pointer-events-none absolute top-1/2 left-1/2 h-full w-full rounded-full bg-black;
+          }
+
+          & > .circle {
+            margin-top: -50%;
+            margin-left: -50%;
+
+            @apply pointer-events-none absolute top-1/2 left-1/2 h-full w-full rounded-full border-2 border-black;
+          }
+
+          & > .grow {
+            margin-top: -50%;
+            margin-left: -50%;
+            background: radial-gradient(
+              circle,
+              rgba(223, 3, 46, 1) 0%,
+              rgba(223, 3, 46, 0.8) 50%,
+              rgba(223, 3, 46, 0) 100%
+            );
+
+            @apply pointer-events-none absolute top-1/2 left-1/2 h-full w-full rounded-full;
+          }
+        }
+      }
+    }
+  }
+}

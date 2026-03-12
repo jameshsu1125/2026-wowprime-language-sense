@@ -8,6 +8,7 @@ import {
   TContext,
   TLoadingProcessState,
   TMenu,
+  TPlaying,
   TUser,
 } from './type';
 
@@ -26,11 +27,17 @@ export const MenuState: TMenu = {
   enabled: false,
 };
 
+export const PlayingState: TPlaying = {
+  enabled: true,
+  score: 0,
+};
+
 export const InitialState: IState = {
   [ActionType.Page]: PAGE.home,
   [ActionType.LoadingProcess]: LoadingProcessState,
   [ActionType.User]: UserState,
   [ActionType.Menu]: MenuState,
+  [ActionType.Playing]: PlayingState,
 };
 
 export const Context = createContext<TContext>([InitialState, () => {}]);

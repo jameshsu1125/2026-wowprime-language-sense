@@ -5,6 +5,7 @@ export enum ActionType {
   LoadingProcess = 'loadingProcess',
   User = 'user',
   Menu = 'menu',
+  Playing = 'playing',
 }
 
 export enum LoadingProcessType {
@@ -43,15 +44,21 @@ export type TMenu = {
   enabled?: boolean;
 };
 
+export type TPlaying = {
+  enabled?: boolean;
+  score?: number;
+};
+
 export interface IState {
   page?: string;
   loadingProcess?: TLoadingProcessState;
   user?: TUser;
   menu?: TMenu;
+  playing?: TPlaying;
 }
 
 export interface IAction {
-  state: IState | TLoadingProcessState | TUser | TMenu;
+  state: IState | TLoadingProcessState | TUser | TMenu | TPlaying;
   type: ActionType;
 }
 

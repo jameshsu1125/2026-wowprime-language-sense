@@ -55,12 +55,34 @@
       background-position: center bottom;
       background-size: @bgSize;
       background-repeat: repeat-x;
-      @apply w-full;
+      @apply relative flex w-full items-end justify-center;
+
+      & > div {
+        margin-bottom: 0%;
+        width: 7%;
+
+        @img: './img/footer-logo.svg';
+        @apply relative;
+
+        &::before {
+          padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+          background-image: url(@img);
+          content: '';
+
+          @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+        }
+        @media only screen and (max-width: @SM) {
+          & {
+            margin-bottom: 1%;
+            width: 20%;
+          }
+        }
+      }
     }
 
     @media only screen and (max-width: @SM) {
       & {
-        @bgSize: 320px;
+        @bgSize: 620px;
         &::before {
           background-size: 1510px;
         }

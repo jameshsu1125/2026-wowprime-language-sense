@@ -1,5 +1,6 @@
 import { memo, useMemo, useState } from 'react';
 import { TaikoContext, TaikoState, TaikoStepType } from './config';
+import TaikoGame from './game';
 import './index.less';
 import TaikoIntro from './intro';
 
@@ -12,7 +13,7 @@ const Taiko = memo(() => {
         return <TaikoIntro />;
 
       case TaikoStepType.game:
-        return <div />;
+        return <TaikoGame />;
     }
   }, [state.step]);
 

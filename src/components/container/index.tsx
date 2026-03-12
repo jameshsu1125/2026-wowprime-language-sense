@@ -48,7 +48,7 @@ const Dialog = memo(({ children }: IReactProps) => {
 
   return (
     <div
-      className='container-dialog relative z-10 flex items-center justify-center pt-5 pb-10'
+      className='container-dialog relative z-10 flex items-center justify-center pt-5 pb-12'
       style={
         imageSize.width === 0 ? { width: '100%' } : { ...style, width: `${imageSize.width + 37}px` }
       }
@@ -78,7 +78,9 @@ const Container = memo(({ children, className }: { className?: string } & IReact
         <div className='bg-primary h-[38vw] w-full md:h-72' />
         <div className='container-texture flex w-full flex-1 flex-col bg-white'>
           <div className='body' />
-          <div className='footer' />
+          <div className='footer'>
+            <div />
+          </div>
         </div>
       </div>
       <div className='relative flex h-full w-full justify-center'>

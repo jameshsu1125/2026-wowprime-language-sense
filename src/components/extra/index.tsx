@@ -22,11 +22,11 @@ export const Score = memo(({ children }: IReactProps) => {
 const Extra = memo(() => {
   const [context] = useContext(Context);
   const { nickname } = context[ActionType.User]!;
+  const { enabled, score } = context[ActionType.Playing]!;
 
-  useEffect(() => {}, []);
   return (
     <div className='Extra'>
-      {/* <Score>100000</Score> */}
+      {enabled && <Score>{score}</Score>}
       {nickname === '' ? null : <UserName>{nickname}</UserName>}
     </div>
   );
