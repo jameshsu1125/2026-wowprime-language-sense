@@ -12,6 +12,7 @@ type Meter = {
   direction: 'left' | 'right' | 'middle';
   index: number;
   top: number;
+  isHit: boolean;
 };
 
 const Chord = memo(() => {
@@ -26,6 +27,7 @@ const Chord = memo(() => {
   });
 
   const [meter, setMeter] = useState<Meter[]>([]);
+  const meterRef = useRef<Meter[]>([]);
   const [count, setCount] = useState(0);
 
   const onEnd = (index: number) => {
@@ -46,11 +48,13 @@ const Chord = memo(() => {
       setMeter((S) => [
         ...S,
         {
+          // direction: 'left',
           direction: ['left', 'middle', 'right'].sort(
             () => Math.random() - 0.5,
           )[0] as Meter['direction'],
           index: count,
           top: -5,
+          isHit: false,
         },
       ]);
     }
@@ -66,43 +70,49 @@ const Chord = memo(() => {
 
   const onClick = useCallback(
     (direct: 'left' | 'middle' | 'right') => {
-      setMeter((S) => {
-        [...S]
-          .filter((m) => m.direction === direct)
-          .forEach((m) => {
-            const distance = Math.abs(m.top - TaikoBullseye);
-            if (distance < TaikoTolerance) {
-              // HIT
-              noteRefs.current[m.index].get();
-              btnRefs.current[direct].get();
-              scoreRef.current += distance;
-              setContext({ type: ActionType.Playing, state: { score: scoreRef.current } });
-            }
-          });
-
-        return S;
-      });
+      [...meterRef.current]
+        .filter((m) => m.direction === direct)
+        .filter((m) => !m.isHit)
+        .filter((_, idx) => idx === 0)
+        .forEach((m) => {
+          const distance = Math.abs(m.top - TaikoBullseye);
+          if (distance < TaikoTolerance) {
+            const score = Math.floor(Math.max(1, TaikoTolerance - distance));
+            noteRefs.current[m.index].get();
+            btnRefs.current[direct].get();
+            scoreRef.current += score;
+            m.isHit = true;
+            btnRefs.current[direct].score(score);
+            setContext({ type: ActionType.Playing, state: { score: scoreRef.current } });
+          } else {
+            btnRefs.current[direct].miss();
+          }
+        });
     },
     [setContext],
   );
 
   const onUpdate = useCallback((index: number, top: number) => {
     setMeter((S) => {
-      return [...S].map((m) => {
+      const dat = [...S].map((m) => {
         if (m.index === index) {
           return { ...m, top };
         }
         return m;
       });
+      meterRef.current = dat;
+      return dat;
     });
   }, []);
 
   useEffect(() => {
+    // TODO => END
     if (state.heart <= 0) {
       EnterFrame.stop();
       noteRefs.current.forEach((note) => {
         if (note) {
           note.stop();
+          setContext({ type: ActionType.Playing, state: { isEnd: true } });
         }
       });
     }

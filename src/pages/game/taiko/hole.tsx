@@ -4,6 +4,7 @@ import useTween from 'lesca-use-tween';
 import { forwardRef, JSX, useEffect, useId, useImperativeHandle, useRef, useState } from 'react';
 import Effect from './effect';
 import './index.less';
+import Telegraphing from './telegraphing';
 
 const HoleClick = forwardRef(({ id, children }: IReactProps & { id: string }, ref) => {
   const [style, setStyle] = useTween({ opacity: 1, scale: 1 });
@@ -35,6 +36,7 @@ type HoleProps = {
 
 const Hole = forwardRef(({ onClick, direct }: HoleProps, ref) => {
   const holeRef = useRef<{ click: (e: boolean) => void }>(null);
+  const telegraphingRef = useRef<{ miss: () => void; score: (score: number) => void }>(null);
   const id = useId();
   const [clickIndex, setClickIndex] = useState(0);
   const [effects, setEffects] = useState<{ element: JSX.Element; index: number }[]>([]);
@@ -72,7 +74,6 @@ const Hole = forwardRef(({ onClick, direct }: HoleProps, ref) => {
           index: clickIndex,
         },
       ];
-      // holeRef.current?.click(false);
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setEffects((effects) => [...effects, ...element]);
     }
@@ -94,11 +95,18 @@ const Hole = forwardRef(({ onClick, direct }: HoleProps, ref) => {
       setEffects((effects) => [...effects, element]);
       holeRef.current?.click(true);
     },
+    score: (score: number) => {
+      telegraphingRef.current?.score(score);
+    },
+    miss: () => {
+      telegraphingRef.current?.miss();
+    },
   }));
 
   return (
     <HoleClick ref={holeRef} id={id}>
       {effects.map((effect) => effect.element)}
+      <Telegraphing ref={telegraphingRef} />
     </HoleClick>
   );
 });

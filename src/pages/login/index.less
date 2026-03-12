@@ -12,7 +12,15 @@
     @apply w-1/4 text-right text-lg font-black whitespace-nowrap;
   }
 
-  input[type='text'] {
+  button {
+    &:disabled {
+      @apply cursor-not-allowed opacity-50 grayscale;
+    }
+  }
+
+  input[type='text'],
+  input[type='tel'],
+  input[type='number'] {
     border-width: 6px;
 
     padding-inline: 6%;

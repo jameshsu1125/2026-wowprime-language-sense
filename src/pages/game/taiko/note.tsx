@@ -27,7 +27,8 @@ const Note = forwardRef(({ index, onEnd, onUpdate, onMiss }: NoteProps, ref) => 
 
   useEffect(() => {
     setStyle(
-      { top: '100%' },
+      // { top: `${TaikoBullseye}%` },
+      { top: '105%' },
       {
         duration: 4000,
         easing: Bezier.linear,
@@ -50,8 +51,8 @@ const Note = forwardRef(({ index, onEnd, onUpdate, onMiss }: NoteProps, ref) => 
     get: () => {
       if (noteRef.current) {
         // noteRef.current.style.visibility = 'hidden';
-        const degree = Math.random() * 360;
-        const radius = 200;
+        const degree = -135 + Math.random() * 90;
+        const radius = 400;
 
         const x = radius * Math.cos((degree * Math.PI) / 180);
         const y = radius * Math.sin((degree * Math.PI) / 180);

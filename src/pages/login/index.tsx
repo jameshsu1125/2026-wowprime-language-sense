@@ -1,7 +1,9 @@
+import useLogin from '@/hooks/useLogin';
+import useVerify from '@/hooks/useVerify';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
 import OnloadProvider from 'lesca-react-onload';
-import useTween from 'lesca-use-tween';
+import useTween, { Bezier } from 'lesca-use-tween';
 import { ValidatePhone } from 'lesca-validate';
 import { memo, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
@@ -10,144 +12,209 @@ import LoginButton from './button';
 import Heading, { Notice } from './heading';
 import './index.less';
 
-const TelValidate = memo(
-  ({
-    onChange,
-    onAgree,
-  }: {
-    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    onAgree?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  }) => {
-    const [style, setStyle] = useTween({ opacity: 0 });
-    useEffect(() => {
-      setStyle({ opacity: 1 }, { duration: 500 });
-    }, []);
-    return (
-      <div className='flex w-full flex-col items-center gap-2' style={style}>
-        <div className='flex w-full justify-end pb-3'>
-          <div>
-            <button className='active:bg-primary w-full cursor-pointer rounded-lg bg-black px-4 py-2 text-white select-none hover:bg-gray-800'>
-              發送驗證碼
-            </button>
-          </div>
-        </div>
-        <Group
-          name='tel-validate'
-          onChange={onChange}
-          maxLength={6}
-          transition={true}
-          delay={0}
-          noTransition
-        />
-        <div className='flex w-full justify-end'>
-          <div>
-            <button className='active:bg-primary w-full cursor-pointer rounded-lg bg-black px-4 py-2 text-white select-none hover:bg-gray-800'>
-              重發驗證碼
-            </button>
-          </div>
-        </div>
-        <div className='flex w-full justify-center py-3'>
-          <div className='flex flex-row items-center gap-2 text-base whitespace-nowrap'>
-            <input type='checkbox' id='agree' name='agree' onChange={onAgree} className='h- w-4' />
-            我已詳閱並同意
-            <a href='#' className='text-blue-500 underline underline-offset-2'>
-              《個資告知事項暨同意書》
-            </a>
-          </div>
+type TLoginButtonProps = {
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onAgree?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onResend: () => void;
+};
+
+const ResendButton = memo(({ onClick }: { onClick: () => void }) => {
+  const [count, setCount] = useTween({ top: 300 });
+
+  useEffect(() => {
+    setCount({ top: 0 }, { duration: 300000, easing: Bezier.linear });
+  }, []);
+
+  return (
+    <div className='flex w-full justify-end'>
+      <div>
+        <button
+          onClick={() => {
+            if (Math.floor(Number(count.top)) === 0) {
+              onClick();
+            }
+          }}
+          disabled={Math.floor(Number(count.top)) > 0}
+          className='active:bg-primary w-full cursor-pointer rounded-lg bg-black px-4 py-2 text-white select-none hover:bg-gray-800'
+        >
+          重發驗證碼
+          {`(${Math.floor(Number(count.top))})`}
+        </button>
+      </div>
+    </div>
+  );
+});
+
+const TelValidate = memo(({ onChange, onAgree, onResend }: TLoginButtonProps) => {
+  const [style, setStyle] = useTween({ opacity: 0 });
+
+  useEffect(() => {
+    setStyle({ opacity: 1 }, { duration: 500 });
+  }, []);
+
+  return (
+    <div className='flex w-full flex-col items-center gap-2' style={style}>
+      <Group
+        name='otp'
+        onChange={onChange}
+        maxLength={6}
+        transition={true}
+        delay={0}
+        noTransition
+        type='tel'
+      />
+      <ResendButton onClick={onResend} />
+      <div className='flex w-full justify-center py-3'>
+        <div className='flex flex-row items-center gap-2 text-base whitespace-nowrap'>
+          <input type='checkbox' id='agree' name='agree' onChange={onAgree} className='h- w-4' />
+          我已詳閱並同意
+          <a href='#' className='text-blue-500 underline underline-offset-2'>
+            《個資告知事項暨同意書》
+          </a>
         </div>
       </div>
-    );
-  },
-);
+    </div>
+  );
+});
 
-const Group = memo(
-  ({
+type TGroupProps = {
+  type: string;
+  name: string;
+  defaultValue?: string;
+  maxLength?: number;
+  transition: boolean;
+  delay: number;
+  noTransition?: boolean;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
+const Group = memo((props: TGroupProps) => {
+  const {
     name,
     defaultValue,
     onChange,
     transition,
+    type = 'text',
     maxLength = 10,
     delay = 0,
     noTransition = false,
-  }: {
-    name: string;
-    defaultValue?: string;
-    maxLength?: number;
-    transition: boolean;
-    delay: number;
-    noTransition?: boolean;
-    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  }) => {
-    const [style, setStyle] = useTween({ opacity: noTransition ? 1 : 0, y: noTransition ? 0 : 50 });
+  } = props;
 
-    useEffect(() => {
-      if (transition && !noTransition) {
-        setStyle({ opacity: 1, y: 0 }, { duration: 400, delay });
-      }
-    }, [transition]);
+  const [style, setStyle] = useTween({ opacity: noTransition ? 1 : 0, y: noTransition ? 0 : 50 });
 
-    const labelName = useMemo(() => {
-      switch (name) {
-        default:
-        case 'nickname':
-          return '你的暱稱：';
-        case 'tel':
-          return '手機號碼：';
-        case 'tel-validate':
-          return '驗證碼：';
-      }
-    }, [name]);
-    return (
-      <div
-        className='relative flex w-full flex-row items-center justify-center gap-2 px-5'
-        style={style}
-      >
-        <label>{labelName}</label>
-        <input
-          type='text'
-          placeholder={name === 'tel-validate' ? '請輸入簡訊驗證碼(OTP)' : ''}
-          name={name}
-          defaultValue={defaultValue || ''}
-          onChange={onChange}
-          maxLength={maxLength}
-        />
-      </div>
-    );
-  },
-);
+  useEffect(() => {
+    if (transition && !noTransition) {
+      setStyle({ opacity: 1, y: 0 }, { duration: 400, delay });
+    }
+  }, [transition]);
+
+  const labelName = useMemo(() => {
+    switch (name) {
+      default:
+      case 'nickname':
+        return '你的暱稱：';
+      case 'phone':
+        return '手機號碼：';
+      case 'otp':
+        return '驗證碼：';
+    }
+  }, [name]);
+  return (
+    <div
+      className='relative flex w-full flex-row items-center justify-center gap-2 px-5'
+      style={style}
+    >
+      <label>{labelName}</label>
+      <input
+        type={type}
+        placeholder={name === 'otp' ? '請輸入簡訊驗證碼(OTP)' : ''}
+        name={name}
+        defaultValue={defaultValue || ''}
+        onChange={onChange}
+        maxLength={maxLength}
+      />
+    </div>
+  );
+});
 
 const Login = memo(() => {
   const [, setContext] = useContext(Context);
   const [, setState] = useContext(HomeContext);
-  const [userData, setUserData] = useState({ nickname: '', tel: '', code: '', isAgree: false });
+  const [userData, setUserData] = useState({ nickname: '', phone: '', otp: '', isAgree: false });
   const [passed, setPassed] = useState(false);
+  const [loginRes, login] = useLogin();
+  const [verifyRes, verify] = useVerify();
 
   const [transition, setTransition] = useState(false);
 
-  const checkValidate = useCallback(() => {
-    if (userData.nickname === 'james') {
-      setState((S) => ({ ...S, page: HomePageType.Game }));
-      return;
+  useEffect(() => {
+    if (verifyRes) {
+      if (verifyRes.status === 'success' && verifyRes.message === '註冊與驗證成功！') {
+        setState((S) => ({ ...S, page: HomePageType.Game }));
+        setContext({
+          type: ActionType.User,
+          state: {
+            nickname: userData.nickname,
+            phone: userData.phone,
+            token: verifyRes.token || '',
+          },
+        });
+      }
+      if (verifyRes.status === 'error') {
+        alert(verifyRes.message || '驗證失敗，請重新輸入驗證碼，請查閱手機簡訊');
+      }
+      console.log(verifyRes);
     }
+  }, [verifyRes]);
+
+  useEffect(() => {
+    if (loginRes) {
+      if (loginRes.status === 'success') {
+        setState((S) => ({ ...S, page: HomePageType.Game }));
+        setContext({
+          type: ActionType.User,
+          state: {
+            nickname: userData.nickname,
+            phone: userData.phone,
+            token: loginRes.token || '',
+          },
+        });
+      }
+      if (loginRes.status === 'error' && loginRes.message === '手機號碼與暱稱不符') {
+        alert('手機號碼與暱稱不符，請重新輸入，請查閱手機簡訊');
+      }
+      if (loginRes.status === 'error' && loginRes.message === '網路錯誤，請稍後再試') {
+        alert('該號碼已經傳送，請稍後再試');
+      }
+      if (loginRes.status === 'needsVerification') {
+        alert('請輸入簡訊驗證碼，請查閱手機簡訊');
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setPassed(true);
+      }
+    }
+  }, [loginRes]);
+
+  const checkValidate = useCallback(() => {
     if (!passed) {
-      const isPhoneNumber = ValidatePhone(userData.tel);
+      const isPhoneNumber = ValidatePhone(userData.phone);
       if (!isPhoneNumber) {
         alert('請輸入正確的手機號碼');
         return;
       }
-      setPassed(true);
+      login(userData);
     } else {
-      if (userData.code !== '' && userData.isAgree) {
-        setState((S) => ({ ...S, page: HomePageType.Game }));
-        setContext({
-          type: ActionType.User,
-          state: { nickname: userData.nickname, tel: userData.tel },
-        });
+      if (userData.otp !== '' && userData.isAgree) {
+        verify(userData);
+        // setState((S) => ({ ...S, page: HomePageType.Game }));
+        // setContext({
+        //   type: ActionType.User,
+        //   state: { nickname: userData.nickname, phone: userData.phone },
+        // });
       } else {
         alert('請輸入驗證碼並同意相關條款');
       }
     }
-  }, [userData, passed, setState, setContext]);
+  }, [userData, passed, setState, setContext, login, verify]);
 
   return (
     <OnloadProvider
@@ -159,6 +226,7 @@ const Login = memo(() => {
         <div className='flex w-full flex-col items-center justify-center gap-4'>
           <Heading transition={transition} />
           <Group
+            type='text'
             name='nickname'
             defaultValue={userData.nickname}
             onChange={(e) => {
@@ -170,10 +238,11 @@ const Login = memo(() => {
           />
 
           <Group
-            name='tel'
-            defaultValue={userData.tel}
+            type='tel'
+            name='phone'
+            defaultValue={userData.phone}
             onChange={(e) => {
-              setUserData((S) => ({ ...S, tel: e.target.value }));
+              setUserData((S) => ({ ...S, phone: e.target.value }));
             }}
             maxLength={10}
             transition={transition}
@@ -181,8 +250,11 @@ const Login = memo(() => {
           />
           {passed && (
             <TelValidate
+              onResend={() => {
+                login(userData);
+              }}
               onChange={(e) => {
-                setUserData((S) => ({ ...S, code: e.target.value }));
+                setUserData((S) => ({ ...S, otp: e.target.value }));
               }}
               onAgree={(e) => {
                 setUserData((S) => ({ ...S, isAgree: e.target.checked }));

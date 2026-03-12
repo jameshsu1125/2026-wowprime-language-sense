@@ -3,7 +3,8 @@ export const PAGE = {
 };
 
 export const REST_PATH = {
-  test: 'todos/1',
+  login: 'auth/login',
+  verify: 'auth/verify',
 };
 
 export const SETTING = {

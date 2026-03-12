@@ -10,6 +10,7 @@ import './index.less';
 import Extra from '../extra';
 import { Context } from '@/settings/constant';
 import MenuList from '../menu/list';
+import GameEnd from '../gameEnd';
 
 const Dialog = memo(({ children }: IReactProps) => {
   const imageRef = useRef<HTMLImageElement>(null);
@@ -48,7 +49,7 @@ const Dialog = memo(({ children }: IReactProps) => {
 
   return (
     <div
-      className='container-dialog relative z-10 flex items-center justify-center pt-5 pb-12'
+      className='container-dialog relative z-10 flex items-center justify-center pt-12 pb-12'
       style={
         imageSize.width === 0 ? { width: '100%' } : { ...style, width: `${imageSize.width + 37}px` }
       }
@@ -59,6 +60,7 @@ const Dialog = memo(({ children }: IReactProps) => {
         style={{
           marginTop: `-${imageSize.height / 2 + 40}px`,
           width: `${imageSize.width + 37}px`,
+          height: `${imageSize.height + 37}px`,
           display: imageSize.width === 0 ? 'none' : 'block',
         }}
       >
@@ -71,6 +73,7 @@ const Dialog = memo(({ children }: IReactProps) => {
 const Container = memo(({ children, className }: { className?: string } & IReactProps) => {
   const [context] = useContext(Context);
   const menuState = context[ActionType.Menu]!;
+  const { isEnd = false } = context[ActionType.Playing]!;
 
   return (
     <Div100vh className={twMerge('Container w-full min-w-140', className)}>
@@ -100,6 +103,22 @@ const Container = memo(({ children, className }: { className?: string } & IReact
           </div>
         </div>
       </div>
+      {isEnd && (
+        <div className='absolute top-0 left-0 flex h-full w-full flex-col'>
+          <div className='flex w-full max-w-3xl flex-col items-center justify-start p-[3%] md:p-[0%]'>
+            <div className='flex w-full flex-row items-center justify-between pt-0 md:pt-[3%]'>
+              <div className='container-logo invisible' />
+            </div>
+            <div className='container-extra invisible relative z-20'>
+              <Extra />
+            </div>
+          </div>
+          <div className='relative z-40 h-full flex-1'>
+            <GameEnd />
+          </div>
+          <div className='h-12 w-full md:h-10' />
+        </div>
+      )}
     </Div100vh>
   );
 });

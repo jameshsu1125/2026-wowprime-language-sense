@@ -1,7 +1,8 @@
-import { memo, useContext, useEffect } from 'react';
-import './index.less';
 import { Context } from '@/settings/constant';
 import { ActionType, IReactProps } from '@/settings/type';
+import { memo, useContext, useEffect } from 'react';
+import './index.less';
+import useTween from 'lesca-use-tween';
 
 const UserName = memo(({ children }: IReactProps) => {
   return (
@@ -11,10 +12,16 @@ const UserName = memo(({ children }: IReactProps) => {
   );
 });
 
-export const Score = memo(({ children }: IReactProps) => {
+export const Score = memo(({ score }: { score: number }) => {
+  const [count, setCount] = useTween({ top: score });
+
+  useEffect(() => {
+    setCount({ top: score });
+  }, [score]);
+
   return (
     <div className='score'>
-      <div className='truncate whitespace-nowrap'>{children}</div>
+      <div className='truncate whitespace-nowrap'>{String(Math.round(Number(count.top ?? 0)))}</div>
     </div>
   );
 });
@@ -26,7 +33,7 @@ const Extra = memo(() => {
 
   return (
     <div className='Extra'>
-      {enabled && <Score>{score}</Score>}
+      {enabled && <Score score={score || 0} />}
       {nickname === '' ? null : <UserName>{nickname}</UserName>}
     </div>
   );

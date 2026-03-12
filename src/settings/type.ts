@@ -37,7 +37,8 @@ export type TLoadingProcessState = {
 
 export type TUser = {
   nickname: string;
-  tel: string;
+  phone: string;
+  token?: string;
 };
 
 export type TMenu = {
@@ -47,6 +48,7 @@ export type TMenu = {
 export type TPlaying = {
   enabled?: boolean;
   score?: number;
+  isEnd?: boolean;
 };
 
 export interface IState {

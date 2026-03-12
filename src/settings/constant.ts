@@ -20,7 +20,7 @@ export const LoadingProcessState: TLoadingProcessState = {
 
 export const UserState: TUser = {
   nickname: '',
-  tel: '',
+  phone: '',
 };
 
 export const MenuState: TMenu = {
@@ -30,6 +30,7 @@ export const MenuState: TMenu = {
 export const PlayingState: TPlaying = {
   enabled: true,
   score: 0,
+  isEnd: false,
 };
 
 export const InitialState: IState = {
