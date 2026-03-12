@@ -12,6 +12,9 @@ import { HomeContext, HomePageType } from '../home/config';
 import LoginButton from './button';
 import Heading, { Notice } from './heading';
 import './index.less';
+import Click from 'lesca-click';
+
+Click.addPreventExcept('#input');
 
 type TLoginButtonProps = {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -127,6 +130,7 @@ const Group = memo((props: TGroupProps) => {
     >
       <label>{labelName}</label>
       <input
+        id='input'
         type={type}
         placeholder={name === 'otp' ? '請輸入簡訊驗證碼(OTP)' : ''}
         name={name}
