@@ -1,1 +1,0 @@
-import{r as n}from"./index-BOxyDLH-.js";var r=(a=>(a.Landing="/landing",a.Examiner="/examiner",a.Login="/login",a.Game="/game",a))(r||{}),t=(a=>(a[a.unset=0]="unset",a[a.loaded=1]="loaded",a))(t||{});const s={step:0,page:"/game"},i=n.createContext([s,()=>{}]);export{i as H,t as a,s as b,r as c};
