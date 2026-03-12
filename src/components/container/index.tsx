@@ -1,5 +1,5 @@
 import { HomeContext, HomeStepType } from '@/pages/home/config';
-import { IReactProps } from '@/settings/type';
+import { ActionType, IReactProps } from '@/settings/type';
 import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect, useRef, useState } from 'react';
 import Div100vh from 'react-div-100vh';
@@ -8,6 +8,8 @@ import Menu from '../menu';
 import dialog from './img/dialog.svg';
 import './index.less';
 import Extra from '../extra';
+import { Context } from '@/settings/constant';
+import MenuList from '../menu/list';
 
 const Dialog = memo(({ children }: IReactProps) => {
   const imageRef = useRef<HTMLImageElement>(null);
@@ -67,6 +69,9 @@ const Dialog = memo(({ children }: IReactProps) => {
 });
 
 const Container = memo(({ children, className }: { className?: string } & IReactProps) => {
+  const [context] = useContext(Context);
+  const menuState = context[ActionType.Menu]!;
+
   return (
     <Div100vh className={twMerge('Container w-full min-w-140', className)}>
       <div className='absolute flex h-full w-full flex-col'>
@@ -84,8 +89,9 @@ const Container = memo(({ children, className }: { className?: string } & IReact
               <Menu />
             </div>
           </div>
-          <div className='container-extra'>
+          <div className='container-extra relative z-20'>
             <Extra />
+            {menuState?.enabled && <MenuList />}
           </div>
           <div className='relative flex h-full w-fit flex-1 justify-center overflow-hidden'>
             <Dialog>{children}</Dialog>

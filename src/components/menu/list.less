@@ -1,0 +1,32 @@
+@import url('@/settings/global.css');
+
+.MenuList {
+  padding: 1px;
+
+  gap: 1px;
+  @apply bg-primary absolute top-0 left-0 z-20 flex h-auto w-full flex-col;
+
+  .btn {
+    &:hover,
+    &:active {
+      .btn-primary,
+      .btn-secondary {
+        & {
+          @apply bg-secondary text-white;
+        }
+      }
+    }
+  }
+
+  .btn-menu {
+    @apply pointer-events-none flex w-full items-center justify-end p-5 text-3xl font-black;
+  }
+
+  .btn-primary {
+    @apply bg-black text-white;
+  }
+
+  .btn-secondary {
+    @apply bg-tertiary text-tertiary-content;
+  }
+}
