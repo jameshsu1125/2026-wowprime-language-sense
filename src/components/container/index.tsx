@@ -11,6 +11,7 @@ import Extra from '../extra';
 import { Context } from '@/settings/constant';
 import MenuList from '../menu/list';
 import GameEnd from '../gameEnd';
+import UserAgent, { UserAgentType } from 'lesca-user-agent';
 
 const Dialog = memo(({ children }: IReactProps) => {
   const imageRef = useRef<HTMLImageElement>(null);
@@ -41,6 +42,7 @@ const Dialog = memo(({ children }: IReactProps) => {
     const image = new Image();
     image.onload = () => {
       resize();
+      if (UserAgent.get() === UserAgentType.Mobile) return;
       window.addEventListener('resize', resize);
     };
     image.src = dialog;

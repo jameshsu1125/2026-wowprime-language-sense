@@ -1,8 +1,11 @@
+import useDown from '@/hooks/useDown';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
 import useTween from 'lesca-use-tween';
-import { memo, useContext, useEffect } from 'react';
-import Button from '../button';
+import { memo, useContext, useEffect, useState } from 'react';
+import Button from '../../button';
+import OnloadProvider from 'lesca-react-onload';
+import './index.less';
 
 const Heading = memo(({ transition }: { transition: boolean }) => {
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });
@@ -21,6 +24,18 @@ const Btn = memo(({ transition }: { transition: boolean }) => {
   const { score = 0 } = context[ActionType.Playing]!;
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });
 
+  const [downRes, sendScore] = useDown();
+
+  useEffect(() => {
+    if (downRes) {
+      if (downRes.status === 'success') {
+        console.log(downRes);
+      } else {
+        alert(downRes.message);
+      }
+    }
+  }, [downRes]);
+
   useEffect(() => {
     if (transition) {
       setStyle({ opacity: 1, y: 0 }, { delay: 500, duration: 500 });
@@ -30,7 +45,7 @@ const Btn = memo(({ transition }: { transition: boolean }) => {
     <div className='w-48' style={style}>
       <Button
         onClick={() => {
-          console.log(score);
+          sendScore({ score });
         }}
       >
         <Button.large>
@@ -41,13 +56,15 @@ const Btn = memo(({ transition }: { transition: boolean }) => {
   );
 });
 
-const End = memo(({ transition }: { transition: boolean }) => {
-  useEffect(() => {}, []);
+const EndLanding = memo(() => {
+  const [transition, setTransition] = useState(false);
   return (
-    <>
-      <Heading transition={transition} />
-      <Btn transition={transition} />
-    </>
+    <OnloadProvider onload={() => setTransition(true)}>
+      <div className='EndLanding'>
+        <Heading transition={transition} />
+        <Btn transition={transition} />
+      </div>
+    </OnloadProvider>
   );
 });
-export default End;
+export default EndLanding;

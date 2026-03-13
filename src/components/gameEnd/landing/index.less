@@ -1,0 +1,32 @@
+@import url('@/settings/global.css');
+
+.EndLanding {
+  @apply relative h-full w-full;
+  .heading {
+    width: (unit(image-width(@img))) / 1280 * 100%;
+
+    @img: './img/heading.png';
+
+    &::before {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+      content: '';
+
+      @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+    }
+  }
+
+  .btn-end {
+    width: 55%;
+
+    @img: './img/btn.svg';
+
+    &::before {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+      content: '';
+
+      @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+    }
+  }
+}

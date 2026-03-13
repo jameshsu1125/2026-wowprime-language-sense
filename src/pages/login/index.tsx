@@ -3,6 +3,7 @@ import useLogin from '@/hooks/useLogin';
 import useVerify from '@/hooks/useVerify';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
+import Fetcher from 'lesca-fetcher';
 import OnloadProvider from 'lesca-react-onload';
 import useTween, { Bezier } from 'lesca-use-tween';
 import { ValidatePhone } from 'lesca-validate';
@@ -12,10 +13,6 @@ import { HomeContext, HomePageType } from '../home/config';
 import LoginButton from './button';
 import Heading, { Notice } from './heading';
 import './index.less';
-import Click from 'lesca-click';
-import Fetcher from 'lesca-fetcher';
-
-Click.addPreventExcept('#input');
 
 type TLoginButtonProps = {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -131,7 +128,6 @@ const Group = memo((props: TGroupProps) => {
     >
       <label>{labelName}</label>
       <input
-        id='input'
         type={type}
         placeholder={name === 'otp' ? '請輸入簡訊驗證碼(OTP)' : ''}
         name={name}
@@ -157,6 +153,7 @@ const Login = memo(() => {
     if (verifyRes) {
       if (verifyRes.status === 'success' && verifyRes.message === '註冊與驗證成功！') {
         setState((S) => ({ ...S, page: HomePageType.Game }));
+
         Fetcher.setJWT(verifyRes.token || '');
         setContext({
           type: ActionType.User,
@@ -181,6 +178,7 @@ const Login = memo(() => {
         setPassed(true);
       } else if (loginRes.status === 'success') {
         setState((S) => ({ ...S, page: HomePageType.Game }));
+        Fetcher.setJWT(loginRes.token || '');
         setContext({
           type: ActionType.User,
           state: {

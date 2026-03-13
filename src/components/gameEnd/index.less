@@ -9,33 +9,5 @@
 
   .ctx {
     @apply absolute flex h-full w-full flex-col items-center justify-center gap-10;
-
-    .heading {
-      width: (unit(image-width(@img))) / 1280 * 100%;
-
-      @img: './img/heading.png';
-
-      &::before {
-        padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
-        background-image: url(@img);
-        content: '';
-
-        @apply inline-block w-full bg-contain bg-center bg-no-repeat;
-      }
-    }
-
-    .btn-end {
-      width: 55%;
-
-      @img: './img/btn.svg';
-
-      &::before {
-        padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
-        background-image: url(@img);
-        content: '';
-
-        @apply inline-block w-full bg-contain bg-center bg-no-repeat;
-      }
-    }
   }
 }
