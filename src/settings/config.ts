@@ -5,6 +5,8 @@ export const PAGE = {
 export const REST_PATH = {
   login: 'auth/login',
   verify: 'auth/verify',
+  down: 'event/done',
+  weeks: 'event/weeks',
 };
 
 export const SETTING = {

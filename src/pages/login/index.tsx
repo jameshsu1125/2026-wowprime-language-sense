@@ -13,6 +13,7 @@ import LoginButton from './button';
 import Heading, { Notice } from './heading';
 import './index.less';
 import Click from 'lesca-click';
+import Fetcher from 'lesca-fetcher';
 
 Click.addPreventExcept('#input');
 
@@ -156,6 +157,7 @@ const Login = memo(() => {
     if (verifyRes) {
       if (verifyRes.status === 'success' && verifyRes.message === '註冊與驗證成功！') {
         setState((S) => ({ ...S, page: HomePageType.Game }));
+        Fetcher.setJWT(verifyRes.token || '');
         setContext({
           type: ActionType.User,
           state: {
