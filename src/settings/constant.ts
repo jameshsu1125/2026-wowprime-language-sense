@@ -30,7 +30,7 @@ export const MenuState: TMenu = {
 export const PlayingState: TPlaying = {
   enabled: true,
   score: 0,
-  isEnd: false,
+  isEnd: true,
 };
 
 export const InitialState: IState = {
