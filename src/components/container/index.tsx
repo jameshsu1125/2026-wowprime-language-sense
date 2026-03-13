@@ -112,7 +112,7 @@ const Container = memo(({ children, className }: { className?: string } & IReact
               <div className='container-logo invisible' />
             </div>
             <div className='container-extra invisible relative z-20'>
-              <Extra />
+              <div className='p-4'>{'　'}</div>
             </div>
           </div>
           <div className='relative z-40 h-full flex-1'>
