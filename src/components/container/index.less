@@ -57,9 +57,9 @@
       background-repeat: repeat-x;
       @apply relative flex w-full items-end justify-center;
 
-      & > div {
+      .footer-logo {
         margin-bottom: 0%;
-        width: 7%;
+        width: 25%;
 
         @img: './img/footer-logo.svg';
         @apply relative;
@@ -71,10 +71,11 @@
 
           @apply inline-block w-full bg-contain bg-center bg-no-repeat;
         }
+
         @media only screen and (max-width: @SM) {
           & {
             margin-bottom: 1%;
-            width: 20%;
+            width: 30%;
           }
         }
       }

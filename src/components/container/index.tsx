@@ -82,7 +82,9 @@ const Container = memo(({ children, className }: { className?: string } & IReact
         <div className='container-texture flex w-full flex-1 flex-col bg-white'>
           <div className='body' />
           <div className='footer'>
-            <div />
+            <div className='relative flex w-3xl items-end justify-center'>
+              <div className='footer-logo' />
+            </div>
           </div>
         </div>
       </div>
