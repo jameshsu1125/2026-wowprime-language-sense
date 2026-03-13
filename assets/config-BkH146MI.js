@@ -1,0 +1,1 @@
+import{r as n}from"./index-DWnBe-9n.js";var r=(a=>(a.Landing="/landing",a.Examiner="/examiner",a.Login="/login",a.Game="/game",a))(r||{}),t=(a=>(a[a.unset=0]="unset",a[a.loaded=1]="loaded",a))(t||{});const s={step:0,page:"/landing"},o=n.createContext([s,()=>{}]);export{o as H,t as a,s as b,r as c};

@@ -1,1 +1,0 @@
-import{i as e,o as t}from"./lib-BP6A3kqq.js";var n=t(e(),1),r=function(e){return e.Landing=`/landing`,e.Examiner=`/examiner`,e.Login=`/login`,e.Game=`/game`,e}({}),i=function(e){return e[e.unset=0]=`unset`,e[e.loaded=1]=`loaded`,e}({}),a={step:i.unset,page:r.Landing},o=(0,n.createContext)([a,()=>{}]);export{i,r as n,a as r,o as t};
