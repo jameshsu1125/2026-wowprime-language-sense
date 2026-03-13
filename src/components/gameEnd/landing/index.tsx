@@ -1,18 +1,19 @@
 import useDown from '@/hooks/useDown';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
+import OnloadProvider from 'lesca-react-onload';
 import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect, useState } from 'react';
 import Button from '../../button';
-import OnloadProvider from 'lesca-react-onload';
+import { GameEndContext } from '../config';
 import './index.less';
 
 const Heading = memo(({ transition }: { transition: boolean }) => {
-  const [style, setStyle] = useTween({ opacity: 0, y: 50 });
+  const [style, setStyle] = useTween({ opacity: 0, scale: 3 });
 
   useEffect(() => {
     if (transition) {
-      setStyle({ opacity: 1, y: 0 }, { delay: 200, duration: 500 });
+      setStyle({ opacity: 1, scale: 1 }, { delay: 200, duration: 300 });
     }
   }, [transition]);
 
@@ -21,15 +22,16 @@ const Heading = memo(({ transition }: { transition: boolean }) => {
 
 const Btn = memo(({ transition }: { transition: boolean }) => {
   const [context] = useContext(Context);
+  const [, setState] = useContext(GameEndContext);
   const { score = 0 } = context[ActionType.Playing]!;
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });
-
   const [downRes, sendScore] = useDown();
 
   useEffect(() => {
     if (downRes) {
       if (downRes.status === 'success') {
         console.log(downRes);
+        setState((S) => ({ ...S, result: downRes.data }));
       } else {
         alert(downRes.message);
       }
