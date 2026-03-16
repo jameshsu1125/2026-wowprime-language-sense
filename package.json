@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@faker-js/faker": "^10.3.0",
+    "@uidotdev/usehooks": "^2.4.1",
     "lesca-atobtoa": "^2.0.0",
     "lesca-click": "^5.0.1",
     "lesca-enterframe": "^2.0.0",

@@ -1,9 +1,12 @@
 import { IReactProps } from '@/settings/type';
-import { memo, useEffect, useState } from 'react';
+import useTween from 'lesca-use-tween';
+import { memo, useContext, useEffect, useMemo, useState } from 'react';
+import { GameEndContext, GameEndFinalType } from '../config';
+import Card from './card/card';
+import Final from './final';
 import Frag from './frag';
 import './index.less';
-import useTween from 'lesca-use-tween';
-import Card from './card';
+import Ranking from './ranking';
 
 const Dialog = memo(
   ({ children, transition, onEnd }: IReactProps & { transition: boolean; onEnd: () => void }) => {
@@ -18,12 +21,42 @@ const Dialog = memo(
   },
 );
 
+const FrameBottom = memo(() => {
+  const [state] = useContext(GameEndContext);
+  const [style, setStyle] = useTween({ bottom: '21.5%' });
+
+  useEffect(() => {
+    if (state.final === GameEndFinalType.award) {
+      setStyle({ bottom: '0%' }, 400);
+    }
+  }, [state.final]);
+
+  return <div className='frame-bottom' style={style} />;
+});
+
 const Page = memo(({ transition }: { transition: boolean }) => {
+  const [state] = useContext(GameEndContext);
   const [transitionEnd, setTransitionEnd] = useState(false);
+
+  const page = useMemo(() => {
+    switch (state.final) {
+      case GameEndFinalType.card:
+        return <Card transition={transitionEnd} />;
+      case GameEndFinalType.award:
+        return <Final />;
+
+      case GameEndFinalType.ranking:
+        return <Ranking />;
+
+      default:
+        return null;
+    }
+  }, [state.final, transitionEnd]);
+
   return (
     <Dialog transition={transition} onEnd={() => setTransitionEnd(true)}>
-      <div className='frame-bottom' />
-      <Card transition={transitionEnd} />
+      <FrameBottom />
+      {page}
       <Frag />
     </Dialog>
   );

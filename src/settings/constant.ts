@@ -29,7 +29,7 @@ export const MenuState: TMenu = {
 
 export const PlayingState: TPlaying = {
   enabled: true, // 分數版是否顯示
-  score: 1234,
+  score: 100,
   isEnd: true, // 遊戲是否結束
 };
 

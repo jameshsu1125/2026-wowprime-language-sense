@@ -1,0 +1,77 @@
+@import url('@/settings/global.css');
+
+.Final {
+  padding: 3%;
+  padding-top: 16%;
+  @apply relative h-full w-full;
+
+  & > div {
+    @apply flex h-full flex-col items-center justify-between p-6;
+
+    & > div {
+      @apply w-full;
+    }
+
+    & > div:nth-child(2) {
+      @apply flex flex-col items-start justify-center gap-3;
+
+      .btn-ranking {
+        width: 55%;
+
+        @img: './img/btn-ranking.svg';
+        @apply relative;
+
+        &::before {
+          padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+          background-image: url(@img);
+          content: '';
+
+          @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+        }
+      }
+
+      .btn-again {
+        width: 55%;
+
+        @img: './img/btn-again.svg';
+        @apply relative;
+
+        &::before {
+          padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+          background-image: url(@img);
+          content: '';
+
+          @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+        }
+      }
+    }
+
+    & > div:nth-child(1) {
+      @apply font-line-bold flex flex-col items-start justify-start gap-3 text-2xl;
+
+      & > div {
+        @apply relative flex w-full flex-row items-center justify-start;
+        & > span {
+          line-height: 0;
+          @apply text-primary font-line-extraBold text-4xl;
+        }
+
+        .join {
+          @apply relative flex flex-row items-center justify-start;
+
+          & > input {
+            @apply bg-tertiary font-line-regular w-64 p-3;
+          }
+
+          & > button {
+            @apply w-auto bg-black p-3 font-thin whitespace-nowrap text-white;
+          }
+        }
+
+        & > a {
+          @apply text-blue-500 underline underline-offset-2;
+        }
+      }
+    }
+  }
+}

@@ -11,16 +11,6 @@
 }
 
 @font-face {
-  font-family: 'line-thin';
-  src:
-    url('subset-LINESeedTW_OTF_Th.woff2') format('woff2'),
-    url('subset-LINESeedTW_OTF_Th.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
   font-family: 'line-regular';
   src:
     url('subset-LINESeedTW_OTF_Rg.woff2') format('woff2'),
@@ -47,7 +37,7 @@ body {
   overscroll-behavior: none;
 
   font-family:
-    'line', 'Noto Sans TC', 'Microsoft JhengHei', 'PingFang TC', 'Helvetica Neue', Arial, sans-serif;
+    'Noto Sans TC', 'Microsoft JhengHei', 'PingFang TC', 'Helvetica Neue', Arial, sans-serif;
 
   @apply bg-backgroundColor text-textColor;
 }
