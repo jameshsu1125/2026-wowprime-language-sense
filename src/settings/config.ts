@@ -7,6 +7,7 @@ export const REST_PATH = {
   verify: 'auth/verify',
   down: 'event/done',
   weeks: 'event/weeks',
+  ranking: 'event/ranking',
 };
 
 export const SETTING = {

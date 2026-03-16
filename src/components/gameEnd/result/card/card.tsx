@@ -1,10 +1,11 @@
 import Button from '@/components/button';
+import useRanking from '@/hooks/useRanking';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
 import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect } from 'react';
-import './card.less';
 import { GameEndContext, GameEndFinalType } from '../../config';
+import './card.less';
 
 const Score = memo(({ transition }: { transition: boolean }) => {
   const [context] = useContext(Context);
@@ -28,15 +29,27 @@ const Score = memo(({ transition }: { transition: boolean }) => {
 });
 
 const Ranking = memo(({ transition }: { transition: boolean }) => {
-  const [style, setStyle, destroy] = useTween({ top: 0 });
+  const [style, setStyle, destroy] = useTween({ top: 1000 });
+  const [rankingResponse, getRanking] = useRanking();
+
   useEffect(() => {
-    if (transition) {
-      setStyle({ top: 27 }, { duration: 2500 });
+    getRanking();
+  }, []);
+
+  useEffect(() => {
+    console.log(rankingResponse);
+  }, [rankingResponse]);
+
+  useEffect(() => {
+    if (rankingResponse && rankingResponse.status === 'success' && transition) {
+      const [{ ranking }] = rankingResponse.ranking;
+      setStyle({ top: Number(ranking) || 1000 }, { duration: 2500 });
     }
+
     return () => {
       destroy();
     };
-  }, [transition]);
+  }, [transition, rankingResponse]);
   return (
     <div>
       目前排行：<span>{Math.floor(Number(style.top))}</span>名

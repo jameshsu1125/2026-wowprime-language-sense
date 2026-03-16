@@ -177,7 +177,6 @@ const Login = memo(() => {
         alert('請輸入簡訊驗證碼，請查閱手機簡訊');
         setPassed(true);
       } else if (loginRes.status === 'success') {
-        setState((S) => ({ ...S, page: HomePageType.Game }));
         Fetcher.setJWT(loginRes.token || '');
         setContext({
           type: ActionType.User,
@@ -187,6 +186,14 @@ const Login = memo(() => {
             token: loginRes.token || '',
           },
         });
+
+        // TODO: test
+        setContext({
+          type: ActionType.Playing,
+          state: { enabled: true, score: 5000, isEnd: true },
+        });
+
+        // setState((S) => ({ ...S, page: HomePageType.Game }));
       } else {
         alert(loginRes.message);
       }
