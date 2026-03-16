@@ -28,9 +28,9 @@ export const MenuState: TMenu = {
 };
 
 export const PlayingState: TPlaying = {
-  enabled: true, // 分數版是否顯示
-  score: 100,
-  isEnd: true, // 遊戲是否結束
+  enabled: false, // 分數版是否顯示
+  score: 0,
+  isEnd: false, // 遊戲是否結束
 };
 
 export const InitialState: IState = {

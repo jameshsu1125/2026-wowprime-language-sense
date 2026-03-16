@@ -1,9 +1,10 @@
 import useTween from 'lesca-use-tween';
-import { memo, useEffect, useMemo, useState } from 'react';
+import { memo, useContext, useEffect, useMemo, useState } from 'react';
 import { GameEndContext, GameEndState, GameEndStepType } from './config';
 import './index.less';
 import EndLanding from './landing';
 import EndResult from './result';
+import { ResetContext } from '@/pages/config';
 
 const BG = memo(() => {
   const [style, setStyle] = useTween({ opacity: 0 });
@@ -15,6 +16,11 @@ const BG = memo(() => {
 
 const GameEnd = memo(() => {
   const value = useState(GameEndState);
+  const [reset] = useContext(ResetContext);
+
+  useEffect(() => {
+    if (reset.index) value[1](GameEndState);
+  }, [reset.index]);
 
   const page = useMemo(() => {
     switch (value[0].step) {

@@ -1,13 +1,50 @@
 import Button from '@/components/button';
 import OnloadProvider from 'lesca-react-onload';
-import { memo, useContext, useEffect } from 'react';
+import { memo, useContext, useEffect, useState } from 'react';
 import { GameEndContext, GameEndFinalType } from '../../config';
 import { useCopyToClipboard } from '@uidotdev/usehooks';
 import './index.less';
+import { IReactProps, TransitionType } from '@/settings/type';
+import useTween from 'lesca-use-tween';
+import { twMerge } from 'tailwind-merge';
+import { ResetContext } from '@/pages/config';
+
+type TweenerProviderProps = IReactProps & {
+  transition: TransitionType;
+  delay?: number;
+  className?: string;
+  type: '1' | '2' | '3';
+};
+
+const TweenerProvider = memo(
+  ({ children, transition, delay = 0, className, type = '1' }: TweenerProviderProps) => {
+    const [style, setStyle] = useTween(
+      type === '1'
+        ? { opacity: 0, y: 50, scale: 1 }
+        : type === '2'
+          ? { opacity: 0, y: 30, scale: 1 }
+          : { opacity: 0, y: 0, scale: 3 },
+    );
+
+    useEffect(() => {
+      if (transition === TransitionType.FadeIn) {
+        setStyle({ opacity: 1, y: 0, scale: 1 }, { delay, duration: 300 });
+      }
+    }, [transition]);
+
+    return (
+      <div className={twMerge(className)} style={style}>
+        {children}
+      </div>
+    );
+  },
+);
 
 const Final = memo(() => {
   const [copiedText, copy] = useCopyToClipboard();
   const [{ result }, setState] = useContext(GameEndContext);
+  const [, setReset] = useContext(ResetContext);
+  const [transition, setTransition] = useState(TransitionType.Unset);
 
   useEffect(() => {
     if (copiedText) {
@@ -16,16 +53,20 @@ const Final = memo(() => {
   }, [copiedText]);
 
   return (
-    <OnloadProvider>
+    <OnloadProvider onload={() => setTransition(TransitionType.FadeIn)}>
       <div className='Final'>
         <div>
           <div>
-            <div>恭喜松山蔡依林獲得</div>
-            <div>
+            <TweenerProvider transition={transition} type='1'>
+              恭喜松山蔡依林獲得
+            </TweenerProvider>
+            <TweenerProvider transition={transition} delay={50} type='1'>
               參加獎瘋美食點數<span>50點</span>
-            </div>
-            <div>您的專屬兌換序號加下：</div>
-            <div>
+            </TweenerProvider>
+            <TweenerProvider transition={transition} delay={100} type='1'>
+              您的專屬兌換序號加下：
+            </TweenerProvider>
+            <TweenerProvider transition={transition} delay={150} type='1'>
               <div className='join'>
                 <input defaultValue={result?.coupon || ''} />
                 <Button
@@ -36,19 +77,25 @@ const Final = memo(() => {
                   複製
                 </Button>
               </div>
-            </div>
-            <div className='mt-7'>
+            </TweenerProvider>
+            <TweenerProvider transition={transition} delay={200} type='1'>
               請到
               <a href='#'>王品瘋美食</a>
               輸入序號兌換
-            </div>
+            </TweenerProvider>
           </div>
           <div>
-            <p>※一名玩家限領一次，不得重複領取</p>
-            <p>※玩家需要有王品瘋美食帳號</p>
-            <p>※一組序號僅限兌換一次，不得重複使用</p>
+            <TweenerProvider transition={transition} type='2' delay={1000}>
+              ※一名玩家限領一次，不得重複領取
+            </TweenerProvider>
+            <TweenerProvider transition={transition} type='2' delay={1050}>
+              ※玩家需要有王品瘋美食帳號
+            </TweenerProvider>
+            <TweenerProvider transition={transition} type='2' delay={1100}>
+              ※一組序號僅限兌換一次，不得重複使用
+            </TweenerProvider>
             <div className='flex w-full flex-row items-center justify-between gap-4 pb-14'>
-              <div className='w-1/2'>
+              <TweenerProvider className='w-1/2' transition={transition} type='3' delay={500}>
                 <Button
                   onClick={() => {
                     setState((prev) => ({ ...prev, final: GameEndFinalType.ranking }));
@@ -58,14 +105,18 @@ const Final = memo(() => {
                     <div className='btn-ranking' />
                   </Button.large>
                 </Button>
-              </div>
-              <div className='w-1/2'>
-                <Button>
+              </TweenerProvider>
+              <TweenerProvider className='w-1/2' transition={transition} type='3' delay={650}>
+                <Button
+                  onClick={() => {
+                    setReset((S) => ({ ...S, index: S.index + 1 }));
+                  }}
+                >
                   <Button.large>
                     <div className='btn-again' />
                   </Button.large>
                 </Button>
-              </div>
+              </TweenerProvider>
             </div>
           </div>
         </div>

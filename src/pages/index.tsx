@@ -5,8 +5,9 @@ import '@/settings/global.css';
 import { ActionType, TContext } from '@/settings/type';
 import Click from 'lesca-click';
 import Fetcher, { contentType, formatType } from 'lesca-fetcher';
-import { Suspense, lazy, memo, useContext, useMemo, useReducer } from 'react';
+import { Suspense, lazy, memo, useContext, useMemo, useReducer, useState } from 'react';
 import ReactDOM from 'react-dom/client';
+import { ResetContext, ResetState } from './config';
 
 Click.install();
 
@@ -45,11 +46,15 @@ const Pages = memo(() => {
 const App = () => {
   const [state, setState] = useReducer(Reducer, InitialState);
   const value: TContext = useMemo(() => [state, setState], [state]);
+  const resetValue = useState(ResetState);
+
   return (
     <div className='App'>
       <Context.Provider {...{ value }}>
-        <Pages />
-        {state[ActionType.LoadingProcess]?.enabled && <LoadingProcess />}
+        <ResetContext.Provider value={resetValue}>
+          <Pages />
+          {state[ActionType.LoadingProcess]?.enabled && <LoadingProcess />}
+        </ResetContext.Provider>
       </Context.Provider>
     </div>
   );

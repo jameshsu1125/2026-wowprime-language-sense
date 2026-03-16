@@ -51,6 +51,10 @@ export type TPlaying = {
   isEnd?: boolean;
 };
 
+export type TReset = {
+  index: number;
+};
+
 export interface IState {
   page?: string;
   loadingProcess?: TLoadingProcessState;

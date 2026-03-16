@@ -1,12 +1,20 @@
-import { memo, useMemo, useState } from 'react';
+import { memo, useContext, useEffect, useMemo, useState } from 'react';
 import { GameContext, GameState, GameStepType } from './config';
 import './index.less';
 import Tones from './tones';
 import Listening from './listening';
 import Taiko from './taiko';
+import { ResetContext } from '../config';
 
 const Game = memo(() => {
   const value = useState(GameState);
+  const [reset] = useContext(ResetContext);
+
+  useEffect(() => {
+    if (reset.index) {
+      value[1](GameState);
+    }
+  }, [reset.index]);
 
   const page = useMemo(() => {
     switch (value[0].step) {

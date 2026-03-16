@@ -109,6 +109,7 @@ const Chord = memo(() => {
     // TODO => END
     if (state.heart <= 0) {
       EnterFrame.stop();
+      EnterFrame.destroy();
       noteRefs.current.forEach((note) => {
         if (note) {
           note.stop();

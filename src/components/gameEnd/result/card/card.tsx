@@ -9,12 +9,15 @@ import { GameEndContext, GameEndFinalType } from '../../config';
 const Score = memo(({ transition }: { transition: boolean }) => {
   const [context] = useContext(Context);
   const playing = context[ActionType.Playing];
-  const [style, setStyle] = useTween({ top: 0 });
+  const [style, setStyle, destroy] = useTween({ top: 0 });
 
   useEffect(() => {
     if (transition) {
       setStyle({ top: playing?.score || 0 }, 2000);
     }
+    return () => {
+      destroy();
+    };
   }, [transition]);
 
   return (
@@ -25,11 +28,14 @@ const Score = memo(({ transition }: { transition: boolean }) => {
 });
 
 const Ranking = memo(({ transition }: { transition: boolean }) => {
-  const [style, setStyle] = useTween({ top: 0 });
+  const [style, setStyle, destroy] = useTween({ top: 0 });
   useEffect(() => {
     if (transition) {
       setStyle({ top: 27 }, { duration: 2500 });
     }
+    return () => {
+      destroy();
+    };
   }, [transition]);
   return (
     <div>
