@@ -9,5 +9,5 @@ export enum GameStepType {
 export type TGameState = { step: GameStepType };
 export type TGameContext = [TGameState, Dispatch<SetStateAction<TGameState>>];
 
-export const GameState: TGameState = { step: GameStepType.Taiko };
+export const GameState: TGameState = { step: GameStepType.Tones };
 export const GameContext = createContext<TGameContext>([GameState, () => {}]);

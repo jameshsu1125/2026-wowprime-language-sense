@@ -25,8 +25,8 @@ export type TGameEndState = {
 export type TGameEndContext = [TGameEndState, Dispatch<SetStateAction<TGameEndState>>];
 
 export const GameEndState = {
-  step: GameEndStepType.result,
-  result: { bestScore: 13000, currentScore: 3000, coupon: 'WOW-EAT-0002' },
+  step: GameEndStepType.landing,
+  result: { bestScore: 0, currentScore: 0, coupon: '' },
   final: GameEndFinalType.card,
 };
 
