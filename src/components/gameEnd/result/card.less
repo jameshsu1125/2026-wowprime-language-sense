@@ -1,0 +1,85 @@
+@import url('@/settings/global.css');
+.Card {
+  padding: 4.4%;
+  @apply absolute w-full;
+
+  .box {
+    padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+    background-image: url(@img);
+
+    @img: './img/box-bg.svg';
+    @apply relative w-full bg-cover;
+
+    & > div {
+      @apply absolute top-0 right-0 bottom-0 left-0 flex items-center justify-center;
+
+      .box-content {
+        padding-inline: 12.5%;
+        @apply relative flex w-full flex-col items-start justify-center gap-3 pt-10;
+
+        & > div {
+          @apply flex flex-row items-center justify-start text-2xl font-black tracking-widest text-white;
+
+          & > span {
+            @apply text-primary font-line-extraBold text-5xl font-black tracking-widest;
+          }
+        }
+      }
+    }
+  }
+
+  .text {
+    @apply flex w-full flex-col items-center justify-center p-5 text-justify text-2xl leading-relaxed font-bold tracking-widest;
+
+    span {
+      @apply text-primary font-line-extraBold text-4xl font-black;
+    }
+  }
+
+  .result-btn {
+    @apply flex w-full flex-row items-center justify-center gap-5 p-5;
+
+    & > div {
+      @apply w-1/2;
+
+      .share-btn {
+        width: 55%;
+
+        @img: './img/share.svg';
+        @apply relative;
+
+        &::before {
+          padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+          background-image: url(@img);
+          content: '';
+
+          @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+        }
+      }
+
+      .award-btn {
+        width: 55%;
+
+        @img: './img/award.svg';
+        @apply relative;
+
+        &::before {
+          padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+          background-image: url(@img);
+          content: '';
+
+          @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+        }
+      }
+    }
+  }
+
+  .note {
+    margin-top: 9%;
+    @apply font-line-bold flex w-full flex-col items-center justify-center gap-1 p-4 text-center text-xl tracking-widest text-white;
+
+    & > span {
+      @apply font-line-extraBold text-5xl;
+    }
+  }
+}

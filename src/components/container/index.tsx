@@ -79,7 +79,7 @@ const Container = memo(({ children, className }: { className?: string } & IReact
 
   return (
     <Div100vh className={twMerge('Container w-full min-w-140', className)}>
-      <div className='absolute flex h-full w-full flex-col'>
+      <div className='absolute flex h-full w-full min-w-140 flex-col'>
         <div className='bg-primary h-[38vw] w-full md:h-72' />
         <div className='container-texture flex w-full flex-1 flex-col bg-white'>
           <div className='body' />
@@ -108,7 +108,7 @@ const Container = memo(({ children, className }: { className?: string } & IReact
         </div>
       </div>
       {isEnd && (
-        <div className='absolute top-0 left-0 flex h-full w-full flex-col'>
+        <div className='absolute top-0 left-0 flex h-full w-full min-w-140 flex-col'>
           <div className='flex w-full max-w-3xl flex-col items-center justify-start p-[3%] md:p-[0%]'>
             <div className='flex w-full flex-row items-center justify-between pt-0 md:pt-[3%]'>
               <div className='container-logo invisible' />

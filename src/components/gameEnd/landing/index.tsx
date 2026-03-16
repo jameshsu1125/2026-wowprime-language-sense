@@ -5,7 +5,7 @@ import OnloadProvider from 'lesca-react-onload';
 import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect, useState } from 'react';
 import Button from '../../button';
-import { GameEndContext } from '../config';
+import { GameEndContext, GameEndStepType } from '../config';
 import './index.less';
 
 const Heading = memo(({ transition }: { transition: boolean }) => {
@@ -30,8 +30,7 @@ const Btn = memo(({ transition }: { transition: boolean }) => {
   useEffect(() => {
     if (downRes) {
       if (downRes.status === 'success') {
-        console.log(downRes);
-        setState((S) => ({ ...S, result: downRes.data }));
+        setState((S) => ({ ...S, result: downRes.data, step: GameEndStepType.result }));
       } else {
         alert(downRes.message);
       }

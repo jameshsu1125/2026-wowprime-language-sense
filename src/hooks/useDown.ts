@@ -30,6 +30,7 @@ const useDown = () => {
         message: '網路異常，請稍後再試',
       };
     }
+    console.log(response);
 
     setContext({ type: ActionType.LoadingProcess, state: { enabled: false } });
     setState(response as TResponse);

@@ -9,4 +9,9 @@
   --color-tertiary-content: #666666;
   --color-quaternary: #00ff00;
   --breakpoint-xs: 30rem;
+
+  --font-line-regular: 'line-regular';
+  --font-line-thin: 'line-thin';
+  --font-line-bold: 'line-bold';
+  --font-line-extraBold: 'line-extraBold';
 }

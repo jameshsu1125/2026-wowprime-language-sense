@@ -3,27 +3,51 @@
   @apply flex h-full w-full items-center justify-center pt-8;
 
   .frame {
-    background-image: url('./img/frame.svg');
-    background-size: 100%;
-    @apply relative h-full bg-center bg-no-repeat;
+    @apply relative w-full bg-center bg-no-repeat;
 
-    .flag {
-      top: -1.5%;
-      left: 50%;
-      margin-left: -81%/2;
-      width: 81%;
+    & > div {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
 
-      @img: './img/heading-bg.svg';
-      @apply absolute;
+      @img: './img/frame.svg';
+      @apply w-full;
 
       & > div {
-        padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
-        background-image: url(@img);
+        background-image: url('./img/frame.svg');
 
-        @apply relative w-full bg-contain bg-center bg-no-repeat;
+        @apply absolute top-0 right-0 bottom-0 left-0 bg-contain bg-center bg-no-repeat;
 
-        & > div {
-          @apply absolute top-0 right-0 bottom-0 left-0;
+        .frame-bottom {
+          bottom: 21.5%;
+          padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+          background-image: url(@img);
+
+          @img: './img/frame-bottom.svg';
+          @apply absolute w-full bg-cover;
+        }
+
+        .flag {
+          top: -1.5%;
+          left: 50%;
+          margin-left: -81%/2;
+          width: 81%;
+
+          @img: './img/heading-bg.svg';
+          @apply font-line-bold absolute;
+
+          & > div {
+            padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+            background-image: url(@img);
+
+            @apply relative w-full bg-contain bg-center bg-no-repeat;
+
+            & > div {
+              @apply absolute top-0 right-0 bottom-0 left-0 flex items-center justify-center;
+
+              & > span {
+                @apply font-line-bold text-2xl font-bold tracking-widest text-white;
+              }
+            }
+          }
         }
       }
     }
