@@ -1,15 +1,16 @@
 import useTween, { Bezier } from 'lesca-use-tween';
-import { forwardRef, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
 import './note.less';
 
 type NoteProps = {
   index: number;
+  type: '0' | '1' | '2';
   onEnd: (index: number) => void;
   onUpdate: (index: number, top: number) => void;
   onMiss: () => void;
 };
 
-const Note = forwardRef(({ index, onEnd, onUpdate, onMiss }: NoteProps, ref) => {
+const Note = forwardRef(({ index, type, onEnd, onUpdate, onMiss }: NoteProps, ref) => {
   const noteRef = useRef<HTMLDivElement>(null);
   const [style, setStyle, destroy] = useTween({
     top: '-5%',
@@ -19,11 +20,6 @@ const Note = forwardRef(({ index, onEnd, onUpdate, onMiss }: NoteProps, ref) => 
     y: 0,
     rotate: 0,
   });
-
-  const count = useMemo(() => {
-    // eslint-disable-next-line react-hooks/purity
-    return Math.floor(Math.random() * 3);
-  }, []);
 
   useEffect(() => {
     setStyle(
@@ -76,7 +72,7 @@ const Note = forwardRef(({ index, onEnd, onUpdate, onMiss }: NoteProps, ref) => 
 
   return (
     <div className='Note' style={style} ref={noteRef}>
-      <div className={`symbols s${count}`} />
+      <div className={`symbols s${type}`} />
     </div>
   );
 });

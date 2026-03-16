@@ -9,6 +9,7 @@ import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
 import Login from '../login';
 import { ResetContext } from '../config';
+import Sounds from '@/components/sounds';
 
 const Home = memo(() => {
   const [, setContext] = useContext(Context);
@@ -48,6 +49,8 @@ const Home = memo(() => {
       onload={() => {
         value[1]((S) => ({ ...S, step: HomeStepType.loaded }));
         setContext({ type: ActionType.LoadingProcess, state: { enabled: false } });
+        const tracks = new Sounds();
+        setContext({ type: ActionType.Sounds, state: { tracks } });
       }}
     >
       <div>

@@ -1,3 +1,4 @@
+import { SoundName } from '@/components/sounds';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
 import EnterFrame from 'lesca-enterframe';
@@ -13,10 +14,13 @@ type Meter = {
   index: number;
   top: number;
   isHit: boolean;
+  type: '0' | '1' | '2';
 };
 
 const Chord = memo(() => {
-  const [, setContext] = useContext(Context);
+  const [context, setContext] = useContext(Context);
+  const { tracks } = context[ActionType.Sounds]!;
+
   const [state, setState] = useContext(TaikoContext);
   const noteRefs = useRef<any[]>([]);
   const scoreRef = useRef(0);
@@ -35,11 +39,18 @@ const Chord = memo(() => {
   };
 
   const onMiss = () => {
+    tracks?.play('miss');
     setState((S) => ({ ...S, heart: S.heart - 1 }));
   };
 
   const onFire = () => {
     setCount((S) => S + 1);
+  };
+
+  const onLevelUp = () => {
+    console.log('levelup');
+
+    tracks?.play('levelup');
   };
 
   useEffect(() => {
@@ -48,12 +59,12 @@ const Chord = memo(() => {
       setMeter((S) => [
         ...S,
         {
-          // direction: 'left',
           direction: ['left', 'middle', 'right'].sort(
             () => Math.random() - 0.5,
           )[0] as Meter['direction'],
           index: count,
           top: -5,
+          type: ['0', '1', '2'].sort(() => Math.random() - 0.5)[0] as Meter['type'],
           isHit: false,
         },
       ]);
@@ -61,7 +72,7 @@ const Chord = memo(() => {
   }, [count]);
 
   useEffect(() => {
-    const metronome = new Metronome({ onFire });
+    const metronome = new Metronome({ onFire, onLevelUp });
     EnterFrame.add(({ delta }) => {
       metronome.tick(delta);
     });
@@ -84,12 +95,15 @@ const Chord = memo(() => {
             m.isHit = true;
             btnRefs.current[direct].score(score);
             setContext({ type: ActionType.Playing, state: { score: scoreRef.current } });
+            const soundsType =
+              m.type === '0' ? 'yiqi' : m.type === '1' ? 'chi' : ('hao' as SoundName);
+            tracks?.play(soundsType, 1);
           } else {
             btnRefs.current[direct].miss();
           }
         });
     },
-    [setContext],
+    [setContext, tracks],
   );
 
   const onUpdate = useCallback((index: number, top: number) => {
@@ -136,6 +150,7 @@ const Chord = memo(() => {
             .filter((m) => m.direction === 'left')
             .map((m) => (
               <Note
+                type={m.type}
                 key={m.index}
                 index={m.index}
                 onEnd={onEnd}
@@ -161,6 +176,7 @@ const Chord = memo(() => {
             .filter((m) => m.direction === 'middle')
             .map((m) => (
               <Note
+                type={m.type}
                 key={m.index}
                 index={m.index}
                 onEnd={onEnd}
@@ -186,6 +202,7 @@ const Chord = memo(() => {
             .filter((m) => m.direction === 'right')
             .map((m) => (
               <Note
+                type={m.type}
                 key={m.index}
                 index={m.index}
                 onEnd={onEnd}

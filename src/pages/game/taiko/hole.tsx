@@ -1,10 +1,20 @@
-import { IReactProps } from '@/settings/type';
+import { ActionType, IReactProps } from '@/settings/type';
 import Click from 'lesca-click';
 import useTween from 'lesca-use-tween';
-import { forwardRef, JSX, useEffect, useId, useImperativeHandle, useRef, useState } from 'react';
+import {
+  forwardRef,
+  JSX,
+  useContext,
+  useEffect,
+  useId,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react';
 import Effect from './effect';
 import './index.less';
 import Telegraphing from './telegraphing';
+import { Context } from '@/settings/constant';
 
 const HoleClick = forwardRef(({ id, children }: IReactProps & { id: string }, ref) => {
   const [style, setStyle] = useTween({ opacity: 1, scale: 1 });
@@ -35,6 +45,9 @@ type HoleProps = {
 };
 
 const Hole = forwardRef(({ onClick, direct }: HoleProps, ref) => {
+  const [context] = useContext(Context);
+  const { tracks } = context[ActionType.Sounds]!;
+
   const holeRef = useRef<{ click: (e: boolean) => void }>(null);
   const telegraphingRef = useRef<{ miss: () => void; score: (score: number) => void }>(null);
   const id = useId();
@@ -45,11 +58,12 @@ const Hole = forwardRef(({ onClick, direct }: HoleProps, ref) => {
     Click.add(`#${id}`, () => {
       setClickIndex((index) => index + 1);
       onClick(direct);
+      tracks?.play('button', 0.5);
     });
     return () => {
       Click.remove(`#${id}`);
     };
-  }, [id]);
+  }, [id, tracks]);
 
   const onEnd = (idx: number) => {
     setEffects((effects) => {

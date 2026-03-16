@@ -6,10 +6,14 @@ import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
 
 const TaikoGame = memo(() => {
-  const [, setContext] = useContext(Context);
+  const [context, setContext] = useContext(Context);
+  const { tracks } = context[ActionType.Sounds]!;
+
   useEffect(() => {
     setContext({ type: ActionType.Playing, state: { enabled: true } });
+    tracks?.play('bgm', 0.5);
   }, []);
+
   return (
     <div className='TaikoGame'>
       <div>

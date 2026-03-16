@@ -14,6 +14,7 @@
   "dependencies": {
     "@faker-js/faker": "^10.3.0",
     "@uidotdev/usehooks": "^2.4.1",
+    "howler": "^2.2.4",
     "lesca-atobtoa": "^2.0.0",
     "lesca-click": "^5.0.1",
     "lesca-enterframe": "^2.0.0",
@@ -33,6 +34,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.2.1",
+    "@types/howler": "^2.2.12",
     "@types/lodash": "^4.17.24",
     "@types/node": "^25.3.3",
     "@types/react": "^19.2.14",

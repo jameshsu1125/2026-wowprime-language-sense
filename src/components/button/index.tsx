@@ -1,11 +1,12 @@
-import { IReactProps } from '@/settings/type';
+import { ActionType, IReactProps } from '@/settings/type';
 import Click from 'lesca-click';
-import { useEffect, useId } from 'react';
+import { useContext, useEffect, useId } from 'react';
 import { twMerge } from 'tailwind-merge';
 import './index.less';
 import Large from './large';
 import Rounded from './rounded';
 import Skip from './skip';
+import { Context } from '@/settings/constant';
 
 type TRegularProps = IReactProps & {
   className?: string;
@@ -15,14 +16,22 @@ type TRegularProps = IReactProps & {
 };
 
 const Button = ({ children, className, style, onClick, disabled }: TRegularProps) => {
+  const [context] = useContext(Context);
+  const sounds = context[ActionType.Sounds];
   const id = useId();
 
   useEffect(() => {
-    if (onClick) Click.add(`#${id}`, onClick);
+    if (onClick)
+      Click.add(`#${id}`, () => {
+        onClick();
+        if (sounds && sounds.tracks) {
+          sounds.tracks.play('click', 0.3);
+        }
+      });
     return () => {
       if (onClick) Click.remove(`#${id}`);
     };
-  }, [id, onClick]);
+  }, [id, onClick, sounds]);
 
   return (
     <button

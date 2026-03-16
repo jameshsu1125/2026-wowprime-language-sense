@@ -9,6 +9,7 @@ import {
   TLoadingProcessState,
   TMenu,
   TPlaying,
+  TSounds,
   TUser,
 } from './type';
 
@@ -33,12 +34,17 @@ export const PlayingState: TPlaying = {
   isEnd: false, // 遊戲是否結束
 };
 
+export const SoundsState: TSounds = {
+  tracks: undefined,
+};
+
 export const InitialState: IState = {
   [ActionType.Page]: PAGE.home,
   [ActionType.LoadingProcess]: LoadingProcessState,
   [ActionType.User]: UserState,
   [ActionType.Menu]: MenuState,
   [ActionType.Playing]: PlayingState,
+  [ActionType.Sounds]: SoundsState,
 };
 
 export const Context = createContext<TContext>([InitialState, () => {}]);

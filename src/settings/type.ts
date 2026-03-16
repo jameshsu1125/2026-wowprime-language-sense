@@ -1,3 +1,4 @@
+import Sounds from '@/components/sounds';
 import { Dispatch, ReactNode } from 'react';
 
 export enum ActionType {
@@ -6,6 +7,7 @@ export enum ActionType {
   User = 'user',
   Menu = 'menu',
   Playing = 'playing',
+  Sounds = 'sounds',
 }
 
 export enum LoadingProcessType {
@@ -55,16 +57,21 @@ export type TReset = {
   index: number;
 };
 
+export type TSounds = {
+  tracks?: Sounds;
+};
+
 export interface IState {
   page?: string;
   loadingProcess?: TLoadingProcessState;
   user?: TUser;
   menu?: TMenu;
   playing?: TPlaying;
+  sounds?: TSounds;
 }
 
 export interface IAction {
-  state: IState | TLoadingProcessState | TUser | TMenu | TPlaying;
+  state: IState | TLoadingProcessState | TUser | TMenu | TPlaying | TSounds;
   type: ActionType;
 }
 
