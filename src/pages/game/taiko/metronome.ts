@@ -8,6 +8,7 @@ type Props = {
 export default class Metronome {
   private interval = 1000;
   private index = 0;
+  private levelIndex = 0;
 
   private onFire: () => void;
   private onLevelUp?: () => void;
@@ -22,16 +23,18 @@ export default class Metronome {
     if (idx !== this.index) {
       this.index = idx;
       this.onFire();
-      if (this.index === 10) {
+      const levelChangeCount = this.levelIndex > 5 ? 20 : 10;
+      if (this.index === levelChangeCount) {
         this.levelUp();
         EnterFrame.reset();
         this.index = 0;
+        this.levelIndex += 1;
       }
     }
   }
 
   public levelUp() {
-    this.interval = Math.max(100, this.interval - 100);
+    this.interval = Math.max(50, this.interval - 100);
     this.onLevelUp?.();
   }
 }

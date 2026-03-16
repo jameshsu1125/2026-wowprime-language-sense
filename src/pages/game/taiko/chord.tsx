@@ -8,6 +8,7 @@ import { TaikoBullseye, TaikoContext, TaikoTolerance } from './config';
 import Hole from './hole';
 import Metronome from './metronome';
 import Note from './note';
+import { HomeContext } from '@/pages/home/config';
 
 type Meter = {
   direction: 'left' | 'right' | 'middle';
@@ -20,6 +21,8 @@ type Meter = {
 const Chord = memo(() => {
   const [context, setContext] = useContext(Context);
   const { tracks } = context[ActionType.Sounds]!;
+
+  const [, setHomeState] = useContext(HomeContext);
 
   const [state, setState] = useContext(TaikoContext);
   const noteRefs = useRef<any[]>([]);
@@ -48,9 +51,8 @@ const Chord = memo(() => {
   };
 
   const onLevelUp = () => {
-    console.log('levelup');
-
     tracks?.play('levelup');
+    setHomeState((S) => ({ ...S, level: S.level + 1 }));
   };
 
   useEffect(() => {

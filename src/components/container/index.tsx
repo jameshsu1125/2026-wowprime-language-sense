@@ -1,6 +1,6 @@
 import { HomeContext, HomeStepType } from '@/pages/home/config';
 import { ActionType, IReactProps } from '@/settings/type';
-import useTween from 'lesca-use-tween';
+import useTween, { Bezier } from 'lesca-use-tween';
 import { memo, useContext, useEffect, useRef, useState } from 'react';
 import Div100vh from 'react-div-100vh';
 import { twMerge } from 'tailwind-merge';
@@ -72,6 +72,46 @@ const Dialog = memo(({ children }: IReactProps) => {
   );
 });
 
+const Background = memo(() => {
+  const [{ level }] = useContext(HomeContext);
+
+  const [, setStyle] = useTween({ top: 0 });
+  const [color, setColor] = useState('#fffff');
+
+  useEffect(() => {
+    if (level !== 0) {
+      setStyle(
+        { top: 10 },
+        {
+          easing: Bezier.linear,
+          duration: 500,
+          onUpdate: () => {
+            const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+            setColor(`#${randomColor}`);
+          },
+          onEnd: () => {
+            setColor('#ffffff');
+          },
+        },
+      );
+    }
+  }, [level]);
+
+  return (
+    <div
+      className='container-texture flex w-full flex-1 flex-col'
+      style={{ backgroundColor: color }}
+    >
+      <div className='body' />
+      <div className='footer'>
+        <div className='relative flex w-3xl items-end justify-center'>
+          <div className='footer-logo' />
+        </div>
+      </div>
+    </div>
+  );
+});
+
 const Container = memo(({ children, className }: { className?: string } & IReactProps) => {
   const [context] = useContext(Context);
   const menuState = context[ActionType.Menu]!;
@@ -81,14 +121,7 @@ const Container = memo(({ children, className }: { className?: string } & IReact
     <Div100vh className={twMerge('Container w-full min-w-140', className)}>
       <div className='absolute flex h-full w-full min-w-140 flex-col'>
         <div className='bg-primary h-[38vw] w-full md:h-72' />
-        <div className='container-texture flex w-full flex-1 flex-col bg-white'>
-          <div className='body' />
-          <div className='footer'>
-            <div className='relative flex w-3xl items-end justify-center'>
-              <div className='footer-logo' />
-            </div>
-          </div>
-        </div>
+        <Background />
       </div>
       <div className='relative flex h-full w-full justify-center'>
         <div className='flex w-full max-w-3xl flex-col items-center justify-start p-[3%] md:p-[0%]'>
