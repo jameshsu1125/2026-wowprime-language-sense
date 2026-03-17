@@ -1,82 +1,128 @@
 @import url('@/settings/global.css');
 .Card {
   padding: 4.4%;
-  @apply absolute w-full;
+  @apply absolute flex h-full w-full flex-col items-center justify-between;
 
   .box {
-    padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
-    background-image: url(@img);
+    @apply w-full;
 
-    @img: './img/box-bg.svg';
-    @apply relative w-full bg-cover;
+    .card-buttons {
+      @apply mt-4 flex w-full flex-row justify-center gap-3 px-5;
+      & > div {
+        @apply w-1/2;
 
-    & > div {
-      @apply absolute top-0 right-0 bottom-0 left-0 flex items-center justify-center;
+        .share-btn {
+          width: 55%;
 
-      .box-content {
-        padding-inline: 12.5%;
-        @apply relative flex w-full flex-col items-start justify-center gap-3 pt-10;
+          @img: './img/share.svg';
+          @apply relative;
+
+          &::before {
+            padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+            background-image: url(@img);
+            content: '';
+
+            @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+          }
+        }
+
+        .award-btn {
+          width: 55%;
+
+          @img: './img/award.svg';
+          @apply relative;
+
+          &::before {
+            padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+            background-image: url(@img);
+            content: '';
+
+            @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+          }
+        }
+      }
+    }
+
+    & > div:nth-child(1) {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+
+      @img: './img/border.svg';
+
+      @apply relative w-full bg-contain;
+
+      & > div {
+        @apply absolute top-0 right-0 bottom-0 left-0;
 
         & > div {
-          @apply flex flex-row items-center justify-start text-2xl font-black tracking-widest text-white;
+          @apply relative flex h-full w-full flex-col items-center justify-start px-7 py-6;
 
-          & > span {
-            @apply text-primary font-line-extraBold text-5xl font-black tracking-widest;
+          .logo {
+            width: 57%;
+
+            @img: './img/logo.svg';
+            @apply mt-7;
+
+            &::before {
+              padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+              background-image: url(@img);
+              content: '';
+
+              @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+            }
+          }
+
+          .medals {
+            padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+            background-image: url(@img);
+
+            @img: './img/1.png';
+
+            @apply w-full bg-contain;
+          }
+
+          .box-content {
+            @apply relative -mt-3 flex w-full flex-col items-start justify-center gap-0 pl-8;
+
+            & > div {
+              @apply flex flex-row items-center justify-start text-2xl font-black tracking-widest text-white;
+
+              & > span {
+                @apply text-primary font-line-extraBold text-4xl font-black tracking-widest;
+              }
+            }
+          }
+
+          .award-content {
+            @apply mt-5;
+            @apply text-tertiary flex w-full flex-col items-start justify-center pl-4 text-justify text-xl leading-relaxed font-bold tracking-wider;
+
+            .dash-line {
+              @apply border-tertiary w-full border-t-2 border-dashed;
+            }
+
+            & > .dash-line:nth-child(1) {
+              @apply mb-5;
+            }
+
+            & > .dash-line:last-child {
+              @apply mt-5;
+            }
+
+            & > div {
+              span {
+                @apply text-primary font-line-extraBold text-3xl font-black;
+              }
+            }
           }
         }
       }
     }
   }
 
-  .text {
-    @apply flex w-full flex-col items-center justify-center p-5 text-justify text-2xl leading-relaxed font-bold tracking-widest;
-
-    span {
-      @apply text-primary font-line-extraBold text-4xl font-black;
-    }
-  }
-
-  .result-btn {
-    @apply flex w-full flex-row items-center justify-center gap-5 p-5;
-
-    & > div {
-      @apply w-1/2;
-
-      .share-btn {
-        width: 55%;
-
-        @img: './img/share.svg';
-        @apply relative;
-
-        &::before {
-          padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
-          background-image: url(@img);
-          content: '';
-
-          @apply inline-block w-full bg-contain bg-center bg-no-repeat;
-        }
-      }
-
-      .award-btn {
-        width: 55%;
-
-        @img: './img/award.svg';
-        @apply relative;
-
-        &::before {
-          padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
-          background-image: url(@img);
-          content: '';
-
-          @apply inline-block w-full bg-contain bg-center bg-no-repeat;
-        }
-      }
-    }
-  }
-
   .note {
-    margin-top: 9%;
-    @apply font-line-bold flex w-full flex-col items-center justify-center gap-1 p-4 text-center text-xl tracking-widest text-white;
+    gap: 2px;
+    @apply font-line-bold flex w-full flex-col items-center justify-center pb-1 text-center text-lg tracking-widest text-white select-none;
 
     & > span {
       @apply font-line-extraBold text-5xl;

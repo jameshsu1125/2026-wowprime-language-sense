@@ -23,7 +23,7 @@ const Dialog = memo(
 
 const FrameBottom = memo(() => {
   const [state] = useContext(GameEndContext);
-  const [style, setStyle] = useTween({ bottom: '21.5%' });
+  const [style, setStyle] = useTween({ bottom: '18.1%' });
 
   useEffect(() => {
     if (state.final === GameEndFinalType.award) {
