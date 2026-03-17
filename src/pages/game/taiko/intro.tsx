@@ -126,6 +126,11 @@ const TaikoIntro = memo(() => {
             <StartButton transition={transition} />
           </div>
         </div>
+        <div className='icon-preloader'>
+          <div />
+          <div />
+          <div />
+        </div>
       </div>
     </OnloadProvider>
   );

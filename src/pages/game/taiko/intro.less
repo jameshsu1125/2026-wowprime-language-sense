@@ -3,6 +3,21 @@
 .TaikoIntro {
   @apply relative flex h-full w-full items-center justify-center;
 
+  .icon-preloader {
+    & > div {
+      @apply fixed -top-36 opacity-0;
+    }
+    & > div:nth-child(1) {
+      background-image: url('./img/yigi.svg');
+    }
+    & > div:nth-child(2) {
+      background-image: url('./img/hao.svg');
+    }
+    & > div:nth-child(3) {
+      background-image: url('./img/chi.svg');
+    }
+  }
+
   .btn-start {
     width: 55%;
 
