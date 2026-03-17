@@ -4,57 +4,50 @@ import { ActionType } from '@/settings/type';
 import OnloadProvider from 'lesca-react-onload';
 import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect, useState } from 'react';
-import Button from '../../button';
 import { GameEndContext, GameEndStepType } from '../config';
 import './index.less';
 
 const Heading = memo(({ transition }: { transition: boolean }) => {
   const [style, setStyle] = useTween({ opacity: 0, scale: 3 });
 
-  useEffect(() => {
-    if (transition) {
-      setStyle({ opacity: 1, scale: 1 }, { delay: 200, duration: 300 });
-    }
-  }, [transition]);
-
-  return <div className='heading' style={style} />;
-});
-
-const Btn = memo(({ transition }: { transition: boolean }) => {
   const [context] = useContext(Context);
-  const [, setState] = useContext(GameEndContext);
   const { score = 0 } = context[ActionType.Playing]!;
-  const [style, setStyle] = useTween({ opacity: 0, y: 50 });
   const [downRes, sendScore] = useDown();
+
+  const [, setState] = useContext(GameEndContext);
 
   useEffect(() => {
     if (downRes) {
       if (downRes.status === 'success') {
         setState((S) => ({ ...S, result: downRes.data, step: GameEndStepType.result }));
-      } else {
-        alert(downRes.message);
-      }
+      } else alert(downRes.message);
     }
   }, [downRes]);
 
   useEffect(() => {
     if (transition) {
-      setStyle({ opacity: 1, y: 0 }, { delay: 500, duration: 500 });
+      setStyle(
+        { opacity: 1, scale: 1 },
+        {
+          delay: 200,
+          duration: 300,
+          onEnd: () => {
+            setStyle(
+              { scale: 1 },
+              {
+                duration: 1000,
+                onEnd: () => {
+                  sendScore({ score });
+                },
+              },
+            );
+          },
+        },
+      );
     }
   }, [transition]);
-  return (
-    <div className='w-48' style={style}>
-      <Button
-        onClick={() => {
-          sendScore({ score });
-        }}
-      >
-        <Button.large>
-          <div className='btn-end' />
-        </Button.large>
-      </Button>
-    </div>
-  );
+
+  return <div className='heading' style={style} />;
 });
 
 const EndLanding = memo(() => {
@@ -71,7 +64,6 @@ const EndLanding = memo(() => {
     >
       <div className='EndLanding'>
         <Heading transition={transition} />
-        <Btn transition={transition} />
       </div>
     </OnloadProvider>
   );
