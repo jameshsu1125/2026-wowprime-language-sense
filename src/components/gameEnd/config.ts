@@ -25,9 +25,11 @@ export type TGameEndState = {
 export type TGameEndContext = [TGameEndState, Dispatch<SetStateAction<TGameEndState>>];
 
 export const GameEndState = {
-  step: GameEndStepType.landing,
+  step: GameEndStepType.result,
   result: { bestScore: 0, currentScore: 0, coupon: '' },
   final: GameEndFinalType.card,
 };
 
 export const GameEndContext = createContext<TGameEndContext>([GameEndState, () => {}]);
+
+export const GameEndStayDuration = 2000;

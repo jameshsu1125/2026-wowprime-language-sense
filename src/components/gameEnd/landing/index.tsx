@@ -4,7 +4,7 @@ import { ActionType } from '@/settings/type';
 import OnloadProvider from 'lesca-react-onload';
 import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect, useState } from 'react';
-import { GameEndContext, GameEndStepType } from '../config';
+import { GameEndContext, GameEndStayDuration, GameEndStepType } from '../config';
 import './index.less';
 
 const Heading = memo(({ transition }: { transition: boolean }) => {
@@ -35,7 +35,7 @@ const Heading = memo(({ transition }: { transition: boolean }) => {
             setStyle(
               { scale: 1 },
               {
-                duration: 1000,
+                duration: GameEndStayDuration,
                 onEnd: () => {
                   sendScore({ score });
                 },
