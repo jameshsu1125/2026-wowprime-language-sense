@@ -100,7 +100,9 @@ const TonesQuestion = memo(() => {
   return (
     <OnloadProvider
       onload={() => {
-        setTransition(true);
+        requestAnimationFrame(() => {
+          setTransition(true);
+        });
       }}
     >
       <div className='TonesQuestion'>

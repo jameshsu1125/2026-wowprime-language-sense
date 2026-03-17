@@ -13,3 +13,5 @@ export const REST_PATH = {
 export const SETTING = {
   checkAnswerReactDuration: 2000,
 };
+
+export const IS_TEST = false;

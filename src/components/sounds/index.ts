@@ -1,14 +1,24 @@
 import { Howl } from 'howler';
 import bgm from './mp3/bgm.mp3';
-import yiqi from './mp3/0.mp3';
-import chi from './mp3/1.mp3';
-import hao from './mp3/2.mp3';
+import yiqi from './mp3/yiqi.mp3';
+import chi from './mp3/chi.mp3';
+import hao from './mp3/hao.mp3';
 import click from './mp3/click.mp3';
 import button from './mp3/button.mp3';
 import miss from './mp3/miss.mp3';
 import levelup from './mp3/levelup.mp3';
+import success from './mp3/success.mp3';
 
-export type SoundName = 'bgm' | 'yiqi' | 'chi' | 'hao' | 'click' | 'button' | 'miss' | 'levelup';
+export type SoundName =
+  | 'bgm'
+  | 'yiqi'
+  | 'chi'
+  | 'hao'
+  | 'click'
+  | 'button'
+  | 'miss'
+  | 'levelup'
+  | 'success';
 
 export default class Sounds {
   public track: Record<
@@ -23,6 +33,7 @@ export default class Sounds {
     button: { src: [button], loop: false, onload: false, track: null },
     miss: { src: [miss], loop: false, onload: false, track: null },
     levelup: { src: [levelup], loop: false, onload: false, track: null },
+    success: { src: [success], loop: false, onload: false, track: null },
   };
   constructor() {
     Object.keys(this.track).forEach((key) => {

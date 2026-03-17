@@ -1,4 +1,4 @@
-import { REST_PATH } from '@/settings/config';
+import { IS_TEST, REST_PATH } from '@/settings/config';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
 import Fetcher from 'lesca-fetcher';
@@ -40,6 +40,8 @@ const useRanking = () => {
     } catch {
       response = { status: 'error', message: '網路錯誤，請稍後再試', ranking: [] };
     }
+
+    if (IS_TEST) console.log(response);
 
     setContext({ type: ActionType.LoadingProcess, state: { enabled: false } });
     setState(response as TRankingResponse);

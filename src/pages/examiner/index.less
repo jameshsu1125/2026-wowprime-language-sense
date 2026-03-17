@@ -4,6 +4,19 @@
   padding-inline: 37px * 0.5;
   @apply h-full w-full pt-12;
 
+  .font-preloader {
+    @apply fixed;
+    &::before {
+      content: '';
+      @apply font-line-bold;
+    }
+
+    &::after {
+      content: '';
+      @apply font-line-extraBold;
+    }
+  }
+
   .frame {
     margin-top: -10%;
     padding: 0 1rem;

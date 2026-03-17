@@ -13,6 +13,7 @@ import { HomeContext, HomePageType } from '../home/config';
 import LoginButton from './button';
 import Heading, { Notice } from './heading';
 import './index.less';
+import { IS_TEST } from '@/settings/config';
 
 type TLoginButtonProps = {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -167,7 +168,6 @@ const Login = memo(() => {
       if (verifyRes.status === 'error') {
         alert(verifyRes.message || '驗證失敗，請重新輸入驗證碼，請查閱手機簡訊');
       }
-      console.log(verifyRes);
     }
   }, [verifyRes]);
 
@@ -188,12 +188,14 @@ const Login = memo(() => {
         });
 
         // TODO: test
-        setContext({
-          type: ActionType.Playing,
-          state: { enabled: true, score: 5000, isEnd: true },
-        });
-
-        // setState((S) => ({ ...S, page: HomePageType.Game }));
+        if (IS_TEST) {
+          setContext({
+            type: ActionType.Playing,
+            state: { enabled: true, score: 5000, isEnd: true },
+          });
+        } else {
+          setState((S) => ({ ...S, page: HomePageType.Game }));
+        }
       } else {
         alert(loginRes.message);
       }

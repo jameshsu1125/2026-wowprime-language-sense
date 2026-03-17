@@ -58,9 +58,17 @@ const Btn = memo(({ transition }: { transition: boolean }) => {
 });
 
 const EndLanding = memo(() => {
+  const [context] = useContext(Context);
+  const sounds = context[ActionType.Sounds]!;
   const [transition, setTransition] = useState(false);
   return (
-    <OnloadProvider onload={() => setTransition(true)}>
+    <OnloadProvider
+      onload={() => {
+        setTransition(true);
+        sounds.tracks?.stop('bgm');
+        sounds.tracks?.play('success');
+      }}
+    >
       <div className='EndLanding'>
         <Heading transition={transition} />
         <Btn transition={transition} />

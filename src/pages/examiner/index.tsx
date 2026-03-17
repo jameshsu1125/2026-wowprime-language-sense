@@ -111,6 +111,7 @@ const Examiner = memo(() => {
           </div>
         </div>
         <Frame transition={transition} />
+        <div className='font-preloader' />
       </div>
     </OnloadProvider>
   );

@@ -18,6 +18,8 @@ type Meter = {
   type: '0' | '1' | '2';
 };
 
+const TypeSequence = ['0', '1', '1', '2'] as Meter['type'][];
+
 const Chord = memo(() => {
   const [context, setContext] = useContext(Context);
   const { tracks } = context[ActionType.Sounds]!;
@@ -66,7 +68,7 @@ const Chord = memo(() => {
           )[0] as Meter['direction'],
           index: count,
           top: -5,
-          type: ['0', '1', '2'].sort(() => Math.random() - 0.5)[0] as Meter['type'],
+          type: TypeSequence[(count - 1) % TypeSequence.length],
           isHit: false,
         },
       ]);
@@ -98,7 +100,7 @@ const Chord = memo(() => {
             btnRefs.current[direct].score(score);
             setContext({ type: ActionType.Playing, state: { score: scoreRef.current } });
             const soundsType =
-              m.type === '0' ? 'yiqi' : m.type === '1' ? 'chi' : ('hao' as SoundName);
+              m.type === '0' ? 'yiqi' : m.type === '1' ? 'hao' : ('chi' as SoundName);
             tracks?.play(soundsType, 1);
           } else {
             btnRefs.current[direct].miss();

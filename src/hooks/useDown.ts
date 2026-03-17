@@ -1,4 +1,4 @@
-import { REST_PATH } from '@/settings/config';
+import { IS_TEST, REST_PATH } from '@/settings/config';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
 import { toBase64 } from 'lesca-atobtoa';
@@ -30,7 +30,7 @@ const useDown = () => {
         message: '網路異常，請稍後再試',
       };
     }
-    console.log(response);
+    if (IS_TEST) console.log(response);
 
     setContext({ type: ActionType.LoadingProcess, state: { enabled: false } });
     setState(response as TResponse);

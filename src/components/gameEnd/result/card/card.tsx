@@ -37,10 +37,6 @@ const Ranking = memo(({ transition }: { transition: boolean }) => {
   }, []);
 
   useEffect(() => {
-    console.log(rankingResponse);
-  }, [rankingResponse]);
-
-  useEffect(() => {
     if (rankingResponse && rankingResponse.status === 'success' && transition) {
       const [{ ranking }] = rankingResponse.ranking;
       setStyle({ top: Number(ranking) || 1000 }, { duration: 2500 });
