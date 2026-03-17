@@ -13,7 +13,8 @@ import { HomeContext, HomePageType } from '../home/config';
 import LoginButton from './button';
 import Heading, { Notice } from './heading';
 import './index.less';
-import { IS_TEST } from '@/settings/config';
+import { IS_TEST, SECTION_DURATION } from '@/settings/config';
+import Storage from 'lesca-local-storage';
 
 type TLoginButtonProps = {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -187,15 +188,13 @@ const Login = memo(() => {
           },
         });
 
-        // TODO: test
-        if (IS_TEST) {
-          setContext({
-            type: ActionType.Playing,
-            state: { enabled: true, score: 5000, isEnd: true },
-          });
-        } else {
-          setState((S) => ({ ...S, page: HomePageType.Game }));
-        }
+        Storage.set('token', {
+          token: loginRes.token || '',
+          nickname: userData.nickname,
+          phone: userData.phone,
+        });
+
+        setState((S) => ({ ...S, page: HomePageType.Game }));
       } else {
         alert(loginRes.message);
       }
@@ -218,6 +217,34 @@ const Login = memo(() => {
       }
     }
   }, [userData, passed, setState, setContext, login, verify]);
+
+  useEffect(() => {
+    const storage = Storage.get('token');
+    if (storage) {
+      const { data, timestamp } = storage;
+      const isValid = timestamp < SECTION_DURATION;
+      if (isValid) {
+        Fetcher.setJWT(data.token || '');
+        setContext({
+          type: ActionType.User,
+          state: {
+            nickname: data.nickname,
+            phone: data.phone,
+            token: data.token || '',
+          },
+        });
+        // TODO: test
+        if (IS_TEST) {
+          setContext({
+            type: ActionType.Playing,
+            state: { enabled: true, score: 5000, isEnd: true },
+          });
+        } else {
+          setState((S) => ({ ...S, page: HomePageType.Game }));
+        }
+      }
+    }
+  }, []);
 
   return (
     <OnloadProvider
