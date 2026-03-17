@@ -1,0 +1,79 @@
+@import url('@/settings/global.css');
+
+.Blockquote {
+  @apply h-auto w-full;
+
+  .btn-next {
+    @img: './img/btn-next.svg';
+    gap: 5%;
+    padding-inline: 12%;
+    padding-block: 5%;
+
+    @apply flex w-full flex-row items-center justify-center;
+
+    & > div {
+      width: 16%;
+
+      @img: './img/arrow.svg';
+
+      &::before {
+        padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+        background-image: url(@img);
+        content: '';
+
+        @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+      }
+      @apply flex h-full items-center justify-center;
+    }
+
+    &::before {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+      content: '';
+
+      @apply pointer-events-none inline-block w-full bg-contain bg-center bg-no-repeat;
+    }
+  }
+
+  blockquote {
+    @apply flex w-full flex-col items-center justify-center gap-1 border-2 border-black p-3;
+
+    & > div {
+      @apply font-line-bold flex flex-row items-center justify-center text-2xl;
+
+      & > span {
+        @apply text-primary font-line-extraBold pr-1 text-4xl;
+      }
+    }
+  }
+
+  .btn-invite {
+    width: 55%;
+
+    @img: './img/btn-invite.svg';
+    @apply absolute;
+
+    &::before {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+      content: '';
+
+      @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+    }
+  }
+
+  .btn-again {
+    width: 55%;
+
+    @img: './img/btn-again.svg';
+    @apply absolute;
+
+    &::before {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+      content: '';
+
+      @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+    }
+  }
+}

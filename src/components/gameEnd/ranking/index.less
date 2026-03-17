@@ -1,5 +1,37 @@
 @import url('@/settings/global.css');
 
 .Ranking {
-  @apply relative h-full w-full;
+  @apply absolute h-full w-full;
+
+  & > .bg {
+    @apply absolute h-full w-full bg-white;
+  }
+
+  & > .ctx {
+    @apply relative flex h-full w-full justify-center p-8;
+
+    .content {
+      @apply relative flex h-full w-full max-w-md flex-col items-center justify-start gap-5;
+    }
+  }
+
+  .header {
+    @apply font-line-bold relative w-full text-center text-3xl tracking-widest;
+
+    .back {
+      top: 0%;
+      left: 0%;
+
+      @img: './img/back.svg';
+      @apply absolute top-0 left-0 w-10;
+
+      &::before {
+        padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+        background-image: url(@img);
+        content: '';
+
+        @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+      }
+    }
+  }
 }

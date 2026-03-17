@@ -6,19 +6,15 @@ import { memo, useContext, useEffect, useMemo, useState } from 'react';
 import { GameEndContext, GameEndState, GameEndStepType } from './config';
 import './index.less';
 import EndLanding from './landing';
-import Ranking from './ranking';
 import EndResult from './result';
+import Ranking from './ranking';
 
 const BG = memo(() => {
-  const [context] = useContext(Context);
-  const { openRanking } = context[ActionType.Playing]!;
   const [style, setStyle] = useTween({ opacity: 0, backgroundColor: '#000000' });
 
   useEffect(() => {
-    if (openRanking) {
-      setStyle({ opacity: 1, backgroundColor: '#ffffff' }, 200);
-    } else setStyle({ opacity: 0.8, backgroundColor: '#000000' }, 200);
-  }, [openRanking]);
+    setStyle({ opacity: 0.8, backgroundColor: '#000000' }, 200);
+  }, []);
   return <div className='bg' style={style} />;
 });
 
@@ -34,10 +30,6 @@ const GameEnd = memo(() => {
   }, [reset.index]);
 
   const page = useMemo(() => {
-    if (openRanking) {
-      return <Ranking />;
-    }
-
     switch (value[0].step) {
       default:
       case GameEndStepType.landing:
@@ -46,13 +38,14 @@ const GameEnd = memo(() => {
       case GameEndStepType.result:
         return <EndResult />;
     }
-  }, [value[0].step, openRanking]);
+  }, [value[0].step]);
 
   return (
     <GameEndContext.Provider value={value}>
       <div className='GameEnd'>
         <BG />
         <div className='ctx'>{page}</div>
+        {openRanking && <Ranking />}
       </div>
     </GameEndContext.Provider>
   );
