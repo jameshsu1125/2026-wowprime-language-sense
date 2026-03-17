@@ -54,7 +54,7 @@ const Card = memo(({ transition }: { transition: boolean }) => {
 
   if (!rankingResponse) return null;
   const rankings = rankingResponse.ranking!;
-  const ranking = rankings.find((r) => r.nickname === user?.phone)?.ranking;
+  const ranking = rankings.find((r) => r.nickname === user?.nickname)?.ranking;
   const medalsID = getMedalsIDByRanking(ranking || '1000');
 
   return (
