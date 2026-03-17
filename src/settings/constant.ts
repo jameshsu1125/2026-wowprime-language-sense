@@ -32,6 +32,7 @@ export const PlayingState: TPlaying = {
   enabled: false, // 分數版是否顯示
   score: 0,
   isEnd: false, // 遊戲是否結束
+  openRanking: false, // 是否開啟排行榜
 };
 
 export const SoundsState: TSounds = {

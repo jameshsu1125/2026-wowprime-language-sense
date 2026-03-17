@@ -11,6 +11,7 @@ const Heading = memo(({ transition }: { transition: boolean }) => {
   const [style, setStyle] = useTween({ opacity: 0, scale: 3 });
 
   const [context] = useContext(Context);
+  const sounds = context[ActionType.Sounds]!;
   const { score = 0 } = context[ActionType.Playing]!;
   const [downRes, sendScore] = useDown();
 
@@ -31,6 +32,9 @@ const Heading = memo(({ transition }: { transition: boolean }) => {
         {
           delay: 200,
           duration: 300,
+          onStart: () => {
+            sounds.tracks?.play('success');
+          },
           onEnd: () => {
             setStyle(
               { scale: 1 },
@@ -54,12 +58,12 @@ const EndLanding = memo(() => {
   const [context] = useContext(Context);
   const sounds = context[ActionType.Sounds]!;
   const [transition, setTransition] = useState(false);
+
   return (
     <OnloadProvider
       onload={() => {
         setTransition(true);
         sounds.tracks?.stop('bgm');
-        sounds.tracks?.play('success');
       }}
     >
       <div className='EndLanding'>

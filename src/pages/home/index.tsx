@@ -19,7 +19,10 @@ const Home = memo(() => {
   useEffect(() => {
     if (reset.index) {
       value[1](HomeState);
-      setContext({ type: ActionType.Playing, state: { enabled: false, isEnd: false, score: 0 } });
+      setContext({
+        type: ActionType.Playing,
+        state: { enabled: false, isEnd: false, score: 0, openRanking: false },
+      });
     }
   }, [reset.index]);
 

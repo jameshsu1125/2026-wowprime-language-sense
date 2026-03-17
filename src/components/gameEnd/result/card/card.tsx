@@ -2,8 +2,10 @@ import Button from '@/components/button';
 import useRanking from '@/hooks/useRanking';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
+import { getMedalsIDByRanking } from '@/utils';
 import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect } from 'react';
+import { twMerge } from 'tailwind-merge';
 import { GameEndContext, GameEndFinalType } from '../../config';
 import './card.less';
 
@@ -50,6 +52,8 @@ const Card = memo(({ transition }: { transition: boolean }) => {
   }, []);
 
   if (!rankingResponse) return null;
+  const [{ ranking }] = rankingResponse.ranking!;
+  const medalsID = getMedalsIDByRanking(ranking);
 
   return (
     <div className='Card'>
@@ -57,11 +61,11 @@ const Card = memo(({ transition }: { transition: boolean }) => {
         <div>
           <div>
             <div>
-              <div className='medals' />
+              <div className={twMerge('medals', medalsID)} />
               <div className='box-content'>
                 <div>考生：{user?.nickname || '松山蔡依林'}</div>
                 <Score transition={transition} />
-                <Ranking transition={transition} ranking={rankingResponse.ranking[0].ranking} />
+                <Ranking transition={transition} ranking={ranking} />
               </div>
               <div className='award-content'>
                 <div className='dash-line' />

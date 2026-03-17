@@ -8,7 +8,6 @@ export enum GameEndStepType {
 export enum GameEndFinalType {
   card,
   award,
-  ranking,
 }
 
 export type GameEndGameResult = {
@@ -25,7 +24,7 @@ export type TGameEndState = {
 export type TGameEndContext = [TGameEndState, Dispatch<SetStateAction<TGameEndState>>];
 
 export const GameEndState = {
-  step: GameEndStepType.result,
+  step: GameEndStepType.landing,
   result: { bestScore: 0, currentScore: 0, coupon: '' },
   final: GameEndFinalType.card,
 };

@@ -1,13 +1,14 @@
 import Button from '@/components/button';
-import OnloadProvider from 'lesca-react-onload';
-import { memo, useContext, useEffect, useState } from 'react';
-import { GameEndContext, GameEndFinalType } from '../../config';
-import { useCopyToClipboard } from '@uidotdev/usehooks';
-import './index.less';
-import { IReactProps, TransitionType } from '@/settings/type';
-import useTween from 'lesca-use-tween';
-import { twMerge } from 'tailwind-merge';
 import { ResetContext } from '@/pages/config';
+import { Context } from '@/settings/constant';
+import { ActionType, IReactProps, TransitionType } from '@/settings/type';
+import { useCopyToClipboard } from '@uidotdev/usehooks';
+import OnloadProvider from 'lesca-react-onload';
+import useTween from 'lesca-use-tween';
+import { memo, useContext, useEffect, useState } from 'react';
+import { twMerge } from 'tailwind-merge';
+import { GameEndContext } from '../../config';
+import './index.less';
 
 type TweenerProviderProps = IReactProps & {
   transition: TransitionType;
@@ -41,8 +42,9 @@ const TweenerProvider = memo(
 );
 
 const Final = memo(() => {
+  const [, setContext] = useContext(Context);
   const [copiedText, copy] = useCopyToClipboard();
-  const [{ result }, setState] = useContext(GameEndContext);
+  const [{ result }] = useContext(GameEndContext);
   const [, setReset] = useContext(ResetContext);
   const [transition, setTransition] = useState(TransitionType.Unset);
 
@@ -98,7 +100,7 @@ const Final = memo(() => {
               <TweenerProvider className='w-1/2' transition={transition} type='3' delay={500}>
                 <Button
                   onClick={() => {
-                    setState((prev) => ({ ...prev, final: GameEndFinalType.ranking }));
+                    setContext({ type: ActionType.Playing, state: { openRanking: true } });
                   }}
                 >
                   <Button.large>

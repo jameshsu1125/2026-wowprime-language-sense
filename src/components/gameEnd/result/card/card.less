@@ -61,7 +61,7 @@
             width: 57%;
 
             @img: './img/logo.svg';
-            @apply mt-7;
+            @apply mt-8;
 
             &::before {
               padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
@@ -72,13 +72,32 @@
             }
           }
 
+          .gold {
+            background-image: url('./img/gold.png');
+          }
+
+          .silver {
+            background-image: url('./img/silver.png');
+          }
+
+          .bronze {
+            background-image: url('./img/bronze.png');
+          }
+
+          .iron {
+            background-image: url('./img/iron.png');
+          }
+
+          .wood {
+            background-image: url('./img/wood.png');
+          }
+
           .medals {
             padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
-            background-image: url(@img);
 
-            @img: './img/1.png';
+            @img: './img/gold.png';
 
-            @apply w-full bg-contain;
+            @apply w-full bg-contain bg-no-repeat;
           }
 
           .box-content {

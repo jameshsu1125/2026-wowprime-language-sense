@@ -83,7 +83,9 @@ const Examiner = memo(() => {
   return (
     <OnloadProvider
       onload={() => {
-        setTransition(true);
+        requestAnimationFrame(() => {
+          setTransition(true);
+        });
       }}
     >
       <div className='Examiner'>

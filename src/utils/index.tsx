@@ -36,3 +36,12 @@ export function shuffleArray<T>(array: T[]): T[] {
   }
   return shuffled;
 }
+
+export function getMedalsIDByRanking(ranking: string): string {
+  const rank = Number(ranking);
+  if (rank === 1) return 'gold';
+  if (rank > 1 && rank <= 10) return 'silver';
+  if (rank > 10 && rank <= 50) return 'bronze';
+  if (rank > 50 && rank <= 100) return 'iron';
+  return 'wood';
+}

@@ -6,7 +6,6 @@ import Card from './card/card';
 import Final from './final';
 import Frag from './frag';
 import './index.less';
-import Ranking from './ranking';
 
 const Dialog = memo(
   ({ children, transition, onEnd }: IReactProps & { transition: boolean; onEnd: () => void }) => {
@@ -44,9 +43,6 @@ const Page = memo(({ transition }: { transition: boolean }) => {
         return <Card transition={transitionEnd} />;
       case GameEndFinalType.award:
         return <Final />;
-
-      case GameEndFinalType.ranking:
-        return <Ranking />;
 
       default:
         return null;
