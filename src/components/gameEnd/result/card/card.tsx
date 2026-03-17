@@ -26,7 +26,7 @@ const Score = memo(({ transition }: { transition: boolean }) => {
   );
 });
 
-const Ranking = memo(({ transition, ranking }: { transition: boolean; ranking: string }) => {
+const Ranking = memo(({ transition, ranking }: { transition: boolean; ranking?: string }) => {
   const [style, setStyle, destroy] = useTween({ top: 1000 });
 
   useEffect(() => {
@@ -36,7 +36,8 @@ const Ranking = memo(({ transition, ranking }: { transition: boolean; ranking: s
 
   return (
     <div>
-      目前排行：<span>{Math.floor(Number(style.top))}</span>名
+      目前排行：<span>{ranking ? Math.floor(Number(style.top)) : '未上榜'}</span>
+      {ranking ? '名' : ''}
     </div>
   );
 });
@@ -52,8 +53,9 @@ const Card = memo(({ transition }: { transition: boolean }) => {
   }, []);
 
   if (!rankingResponse) return null;
-  const [{ ranking }] = rankingResponse.ranking!;
-  const medalsID = getMedalsIDByRanking(ranking);
+  const rankings = rankingResponse.ranking!;
+  const ranking = rankings.find((r) => r.nickname === user?.phone)?.ranking;
+  const medalsID = getMedalsIDByRanking(ranking || '1000');
 
   return (
     <div className='Card'>

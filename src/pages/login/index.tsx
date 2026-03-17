@@ -237,7 +237,7 @@ const Login = memo(() => {
         if (IS_TEST) {
           setContext({
             type: ActionType.Playing,
-            state: { enabled: true, score: 5000, isEnd: true },
+            state: { enabled: true, score: 5000, isEnd: true, openRanking: false },
           });
         } else {
           setState((S) => ({ ...S, page: HomePageType.Game }));
