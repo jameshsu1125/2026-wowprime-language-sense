@@ -22,6 +22,7 @@
     "lesca-local-storage": "^2.0.0",
     "lesca-react-char-transition": "^1.1.2",
     "lesca-react-onload": "^2.0.10",
+    "lesca-use-countdown": "^2.0.0",
     "lesca-use-tween": "^4.0.2",
     "lesca-user-agent": "^3.0.0",
     "lesca-validate": "^2.0.1",

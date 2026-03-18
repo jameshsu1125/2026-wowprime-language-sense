@@ -3,11 +3,58 @@
 .Table {
   @apply text-tertiary w-full rounded-2xl bg-black text-center;
 
-  td,
-  th {
+  tr > td:first-child {
+    @apply w-10 px-4 py-2;
+  }
+
+  tr > td:nth-child(2) {
+    @apply w-5;
+  }
+
+  tr > td:not(:first-child) {
+    @apply px-4 py-2;
+  }
+
+  tr > th {
     @apply py-2;
   }
 
-  thead {
+  .gold {
+    @img: './img/gold.svg';
+    @apply inline-block w-10;
+
+    &::before {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+      content: '';
+
+      @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+    }
+  }
+
+  .silver {
+    @img: './img/silver.svg';
+    @apply inline-block w-10;
+
+    &::before {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+      content: '';
+
+      @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+    }
+  }
+
+  .bronze {
+    @img: './img/bronze.svg';
+    @apply inline-block w-10;
+
+    &::before {
+      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+      background-image: url(@img);
+      content: '';
+
+      @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+    }
   }
 }

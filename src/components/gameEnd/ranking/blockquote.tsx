@@ -2,12 +2,13 @@ import Button from '@/components/button';
 import Table from '@/components/table';
 import { TRankingResponse } from '@/hooks/useRanking';
 import { Context, PlayingState } from '@/settings/constant';
-import { ActionType } from '@/settings/type';
+import { ActionType, TransitionType } from '@/settings/type';
 import Click from 'lesca-click';
 import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect, useId, useMemo, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import './blockquote.less';
+import CountDown from '@/components/countDown';
 
 const IncreaseCount = memo(({ initCount, toCount }: { initCount: number; toCount: number }) => {
   const [count, setCount] = useState(initCount);
@@ -16,7 +17,8 @@ const IncreaseCount = memo(({ initCount, toCount }: { initCount: number; toCount
     setStyle(
       { top: toCount },
       {
-        duration: 1000,
+        delay: 600,
+        duration: 2000,
         onUpdate: (v: { top: number }) => setCount(Math.floor(Number(v.top))),
         onEnd: () => setCount(toCount),
       },
@@ -25,9 +27,23 @@ const IncreaseCount = memo(({ initCount, toCount }: { initCount: number; toCount
   return <>{count}</>;
 });
 
-const InTheRanking = memo(({ ranking, score }: { ranking?: string; score?: string }) => {
+type TInTheRankingProps = {
+  ranking?: string;
+  score?: string;
+  transition: TransitionType;
+};
+
+const InTheRanking = memo(({ ranking, score, transition }: TInTheRankingProps) => {
+  const [style, setStyle] = useTween({ opacity: 0, y: 50 });
+  useEffect(() => {
+    if (transition === TransitionType.FadeIn) {
+      setStyle({ opacity: 1, y: 0 }, { duration: 600, delay: 200 });
+    }
+  }, [transition]);
+  console.log(score);
+
   return (
-    <div className='flex w-full flex-col gap-5'>
+    <div className='flex w-full flex-col gap-5' style={style}>
       <blockquote>
         <div>考生：松山蔡依林</div>
         <div>
@@ -68,10 +84,21 @@ const InTheRanking = memo(({ ranking, score }: { ranking?: string; score?: strin
   );
 });
 
-const NotLoginRanking = memo(() => {
+const NotLoginRanking = memo(({ transition }: { transition: TransitionType }) => {
   const [, setContext] = useContext(Context);
+  const [style, setStyle] = useTween({ opacity: 0, y: 50 });
+
+  useEffect(() => {
+    if (transition === TransitionType.FadeIn) {
+      setStyle({ opacity: 1, y: 0 }, { duration: 600, delay: 200 });
+    }
+  }, [transition]);
+
   return (
-    <div className='font-line-bold text-primary flex w-full flex-col gap-10 text-center text-3xl leading-snug'>
+    <div
+      className='font-line-bold text-primary flex w-full flex-col gap-10 text-center text-3xl leading-snug'
+      style={style}
+    >
       <div>
         什麼！
         <br />
@@ -103,22 +130,30 @@ const NotLoginRanking = memo(() => {
   );
 });
 
-const Text = memo(({ ranking }: { ranking?: string }) => {
+const Text = memo(({ ranking, transition }: { ranking?: string; transition: TransitionType }) => {
+  const [style, setStyle] = useTween({ opacity: 0, y: 50 });
+
+  useEffect(() => {
+    if (transition === TransitionType.FadeIn) {
+      setStyle({ opacity: 1, y: 0 }, 600);
+    }
+  }, [transition, ranking]);
+
   if (ranking === undefined) return null;
   else if (Number(ranking) <= 100) {
     return (
-      <>
+      <div className='text-primary font-line-bold w-full text-center text-2xl' style={style}>
         恭喜你榜上有名！
         <br />
         但不能大意，隨時都有可能被刷下來喔！
-      </>
+      </div>
     );
   }
   return (
-    <>
+    <div className='text-primary font-line-bold w-full text-center text-2xl' style={style}>
       不要氣餒！繼續練習一定會有好成績的！ <br />
       前100名的獎勵在等妳！
-    </>
+    </div>
   );
 });
 
@@ -126,14 +161,16 @@ type BlockquoteProps = {
   ranking?: string;
   score?: string;
   data: TRankingResponse['ranking'];
+  selectedWeek: string;
+  transition: TransitionType;
 };
 
-const Blockquote = memo(({ ranking, score, data }: BlockquoteProps) => {
+const Blockquote = memo(({ ranking, score, data, selectedWeek, transition }: BlockquoteProps) => {
   const id = useId();
   const page = useMemo(() => {
-    if (ranking === undefined) return <NotLoginRanking />;
-    else return <InTheRanking ranking={ranking} score={score} />;
-  }, [ranking, score]);
+    if (ranking === undefined) return <NotLoginRanking transition={transition} />;
+    else return <InTheRanking ranking={ranking} score={score} transition={transition} />;
+  }, [ranking, score, transition]);
 
   useEffect(() => {
     Click.addPreventExcept(`#${id}`);
@@ -143,15 +180,14 @@ const Blockquote = memo(({ ranking, score, data }: BlockquoteProps) => {
     <div
       id={id}
       className={twMerge(
-        'flex w-full flex-1 flex-col items-center justify-start gap-5 overflow-y-scroll px-5',
+        'flex w-full flex-1 flex-col items-center justify-start gap-5 overflow-y-scroll px-5 pb-5',
         ranking === undefined ? 'pt-0' : 'pt-8',
       )}
     >
-      <div className='text-primary font-line-bold w-full text-center text-2xl'>
-        <Text ranking={ranking} />
-      </div>
+      <Text ranking={ranking} transition={transition} />
       <div className='Blockquote'>{page}</div>
-      <Table data={data} />
+      <CountDown selectedWeek={selectedWeek} transition={transition} />
+      <Table data={data} transition={transition} />
     </div>
   );
 });

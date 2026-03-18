@@ -1,13 +1,25 @@
 import { memo, useEffect } from 'react';
 import './index.less';
 import { TRankingResponse } from '@/hooks/useRanking';
+import useTween from 'lesca-use-tween';
+import { TransitionType } from '@/settings/type';
 
-const Table = memo(({ data }: { data: TRankingResponse['ranking'] }) => {
+type TableProps = {
+  data: TRankingResponse['ranking'];
+  transition: TransitionType;
+};
+
+const Table = memo(({ data, transition }: TableProps) => {
+  const [style, setStyle] = useTween({ opacity: 0, y: window.innerHeight * 0.5 });
+
   useEffect(() => {
-    console.log(data);
-  }, [data]);
+    if (transition === TransitionType.FadeIn) {
+      setStyle({ opacity: 1, y: 0 }, { duration: 600, delay: 1000 });
+    }
+  }, [transition]);
+
   return (
-    <table className='Table'>
+    <table className='Table' style={style}>
       <thead>
         <tr>
           <th></th>
@@ -19,7 +31,17 @@ const Table = memo(({ data }: { data: TRankingResponse['ranking'] }) => {
       <tbody>
         {data.map((item, index) => (
           <tr key={index}>
-            <td>{index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : ''}</td>
+            <td>
+              {index === 0 ? (
+                <div className='gold' />
+              ) : index === 1 ? (
+                <div className='silver' />
+              ) : index === 2 ? (
+                <div className='bronze' />
+              ) : (
+                ''
+              )}
+            </td>
             <td>{index + 1}</td>
             <td>{item.nickname}</td>
             <td>{item.score}</td>

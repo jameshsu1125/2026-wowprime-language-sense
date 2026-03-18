@@ -19,6 +19,7 @@ export type TRankingResponse = {
   }[];
   status: string;
   selectedWeek: string;
+  nextWeek: string;
   message: string;
 };
 
@@ -31,14 +32,17 @@ const useRanking = () => {
 
     try {
       const weekResponse = (await Fetcher.get(REST_PATH.weeks)) as TWeekResponse;
+      const nextWeek = weekResponse.availableWeeks
+        .sort()
+        .find((week) => new Date(week).getTime() > Date.now());
       if (weekResponse.status === 'success') {
         const rankingResponse = (await Fetcher.get(
           `${REST_PATH.ranking}?week=${weekResponse.currentWeek}`,
         )) as TRankingResponse;
-        response = { ...rankingResponse, message: '排行榜獲取成功！' };
+        response = { ...rankingResponse, message: '排行榜獲取成功！', nextWeek };
       }
     } catch {
-      response = { status: 'error', message: '網路錯誤，請稍後再試', ranking: [] };
+      response = { status: 'error', message: '網路錯誤，請稍後再試', ranking: [], nextWeek: '' };
     }
 
     if (IS_TEST) console.log(response);
