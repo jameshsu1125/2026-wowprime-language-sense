@@ -1,5 +1,5 @@
 import { TonesContext } from '@/pages/game/tones/config';
-import { IReactProps } from '@/settings/type';
+import { ActionType, IReactProps } from '@/settings/type';
 import { isEqual } from 'lodash';
 import {
   forwardRef,
@@ -13,6 +13,7 @@ import {
 } from 'react';
 import { twMerge } from 'tailwind-merge';
 import './index.less';
+import { Context } from '@/settings/constant';
 
 type LiteralProps = {
   text: string;
@@ -79,6 +80,9 @@ const Letter = memo(({ children, tone, idx, onChange, shouldCheck }: LetterProps
 });
 
 const Literal = forwardRef(({ text, answer, onComplete }: LiteralProps, ref) => {
+  const [context] = useContext(Context);
+  const sounds = context[ActionType.Sounds]!;
+
   const [state] = useContext(TonesContext);
   const [shouldCheck, setShouldCheck] = useState(false);
 
@@ -100,6 +104,18 @@ const Literal = forwardRef(({ text, answer, onComplete }: LiteralProps, ref) => 
       onComplete();
     }
   }, [answer, currentAnswer]);
+
+  useEffect(() => {
+    if (shouldCheck) {
+      const isAnyIncorrect =
+        currentAnswer.filter((ans, idx) => {
+          const currentTone = answer[idx].tone;
+          return ans.tone !== currentTone;
+        }).length > 0;
+      if (isAnyIncorrect) sounds.tracks?.play('incorrect');
+      else sounds.tracks?.play('correct');
+    }
+  }, [shouldCheck, currentAnswer]);
 
   useImperativeHandle(ref, () => ({
     check() {

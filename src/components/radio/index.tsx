@@ -1,4 +1,6 @@
-import { forwardRef, useImperativeHandle } from 'react';
+import { Context } from '@/settings/constant';
+import { ActionType } from '@/settings/type';
+import { forwardRef, useContext, useImperativeHandle, useRef } from 'react';
 import './index.less';
 
 type TRadioProps = {
@@ -8,18 +10,26 @@ type TRadioProps = {
 };
 
 const Radio = forwardRef(({ text, options, index }: TRadioProps, ref) => {
+  const [context] = useContext(Context);
+  const sounds = context[ActionType.Sounds]!;
+
+  const selectedRef = useRef<string>('');
+
   useImperativeHandle(ref, () => ({
     check() {
       const [currentAnswer] = options
         .map((option, idx) => ({ ...option, idx }))
         .filter((option) => option.isAnswer);
       const currentIndex = currentAnswer?.idx ?? 0;
+
       document.querySelectorAll('.radio-group input').forEach((input, idx) => {
         if (idx === currentIndex) {
           input.classList.add('correct');
         }
         input.setAttribute('disabled', 'true');
       });
+      if (currentAnswer?.label === selectedRef.current) sounds.tracks?.play('correct');
+      else sounds.tracks?.play('incorrect');
     },
   }));
   return (
@@ -37,6 +47,9 @@ const Radio = forwardRef(({ text, options, index }: TRadioProps, ref) => {
                 id={`option${idx}`}
                 name='radio-group'
                 defaultChecked={idx === 0}
+                onChange={() => {
+                  selectedRef.current = option.label;
+                }}
               />
               <label htmlFor={`option${idx}`}>
                 {String.fromCharCode(65 + idx)}.{option.label}

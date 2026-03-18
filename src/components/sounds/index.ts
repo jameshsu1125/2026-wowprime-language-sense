@@ -8,6 +8,8 @@ import button from './mp3/button.mp3';
 import miss from './mp3/miss.mp3';
 import levelup from './mp3/levelup.mp3';
 import success from './mp3/success.mp3';
+import correct from './mp3/correct.mp3';
+import incorrect from './mp3/incorrect.mp3';
 
 export type SoundName =
   | 'bgm'
@@ -18,7 +20,9 @@ export type SoundName =
   | 'button'
   | 'miss'
   | 'levelup'
-  | 'success';
+  | 'success'
+  | 'correct'
+  | 'incorrect';
 
 export default class Sounds {
   public track: Record<
@@ -34,6 +38,8 @@ export default class Sounds {
     miss: { src: [miss], loop: false, onload: false, track: null },
     levelup: { src: [levelup], loop: false, onload: false, track: null },
     success: { src: [success], loop: false, onload: false, track: null },
+    correct: { src: [correct], loop: false, onload: false, track: null },
+    incorrect: { src: [incorrect], loop: false, onload: false, track: null },
   };
   constructor() {
     Object.keys(this.track).forEach((key) => {
