@@ -85,7 +85,6 @@ const Background = memo(() => {
 
   useEffect(() => {
     if (level !== 0 && level > levelRef.current) {
-      levelRef.current = level;
       setStyle(
         { top: 10 },
         {
@@ -101,6 +100,7 @@ const Background = memo(() => {
         },
       );
     }
+    levelRef.current = level;
   }, [level]);
 
   return (
