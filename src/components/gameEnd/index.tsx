@@ -73,17 +73,25 @@ const GameEnd = memo(() => {
   const modalPage = useMemo(() => {
     switch (pageState) {
       case 'ranking':
-        setContext({ type: ActionType.Playing, state: { openAnnouncement: false } });
         return <Ranking />;
 
       case 'announcement':
-        setContext({ type: ActionType.Playing, state: { openRanking: false } });
         return <Announcement />;
 
       default:
         return null;
     }
   }, [pageState]);
+
+  useEffect(() => {
+    if (pageState === 'ranking') {
+      setContext({ type: ActionType.Playing, state: { openAnnouncement: false } });
+    }
+
+    if (pageState === 'announcement') {
+      setContext({ type: ActionType.Playing, state: { openRanking: false } });
+    }
+  }, [pageState, setContext]);
 
   return (
     <GameEndContext.Provider value={value}>
