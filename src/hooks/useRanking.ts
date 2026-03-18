@@ -10,7 +10,7 @@ type TWeekResponse = {
   availableWeeks: string[];
 };
 
-type TRankingResponse = {
+export type TRankingResponse = {
   ranking: {
     nickname: string;
     phone: string;

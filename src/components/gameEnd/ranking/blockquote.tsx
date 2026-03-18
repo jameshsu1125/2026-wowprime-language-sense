@@ -1,11 +1,13 @@
-import { memo, useContext, useEffect, useId, useMemo, useState } from 'react';
-import './blockquote.less';
-import Click from 'lesca-click';
 import Button from '@/components/button';
-import useTween from 'lesca-use-tween';
-import { twMerge } from 'tailwind-merge';
+import Table from '@/components/table';
+import { TRankingResponse } from '@/hooks/useRanking';
 import { Context, PlayingState } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
+import Click from 'lesca-click';
+import useTween from 'lesca-use-tween';
+import { memo, useContext, useEffect, useId, useMemo, useState } from 'react';
+import { twMerge } from 'tailwind-merge';
+import './blockquote.less';
 
 const IncreaseCount = memo(({ initCount, toCount }: { initCount: number; toCount: number }) => {
   const [count, setCount] = useState(initCount);
@@ -120,9 +122,14 @@ const Text = memo(({ ranking }: { ranking?: string }) => {
   );
 });
 
-const Blockquote = memo(({ ranking, score }: { ranking?: string; score?: string }) => {
-  const id = useId();
+type BlockquoteProps = {
+  ranking?: string;
+  score?: string;
+  data: TRankingResponse['ranking'];
+};
 
+const Blockquote = memo(({ ranking, score, data }: BlockquoteProps) => {
+  const id = useId();
   const page = useMemo(() => {
     if (ranking === undefined) return <NotLoginRanking />;
     else return <InTheRanking ranking={ranking} score={score} />;
@@ -144,6 +151,7 @@ const Blockquote = memo(({ ranking, score }: { ranking?: string; score?: string 
         <Text ranking={ranking} />
       </div>
       <div className='Blockquote'>{page}</div>
+      <Table data={data} />
     </div>
   );
 });

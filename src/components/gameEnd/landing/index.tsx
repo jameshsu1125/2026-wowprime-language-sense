@@ -12,7 +12,7 @@ const Heading = memo(({ transition }: { transition: boolean }) => {
 
   const [context] = useContext(Context);
   const sounds = context[ActionType.Sounds]!;
-  const { score = 0 } = context[ActionType.Playing]!;
+  const { score = 0, openRanking = false } = context[ActionType.Playing]!;
   const [downRes, sendScore] = useDown();
 
   const [, setState] = useContext(GameEndContext);
@@ -33,7 +33,7 @@ const Heading = memo(({ transition }: { transition: boolean }) => {
           delay: 200,
           duration: 300,
           onStart: () => {
-            sounds.tracks?.play('success');
+            if (!openRanking) sounds.tracks?.play('success');
           },
           onEnd: () => {
             setStyle(
@@ -41,7 +41,7 @@ const Heading = memo(({ transition }: { transition: boolean }) => {
               {
                 duration: GameEndStayDuration,
                 onEnd: () => {
-                  sendScore({ score });
+                  if (!openRanking) sendScore({ score });
                 },
               },
             );

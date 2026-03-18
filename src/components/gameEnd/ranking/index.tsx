@@ -1,11 +1,11 @@
-import { memo, useContext, useEffect } from 'react';
-import './index.less';
+import Button from '@/components/button';
 import useRanking from '@/hooks/useRanking';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
 import Storage from 'lesca-local-storage';
-import Button from '@/components/button';
+import { memo, useContext, useEffect } from 'react';
 import Blockquote from './blockquote';
+import './index.less';
 
 const Ranking = memo(() => {
   const [, setContext] = useContext(Context);
@@ -26,15 +26,13 @@ const Ranking = memo(() => {
   const storage = Storage.get('token');
   const userData = storage && storage.data ? storage.data : null;
 
-  const rankings = rankingResponse.ranking!;
-  // const ranking = userData
-  //   ? rankings.find((r) => r.nickname === userData.nickname)?.ranking
-  //   : undefined;
-  const ranking = '1';
-
-  const score = userData
-    ? rankings.find((r) => r.nickname === userData.nickname)?.score
+  const data = rankingResponse.ranking!;
+  const ranking = userData
+    ? data.find((r) => r.nickname === userData.nickname)?.ranking
     : undefined;
+  //const ranking = '1';
+
+  const score = userData ? data.find((r) => r.nickname === userData.nickname)?.score : undefined;
 
   return (
     <div className='Ranking'>
@@ -52,7 +50,7 @@ const Ranking = memo(() => {
               <div />
             </Button>
           </div>
-          <Blockquote ranking={ranking} score={score} />
+          <Blockquote ranking={ranking} score={score} data={data} />
         </div>
       </div>
     </div>
