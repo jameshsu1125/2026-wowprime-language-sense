@@ -52,6 +52,7 @@ export type TPlaying = {
   score?: number;
   isEnd?: boolean;
   openRanking?: boolean;
+  openAnnouncement?: boolean;
 };
 
 export type TReset = {

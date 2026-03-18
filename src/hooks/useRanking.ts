@@ -11,12 +11,21 @@ type TWeekResponse = {
 };
 
 export type TRankingResponse = {
-  ranking: {
+  ranking?: {
     nickname: string;
     phone: string;
     ranking: string;
     score: string;
   }[];
+  rankingDate?: Record<
+    string,
+    {
+      nickname: string;
+      phone: string;
+      ranking: string;
+      score: string;
+    }[]
+  >;
   status: string;
   selectedWeek: string;
   nextWeek: string;
@@ -26,7 +35,7 @@ export type TRankingResponse = {
 const useRanking = () => {
   const [, setContext] = useContext(Context);
   const [state, setState] = useState<TRankingResponse>();
-  const fetch = async () => {
+  const fetch = async (isAllDate: boolean = false) => {
     setContext({ type: ActionType.LoadingProcess, state: { enabled: true } });
     let response;
 
@@ -35,13 +44,39 @@ const useRanking = () => {
       const nextWeek = weekResponse.availableWeeks
         .sort()
         .find((week) => new Date(week).getTime() > Date.now());
-
       if (weekResponse.status === 'success') {
         try {
-          const rankingResponse = (await Fetcher.get(
-            `${REST_PATH.ranking}?week=${weekResponse.currentWeek}`,
-          )) as TRankingResponse;
-          response = { ...rankingResponse, message: '排行榜獲取成功！', nextWeek };
+          if (isAllDate) {
+            const allRankingResponse = (await Promise.all(
+              weekResponse.availableWeeks.map((week) =>
+                Fetcher.get(`${REST_PATH.ranking}?week=${week}`),
+              ),
+            )) as TRankingResponse[];
+            response = {
+              status: 'success',
+              message: '排行榜獲取成功！',
+              rankingDate: allRankingResponse.reduce(
+                (acc, res, index) => {
+                  acc[String(weekResponse.availableWeeks[index])] = res.ranking || [];
+                  return acc;
+                },
+                {} as Record<
+                  string,
+                  { nickname: string; phone: string; ranking: string; score: string }[]
+                >,
+              ),
+              selectedWeek: '',
+              nextWeek: nextWeek || '',
+            };
+            setState(response);
+            setContext({ type: ActionType.LoadingProcess, state: { enabled: false } });
+            return;
+          } else {
+            const rankingResponse = (await Fetcher.get(
+              `${REST_PATH.ranking}?week=${weekResponse.currentWeek}`,
+            )) as TRankingResponse;
+            response = { ...rankingResponse, message: '排行榜獲取成功！', nextWeek };
+          }
         } catch {
           response = { status: 'error', message: '網路錯誤，請稍後再試', ranking: [], nextWeek };
         }

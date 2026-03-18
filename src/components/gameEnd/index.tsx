@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 import { ResetContext } from '@/pages/config';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
@@ -6,8 +7,9 @@ import { memo, useContext, useEffect, useMemo, useState } from 'react';
 import { GameEndContext, GameEndState, GameEndStepType } from './config';
 import './index.less';
 import EndLanding from './landing';
-import EndResult from './result';
 import Ranking from './ranking';
+import EndResult from './result';
+import Announcement from './announcement';
 
 const BG = memo(() => {
   const [style, setStyle] = useTween({ opacity: 0, backgroundColor: '#000000' });
@@ -19,8 +21,10 @@ const BG = memo(() => {
 });
 
 const GameEnd = memo(() => {
-  const [context] = useContext(Context);
-  const { openRanking, isEnd } = context[ActionType.Playing]!;
+  const [context, setContext] = useContext(Context);
+  const { openRanking, isEnd, openAnnouncement } = context[ActionType.Playing]!;
+  const menuState = context[ActionType.Menu]!;
+  const [pageState, setPageState] = useState<'unset' | 'ranking' | 'announcement'>('unset');
 
   const value = useState(GameEndState);
   const [reset] = useContext(ResetContext);
@@ -28,6 +32,24 @@ const GameEnd = memo(() => {
   useEffect(() => {
     if (reset.index) value[1](GameEndState);
   }, [reset.index]);
+
+  useEffect(() => {
+    if (openRanking) {
+      setPageState('ranking');
+    }
+  }, [openRanking]);
+
+  useEffect(() => {
+    if (openAnnouncement) {
+      setPageState('announcement');
+    }
+  }, [openAnnouncement]);
+
+  useEffect(() => {
+    if (!openRanking && !openAnnouncement) {
+      setPageState('unset');
+    }
+  }, [openRanking, openAnnouncement]);
 
   useEffect(() => {
     if (isEnd) {
@@ -48,12 +70,27 @@ const GameEnd = memo(() => {
     }
   }, [value[0].step]);
 
+  const modalPage = useMemo(() => {
+    switch (pageState) {
+      case 'ranking':
+        setContext({ type: ActionType.Playing, state: { openAnnouncement: false } });
+        return <Ranking />;
+
+      case 'announcement':
+        setContext({ type: ActionType.Playing, state: { openRanking: false } });
+        return <Announcement />;
+
+      default:
+        return null;
+    }
+  }, [pageState]);
+
   return (
     <GameEndContext.Provider value={value}>
       <div className='GameEnd'>
-        {!openRanking && <BG />}
+        {!openRanking && !openAnnouncement && (!menuState.enabled || isEnd) && <BG />}
         <div className='ctx'>{page}</div>
-        {openRanking && <Ranking />}
+        {modalPage}
       </div>
     </GameEndContext.Provider>
   );

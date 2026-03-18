@@ -14,7 +14,6 @@ const Heading = memo(({ transition }: { transition: boolean }) => {
   const sounds = context[ActionType.Sounds]!;
   const { score = 0, openRanking = false } = context[ActionType.Playing]!;
   const [downRes, sendScore] = useDown();
-
   const [, setState] = useContext(GameEndContext);
 
   useEffect(() => {
@@ -41,7 +40,7 @@ const Heading = memo(({ transition }: { transition: boolean }) => {
               {
                 duration: GameEndStayDuration,
                 onEnd: () => {
-                  if (!openRanking) sendScore({ score });
+                  sendScore({ score });
                 },
               },
             );

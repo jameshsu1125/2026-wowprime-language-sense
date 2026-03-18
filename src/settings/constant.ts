@@ -33,6 +33,7 @@ export const PlayingState: TPlaying = {
   score: 0,
   isEnd: false, // 遊戲是否結束
   openRanking: false, // 是否開啟排行榜
+  openAnnouncement: false,
 };
 
 export const SoundsState: TSounds = {

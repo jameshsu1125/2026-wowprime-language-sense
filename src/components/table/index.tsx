@@ -29,24 +29,26 @@ const Table = memo(({ data, transition }: TableProps) => {
         </tr>
       </thead>
       <tbody>
-        {data.map((item, index) => (
-          <tr key={index}>
-            <td>
-              {index === 0 ? (
-                <div className='gold' />
-              ) : index === 1 ? (
-                <div className='silver' />
-              ) : index === 2 ? (
-                <div className='bronze' />
-              ) : (
-                ''
-              )}
-            </td>
-            <td>{index + 1}</td>
-            <td>{item.nickname}</td>
-            <td>{item.score}</td>
-          </tr>
-        ))}
+        {data
+          ?.sort((a, b) => Number(a.ranking) - Number(b.ranking))
+          .map((item, index) => (
+            <tr key={index}>
+              <td>
+                {index === 0 ? (
+                  <div className='gold' />
+                ) : index === 1 ? (
+                  <div className='silver' />
+                ) : index === 2 ? (
+                  <div className='bronze' />
+                ) : (
+                  ''
+                )}
+              </td>
+              <td>{index + 1}</td>
+              <td>{item.nickname}</td>
+              <td>{item.score}</td>
+            </tr>
+          ))}
       </tbody>
       <tfoot>
         <tr>

@@ -223,6 +223,7 @@ const Login = memo(() => {
     if (storage) {
       const { data, timestamp } = storage;
       const isValid = data && timestamp < SECTION_DURATION;
+
       if (isValid) {
         Fetcher.setJWT(data.token || '');
         setContext({
@@ -238,7 +239,7 @@ const Login = memo(() => {
         if (IS_TEST) {
           setContext({
             type: ActionType.Playing,
-            state: { enabled: true, score: 5000, isEnd: true, openRanking: true },
+            state: { enabled: true, score: 5000, isEnd: true, openRanking: false },
           });
         } else {
           setState((S) => ({ ...S, page: HomePageType.Game }));

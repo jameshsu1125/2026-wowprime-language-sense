@@ -1,0 +1,54 @@
+@import url('@/settings/global.css');
+
+.AnnouncementTable {
+  @apply flex w-full flex-col;
+
+  & > div {
+    @apply w-full text-center;
+  }
+
+  & > div:nth-child(1) {
+    @apply text-tertiary font-line-bold pb-3 text-xl;
+  }
+
+  & > div:nth-child(2) {
+    gap: 1px;
+    @apply flex flex-row items-center justify-between;
+
+    .tab {
+      background-color: #c9c9c9;
+      @apply font-line-regular pointer-events-none flex-1 rounded-t-xl pt-1 pb-0 text-white;
+    }
+
+    .active {
+      @apply bg-tertiary;
+    }
+  }
+
+  table {
+    @apply font-line-regular w-full;
+
+    thead,
+    tfoot {
+      color: #666;
+      @apply bg-tertiary text-base;
+
+      th {
+        @apply py-2;
+      }
+    }
+
+    tbody {
+      td {
+        @apply py-2;
+      }
+
+      & > tr:nth-child(odd) {
+        background-color: #c9c9c9;
+      }
+      & > tr:nth-child(even) {
+        background-color: #919191;
+      }
+    }
+  }
+}

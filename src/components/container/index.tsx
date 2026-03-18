@@ -119,7 +119,11 @@ const Background = memo(() => {
 const Container = memo(({ children, className }: { className?: string } & IReactProps) => {
   const [context] = useContext(Context);
   const menuState = context[ActionType.Menu]!;
-  const { isEnd = false, openRanking = false } = context[ActionType.Playing]!;
+  const {
+    isEnd = false,
+    openRanking = false,
+    openAnnouncement = false,
+  } = context[ActionType.Playing]!;
 
   return (
     <Div100vh className={twMerge('Container w-full min-w-140', className)}>
@@ -137,24 +141,23 @@ const Container = memo(({ children, className }: { className?: string } & IReact
           </div>
           <div className='container-extra relative z-20'>
             <Extra />
-            {menuState?.enabled && <MenuList />}
           </div>
           <div className='relative flex h-full w-fit flex-1 justify-center overflow-hidden'>
             <Dialog>{children}</Dialog>
           </div>
         </div>
       </div>
-      {(isEnd || openRanking) && (
-        <div className='pointer-events-none absolute top-0 left-0 flex h-full w-full min-w-140 flex-col'>
+      {(isEnd || openRanking || menuState.enabled || openAnnouncement) && (
+        <div className='pointer-events-none absolute top-0 left-0 flex h-full w-full flex-col items-center justify-center'>
           <div className='flex w-full max-w-3xl flex-col items-center justify-start p-[3%] md:p-[0%]'>
             <div className='flex w-full flex-row items-center justify-between pt-0 md:pt-[3%]'>
               <div className='container-logo invisible' />
             </div>
-            <div className='container-extra invisible relative z-20'>
-              <div className='p-4'>{menuState?.enabled && <MenuList />}</div>
+            <div className='container-extra pointer-events-auto relative z-40'>
+              <div className='p-7'>{menuState?.enabled && <MenuList />}</div>
             </div>
           </div>
-          <div className='pointer-events-auto relative z-40 h-full flex-1'>
+          <div className='pointer-events-auto relative z-30 h-full min-w-screen flex-1'>
             <GameEnd />
           </div>
           <div className='h-12 w-full md:h-10' />
