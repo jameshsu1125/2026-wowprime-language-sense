@@ -28,6 +28,23 @@ export function shareImage(image: string) {
   }
 }
 
+export function shareURL() {
+  if (navigator.share) {
+    // Data to be shared
+    const shareData = {
+      title: 'this is a title',
+      text: 'Some additional text',
+      url: window.location.href,
+    };
+    navigator
+      .share(shareData)
+      .then(() => console.log('Image shared successfully'))
+      .catch((error) => console.error('Error sharing image:', error));
+  } else {
+    alert('我們目前只支援行動裝置的分享功能，請使用手機開啟此頁面進行分享！');
+  }
+}
+
 export function shuffleArray<T>(array: T[]): T[] {
   const shuffled = [...array];
   for (let i = shuffled.length - 1; i > 0; i--) {

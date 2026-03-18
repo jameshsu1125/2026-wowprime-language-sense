@@ -10,6 +10,8 @@ import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect, useId, useMemo, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import './blockquote.less';
+import { shareURL } from '@/utils';
+import { ResetContext } from '@/pages/config';
 
 const IncreaseCount = memo(({ initCount, toCount }: { initCount: number; toCount: number }) => {
   const [count, setCount] = useState(initCount);
@@ -36,6 +38,8 @@ type TInTheRankingProps = {
 
 const InTheRanking = memo(({ ranking, score, transition }: TInTheRankingProps) => {
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });
+  const [, setReset] = useContext(ResetContext);
+
   useEffect(() => {
     if (transition === TransitionType.FadeIn) {
       setStyle({ opacity: 1, y: 0 }, { duration: 600, delay: 200 });
@@ -66,14 +70,18 @@ const InTheRanking = memo(({ ranking, score, transition }: TInTheRankingProps) =
       </blockquote>
       <div className='flex w-full flex-row gap-5 px-10'>
         <div className='w-1/2'>
-          <Button>
+          <Button onClick={() => shareURL()}>
             <Button.large>
               <div className='btn-invite' />
             </Button.large>
           </Button>
         </div>
         <div className='w-1/2'>
-          <Button>
+          <Button
+            onClick={() => {
+              setReset((S) => ({ ...S, index: S.index + 1 }));
+            }}
+          >
             <Button.large>
               <div className='btn-again' />
             </Button.large>
