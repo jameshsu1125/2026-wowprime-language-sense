@@ -115,7 +115,7 @@ const Background = memo(() => {
 const Container = memo(({ children, className }: { className?: string } & IReactProps) => {
   const [context] = useContext(Context);
   const menuState = context[ActionType.Menu]!;
-  const { isEnd = false } = context[ActionType.Playing]!;
+  const { isEnd = false, openRanking = false } = context[ActionType.Playing]!;
 
   return (
     <Div100vh className={twMerge('Container w-full min-w-140', className)}>
@@ -140,22 +140,23 @@ const Container = memo(({ children, className }: { className?: string } & IReact
           </div>
         </div>
       </div>
-      {isEnd && (
-        <div className='absolute top-0 left-0 flex h-full w-full min-w-140 flex-col'>
-          <div className='flex w-full max-w-3xl flex-col items-center justify-start p-[3%] md:p-[0%]'>
-            <div className='flex w-full flex-row items-center justify-between pt-0 md:pt-[3%]'>
-              <div className='container-logo invisible' />
+      {isEnd ||
+        (openRanking && (
+          <div className='absolute top-0 left-0 flex h-full w-full min-w-140 flex-col'>
+            <div className='flex w-full max-w-3xl flex-col items-center justify-start p-[3%] md:p-[0%]'>
+              <div className='flex w-full flex-row items-center justify-between pt-0 md:pt-[3%]'>
+                <div className='container-logo invisible' />
+              </div>
+              <div className='container-extra invisible relative z-20'>
+                <div className='p-4'>{'　'}</div>
+              </div>
             </div>
-            <div className='container-extra invisible relative z-20'>
-              <div className='p-4'>{'　'}</div>
+            <div className='relative z-40 h-full flex-1'>
+              <GameEnd />
             </div>
+            <div className='h-12 w-full md:h-10' />
           </div>
-          <div className='relative z-40 h-full flex-1'>
-            <GameEnd />
-          </div>
-          <div className='h-12 w-full md:h-10' />
-        </div>
-      )}
+        ))}
     </Div100vh>
   );
 });

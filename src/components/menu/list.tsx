@@ -24,6 +24,10 @@ const MenuList = memo(() => {
         <Button
           onClick={() => {
             setContext({ type: ActionType.Menu, state: { enabled: false } });
+            setContext({
+              type: ActionType.Playing,
+              state: { openRanking: true, enabled: true, isEnd: false },
+            });
           }}
         >
           <div className='btn-menu btn-primary'>本週榜單</div>

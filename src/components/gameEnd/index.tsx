@@ -31,19 +31,21 @@ const GameEnd = memo(() => {
 
   const page = useMemo(() => {
     switch (value[0].step) {
-      default:
       case GameEndStepType.landing:
         return <EndLanding />;
 
       case GameEndStepType.result:
         return <EndResult />;
+
+      default:
+        return null;
     }
   }, [value[0].step]);
 
   return (
     <GameEndContext.Provider value={value}>
       <div className='GameEnd'>
-        <BG />
+        {!openRanking && <BG />}
         <div className='ctx'>{page}</div>
         {openRanking && <Ranking />}
       </div>

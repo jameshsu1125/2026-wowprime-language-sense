@@ -1,6 +1,7 @@
 import { createContext, Dispatch, SetStateAction } from 'react';
 
 export enum GameEndStepType {
+  unset,
   landing,
   result,
 }
@@ -24,7 +25,7 @@ export type TGameEndState = {
 export type TGameEndContext = [TGameEndState, Dispatch<SetStateAction<TGameEndState>>];
 
 export const GameEndState = {
-  step: GameEndStepType.landing,
+  step: GameEndStepType.unset,
   result: { bestScore: 0, currentScore: 0, coupon: '' },
   final: GameEndFinalType.card,
 };

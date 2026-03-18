@@ -1,6 +1,8 @@
 import Button from '@/components/button';
+import CountDown from '@/components/countDown';
 import Table from '@/components/table';
 import { TRankingResponse } from '@/hooks/useRanking';
+import { HomeContext, HomePageType } from '@/pages/home/config';
 import { Context, PlayingState } from '@/settings/constant';
 import { ActionType, TransitionType } from '@/settings/type';
 import Click from 'lesca-click';
@@ -8,7 +10,6 @@ import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect, useId, useMemo, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import './blockquote.less';
-import CountDown from '@/components/countDown';
 
 const IncreaseCount = memo(({ initCount, toCount }: { initCount: number; toCount: number }) => {
   const [count, setCount] = useState(initCount);
@@ -40,7 +41,6 @@ const InTheRanking = memo(({ ranking, score, transition }: TInTheRankingProps) =
       setStyle({ opacity: 1, y: 0 }, { duration: 600, delay: 200 });
     }
   }, [transition]);
-  console.log(score);
 
   return (
     <div className='flex w-full flex-col gap-5' style={style}>
@@ -86,6 +86,8 @@ const InTheRanking = memo(({ ranking, score, transition }: TInTheRankingProps) =
 
 const NotLoginRanking = memo(({ transition }: { transition: TransitionType }) => {
   const [, setContext] = useContext(Context);
+  const [, setState] = useContext(HomeContext);
+
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });
 
   useEffect(() => {
@@ -116,6 +118,7 @@ const NotLoginRanking = memo(({ transition }: { transition: TransitionType }) =>
                 type: ActionType.Playing,
                 state: { ...PlayingState },
               });
+              setState((S) => ({ ...S, page: HomePageType.Login }));
             }}
           >
             <Button.rounded>
