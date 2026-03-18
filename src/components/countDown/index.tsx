@@ -4,14 +4,13 @@ import useTween from 'lesca-use-tween';
 import { memo, useEffect } from 'react';
 
 type CountDownProps = {
-  selectedWeek: string;
+  nextWeek: string;
   transition: TransitionType;
 };
 
-const CountDown = memo(({ selectedWeek, transition }: CountDownProps) => {
-  const [date] = useCountdown(new Date(selectedWeek));
+const CountDown = memo(({ nextWeek, transition }: CountDownProps) => {
+  const [date] = useCountdown(new Date(nextWeek));
   const [days, hours, minutes, seconds] = date;
-
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });
 
   useEffect(() => {

@@ -164,11 +164,11 @@ type BlockquoteProps = {
   ranking?: string;
   score?: string;
   data: TRankingResponse['ranking'];
-  selectedWeek: string;
+  nextWeek: string;
   transition: TransitionType;
 };
 
-const Blockquote = memo(({ ranking, score, data, selectedWeek, transition }: BlockquoteProps) => {
+const Blockquote = memo(({ ranking, score, data, nextWeek, transition }: BlockquoteProps) => {
   const id = useId();
   const page = useMemo(() => {
     if (ranking === undefined) return <NotLoginRanking transition={transition} />;
@@ -189,7 +189,7 @@ const Blockquote = memo(({ ranking, score, data, selectedWeek, transition }: Blo
     >
       <Text ranking={ranking} transition={transition} />
       <div className='Blockquote'>{page}</div>
-      <CountDown selectedWeek={selectedWeek} transition={transition} />
+      {nextWeek && <CountDown nextWeek={nextWeek} transition={transition} />}
       <Table data={data} transition={transition} />
     </div>
   );

@@ -1,4 +1,4 @@
-import { HomeContext, HomeStepType } from '@/pages/home/config';
+import { HomeContext, HomePageType, HomeStepType } from '@/pages/home/config';
 import { ActionType, IReactProps } from '@/settings/type';
 import useTween, { Bezier } from 'lesca-use-tween';
 import { memo, useContext, useEffect, useRef, useState } from 'react';
@@ -56,7 +56,11 @@ const Dialog = memo(({ children }: IReactProps) => {
         imageSize.width === 0 ? { width: '100%' } : { ...style, width: `${imageSize.width + 37}px` }
       }
     >
-      <img ref={imageRef} src={dialog} />
+      <img
+        ref={imageRef}
+        src={dialog}
+        className={twMerge(state.page === HomePageType.Unset && 'opacity-0')}
+      />
       <div
         className='absolute top-1/2 h-full'
         style={{
@@ -140,23 +144,22 @@ const Container = memo(({ children, className }: { className?: string } & IReact
           </div>
         </div>
       </div>
-      {isEnd ||
-        (openRanking && (
-          <div className='absolute top-0 left-0 flex h-full w-full min-w-140 flex-col'>
-            <div className='flex w-full max-w-3xl flex-col items-center justify-start p-[3%] md:p-[0%]'>
-              <div className='flex w-full flex-row items-center justify-between pt-0 md:pt-[3%]'>
-                <div className='container-logo invisible' />
-              </div>
-              <div className='container-extra invisible relative z-20'>
-                <div className='p-4'>{'　'}</div>
-              </div>
+      {(isEnd || openRanking) && (
+        <div className='pointer-events-none absolute top-0 left-0 flex h-full w-full min-w-140 flex-col'>
+          <div className='flex w-full max-w-3xl flex-col items-center justify-start p-[3%] md:p-[0%]'>
+            <div className='flex w-full flex-row items-center justify-between pt-0 md:pt-[3%]'>
+              <div className='container-logo invisible' />
             </div>
-            <div className='relative z-40 h-full flex-1'>
-              <GameEnd />
+            <div className='container-extra invisible relative z-20'>
+              <div className='p-4'>{menuState?.enabled && <MenuList />}</div>
             </div>
-            <div className='h-12 w-full md:h-10' />
           </div>
-        ))}
+          <div className='pointer-events-auto relative z-40 h-full flex-1'>
+            <GameEnd />
+          </div>
+          <div className='h-12 w-full md:h-10' />
+        </div>
+      )}
     </Div100vh>
   );
 });

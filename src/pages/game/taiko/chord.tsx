@@ -127,13 +127,12 @@ const Chord = memo(() => {
     // TODO => END
     if (state.heart <= 0) {
       EnterFrame.stop();
+      EnterFrame.reset();
       EnterFrame.destroy();
       noteRefs.current.forEach((note) => {
-        if (note) {
-          note.stop();
-          setContext({ type: ActionType.Playing, state: { isEnd: true } });
-        }
+        if (note) note.stop();
       });
+      setContext({ type: ActionType.Playing, state: { isEnd: true } });
     }
   }, [state.heart]);
 

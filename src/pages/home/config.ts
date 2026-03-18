@@ -1,6 +1,7 @@
 import { createContext, Dispatch, SetStateAction } from 'react';
 
 export enum HomePageType {
+  Unset = '',
   Landing = '/landing',
   Examiner = '/examiner',
   Login = '/login',

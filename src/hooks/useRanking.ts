@@ -35,11 +35,16 @@ const useRanking = () => {
       const nextWeek = weekResponse.availableWeeks
         .sort()
         .find((week) => new Date(week).getTime() > Date.now());
+
       if (weekResponse.status === 'success') {
-        const rankingResponse = (await Fetcher.get(
-          `${REST_PATH.ranking}?week=${weekResponse.currentWeek}`,
-        )) as TRankingResponse;
-        response = { ...rankingResponse, message: '排行榜獲取成功！', nextWeek };
+        try {
+          const rankingResponse = (await Fetcher.get(
+            `${REST_PATH.ranking}?week=${weekResponse.currentWeek}`,
+          )) as TRankingResponse;
+          response = { ...rankingResponse, message: '排行榜獲取成功！', nextWeek };
+        } catch {
+          response = { status: 'error', message: '網路錯誤，請稍後再試', ranking: [], nextWeek };
+        }
       }
     } catch {
       response = { status: 'error', message: '網路錯誤，請稍後再試', ranking: [], nextWeek: '' };

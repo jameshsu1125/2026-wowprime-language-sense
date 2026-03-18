@@ -1,3 +1,4 @@
+import { HomeContext, HomePageType } from '@/pages/home/config';
 import { IReactProps } from '@/settings/type';
 import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect, useMemo, useState } from 'react';
@@ -36,11 +37,13 @@ const FrameBottom = memo(() => {
 const Page = memo(({ transition }: { transition: boolean }) => {
   const [state] = useContext(GameEndContext);
   const [transitionEnd, setTransitionEnd] = useState(false);
+  const [, setHomeState] = useContext(HomeContext);
 
   const page = useMemo(() => {
     switch (state.final) {
       case GameEndFinalType.card:
         return <Card transition={transitionEnd} />;
+
       case GameEndFinalType.award:
         return <Final />;
 
@@ -50,7 +53,13 @@ const Page = memo(({ transition }: { transition: boolean }) => {
   }, [state.final, transitionEnd]);
 
   return (
-    <Dialog transition={transition} onEnd={() => setTransitionEnd(true)}>
+    <Dialog
+      transition={transition}
+      onEnd={() => {
+        setTransitionEnd(true);
+        setHomeState((S) => ({ ...S, page: HomePageType.Unset }));
+      }}
+    >
       <FrameBottom />
       {page}
       <Frag />

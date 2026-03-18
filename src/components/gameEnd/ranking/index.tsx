@@ -53,7 +53,7 @@ const Ranking = memo(() => {
               ranking={ranking}
               score={score}
               data={data}
-              selectedWeek={rankingResponse.nextWeek}
+              nextWeek={rankingResponse.nextWeek}
               transition={transition}
             />
           </div>

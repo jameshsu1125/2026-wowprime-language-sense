@@ -27,8 +27,9 @@ const Home = memo(() => {
   }, [reset.index]);
 
   const Page = useMemo(() => {
-    const [target] = Object.values(HomePageType).filter((data) => data === value[0].page);
+    if (!value[0].page) return null;
 
+    const [target] = Object.values(HomePageType).filter((data) => data === value[0].page);
     switch (target) {
       default:
       case HomePageType.Landing:

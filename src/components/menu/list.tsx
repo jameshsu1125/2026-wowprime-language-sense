@@ -26,7 +26,7 @@ const MenuList = memo(() => {
             setContext({ type: ActionType.Menu, state: { enabled: false } });
             setContext({
               type: ActionType.Playing,
-              state: { openRanking: true, enabled: true, isEnd: false },
+              state: { openRanking: true, enabled: false, isEnd: false },
             });
           }}
         >

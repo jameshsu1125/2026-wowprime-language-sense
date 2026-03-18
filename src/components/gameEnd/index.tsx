@@ -20,7 +20,7 @@ const BG = memo(() => {
 
 const GameEnd = memo(() => {
   const [context] = useContext(Context);
-  const { openRanking } = context[ActionType.Playing]!;
+  const { openRanking, isEnd } = context[ActionType.Playing]!;
 
   const value = useState(GameEndState);
   const [reset] = useContext(ResetContext);
@@ -28,6 +28,12 @@ const GameEnd = memo(() => {
   useEffect(() => {
     if (reset.index) value[1](GameEndState);
   }, [reset.index]);
+
+  useEffect(() => {
+    if (isEnd) {
+      value[1]((S) => ({ ...S, step: GameEndStepType.landing }));
+    }
+  }, [isEnd]);
 
   const page = useMemo(() => {
     switch (value[0].step) {
