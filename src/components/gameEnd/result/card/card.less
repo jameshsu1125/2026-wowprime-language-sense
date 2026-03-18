@@ -1,13 +1,20 @@
 @import url('@/settings/global.css');
 .Card {
-  padding: 4.4%;
+  padding: 2%;
   @apply absolute flex h-full w-full flex-col items-center justify-between;
 
   .box {
+    margin-top: 2%;
+
+    padding-inline: 2%;
     @apply w-full;
 
     .card-buttons {
-      @apply mt-4 flex w-full flex-row justify-center gap-3 px-5;
+      margin-top: 3.5%;
+
+      padding-inline: 5%;
+
+      @apply flex w-full flex-row justify-center gap-3;
       & > div {
         @apply w-1/2;
 
@@ -55,7 +62,9 @@
         @apply absolute top-0 right-0 bottom-0 left-0;
 
         & > div {
-          @apply relative flex h-full w-full flex-col items-center justify-start px-7 py-6;
+          padding-inline: 8%;
+          padding-block: 6%;
+          @apply relative flex h-full w-full flex-col items-center justify-start;
 
           .logo {
             width: 57%;
@@ -101,36 +110,40 @@
           }
 
           .box-content {
-            @apply relative -mt-3 flex w-full flex-col items-start justify-center gap-0 pl-8;
+            margin-top: -4%;
+            padding-left: 2%;
+            @apply relative flex w-full flex-col items-start justify-center;
 
             & > div {
               @apply flex flex-row items-center justify-start text-2xl font-black tracking-widest text-white;
 
               & > span {
-                @apply text-primary font-line-extraBold text-4xl font-black tracking-widest;
+                @apply text-primary font-line-extraBold text-3xl font-black tracking-widest;
               }
             }
           }
 
           .award-content {
-            @apply mt-5;
-            @apply text-tertiary flex w-full flex-col items-start justify-center pl-4 text-justify text-xl leading-relaxed font-bold tracking-wider;
+            margin-top: 4%;
+            padding-left: 2%;
+
+            @apply text-tertiary flex w-full flex-col items-start justify-center text-justify text-lg font-bold tracking-wider;
 
             .dash-line {
               @apply border-tertiary w-full border-t-2 border-dashed;
             }
 
             & > .dash-line:nth-child(1) {
-              @apply mb-5;
+              margin-bottom: 2%;
             }
 
             & > .dash-line:last-child {
-              @apply mt-5;
+              margin-top: 2%;
             }
 
             & > div {
               span {
-                @apply text-primary font-line-extraBold text-3xl font-black;
+                @apply text-primary font-line-extraBold text-2xl font-black;
               }
             }
           }
@@ -140,11 +153,13 @@
   }
 
   .note {
-    gap: 2px;
-    @apply font-line-bold flex w-full flex-col items-center justify-center pb-1 text-center text-lg tracking-widest text-white select-none;
+    margin-bottom: 4.5%;
+
+    gap: 2%;
+    @apply font-line-bold flex w-full flex-col items-center justify-center text-center text-base tracking-widest text-white select-none;
 
     & > span {
-      @apply font-line-extraBold text-5xl;
+      @apply font-line-extraBold text-3xl;
     }
   }
 }

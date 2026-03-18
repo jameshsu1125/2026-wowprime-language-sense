@@ -153,7 +153,7 @@ const Text = memo(({ ranking, transition }: { ranking?: string; transition: Tran
   if (ranking === undefined) return null;
   else if (Number(ranking) <= 100) {
     return (
-      <div className='text-primary font-line-bold w-full text-center text-2xl' style={style}>
+      <div className='text-primary font-line-bold w-full text-center text-xl' style={style}>
         恭喜你榜上有名！
         <br />
         但不能大意，隨時都有可能被刷下來喔！
@@ -161,7 +161,7 @@ const Text = memo(({ ranking, transition }: { ranking?: string; transition: Tran
     );
   }
   return (
-    <div className='text-primary font-line-bold w-full text-center text-2xl' style={style}>
+    <div className='text-primary font-line-bold w-full text-center text-xl' style={style}>
       不要氣餒！繼續練習一定會有好成績的！ <br />
       前100名的獎勵在等妳！
     </div>

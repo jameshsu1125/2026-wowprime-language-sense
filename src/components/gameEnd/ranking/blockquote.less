@@ -36,13 +36,16 @@
   }
 
   blockquote {
-    @apply flex w-full flex-col items-center justify-center gap-1 border-2 border-black p-3;
+    padding: 5%;
+
+    gap: 1%;
+    @apply flex w-full flex-col items-center justify-center border-2 border-black bg-amber-400;
 
     & > div {
-      @apply font-line-bold flex flex-row items-center justify-center text-2xl;
+      @apply font-line-bold flex flex-row items-center justify-center text-xl;
 
       & > span {
-        @apply text-primary font-line-extraBold pr-1 text-4xl;
+        @apply text-primary font-line-extraBold pr-1 text-3xl;
       }
     }
   }

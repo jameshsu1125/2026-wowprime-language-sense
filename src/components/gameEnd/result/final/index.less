@@ -2,18 +2,21 @@
 
 .Final {
   padding: 3%;
-  padding-top: 16%;
+  padding-top: 20%;
   @apply relative h-full w-full;
 
   & > div {
-    @apply flex h-full flex-col items-center justify-between p-6;
+    padding: 4%;
+    @apply flex h-full flex-col items-center justify-between;
 
     & > div {
       @apply w-full;
     }
 
     & > div:nth-child(2) {
-      @apply flex flex-col items-start justify-center gap-3;
+      gap: 4%;
+
+      @apply flex flex-col items-start justify-center;
 
       .btn-ranking {
         width: 55%;
@@ -47,7 +50,12 @@
     }
 
     & > div:nth-child(1) {
-      @apply font-line-bold flex flex-col items-start justify-start gap-3 text-2xl;
+      gap: 2%;
+      @apply font-line-bold flex flex-col items-start justify-start text-xl;
+
+      & > div:last-child {
+        margin-top: 8%;
+      }
 
       & > div {
         @apply relative flex w-full flex-row items-center justify-start;
@@ -60,7 +68,9 @@
           @apply relative flex flex-row items-center justify-start;
 
           & > input {
-            @apply bg-tertiary font-line-regular w-64 p-3;
+            padding: 4%;
+            width: 75%;
+            @apply bg-tertiary font-line-regular text-xl;
           }
 
           & > button {

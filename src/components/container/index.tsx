@@ -1,6 +1,7 @@
 import { HomeContext } from '@/pages/home/config';
 import { Context } from '@/settings/constant';
 import { ActionType, IReactProps } from '@/settings/type';
+import Click from 'lesca-click';
 import useTween, { Bezier } from 'lesca-use-tween';
 import { memo, useContext, useEffect, useRef, useState } from 'react';
 import Div100vh from 'react-div-100vh';
@@ -56,6 +57,7 @@ const Background = memo(() => {
 });
 
 const Container = memo(({ children, className }: { className?: string } & IReactProps) => {
+  const ref = useRef<HTMLDivElement>(null);
   const [context] = useContext(Context);
   const menuState = context[ActionType.Menu]!;
   const {
@@ -64,9 +66,22 @@ const Container = memo(({ children, className }: { className?: string } & IReact
     openAnnouncement = false,
   } = context[ActionType.Playing]!;
 
+  useEffect(() => {
+    const resize = () => {
+      if (ref.current) {
+        const { height } = ref.current.getBoundingClientRect();
+        if (height <= 900) Click.setPreventDefault(false);
+        else Click.setPreventDefault(true);
+      }
+    };
+    resize();
+    window.addEventListener('resize', resize);
+    return () => window.removeEventListener('resize', resize);
+  }, []);
+
   return (
     <Div100vh className={twMerge('Container', className)}>
-      <div className='absolute flex h-full w-full flex-col'>
+      <div ref={ref} className='absolute flex h-full w-full flex-col'>
         <div className='bg-primary h-[38vw] w-full md:h-72' />
         <Background />
       </div>
@@ -97,7 +112,7 @@ const Container = memo(({ children, className }: { className?: string } & IReact
               {menuState?.enabled && <MenuList />}
             </div>
           </div>
-          <div className='container-dialog pointer-events-auto relative z-30 h-full'>
+          <div className='container-dialog pointer-events-auto relative z-30 h-full w-full'>
             <GameEnd />
           </div>
           <div className='h-12 w-full md:h-10' />

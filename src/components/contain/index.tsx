@@ -1,10 +1,13 @@
 import { IReactProps } from '@/settings/type';
-import { memo, useLayoutEffect, useRef, useState } from 'react';
+import { memo, useContext, useLayoutEffect, useRef, useState } from 'react';
 import './index.less';
+import { twMerge } from 'tailwind-merge';
+import { HomeContext, HomePageType } from '@/pages/home/config';
 
 const Contain = memo(({ children, imageURL }: IReactProps & { imageURL: string }) => {
   const frameRef = useRef<HTMLDivElement>(null);
   const [frame, setFrame] = useState({ width: 0, height: 0 });
+  const [state] = useContext(HomeContext);
 
   useLayoutEffect(() => {
     const image = new Image();
@@ -40,7 +43,7 @@ const Contain = memo(({ children, imageURL }: IReactProps & { imageURL: string }
   return (
     <div className='Contain' ref={frameRef}>
       <div
-        className='frame'
+        className={twMerge('frame', state.page === HomePageType.Unset && 'opacity-0')}
         style={{
           width: `${frame.width}px`,
           height: `${frame.height}px`,
