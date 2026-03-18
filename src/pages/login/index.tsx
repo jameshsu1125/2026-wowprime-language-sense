@@ -125,7 +125,7 @@ const Group = memo((props: TGroupProps) => {
   }, [name]);
   return (
     <div
-      className='relative flex w-full flex-row items-center justify-center gap-2 px-5'
+      className='relative flex w-full flex-row items-center justify-center gap-2 px-[2%]'
       style={style}
     >
       <label>{labelName}</label>
@@ -296,7 +296,7 @@ const Login = memo(() => {
           <div className={twMerge('btn flex justify-center', !passed && 'mt-20')}>
             <LoginButton checkValidate={checkValidate} transition={transition} />
           </div>
-          <div className='flex w-full flex-col gap-4 px-5 text-base'>
+          <div className='flex w-full flex-col gap-4 text-base'>
             <Notice transition={transition} delay={1500}>
               ※參與本活動即可獲得參加獎－瘋美食50點序號一組手機號碼限領一次。限量33,000名，送完為止。
             </Notice>

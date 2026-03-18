@@ -2,8 +2,10 @@
 @import url('@/settings/config.less');
 
 .Container {
+  min-height: 900px;
+  @apply relative w-full min-w-xl;
+
   .container-extra {
-    height: 4%;
     @apply w-full;
   }
 
@@ -99,9 +101,6 @@
   }
 
   .container-dialog {
-    & > img {
-      max-width: 100% !important;
-      max-height: 100% !important;
-    }
+    height: calc(~'100% - 166.5px - 48px');
   }
 }

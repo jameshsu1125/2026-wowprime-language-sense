@@ -89,31 +89,33 @@ const Examiner = memo(() => {
       }}
     >
       <div className='Examiner'>
-        <div className='video'>
-          <div>
+        <div>
+          <div className='video'>
             <div>
-              <div className='cover'>
-                <div className='video-player'>
-                  <video ref={ref} className='h-full w-full' playsInline>
-                    <source src={videoURL} type='video/mp4' />
-                  </video>
+              <div>
+                <div className='cover'>
+                  <div className='video-player'>
+                    <video ref={ref} className='h-full w-full' playsInline>
+                      <source src={videoURL} type='video/mp4' />
+                    </video>
+                  </div>
+                  {!isPlay && (
+                    <button
+                      className='play-button'
+                      onClick={() => {
+                        if (ref.current) {
+                          ref.current.play();
+                        }
+                      }}
+                    />
+                  )}
                 </div>
-                {!isPlay && (
-                  <button
-                    className='play-button'
-                    onClick={() => {
-                      if (ref.current) {
-                        ref.current.play();
-                      }
-                    }}
-                  />
-                )}
               </div>
             </div>
           </div>
+          <Frame transition={transition} />
+          <div className='font-preloader' />
         </div>
-        <Frame transition={transition} />
-        <div className='font-preloader' />
       </div>
     </OnloadProvider>
   );

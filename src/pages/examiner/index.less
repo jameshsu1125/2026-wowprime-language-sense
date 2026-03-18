@@ -1,50 +1,77 @@
 @import url('@/settings/global.css');
 
 .Examiner {
-  padding-inline: 37px * 0.5;
-  @apply h-full w-full pt-12;
+  @apply h-full w-full;
 
-  .font-preloader {
-    @apply fixed;
-    &::before {
-      content: '';
-      @apply font-line-bold;
+  & > div {
+    padding: 4%;
+    .font-preloader {
+      @apply fixed;
+      &::before {
+        content: '';
+        @apply font-line-bold;
+      }
+
+      &::after {
+        content: '';
+        @apply font-line-extraBold;
+      }
     }
 
-    &::after {
-      content: '';
-      @apply font-line-extraBold;
-    }
-  }
-
-  .frame {
-    margin-top: -10%;
-    padding: 0 1rem;
-    @apply relative z-20;
-
-    & > div {
-      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
-      width: 100%;
-      background-image: url(@img);
-      background-size: cover;
-
-      @img: './img/frame.svg';
+    .frame {
+      margin-top: -10%;
+      @apply relative z-20;
 
       & > div {
-        @apply absolute top-0 right-0 bottom-0 left-0 flex flex-col px-12 pt-16;
+        padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+        width: 100%;
+        background-image: url(@img);
+        background-size: cover;
 
-        .btn-next {
-          @img: './img/btn-next.svg';
-          gap: 5%;
-          padding-inline: 12%;
-          padding-block: 5%;
+        @img: './img/frame.svg';
 
-          @apply flex w-full flex-row items-center justify-center;
+        & > div {
+          padding-top: 13%;
 
-          & > div {
-            width: 16%;
+          padding-inline: 6%;
+          @apply absolute top-0 right-0 bottom-0 left-0 flex flex-col;
 
-            @img: './img/arrow.svg';
+          .btn-next {
+            @img: './img/btn-next.svg';
+            gap: 5%;
+            padding-inline: 12%;
+            padding-block: 5%;
+
+            @apply flex w-full flex-row items-center justify-center;
+
+            & > div {
+              width: 16%;
+
+              @img: './img/arrow.svg';
+
+              &::before {
+                padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+                background-image: url(@img);
+                content: '';
+
+                @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+              }
+              @apply flex h-full items-center justify-center;
+            }
+
+            &::before {
+              padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+              background-image: url(@img);
+              content: '';
+
+              @apply pointer-events-none inline-block w-full bg-contain bg-center bg-no-repeat;
+            }
+          }
+
+          .subtitle {
+            width: 100%;
+
+            @img: './img/content.svg';
 
             &::before {
               padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
@@ -53,79 +80,56 @@
 
               @apply inline-block w-full bg-contain bg-center bg-no-repeat;
             }
-            @apply flex h-full items-center justify-center;
-          }
-
-          &::before {
-            padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
-            background-image: url(@img);
-            content: '';
-
-            @apply pointer-events-none inline-block w-full bg-contain bg-center bg-no-repeat;
-          }
-        }
-
-        .subtitle {
-          width: 100%;
-
-          @img: './img/content.svg';
-
-          &::before {
-            padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
-            background-image: url(@img);
-            content: '';
-
-            @apply inline-block w-full bg-contain bg-center bg-no-repeat;
           }
         }
       }
     }
-  }
 
-  .video {
-    width: (unit(image-width(@img))) / 1280 * 100%;
+    .video {
+      width: 100%;
 
-    @img: './img/mask.svg';
-    @apply relative z-10 w-full px-5 pt-3;
-
-    & > div {
-      padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
-
-      @apply relative w-full;
+      @img: './img/mask.svg';
+      @apply relative z-10 w-full;
 
       & > div {
-        mask-image: url(@img);
-        mask-size: 100%;
-        mask-repeat: no-repeat;
+        padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
 
-        @apply bg-primary absolute top-0 right-0 bottom-0 left-0;
+        @apply relative w-full;
 
-        .cover {
-          background-image: url('./img/video-cover.jpg');
-          @apply flex h-full w-full items-center justify-center bg-cover bg-center;
+        & > div {
+          mask-image: url(@img);
+          mask-size: 100%;
+          mask-repeat: no-repeat;
 
-          .video-player {
-            @apply h-full w-full;
-          }
+          @apply bg-primary absolute top-0 right-0 bottom-0 left-0;
 
-          .play-button {
-            width: 25%;
+          .cover {
+            background-image: url('./img/video-cover.jpg');
+            @apply flex h-full w-full items-center justify-center bg-cover bg-center;
 
-            @img: './img/play-button.svg';
-            @apply absolute cursor-pointer;
-
-            &:hover {
-              & {
-                transform: scale(1.05);
-              }
+            .video-player {
+              @apply h-full w-full;
             }
 
-            &::before {
-              padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
-              background-image: url(@img);
-              content: '';
+            .play-button {
+              width: 25%;
 
-              @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+              @img: './img/play-button.svg';
+              @apply absolute cursor-pointer;
+
+              &:hover {
+                & {
+                  transform: scale(1.05);
+                }
+              }
+
+              &::before {
+                padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+                background-image: url(@img);
+                content: '';
+
+                @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+              }
             }
           }
         }
