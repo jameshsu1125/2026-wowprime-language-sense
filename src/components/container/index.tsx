@@ -78,12 +78,14 @@ const Dialog = memo(({ children }: IReactProps) => {
 
 const Background = memo(() => {
   const [{ level }] = useContext(HomeContext);
+  const levelRef = useRef(level);
 
   const [, setStyle] = useTween({ top: 0 });
   const [color, setColor] = useState('#fffff');
 
   useEffect(() => {
-    if (level !== 0) {
+    if (level !== 0 && level > levelRef.current) {
+      levelRef.current = level;
       setStyle(
         { top: 10 },
         {
