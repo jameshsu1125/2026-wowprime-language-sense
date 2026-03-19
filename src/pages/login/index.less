@@ -2,14 +2,14 @@
 @import url('@/settings/config.less');
 
 .Login {
-  padding-top: 9%;
+  padding-top: 12%;
 
   padding-inline: 8%;
 
   @apply h-full w-full;
 
   label {
-    @apply w-1/4 text-right text-lg font-black whitespace-nowrap;
+    @apply w-1/4 text-right text-xl font-black whitespace-nowrap md:text-2xl;
   }
 
   button {
@@ -26,7 +26,7 @@
 
     padding-inline: 6%;
     padding-block: 3%;
-    @apply rounded-l-full rounded-r-full border-black text-lg;
+    @apply rounded-l-full rounded-r-full border-black text-xl md:text-2xl;
 
     @media only screen and (max-width: @SM) {
       & {
