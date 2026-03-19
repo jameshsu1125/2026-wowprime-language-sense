@@ -18,7 +18,7 @@ export type THomeContext = [THomeState, Dispatch<SetStateAction<THomeState>>];
 
 export const HomeState: THomeState = {
   step: HomeStepType.unset,
-  page: HomePageType.Examiner,
+  page: HomePageType.Game,
   level: 0,
 };
 export const HomeContext = createContext<THomeContext>([HomeState, () => {}]);

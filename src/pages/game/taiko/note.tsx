@@ -34,6 +34,7 @@ const Note = forwardRef(({ index, type, onEnd, onUpdate, onMiss }: NoteProps, re
         onEnd: (style: { top: number }) => {
           onUpdate(index, style.top);
           onEnd(index);
+
           onMiss();
         },
       },

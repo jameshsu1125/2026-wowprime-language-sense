@@ -132,6 +132,7 @@ const Chord = memo(() => {
       noteRefs.current.forEach((note) => {
         if (note) note.stop();
       });
+      return;
       setContext({ type: ActionType.Playing, state: { isEnd: true } });
     }
   }, [state.heart]);
