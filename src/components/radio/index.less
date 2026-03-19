@@ -4,7 +4,7 @@
   @apply flex w-full flex-col items-start justify-start gap-4;
 
   & > span {
-    @apply text-primary text-3xl font-bold tracking-widest md:text-4xl;
+    @apply text-primary text-3xl font-bold tracking-widest md:text-3xl;
   }
 
   .radio-group {
@@ -15,7 +15,7 @@
     }
 
     & > div {
-      @apply text-primary flex flex-row items-center justify-start gap-4 text-2xl font-black md:text-3xl;
+      @apply text-primary flex flex-row items-center justify-start gap-4 text-2xl font-black md:text-2xl;
 
       & > input[type='radio'] {
         -webkit-appearance: none;
@@ -26,7 +26,7 @@
           content: '✓';
           transform: translateX(9%) translateY(-10%);
 
-          @apply invisible inline-block h-full w-full text-3xl text-black md:text-4xl;
+          @apply invisible inline-block h-full w-full text-3xl text-black md:text-3xl;
         }
 
         &:checked {

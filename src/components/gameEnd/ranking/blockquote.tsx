@@ -108,7 +108,7 @@ const NotLoginRanking = memo(({ transition }: { transition: TransitionType }) =>
 
   return (
     <div
-      className='font-line-bold text-primary flex w-full flex-col gap-10 text-center text-3xl leading-snug md:text-4xl'
+      className='font-line-bold text-primary flex w-full flex-col gap-10 text-center text-3xl leading-snug md:text-3xl'
       style={style}
     >
       <div>
@@ -156,7 +156,7 @@ const Text = memo(({ ranking, transition }: { ranking?: string; transition: Tran
   else if (Number(ranking) <= 100) {
     return (
       <div
-        className='text-primary font-line-bold w-full text-center text-xl md:text-2xl'
+        className='text-primary font-line-bold w-full text-center text-xl md:text-xl'
         style={style}
       >
         恭喜你榜上有名！
@@ -167,7 +167,7 @@ const Text = memo(({ ranking, transition }: { ranking?: string; transition: Tran
   }
   return (
     <div
-      className='text-primary font-line-bold w-full text-center text-xl md:text-2xl'
+      className='text-primary font-line-bold w-full text-center text-xl md:text-xl'
       style={style}
     >
       不要氣餒！繼續練習一定會有好成績的！ <br />

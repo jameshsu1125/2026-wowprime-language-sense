@@ -104,7 +104,7 @@ const Container = memo(({ children, className }: { className?: string } & IReact
             <Extra />
           </div>
         </div>
-        <div className='container-dialog pointer-events-auto relative w-full md:py-[2%]'>
+        <div className='container-dialog pointer-events-auto relative w-full py-[2%] md:py-[2%]'>
           <Contain imageURL={imageURL}>{children}</Contain>
         </div>
         <div className='h-12 w-full' />

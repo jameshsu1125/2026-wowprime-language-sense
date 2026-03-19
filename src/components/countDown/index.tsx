@@ -20,7 +20,7 @@ const CountDown = memo(({ nextWeek, transition }: CountDownProps) => {
   }, [transition]);
 
   return (
-    <div className='font-line-bold w-full text-center text-xl md:text-2xl' style={style}>
+    <div className='font-line-bold w-full text-center text-xl md:text-xl' style={style}>
       距離排名結算，倒數：{days}天{hours}時{minutes}分{seconds}秒
     </div>
   );

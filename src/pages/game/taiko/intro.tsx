@@ -84,7 +84,7 @@ const Postscript = memo(({ transition }: { transition: boolean }) => {
       setStyle({ opacity: 1, scale: 1 }, { duration: 250, delay: 3500, easing: Bezier.outBack });
   }, [transition]);
   return (
-    <span className='text-base md:text-xl' style={style}>
+    <span className='text-base md:text-base' style={style}>
       ★三次Miss即結束測驗，請把握機會!★
     </span>
   );

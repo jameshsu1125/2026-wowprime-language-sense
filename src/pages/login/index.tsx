@@ -39,7 +39,7 @@ const ResendButton = memo(({ onClick }: { onClick: () => void }) => {
             }
           }}
           disabled={Math.floor(Number(count.top)) > 0}
-          className='active:bg-primary w-full cursor-pointer rounded-lg bg-black px-4 py-2 text-xl text-white select-none hover:bg-gray-800 md:text-2xl'
+          className='active:bg-primary w-full cursor-pointer rounded-lg bg-black px-4 py-2 text-xl text-white select-none hover:bg-gray-800 md:text-xl'
         >
           重發驗證碼
           {`(${Math.floor(Number(count.top))})`}
@@ -69,7 +69,7 @@ const TelValidate = memo(({ onChange, onAgree, onResend }: TLoginButtonProps) =>
       />
       <ResendButton onClick={onResend} />
       <div className='flex w-full justify-center py-3'>
-        <div className='flex flex-row items-center gap-2 text-base whitespace-nowrap md:text-2xl'>
+        <div className='flex flex-row items-center gap-2 text-base whitespace-nowrap md:text-base'>
           <input type='checkbox' id='agree' name='agree' onChange={onAgree} className='h-4 w-4' />
           我已詳閱並同意
           <a href='#' className='text-blue-500 underline underline-offset-2'>
@@ -296,7 +296,7 @@ const Login = memo(() => {
           <div className={twMerge('btn flex justify-center', !passed && 'mt-20')}>
             <LoginButton checkValidate={checkValidate} transition={transition} />
           </div>
-          <div className='flex w-full flex-col gap-4 text-lg md:text-2xl'>
+          <div className='flex w-full flex-col gap-4 text-lg md:text-lg'>
             <Notice transition={transition} delay={1500}>
               ※參與本活動即可獲得參加獎－瘋美食50點序號一組手機號碼限領一次。限量33,000名，送完為止。
             </Notice>

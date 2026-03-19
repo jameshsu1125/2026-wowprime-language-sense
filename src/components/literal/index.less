@@ -3,31 +3,16 @@
 @size: 34px;
 
 .Literal {
-  @apply flex w-full flex-row flex-wrap items-start justify-start gap-0 text-3xl font-black text-black md:text-5xl;
+  @apply flex w-full flex-row flex-wrap items-start justify-start gap-0 text-3xl font-black text-black md:text-3xl;
 
   & > div {
     width: @size;
     height: @size * 2;
 
-    @media only screen and (min-width: 768px) {
-      @size: 48px;
-      & {
-        width: @size;
-        height: @size * 2;
-      }
-    }
-
     @apply mb-8 flex flex-col gap-2;
 
     .letter {
       height: @size;
-
-      @media only screen and (min-width: 768px) {
-        @size: 48px;
-        & {
-          height: @size;
-        }
-      }
 
       @apply flex w-full flex-col items-center justify-start text-center;
     }

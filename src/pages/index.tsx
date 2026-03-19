@@ -5,7 +5,7 @@ import '@/settings/global.css';
 import { ActionType, TContext } from '@/settings/type';
 import Click from 'lesca-click';
 import Fetcher, { contentType, formatType } from 'lesca-fetcher';
-import { Suspense, lazy, memo, useContext, useMemo, useReducer, useState } from 'react';
+import { Suspense, lazy, memo, useContext, useEffect, useMemo, useReducer, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import { ResetContext, ResetState } from './config';
 
@@ -47,6 +47,11 @@ const App = () => {
   const [state, setState] = useReducer(Reducer, InitialState);
   const value: TContext = useMemo(() => [state, setState], [state]);
   const resetValue = useState(ResetState);
+
+  useEffect(() => {
+    const textZoomLevel = screen.width / window.innerWidth;
+    if (textZoomLevel > 1) alert('建議使用100%以獲得最佳體驗');
+  }, []);
 
   return (
     <div className='App'>
