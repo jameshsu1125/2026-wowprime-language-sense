@@ -21,7 +21,13 @@ const Home = memo(() => {
       value[1](HomeState);
       setContext({
         type: ActionType.Playing,
-        state: { enabled: false, isEnd: false, score: 0, openRanking: false },
+        state: {
+          enabled: false,
+          isEnd: false,
+          score: 0,
+          openRanking: false,
+          openAnnouncement: false,
+        },
       });
     }
   }, [reset.index]);

@@ -1,3 +1,4 @@
+import { ResetContext } from '@/pages/config';
 import { HomeContext } from '@/pages/home/config';
 import { Context } from '@/settings/constant';
 import { ActionType, IReactProps } from '@/settings/type';
@@ -57,6 +58,8 @@ const Background = memo(() => {
 });
 
 const Container = memo(({ children, className }: { className?: string } & IReactProps) => {
+  const [, setReset] = useContext(ResetContext);
+
   const ref = useRef<HTMLDivElement>(null);
   const [context] = useContext(Context);
   const menuState = context[ActionType.Menu]!;
@@ -67,6 +70,9 @@ const Container = memo(({ children, className }: { className?: string } & IReact
   } = context[ActionType.Playing]!;
 
   useEffect(() => {
+    Click.add('#logo', () => {
+      setReset((S) => ({ ...S, index: S.index + 1 }));
+    });
     const resize = () => {
       if (ref.current) {
         const { height } = ref.current.getBoundingClientRect();
@@ -89,7 +95,7 @@ const Container = memo(({ children, className }: { className?: string } & IReact
       <div className='pointer-events-none absolute top-0 left-0 flex h-full w-full flex-col items-center justify-center'>
         <div className='flex w-full max-w-xl flex-col items-center justify-start p-[3%] md:p-[0%]'>
           <div className='flex w-full flex-row items-center justify-between pt-0 md:pt-[3%]'>
-            <div className='container-logo' />
+            <div id='logo' className='container-logo pointer-events-auto cursor-pointer' />
             <div className='container-options pointer-events-auto'>
               <Menu />
             </div>
