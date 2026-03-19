@@ -34,7 +34,7 @@ export default class Metronome {
   }
 
   public levelUp() {
-    this.interval = Math.max(50, this.interval - 100);
+    this.interval = Math.max(100, this.interval - 100);
     this.onLevelUp?.();
   }
 }
