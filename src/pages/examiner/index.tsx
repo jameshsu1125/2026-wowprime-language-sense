@@ -2,6 +2,7 @@ import Button from '@/components/button';
 import Sounds from '@/components/sounds';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
+import CharTransition from 'lesca-react-char-transition';
 import OnloadProvider from 'lesca-react-onload';
 import useTween, { Bezier } from 'lesca-use-tween';
 import { memo, useContext, useEffect, useRef, useState } from 'react';
@@ -36,7 +37,7 @@ const NextButton = memo(({ transition }: { transition: boolean }) => {
   );
 });
 
-const Frame = memo(({ transition }: { transition: boolean }) => {
+const Frame = memo(({ transition, isPlay }: { transition: boolean; isPlay: boolean }) => {
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });
 
   useEffect(() => {
@@ -49,8 +50,36 @@ const Frame = memo(({ transition }: { transition: boolean }) => {
     <div className='frame' style={style}>
       <div>
         <div>
-          <div className='subtitle'></div>
-          <div className='flex w-full flex-1 justify-end'>
+          <div className='subtitle'>
+            <div>
+              {isPlay ? (
+                <CharTransition duration={1200} list={['　']} preChar='　' fps={30}>
+                  參加考試人人有獎，週週公佈排名，
+                </CharTransition>
+              ) : (
+                '　'
+              )}
+            </div>
+            <div>
+              {isPlay ? (
+                <CharTransition duration={500} delay={2000} list={['　']} preChar='　' fps={30}>
+                  分數愈高獎愈大
+                </CharTransition>
+              ) : (
+                '　'
+              )}
+            </div>
+            <div>
+              {isPlay ? (
+                <CharTransition duration={1200} delay={4000} list={['　']} preChar='　' fps={30}>
+                  歡迎來到《全民一起好好吃語感大會考》
+                </CharTransition>
+              ) : (
+                '　'
+              )}
+            </div>
+          </div>
+          <div className='flex w-full justify-end'>
             <NextButton transition={transition} />
           </div>
         </div>
@@ -103,14 +132,7 @@ const Examiner = memo(() => {
               <div>
                 <div className='cover'>
                   <div className='video-player'>
-                    <video
-                      ref={ref}
-                      className='h-full w-full'
-                      playsInline
-                      onTimeUpdate={(e) => {
-                        console.log(e.currentTarget.currentTime);
-                      }}
-                    >
+                    <video ref={ref} className='h-full w-full'>
                       <source src={videoURL} type='video/mp4' />
                     </video>
                   </div>
@@ -128,7 +150,7 @@ const Examiner = memo(() => {
               </div>
             </div>
           </div>
-          <Frame transition={transition} />
+          <Frame transition={transition} isPlay={isPlay} />
           {transition && <div className='font-preloader' />}
         </div>
       </div>

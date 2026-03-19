@@ -32,9 +32,10 @@
 
         & > div {
           padding-top: 13%;
+          padding-bottom: 5%;
 
           padding-inline: 6%;
-          @apply absolute top-0 right-0 bottom-0 left-0 flex flex-col;
+          @apply absolute top-0 right-0 bottom-0 left-0 flex flex-col justify-between;
 
           .btn-next {
             @img: './img/btn-next.svg';
@@ -70,16 +71,21 @@
 
           .subtitle {
             width: 100%;
+            @apply font-line-bold text-3xl leading-snug;
 
-            @img: './img/content.svg';
-
-            &::before {
-              padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
-              background-image: url(@img);
-              content: '';
-
-              @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+            & > div {
+              @apply w-full;
             }
+
+            // @img: './img/content.svg';
+
+            // &::before {
+            //   padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+            //   background-image: url(@img);
+            //   content: '';
+
+            //   @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+            // }
           }
         }
       }
