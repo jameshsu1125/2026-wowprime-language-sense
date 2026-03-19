@@ -3,8 +3,8 @@
 @font-face {
   font-family: 'line-extraBold';
   src:
-    url('@/settings/subset-LINESeedTW_OTF_Eb.woff2') format('woff2'),
-    url('@/settings/subset-LINESeedTW_OTF_Eb.woff') format('woff');
+    url('@/settings/LINESeedTW_TTF-ExtraBold.woff2') format('woff2'),
+    url('@/settings/LINESeedTW_TTF-ExtraBold.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -13,8 +13,8 @@
 @font-face {
   font-family: 'line-regular';
   src:
-    url('@/settings/subset-LINESeedTW_OTF_Rg.woff2') format('woff2'),
-    url('@/settings/subset-LINESeedTW_OTF_Rg.woff') format('woff');
+    url('@/settings/LINESeedTW_TTF-Regular.woff2') format('woff2'),
+    url('@/settings/LINESeedTW_TTF-Regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -23,8 +23,8 @@
 @font-face {
   font-family: 'line-bold';
   src:
-    url('@/settings/subset-LINESeedTW_OTF_Bd.woff2') format('woff2'),
-    url('@/settings/subset-LINESeedTW_OTF_Bd.woff') format('woff');
+    url('@/settings/LINESeedTW_TTF-Bold.woff2') format('woff2'),
+    url('@/settings/LINESeedTW_TTF-Bold.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: swap;

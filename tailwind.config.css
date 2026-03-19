@@ -11,6 +11,10 @@
   --breakpoint-xs: 30rem;
 
   --font-line-regular: 'line-regular';
-  --font-line-bold: 'line-bold';
-  --font-line-extraBold: 'line-extraBold';
+  --font-line-bold:
+    'line-bold', 'Noto Sans TC', 'Microsoft JhengHei', 'PingFang TC', 'Helvetica Neue', Arial,
+    sans-serif;
+  --font-line-extraBold:
+    'line-extraBold', 'Noto Sans TC', 'Microsoft JhengHei', 'PingFang TC', 'Helvetica Neue', Arial,
+    sans-serif;
 }

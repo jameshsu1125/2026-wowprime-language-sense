@@ -1,4 +1,5 @@
 import Button from '@/components/button';
+import Sounds from '@/components/sounds';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
 import OnloadProvider from 'lesca-react-onload';
@@ -48,7 +49,7 @@ const Frame = memo(({ transition }: { transition: boolean }) => {
     <div className='frame' style={style}>
       <div>
         <div>
-          <div className='subtitle' />
+          <div className='subtitle'></div>
           <div className='flex w-full flex-1 justify-end'>
             <NextButton transition={transition} />
           </div>
@@ -90,6 +91,8 @@ const Examiner = memo(() => {
         requestAnimationFrame(() => {
           setTransition(true);
           setContext({ type: ActionType.LoadingProcess, state: { enabled: false } });
+          const tracks = new Sounds();
+          setContext({ type: ActionType.Sounds, state: { tracks } });
         });
       }}
     >
@@ -100,7 +103,14 @@ const Examiner = memo(() => {
               <div>
                 <div className='cover'>
                   <div className='video-player'>
-                    <video ref={ref} className='h-full w-full' playsInline>
+                    <video
+                      ref={ref}
+                      className='h-full w-full'
+                      playsInline
+                      onTimeUpdate={(e) => {
+                        console.log(e.currentTarget.currentTime);
+                      }}
+                    >
                       <source src={videoURL} type='video/mp4' />
                     </video>
                   </div>
@@ -119,7 +129,7 @@ const Examiner = memo(() => {
             </div>
           </div>
           <Frame transition={transition} />
-          <div className='font-preloader' />
+          {transition && <div className='font-preloader' />}
         </div>
       </div>
     </OnloadProvider>

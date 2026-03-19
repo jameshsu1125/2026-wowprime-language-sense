@@ -1,15 +1,14 @@
 import Container from '@/components/container';
-import { memo, useContext, useEffect, useMemo, useState } from 'react';
-import Landing from '../landing';
-import { HomeContext, HomePageType, HomeState, HomeStepType, THomeState } from './config';
-import Examiner from '../examiner';
-import Game from '../game';
-import OnloadProvider from 'lesca-react-onload';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
-import Login from '../login';
+import OnloadProvider from 'lesca-react-onload';
+import { memo, useContext, useEffect, useMemo, useState } from 'react';
 import { ResetContext } from '../config';
-import Sounds from '@/components/sounds';
+import Examiner from '../examiner';
+import Game from '../game';
+import Landing from '../landing';
+import Login from '../login';
+import { HomeContext, HomePageType, HomeState, HomeStepType, THomeState } from './config';
 
 const Home = memo(() => {
   const [, setContext] = useContext(Context);
@@ -59,8 +58,6 @@ const Home = memo(() => {
       onload={() => {
         value[1]((S) => ({ ...S, step: HomeStepType.loaded }));
         setContext({ type: ActionType.LoadingProcess, state: { enabled: false } });
-        const tracks = new Sounds();
-        setContext({ type: ActionType.Sounds, state: { tracks } });
       }}
     >
       <div>
