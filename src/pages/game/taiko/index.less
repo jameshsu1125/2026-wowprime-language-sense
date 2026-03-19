@@ -1,4 +1,20 @@
 @import url('@/settings/config.less');
 .Taiko {
   @apply h-full w-full;
+
+  .preloader {
+    & > div {
+      width: 0;
+      height: 0;
+    }
+    & > div:nth-child(1) {
+      background-image: url('./img/yigi.svg');
+    }
+    & > div:nth-child(2) {
+      background-image: url('./img/ch.svg');
+    }
+    & > div:nth-child(3) {
+      background-image: url('./img/hao.svg');
+    }
+  }
 }

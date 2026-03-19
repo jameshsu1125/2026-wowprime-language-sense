@@ -20,6 +20,11 @@ const Taiko = memo(() => {
   return (
     <TaikoContext.Provider value={[state, setState]}>
       <div className='Taiko'>{page}</div>
+      <div className='preloader fixed top-full'>
+        <div />
+        <div />
+        <div />
+      </div>
     </TaikoContext.Provider>
   );
 });

@@ -1,5 +1,6 @@
 import Button from '@/components/button';
 import Heading from '@/components/heading';
+import { Context } from '@/settings/constant';
 import CharTransition from 'lesca-react-char-transition';
 import OnloadProvider from 'lesca-react-onload';
 import useTween from 'lesca-use-tween';
@@ -15,6 +16,7 @@ import {
 import { GameContext, GameStepType } from '../config';
 import { TonesContext, TonesIntroSwitchBoxTime, TonesMandarin, TonesStepType } from './config';
 import './intro.less';
+import { ActionType } from '@/settings/type';
 
 const Headline = memo(({ transition }: { transition: boolean }) => {
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });
@@ -97,10 +99,12 @@ const SkipButton = memo(({ transition }: { transition: boolean }) => {
 });
 
 const TonesIntro = memo(() => {
+  const [, setContext] = useContext(Context);
   const [transition, setTransition] = useState(false);
   const boxRef = useRef<{ getBox: () => HTMLDivElement | null }>(null);
 
   useEffect(() => {
+    setContext({ type: ActionType.LoadingProcess, state: { enabled: true } });
     const offsets = [0, 21, 45, 68, 92];
     const animate = { index: Math.floor(Math.random() * offsets.length) };
     const setOffset = () => {
@@ -121,6 +125,7 @@ const TonesIntro = memo(() => {
     <OnloadProvider
       onload={() => {
         setTransition(true);
+        setContext({ type: ActionType.LoadingProcess, state: { enabled: false } });
       }}
     >
       <div className='TonesIntro'>

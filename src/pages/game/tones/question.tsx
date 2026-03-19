@@ -2,7 +2,7 @@ import Button from '@/components/button';
 import Heading from '@/components/heading';
 import Literal from '@/components/literal';
 import { SETTING } from '@/settings/config';
-import { IReactProps } from '@/settings/type';
+import { ActionType, IReactProps } from '@/settings/type';
 import { shuffleArray } from '@/utils';
 import OnloadProvider from 'lesca-react-onload';
 import useTween from 'lesca-use-tween';
@@ -11,6 +11,7 @@ import { twMerge } from 'tailwind-merge';
 import { GameContext, GameStepType } from '../config';
 import { TonesContext, TonesQuestions } from './config';
 import './question.less';
+import { Context } from '@/settings/constant';
 
 type TQuestionProps = IReactProps & {
   transition: boolean;
@@ -74,6 +75,7 @@ const NextButton = memo(({ transition, onClick }: { transition: boolean; onClick
 });
 
 const TonesQuestion = memo(() => {
+  const [, setContext] = useContext(Context);
   const ref = useRef<{ check: () => void }>(null);
 
   const [transition, setTransition] = useState(false);
@@ -97,11 +99,16 @@ const TonesQuestion = memo(() => {
 
   const questionData = TonesQuestions[questionIndex] ?? TonesQuestions[0];
 
+  useEffect(() => {
+    setContext({ type: ActionType.LoadingProcess, state: { enabled: true } });
+  }, []);
+
   return (
     <OnloadProvider
       onload={() => {
         requestAnimationFrame(() => {
           setTransition(true);
+          setContext({ type: ActionType.LoadingProcess, state: { enabled: false } });
         });
       }}
     >

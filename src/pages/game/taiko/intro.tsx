@@ -15,6 +15,8 @@ import {
 import { TonesMandarin } from '../tones/config';
 import { TaikoContext, TaikoStepType } from './config';
 import './intro.less';
+import { Context } from '@/settings/constant';
+import { ActionType } from '@/settings/type';
 
 const Headline = memo(({ transition }: { transition: boolean }) => {
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });
@@ -85,13 +87,19 @@ const Postscript = memo(({ transition }: { transition: boolean }) => {
 });
 
 const TaikoIntro = memo(() => {
+  const [, setContext] = useContext(Context);
   const [transition, setTransition] = useState(false);
   const boxRef = useRef<{ getBox: () => HTMLDivElement | null }>(null);
+
+  useEffect(() => {
+    setContext({ type: ActionType.LoadingProcess, state: { enabled: true } });
+  }, []);
 
   return (
     <OnloadProvider
       onload={() => {
         setTransition(true);
+        setContext({ type: ActionType.LoadingProcess, state: { enabled: false } });
       }}
     >
       <div className='TaikoIntro'>

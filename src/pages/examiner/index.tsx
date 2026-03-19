@@ -1,10 +1,12 @@
 import Button from '@/components/button';
-import { memo, useContext, useEffect, useRef, useState } from 'react';
-import { HomeContext, HomePageType } from '../home/config';
-import videoURL from './vid/video-cover.mp4';
-import './index.less';
+import { Context } from '@/settings/constant';
+import { ActionType } from '@/settings/type';
 import OnloadProvider from 'lesca-react-onload';
 import useTween, { Bezier } from 'lesca-use-tween';
+import { memo, useContext, useEffect, useRef, useState } from 'react';
+import { HomeContext, HomePageType } from '../home/config';
+import './index.less';
+import videoURL from './vid/video-cover.mp4';
 
 const NextButton = memo(({ transition }: { transition: boolean }) => {
   const [style, setStyle] = useTween({ opacity: 0, x: -50 });
@@ -57,11 +59,13 @@ const Frame = memo(({ transition }: { transition: boolean }) => {
 });
 
 const Examiner = memo(() => {
+  const [, setContext] = useContext(Context);
   const ref = useRef<HTMLVideoElement>(null);
   const [isPlay, setIsPlay] = useState(false);
   const [transition, setTransition] = useState(false);
 
   useEffect(() => {
+    setContext({ type: ActionType.LoadingProcess, state: { enabled: true } });
     const videoElement = ref.current;
     if (videoElement) {
       videoElement.onplay = () => {
@@ -85,6 +89,7 @@ const Examiner = memo(() => {
       onload={() => {
         requestAnimationFrame(() => {
           setTransition(true);
+          setContext({ type: ActionType.LoadingProcess, state: { enabled: false } });
         });
       }}
     >
