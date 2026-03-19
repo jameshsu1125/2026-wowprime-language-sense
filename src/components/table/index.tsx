@@ -50,14 +50,6 @@ const Table = memo(({ data, transition }: TableProps) => {
             </tr>
           ))}
       </tbody>
-      <tfoot>
-        <tr>
-          <th></th>
-          <th>排名</th>
-          <th>考生</th>
-          <th>分數</th>
-        </tr>
-      </tfoot>
     </table>
   );
 });

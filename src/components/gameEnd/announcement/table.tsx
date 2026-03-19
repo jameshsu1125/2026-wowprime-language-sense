@@ -73,14 +73,6 @@ const AnnouncementTable = memo(({ transition, rankingDate }: TAnnouncementTableP
                 )),
               )}
           </tbody>
-          <tfoot>
-            <tr>
-              <th>排名</th>
-              <th>得獎者</th>
-              <th>分數</th>
-              <th>手機</th>
-            </tr>
-          </tfoot>
         </table>
       </div>
     </Box>
