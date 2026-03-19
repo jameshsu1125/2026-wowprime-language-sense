@@ -25,10 +25,10 @@ const Ranking = memo(() => {
 
   const data = rankingResponse.ranking!;
 
-  // const ranking = userData
-  //   ? data.find((r) => r.nickname === userData.nickname)?.ranking
-  //   : undefined;
-  const ranking = undefined;
+  const ranking = userData
+    ? data.find((r) => r.nickname === userData.nickname)?.ranking
+    : undefined;
+  // const ranking = undefined;
 
   const score = userData ? data.find((r) => r.nickname === userData.nickname)?.score : undefined;
 

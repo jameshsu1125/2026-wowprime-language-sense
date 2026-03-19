@@ -132,7 +132,7 @@ const Examiner = memo(() => {
               <div>
                 <div className='cover'>
                   <div className='video-player'>
-                    <video ref={ref} className='h-full w-full'>
+                    <video ref={ref} className='h-full w-full' playsInline preload='auto'>
                       <source src={videoURL} type='video/mp4' />
                     </video>
                   </div>

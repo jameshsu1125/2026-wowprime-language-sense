@@ -61,8 +61,10 @@ const EndLanding = memo(() => {
   return (
     <OnloadProvider
       onload={() => {
-        setTransition(true);
-        sounds.tracks?.stop('bgm');
+        requestAnimationFrame(() => {
+          setTransition(true);
+          sounds.tracks?.stop('bgm');
+        });
       }}
     >
       <div className='EndLanding'>

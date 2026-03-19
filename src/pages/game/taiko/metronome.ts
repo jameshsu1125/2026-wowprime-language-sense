@@ -6,7 +6,7 @@ type Props = {
 };
 
 export default class Metronome {
-  private interval = 280;
+  private interval = 1000;
   private minInterval = 280;
   private index = 0;
   private levelIndex = 0;
@@ -35,7 +35,7 @@ export default class Metronome {
   }
 
   public levelUp() {
-    this.interval = Math.max(this.minInterval, this.interval - 100);
+    this.interval = Math.max(this.minInterval, this.interval - 50);
     this.onLevelUp?.();
   }
 }

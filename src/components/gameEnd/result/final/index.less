@@ -72,13 +72,15 @@
           @apply relative flex flex-row items-center justify-start;
 
           & > input {
-            padding: 4%;
             width: 75%;
-            @apply bg-tertiary font-line-regular text-xl md:text-2xl;
+
+            padding-inline: 4%;
+            @apply bg-tertiary font-line-regular h-12 text-xl md:h-16 md:text-2xl;
           }
 
           & > button {
-            @apply w-auto bg-black p-3 font-thin whitespace-nowrap text-white;
+            height: 100%;
+            @apply h-12 w-auto bg-black p-3 font-thin whitespace-nowrap text-white md:h-16;
           }
         }
 
