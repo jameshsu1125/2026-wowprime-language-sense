@@ -125,7 +125,7 @@ const Group = memo((props: TGroupProps) => {
   }, [name]);
   return (
     <div
-      className='relative flex w-full flex-row items-center justify-center gap-[1%] px-[2%]'
+      className='relative flex w-full flex-row items-center justify-center gap-[3%] px-[2%]'
       style={style}
     >
       <label>{labelName}</label>
