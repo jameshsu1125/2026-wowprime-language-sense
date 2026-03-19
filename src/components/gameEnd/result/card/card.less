@@ -67,10 +67,16 @@
           @apply relative flex h-full w-full flex-col items-center justify-start;
 
           .logo {
+            margin-top: 12%;
             width: 57%;
 
             @img: './img/logo.svg';
-            @apply mt-8;
+
+            @media only screen and (max-width: 768px) {
+              & {
+                margin-top: 15%;
+              }
+            }
 
             &::before {
               padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
@@ -115,10 +121,10 @@
             @apply relative flex w-full flex-col items-start justify-center;
 
             & > div {
-              @apply flex flex-row items-center justify-start text-2xl font-black tracking-widest text-white;
+              @apply flex flex-row items-center justify-start text-2xl leading-relaxed font-black tracking-widest text-white md:text-4xl;
 
               & > span {
-                @apply text-primary font-line-extraBold text-3xl font-black tracking-widest;
+                @apply text-primary font-line-extraBold text-3xl font-black tracking-widest md:text-5xl;
               }
             }
           }
@@ -127,23 +133,23 @@
             margin-top: 4%;
             padding-left: 2%;
 
-            @apply text-tertiary flex w-full flex-col items-start justify-center text-justify text-lg font-bold tracking-wider;
+            @apply text-tertiary flex w-full flex-col items-start justify-center text-justify text-lg leading-relaxed font-bold tracking-widest md:text-3xl;
 
             .dash-line {
               @apply border-tertiary w-full border-t-2 border-dashed;
             }
 
             & > .dash-line:nth-child(1) {
-              margin-bottom: 2%;
+              margin-bottom: 5%;
             }
 
             & > .dash-line:last-child {
-              margin-top: 2%;
+              margin-top: 5%;
             }
 
             & > div {
               span {
-                @apply text-primary font-line-extraBold text-2xl font-black;
+                @apply text-primary font-line-extraBold text-2xl font-black md:text-4xl;
               }
             }
           }
@@ -153,13 +159,19 @@
   }
 
   .note {
-    margin-bottom: 4.5%;
+    margin-bottom: 5.5%;
 
     gap: 2%;
-    @apply font-line-bold flex w-full flex-col items-center justify-center text-center text-base tracking-widest text-white select-none;
+
+    @media only screen and (max-width: 768px) {
+      & {
+        margin-bottom: 5.5%;
+      }
+    }
+    @apply font-line-bold flex w-full flex-col items-center justify-center text-center text-base tracking-widest text-white select-none md:text-2xl;
 
     & > span {
-      @apply font-line-extraBold text-3xl;
+      @apply font-line-extraBold text-3xl md:text-6xl;
     }
   }
 }

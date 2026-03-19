@@ -10,6 +10,8 @@
   --color-quaternary: #00ff00;
   --breakpoint-xs: 30rem;
 
+  --font-default:
+    'Noto Sans TC', 'Microsoft JhengHei', 'PingFang TC', 'Helvetica Neue', Arial, sans-serif;
   --font-line-regular: 'line-regular';
   --font-line-bold:
     'line-bold', 'Noto Sans TC', 'Microsoft JhengHei', 'PingFang TC', 'Helvetica Neue', Arial,

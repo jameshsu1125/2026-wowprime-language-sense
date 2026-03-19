@@ -49,7 +49,7 @@ const InTheRanking = memo(({ ranking, score, transition }: TInTheRankingProps) =
   }, [transition]);
 
   return (
-    <div className='flex w-full flex-col gap-5' style={style}>
+    <div className='font-default flex w-full flex-col gap-5' style={style}>
       <blockquote>
         <div>考生：{user.nickname}</div>
         <div>
@@ -108,7 +108,7 @@ const NotLoginRanking = memo(({ transition }: { transition: TransitionType }) =>
 
   return (
     <div
-      className='font-line-bold text-primary flex w-full flex-col gap-10 text-center text-3xl leading-snug'
+      className='font-line-bold text-primary flex w-full flex-col gap-10 text-center text-3xl leading-snug md:text-4xl'
       style={style}
     >
       <div>
@@ -155,7 +155,10 @@ const Text = memo(({ ranking, transition }: { ranking?: string; transition: Tran
   if (ranking === undefined) return null;
   else if (Number(ranking) <= 100) {
     return (
-      <div className='text-primary font-line-bold w-full text-center text-xl' style={style}>
+      <div
+        className='text-primary font-line-bold w-full text-center text-xl md:text-2xl'
+        style={style}
+      >
         恭喜你榜上有名！
         <br />
         但不能大意，隨時都有可能被刷下來喔！
@@ -163,7 +166,10 @@ const Text = memo(({ ranking, transition }: { ranking?: string; transition: Tran
     );
   }
   return (
-    <div className='text-primary font-line-bold w-full text-center text-xl' style={style}>
+    <div
+      className='text-primary font-line-bold w-full text-center text-xl md:text-2xl'
+      style={style}
+    >
       不要氣餒！繼續練習一定會有好成績的！ <br />
       前100名的獎勵在等妳！
     </div>

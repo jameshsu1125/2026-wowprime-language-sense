@@ -89,12 +89,18 @@ const Final = memo(() => {
           </div>
           <div>
             <TweenerProvider transition={transition} type='2' delay={1000}>
-              ※一名玩家限領一次，不得重複領取
+              ※兌換點數前，請先註冊成為王品瘋美食會員。
             </TweenerProvider>
             <TweenerProvider transition={transition} type='2' delay={1050}>
-              ※玩家需要有王品瘋美食帳號
+              ※兌換時間：需於 2026/05/03 前完成兌換。
             </TweenerProvider>
             <TweenerProvider transition={transition} type='2' delay={1100}>
+              ※一名玩家限領一次，不得重複領取
+            </TweenerProvider>
+            <TweenerProvider transition={transition} type='2' delay={1150}>
+              ※玩家需要有王品瘋美食帳號
+            </TweenerProvider>
+            <TweenerProvider transition={transition} type='2' delay={1200}>
               ※一組序號僅限兌換一次，不得重複使用
             </TweenerProvider>
             <div className='flex w-full flex-row items-center justify-between gap-4 pb-14'>

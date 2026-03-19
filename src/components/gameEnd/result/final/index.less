@@ -18,6 +18,10 @@
 
       @apply flex flex-col items-start justify-center;
 
+      & > div:not(:last-child) {
+        @apply md:text-xl;
+      }
+
       .btn-ranking {
         width: 55%;
 
@@ -50,8 +54,8 @@
     }
 
     & > div:nth-child(1) {
-      gap: 2%;
-      @apply font-line-bold flex flex-col items-start justify-start text-xl;
+      gap: 5%;
+      @apply font-line-bold flex flex-col items-start justify-start text-xl md:text-3xl;
 
       & > div:last-child {
         margin-top: 8%;
@@ -61,7 +65,7 @@
         @apply relative flex w-full flex-row items-center justify-start;
         & > span {
           line-height: 0;
-          @apply text-primary font-line-extraBold text-4xl;
+          @apply text-primary font-line-extraBold text-4xl md:text-6xl;
         }
 
         .join {
@@ -70,7 +74,7 @@
           & > input {
             padding: 4%;
             width: 75%;
-            @apply bg-tertiary font-line-regular text-xl;
+            @apply bg-tertiary font-line-regular text-xl md:text-2xl;
           }
 
           & > button {
