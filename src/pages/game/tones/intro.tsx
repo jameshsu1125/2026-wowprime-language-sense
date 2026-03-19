@@ -144,7 +144,7 @@ const TonesIntro = memo(() => {
             </CharTransition>
           </div>
           <Content ref={boxRef} transition={transition} />
-          <div className='mt-10 flex w-full flex-col items-center justify-center gap-4 md:mt-20'>
+          <div className='flex w-full flex-col items-center justify-center gap-4'>
             <StartButton transition={transition} />
             <SkipButton transition={transition} />
           </div>

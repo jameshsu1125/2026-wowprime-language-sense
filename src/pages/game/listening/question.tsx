@@ -100,7 +100,7 @@ const ListeningDescription2 = memo(({ transition }: { transition: boolean }) => 
     }
   }, [transition]);
   return (
-    <div className='w-full text-xl font-black tracking-wide md:text-3xl' style={style}>
+    <div className='w-full text-lg font-black tracking-wide' style={style}>
       請按下下方聲音鍵，在聽完對話後，
       <br />
       選出正確答案。
