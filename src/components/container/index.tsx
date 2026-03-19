@@ -70,7 +70,8 @@ const Container = memo(({ children, className }: { className?: string } & IReact
     const resize = () => {
       if (ref.current) {
         const { height } = ref.current.getBoundingClientRect();
-        if (height <= 900) Click.setPreventDefault(false);
+        const currentHeight = window.innerWidth <= 576 ? 1025 : 1025;
+        if (height <= currentHeight) Click.setPreventDefault(false);
         else Click.setPreventDefault(true);
       }
     };

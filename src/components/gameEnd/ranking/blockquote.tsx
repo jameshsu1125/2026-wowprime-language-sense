@@ -39,6 +39,8 @@ type TInTheRankingProps = {
 const InTheRanking = memo(({ ranking, score, transition }: TInTheRankingProps) => {
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });
   const [, setReset] = useContext(ResetContext);
+  const [context] = useContext(Context);
+  const user = context[ActionType.User]!;
 
   useEffect(() => {
     if (transition === TransitionType.FadeIn) {
@@ -49,7 +51,7 @@ const InTheRanking = memo(({ ranking, score, transition }: TInTheRankingProps) =
   return (
     <div className='flex w-full flex-col gap-5' style={style}>
       <blockquote>
-        <div>考生：松山蔡依林</div>
+        <div>考生：{user.nickname}</div>
         <div>
           你的分數：
           <span>

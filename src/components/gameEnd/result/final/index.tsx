@@ -42,7 +42,8 @@ const TweenerProvider = memo(
 );
 
 const Final = memo(() => {
-  const [, setContext] = useContext(Context);
+  const [context, setContext] = useContext(Context);
+  const user = context[ActionType.User]!;
   const [copiedText, copy] = useCopyToClipboard();
   const [{ result }] = useContext(GameEndContext);
   const [, setReset] = useContext(ResetContext);
@@ -60,7 +61,7 @@ const Final = memo(() => {
         <div>
           <div>
             <TweenerProvider transition={transition} type='1'>
-              恭喜松山蔡依林獲得
+              恭喜{user.nickname}獲得
             </TweenerProvider>
             <TweenerProvider transition={transition} delay={50} type='1'>
               參加獎瘋美食點數<span>50點</span>

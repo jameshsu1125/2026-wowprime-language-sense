@@ -65,7 +65,7 @@ const Card = memo(({ transition }: { transition: boolean }) => {
             <div>
               <div className={twMerge('medals', medalsID)} />
               <div className='box-content'>
-                <div>考生：{user?.nickname || '松山蔡依林'}</div>
+                <div>考生：{user?.nickname || '某某某'}</div>
                 <Score transition={transition} />
                 <Ranking transition={transition} ranking={ranking} />
               </div>
