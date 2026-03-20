@@ -41,13 +41,32 @@ const Contain = memo(({ children, imageURL }: IReactProps & { imageURL: string }
       requestAnimationFrame(() => getSize());
     };
 
+    const resizeOnMobile = () => {
+      if (frameRef.current) {
+        const { height: frameHeight, width: frameWidth } = frameRef.current.getBoundingClientRect();
+        if (frameWidth > 577) {
+          if (frameHeight !== 0) {
+            const { width, height } = image;
+            const currentFrameHeight = frameHeight;
+            const ratio = height / width;
+            const frameRatio = currentFrameHeight / frameWidth;
+            if (ratio > frameRatio) {
+              setFrame({ width: frameHeight / ratio, height: frameHeight });
+            } else {
+              setFrame({ width: frameWidth, height: frameWidth * ratio });
+            }
+          } else requestAnimationFrame(() => resizeOnMobile());
+        }
+      } else requestAnimationFrame(() => resizeOnMobile());
+    };
+
     image.onload = () => {
       resize();
-      window.addEventListener('resize', resize);
+      window.addEventListener('resize', resizeOnMobile);
     };
     image.src = imageURL;
 
-    return () => window.removeEventListener('resize', resize);
+    return () => window.removeEventListener('resize', resizeOnMobile);
   }, []);
   return (
     <div className='Contain' ref={frameRef}>

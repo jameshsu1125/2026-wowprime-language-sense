@@ -81,9 +81,21 @@ const Container = memo(({ children, className }: { className?: string } & IReact
         else Click.setPreventDefault(true);
       }
     };
+
+    const resizeOnMobile = () => {
+      if (ref.current) {
+        const { width, height } = ref.current.getBoundingClientRect();
+        if (width > 577) {
+          const currentHeight = window.innerWidth <= 576 ? 1050 : 900;
+          if (height <= currentHeight) Click.setPreventDefault(false);
+          else Click.setPreventDefault(true);
+        }
+      }
+    };
+
     resize();
-    window.addEventListener('resize', resize);
-    return () => window.removeEventListener('resize', resize);
+    window.addEventListener('resize', resizeOnMobile);
+    return () => window.removeEventListener('resize', resizeOnMobile);
   }, []);
 
   return (
