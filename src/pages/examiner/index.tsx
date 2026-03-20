@@ -58,26 +58,27 @@ const Frame = memo(({ transition, isPlay }: { transition: boolean; isPlay: boole
       <div>
         <div>
           <div className='subtitle'>
-            {subtitleSetting.map((item, index) => {
-              const duration = item.text.length * 40;
-              // eslint-disable-next-line react-hooks/globals
-              delay = index === 0 ? 0 : delay + item.delay + duration;
-              return (
-                <Fragment key={item.text}>
-                  <CharTransition
-                    duration={duration}
-                    delay={delay}
-                    list={['　']}
-                    preChar='　'
-                    fps={30}
-                    easing={Bezier.linear}
-                  >
-                    {item.text}
-                  </CharTransition>
-                  <div className='w-2' />
-                </Fragment>
-              );
-            })}
+            {isPlay &&
+              subtitleSetting.map((item, index) => {
+                const duration = item.text.length * 40;
+                // eslint-disable-next-line react-hooks/globals
+                delay = index === 0 ? 0 : delay + item.delay + duration;
+                return (
+                  <Fragment key={item.text}>
+                    <CharTransition
+                      duration={duration}
+                      delay={delay}
+                      list={['　']}
+                      preChar='　'
+                      fps={30}
+                      easing={Bezier.linear}
+                    >
+                      {item.text}
+                    </CharTransition>
+                    <div className='w-2' />
+                  </Fragment>
+                );
+              })}
           </div>
           <div className='flex w-full justify-end'>
             <NextButton transition={transition} />
