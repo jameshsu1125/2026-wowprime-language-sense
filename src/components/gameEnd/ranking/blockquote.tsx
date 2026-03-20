@@ -53,13 +53,13 @@ const InTheRanking = memo(({ ranking, score, transition }: TInTheRankingProps) =
       <blockquote>
         <div>考生：{user.nickname}</div>
         <div>
-          你的分數：
+          最佳分數：
           <span>
             <IncreaseCount initCount={0} toCount={Number(score) || 0} />
           </span>
         </div>
         <div>
-          目前排行：
+          本週排名：
           <span>
             {Number(ranking) <= 100 ? (
               <IncreaseCount initCount={1000} toCount={Number(ranking) || 1000} />
@@ -121,7 +121,7 @@ const NotLoginRanking = memo(({ transition }: { transition: TransitionType }) =>
         <span className='text-black'>快帶著你的准考證進入試場!</span>
       </div>
       <div className='flex w-full justify-center'>
-        <div className='w-1/2'>
+        <div className='w-2/5'>
           <Button
             onClick={() => {
               setContext({
@@ -185,11 +185,14 @@ type BlockquoteProps = {
 };
 
 const Blockquote = memo(({ ranking, score, data, nextWeek, transition }: BlockquoteProps) => {
+  const [context] = useContext(Context);
+  const { token } = context[ActionType.User]!;
+
   const id = useId();
   const page = useMemo(() => {
-    if (ranking === undefined) return <NotLoginRanking transition={transition} />;
+    if (!token) return <NotLoginRanking transition={transition} />;
     else return <InTheRanking ranking={ranking} score={score} transition={transition} />;
-  }, [ranking, score, transition]);
+  }, [ranking, score, transition, token]);
 
   useEffect(() => {
     Click.addPreventExcept(`#${id}`);
@@ -203,7 +206,7 @@ const Blockquote = memo(({ ranking, score, data, nextWeek, transition }: Blockqu
         ranking === undefined ? 'pt-0' : 'pt-8',
       )}
     >
-      <Text ranking={ranking} transition={transition} />
+      {token && <Text ranking={ranking} transition={transition} />}
       <div className='Blockquote'>{page}</div>
       {nextWeek && <CountDown nextWeek={nextWeek} transition={transition} />}
       <Table data={data} transition={transition} />

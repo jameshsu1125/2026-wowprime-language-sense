@@ -36,7 +36,7 @@ const Ranking = memo(({ transition, ranking }: { transition: boolean; ranking?: 
 
   return (
     <div>
-      目前排行：<span>{ranking ? Math.floor(Number(style.top)) : '未上榜'}</span>
+      本次排名：<span>{ranking ? Math.floor(Number(style.top)) : '未上榜'}</span>
       {ranking ? '名' : ''}
     </div>
   );

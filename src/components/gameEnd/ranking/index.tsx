@@ -22,13 +22,12 @@ const Ranking = memo(() => {
 
   const storage = Storage.get('token');
   const userData = storage && storage.data ? storage.data : null;
-
   const data = rankingResponse.ranking!;
 
-  const ranking = userData
-    ? data.find((r) => r.nickname === userData.nickname)?.ranking
-    : undefined;
-  // const ranking = undefined;
+  // const ranking = userData
+  //   ? data.find((r) => r.nickname === userData.nickname)?.ranking
+  //   : undefined;
+  const ranking = '1000';
 
   const score = userData ? data.find((r) => r.nickname === userData.nickname)?.score : undefined;
 
