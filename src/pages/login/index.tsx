@@ -149,7 +149,7 @@ const Login = memo(() => {
   const [, setContext] = useContext(Context);
   const [, setState] = useContext(HomeContext);
   const [userData, setUserData] = useState({ nickname: '', phone: '', otp: '', isAgree: false });
-  const [passed, setPassed] = useState(true);
+  const [passed, setPassed] = useState(false);
   const [loginRes, login] = useLogin();
   const [verifyRes, verify] = useVerify();
 
@@ -246,7 +246,7 @@ const Login = memo(() => {
             state: { enabled: true, score: 5000, isEnd: true, openRanking: false },
           });
         } else {
-          //  setState((S) => ({ ...S, page: HomePageType.Game }));
+          setState((S) => ({ ...S, page: HomePageType.Game }));
         }
       }
     }
