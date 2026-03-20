@@ -95,7 +95,7 @@ const ListeningDescription = memo(({ transition, soundName }: TListeningDescript
     <div className='w-[18%]' style={style}>
       <Button
         onClick={() => {
-          sounds.tracks?.play(soundName as SoundName);
+          sounds.tracks?.play(soundName as SoundName, 1, false);
         }}
       >
         <div className='sounds pointer-events-none' />
@@ -127,8 +127,6 @@ const ListeningQuestion = memo(({ questions }: { questions: typeof ListeningQues
   const [state, setState] = useContext(ListeningContext);
   const [, setGameState] = useContext(GameContext);
   const questionData = questions[state.index] ?? questions[0];
-  console.log(questionData, questions, state.index);
-
   if (!state.isSoundsLoaded) return null;
 
   return (

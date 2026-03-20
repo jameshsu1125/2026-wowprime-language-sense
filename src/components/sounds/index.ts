@@ -246,10 +246,9 @@ export default class Sounds {
     });
   }
 
-  play(name: SoundName, volume = 1) {
-    console.log(name, this.track[name]);
-
+  play(name: SoundName, volume = 1, canPlayTwice = true) {
     if (this.track[name] && this.track[name].onload && this.track[name].track) {
+      if (!canPlayTwice && this.track[name].track!.playing()) return;
       this.track[name].track!.volume(volume);
       this.track[name].track!.play();
     }

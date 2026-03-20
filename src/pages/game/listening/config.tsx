@@ -50,8 +50,8 @@ export const ListeningQuestions = [
   {
     question: { sound: 'sound4', text: '請問男生對女生的情感最有可能是？' },
     answer: [
-      { label: '義氣', isAnswer: true },
-      { label: '暗戀', isAnswer: false },
+      { label: '義氣', isAnswer: false },
+      { label: '暗戀', isAnswer: true },
       { label: '羡慕', isAnswer: false },
     ],
   },
@@ -91,8 +91,8 @@ export const ListeningQuestions = [
     question: { sound: 'sound9', text: '請問會拿餐券去吃飯的最有可能是下列何者？' },
     answer: [
       { label: '學長與學弟', isAnswer: false },
-      { label: '學弟與他喜歡的人', isAnswer: false },
-      { label: '學長與他喜歡的人', isAnswer: true },
+      { label: '學弟與他喜歡的人', isAnswer: true },
+      { label: '學長與他喜歡的人', isAnswer: false },
     ],
   },
   {
