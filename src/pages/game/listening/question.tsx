@@ -1,17 +1,18 @@
 import Button from '@/components/button';
 import Heading from '@/components/heading';
 import { SETTING } from '@/settings/config';
-import { IReactProps } from '@/settings/type';
-import { shuffleArray } from '@/utils';
+import { ActionType, IReactProps } from '@/settings/type';
 import OnloadProvider from 'lesca-react-onload';
 import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect, useRef, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { GameContext, GameStepType } from '../config';
 
+import Radio from '@/components/radio';
 import { ListeningContext, ListeningQuestions } from './config';
 import './question.less';
-import Radio from '@/components/radio';
+import { Context } from '@/settings/constant';
+import { SoundName } from '@/components/sounds/type';
 
 type TQuestionProps = IReactProps & {
   transition: boolean;
@@ -74,7 +75,15 @@ const NextButton = memo(({ transition, onClick }: { transition: boolean; onClick
   );
 });
 
-const ListeningDescription = memo(({ transition }: { transition: boolean }) => {
+type TListeningDescriptionProps = {
+  transition: boolean;
+  soundName: string;
+};
+
+const ListeningDescription = memo(({ transition, soundName }: TListeningDescriptionProps) => {
+  const [context] = useContext(Context);
+  const sounds = context[ActionType.Sounds]!;
+
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });
 
   useEffect(() => {
@@ -84,14 +93,18 @@ const ListeningDescription = memo(({ transition }: { transition: boolean }) => {
   }, [transition]);
   return (
     <div className='w-[18%]' style={style}>
-      <Button>
-        <div className='sounds' />
+      <Button
+        onClick={() => {
+          sounds.tracks?.play(soundName as SoundName);
+        }}
+      >
+        <div className='sounds pointer-events-none' />
       </Button>
     </div>
   );
 });
 
-const ListeningDescription2 = memo(({ transition }: { transition: boolean }) => {
+const ListeningCFA = memo(({ transition }: { transition: boolean }) => {
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });
 
   useEffect(() => {
@@ -108,29 +121,15 @@ const ListeningDescription2 = memo(({ transition }: { transition: boolean }) => 
   );
 });
 
-const ListeningQuestion = memo(() => {
+const ListeningQuestion = memo(({ questions }: { questions: typeof ListeningQuestions }) => {
   const ref = useRef<{ check: () => void }>(null);
-
   const [transition, setTransition] = useState(false);
   const [state, setState] = useContext(ListeningContext);
   const [, setGameState] = useContext(GameContext);
+  const questionData = questions[state.index] ?? questions[0];
+  console.log(questionData, questions, state.index);
 
-  const [questionIndex] = useState(() => {
-    const unselectedData = [...new Array(ListeningQuestions.length).keys()].filter(
-      (i) => !state.selected.includes(i),
-    );
-    const [currentIndex] = shuffleArray(unselectedData);
-    return currentIndex ?? 0;
-  });
-
-  useEffect(() => {
-    setState((currentState) => {
-      if (currentState.selected.includes(questionIndex)) return currentState;
-      return { ...currentState, selected: [...currentState.selected, questionIndex] };
-    });
-  }, [questionIndex, setState]);
-
-  const questionData = ListeningQuestions[questionIndex] ?? ListeningQuestions[0];
+  if (!state.isSoundsLoaded) return null;
 
   return (
     <OnloadProvider
@@ -142,9 +141,12 @@ const ListeningQuestion = memo(() => {
         <Headline transition={transition} />
         <div className='body'>
           <div className='flex w-full flex-col items-center gap-5'>
-            <ListeningDescription2 transition={transition} />
+            <ListeningCFA transition={transition} />
             <div className='flex w-full flex-row justify-start'>
-              <ListeningDescription transition={transition} />
+              <ListeningDescription
+                transition={transition}
+                soundName={questionData.question.sound}
+              />
             </div>
             <Question transition={transition}>
               <Radio

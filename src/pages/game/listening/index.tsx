@@ -1,19 +1,48 @@
-import { memo, useEffect, useMemo, useState } from 'react';
-import { ListeningContext, ListeningState, ListeningStepType } from './config';
+import { shuffleArray } from '@/utils';
+import { memo, useContext, useEffect, useMemo, useState } from 'react';
+import {
+  isHeyLongQuestion,
+  ListeningContext,
+  ListeningQuestions,
+  ListeningState,
+  ListeningStepType,
+} from './config';
 import './index.less';
 import ListeningIntro from './intro';
 import ListeningQuestion from './question';
+import { Context } from '@/settings/constant';
+import { ActionType } from '@/settings/type';
 
 const Listening = memo(() => {
+  const [context] = useContext(Context);
+  const sounds = context[ActionType.Sounds]!;
+
   const [state, setState] = useState(ListeningState);
-  useEffect(() => {}, []);
+
+  const normalQuestion = shuffleArray([...ListeningQuestions]);
+  const heyLongQuestion = shuffleArray([...ListeningQuestions]);
+
+  const questions = useMemo(() => {
+    return isHeyLongQuestion
+      ? [...normalQuestion.slice(0, 2), ...heyLongQuestion.slice(0, 1)]
+      : [...normalQuestion.slice(0, 3)];
+  }, []);
+
+  useEffect(() => {
+    sounds.tracks?.preloadByName(
+      questions.map((q) => q.question.sound),
+      'onListening',
+      () => setState((S) => ({ ...S, isSoundsLoaded: true })),
+    );
+  }, []);
+
   const page = useMemo(() => {
     switch (state.step) {
       case ListeningStepType.intro:
         return <ListeningIntro />;
 
       case ListeningStepType.question:
-        return <ListeningQuestion key={state.index} />;
+        return <ListeningQuestion key={state.index} questions={questions} />;
     }
   }, [state.step, state.index]);
 

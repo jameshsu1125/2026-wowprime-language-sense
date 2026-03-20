@@ -23,49 +23,52 @@ export const TonesIntroSwitchBoxTime = 800;
 
 export const TonesQuestions = [
   {
-    question: '愛好好吃的你，可以和我一起好好吃好吃的嗎?',
+    question: '愛好好吃的你，可以跟我一起好好吃好的嗎？',
     answer: [
       { index: 1, tone: 4 },
       { index: 2, tone: 3 },
       { index: 13, tone: 3 },
       { index: 14, tone: 3 },
+    ],
+  },
+  {
+    question: '東西好不好好吃的我好好吃一吃就知道。',
+    answer: [
+      { index: 2, tone: 3 },
+      { index: 4, tone: 3 },
+      { index: 5, tone: 4 },
+      { index: 9, tone: 3 },
+      { index: 10, tone: 3 },
+    ],
+  },
+  {
+    question: '你這麼好吃，我們只好一起投其所好好吃的都給你。',
+    answer: [
+      { index: 3, tone: 4 },
+      { index: 9, tone: 3 },
+      { index: 15, tone: 4 },
       { index: 16, tone: 3 },
     ],
   },
   {
-    question: '行行出狀元，他在銀行工作，工作很行',
+    question: '如果能跟他一起好好吃好不好吃都可以。',
     answer: [
-      { index: 0, tone: 2 },
-      { index: 1, tone: 2 },
-      { index: 9, tone: 2 },
-      { index: 16, tone: 2 },
+      { index: 7, tone: 3 },
+      { index: 8, tone: 3 },
+      { index: 10, tone: 3 },
+      { index: 12, tone: 3 },
     ],
   },
   {
-    question: '老師說詩人寫詩時，要把詩寫實。',
-    answer: [
-      { index: 3, tone: 1 },
-      { index: 6, tone: 1 },
-      { index: 11, tone: 1 },
-    ],
-  },
-  {
-    question: '四是四，十是十，十四是十四，四十是四十',
-    answer: [
-      { index: 0, tone: 4 },
-      { index: 4, tone: 2 },
-      { index: 9, tone: 4 },
-      { index: 11, tone: 2 },
-      { index: 17, tone: 4 },
-    ],
-  },
-  {
-    question: '你想不想像小翔一樣，想像很多想像的事情',
+    question: '最好好好一起跟好好吃的我，有好好的關係。',
     answer: [
       { index: 1, tone: 3 },
+      { index: 2, tone: 3 },
       { index: 3, tone: 3 },
-      { index: 10, tone: 3 },
+      { index: 7, tone: 3 },
+      { index: 8, tone: 4 },
       { index: 14, tone: 3 },
+      { index: 15, tone: 3 },
     ],
   },
 ];
