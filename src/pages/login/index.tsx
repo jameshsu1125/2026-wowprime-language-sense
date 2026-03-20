@@ -39,7 +39,7 @@ const ResendButton = memo(({ onClick }: { onClick: () => void }) => {
             }
           }}
           disabled={Math.floor(Number(count.top)) > 0}
-          className='active:bg-primary w-full cursor-pointer rounded-lg bg-black px-4 py-2 text-xl text-white select-none hover:bg-gray-800 md:text-xl'
+          className='active:bg-primary w-full cursor-pointer rounded-lg bg-black px-4 py-2 text-lg text-white select-none hover:bg-gray-800 md:text-lg'
         >
           重發驗證碼
           {`(${Math.floor(Number(count.top))})`}
@@ -68,7 +68,7 @@ const TelValidate = memo(({ onChange, onAgree, onResend }: TLoginButtonProps) =>
         type='tel'
       />
       <ResendButton onClick={onResend} />
-      <div className='flex w-full justify-center py-3'>
+      <div className='flex w-full justify-center py-2'>
         <div className='flex flex-row items-center gap-2 text-base whitespace-nowrap md:text-base'>
           <input type='checkbox' id='agree' name='agree' onChange={onAgree} className='h-4 w-4' />
           我已詳閱並同意
@@ -120,7 +120,7 @@ const Group = memo((props: TGroupProps) => {
       case 'phone':
         return '手機號碼：';
       case 'otp':
-        return '驗證碼：';
+        return '　驗證碼：';
     }
   }, [name]);
   return (
@@ -128,15 +128,19 @@ const Group = memo((props: TGroupProps) => {
       className='relative flex w-full flex-row items-center justify-center gap-[3%] px-[2%]'
       style={style}
     >
-      <label>{labelName}</label>
-      <input
-        type={type}
-        placeholder={name === 'otp' ? '請輸入簡訊驗證碼(OTP)' : ''}
-        name={name}
-        defaultValue={defaultValue || ''}
-        onChange={onChange}
-        maxLength={maxLength}
-      />
+      <div className='w-fit'>
+        <label>{labelName}</label>
+      </div>
+      <div className='flex-1'>
+        <input
+          type={type}
+          placeholder={name === 'otp' ? '請輸入簡訊驗證碼(OTP)' : ''}
+          name={name}
+          defaultValue={defaultValue || ''}
+          onChange={onChange}
+          maxLength={maxLength}
+        />
+      </div>
     </div>
   );
 });
@@ -145,7 +149,7 @@ const Login = memo(() => {
   const [, setContext] = useContext(Context);
   const [, setState] = useContext(HomeContext);
   const [userData, setUserData] = useState({ nickname: '', phone: '', otp: '', isAgree: false });
-  const [passed, setPassed] = useState(false);
+  const [passed, setPassed] = useState(true);
   const [loginRes, login] = useLogin();
   const [verifyRes, verify] = useVerify();
 
@@ -242,7 +246,7 @@ const Login = memo(() => {
             state: { enabled: true, score: 5000, isEnd: true, openRanking: false },
           });
         } else {
-          setState((S) => ({ ...S, page: HomePageType.Game }));
+          //  setState((S) => ({ ...S, page: HomePageType.Game }));
         }
       }
     }
@@ -255,7 +259,7 @@ const Login = memo(() => {
       }}
     >
       <div className='Login'>
-        <div className='flex w-full flex-col items-center justify-center gap-4'>
+        <div className='flex w-full flex-col items-center justify-center gap-2'>
           <Heading transition={transition} />
           <Group
             type='text'
@@ -296,9 +300,9 @@ const Login = memo(() => {
           <div className={twMerge('btn flex justify-center', !passed && 'mt-20')}>
             <LoginButton checkValidate={checkValidate} transition={transition} />
           </div>
-          <div className='flex w-full flex-col gap-4 text-lg md:text-lg'>
+          <div className='flex w-full flex-col gap-2 text-sm md:text-sm'>
             <Notice transition={transition} delay={1500}>
-              ※參與本活動即可獲得參加獎－瘋美食50點序號一組手機號碼限領一次。限量33,000名，送完為止。
+              ※參與本活動即可獲得參加獎－瘋美食點數50點(1點=1元)一組手機號碼限領一次。限量33,000名，送完為止。
             </Notice>
             <Notice transition={transition} delay={1600}>
               ※排行榜每週更新，前100名可獲得限定獎項一起爭取最高榮耀吧！
