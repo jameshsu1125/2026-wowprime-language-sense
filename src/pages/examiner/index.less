@@ -6,7 +6,8 @@
   & > div {
     padding: 4%;
     .font-preloader {
-      @apply fixed;
+      @apply font-line-regular fixed;
+
       &::before {
         content: '';
         @apply font-line-bold;
@@ -76,16 +77,6 @@
             & > div {
               @apply w-full;
             }
-
-            // @img: './img/content.svg';
-
-            // &::before {
-            //   padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
-            //   background-image: url(@img);
-            //   content: '';
-
-            //   @apply inline-block w-full bg-contain bg-center bg-no-repeat;
-            // }
           }
         }
       }

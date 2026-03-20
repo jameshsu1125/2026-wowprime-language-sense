@@ -91,7 +91,9 @@ const Postscript = memo(({ transition }: { transition: boolean }) => {
 });
 
 const TaikoIntro = memo(() => {
-  const [, setContext] = useContext(Context);
+  const [context, setContext] = useContext(Context);
+  const sounds = context[ActionType.Sounds]!;
+
   const [transition, setTransition] = useState(false);
   const boxRef = useRef<{ getBox: () => HTMLDivElement | null }>(null);
 
@@ -102,8 +104,10 @@ const TaikoIntro = memo(() => {
   return (
     <OnloadProvider
       onload={() => {
-        setTransition(true);
-        setContext({ type: ActionType.LoadingProcess, state: { enabled: false } });
+        sounds.tracks?.preload('onGame', () => {
+          setTransition(true);
+          setContext({ type: ActionType.LoadingProcess, state: { enabled: false } });
+        });
       }}
     >
       <div className='TaikoIntro'>

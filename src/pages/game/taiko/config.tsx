@@ -7,7 +7,7 @@ export enum TaikoStepType {
 export type TTaikoState = { step: TaikoStepType; heart: number };
 export type TTaikoContext = [TTaikoState, Dispatch<SetStateAction<TTaikoState>>];
 
-export const TaikoState: TTaikoState = { step: TaikoStepType.game, heart: 3 };
+export const TaikoState: TTaikoState = { step: TaikoStepType.intro, heart: 3 };
 export const TaikoContext = createContext<TTaikoContext>([TaikoState, () => {}]);
 
 export const TaikoBullseye = 82.1; // 點擊位置%

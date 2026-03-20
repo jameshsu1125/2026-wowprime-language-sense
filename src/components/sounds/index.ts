@@ -25,47 +25,81 @@ export type SoundName =
   | 'incorrect';
 
 type SoundTrackProps = {
-  onload?: () => void;
+  onload?: (type: PreloadType) => void;
 };
+
+type PreloadType = 'onStart' | 'onGame';
 
 export default class Sounds {
   public track: Record<
     string,
-    { src: string[]; loop: boolean; onload: boolean; track: Howl | null }
+    {
+      src: string[];
+      loop: boolean;
+      onload: boolean;
+      track: Howl | null;
+      preloadType: PreloadType;
+    }
   > = {
-    bgm: { src: [bgm], loop: true, onload: false, track: null },
-    yiqi: { src: [yiqi], loop: false, onload: false, track: null },
-    chi: { src: [chi], loop: false, onload: false, track: null },
-    hao: { src: [hao], loop: false, onload: false, track: null },
-    click: { src: [click], loop: false, onload: false, track: null },
-    button: { src: [button], loop: false, onload: false, track: null },
-    miss: { src: [miss], loop: false, onload: false, track: null },
-    levelup: { src: [levelup], loop: false, onload: false, track: null },
-    success: { src: [success], loop: false, onload: false, track: null },
-    correct: { src: [correct], loop: false, onload: false, track: null },
-    incorrect: { src: [incorrect], loop: false, onload: false, track: null },
+    bgm: { src: [bgm], loop: true, onload: false, track: null, preloadType: 'onGame' },
+    yiqi: { src: [yiqi], loop: false, onload: false, track: null, preloadType: 'onGame' },
+    chi: { src: [chi], loop: false, onload: false, track: null, preloadType: 'onGame' },
+    hao: { src: [hao], loop: false, onload: false, track: null, preloadType: 'onGame' },
+    click: { src: [click], loop: false, onload: false, track: null, preloadType: 'onStart' },
+    button: { src: [button], loop: false, onload: false, track: null, preloadType: 'onGame' },
+    miss: { src: [miss], loop: false, onload: false, track: null, preloadType: 'onGame' },
+    levelup: { src: [levelup], loop: false, onload: false, track: null, preloadType: 'onGame' },
+    success: { src: [success], loop: false, onload: false, track: null, preloadType: 'onGame' },
+    correct: { src: [correct], loop: false, onload: false, track: null, preloadType: 'onStart' },
+    incorrect: {
+      src: [incorrect],
+      loop: false,
+      onload: false,
+      track: null,
+      preloadType: 'onStart',
+    },
   };
 
-  private onload: () => void;
+  private onload: (type: PreloadType) => void;
 
   constructor(props: SoundTrackProps) {
     this.onload = props.onload || (() => {});
-    Object.keys(this.track).forEach((key) => {
-      this.track[key].track = new Howl({
-        src: this.track[key].src,
-        loop: this.track[key].loop,
-        onload: () => {
-          this.track[key]!.onload = true;
-          this.checkIsLoaded();
-        },
+    this.preload('onStart');
+  }
+
+  preload(type: PreloadType, onload?: (type: PreloadType) => void) {
+    const isLoadedBefore = Object.values(this.track)
+      .filter((value) => value.preloadType === type)
+      .every((value) => value.onload);
+    if (isLoadedBefore) return;
+
+    Object.entries(this.track)
+      .filter((track) => track[1].preloadType === type)
+      .forEach(([key, value]) => {
+        this.track[key].track = new Howl({
+          src: value.src,
+          loop: value.loop,
+          onload: () => {
+            value.onload = true;
+            this.checkIsLoaded();
+            if (type === 'onGame' && onload) onload(type);
+          },
+        });
       });
-    });
   }
 
   checkIsLoaded() {
-    const isLoaded = Object.keys(this.track).every((key) => this.track[key].onload);
-    if (isLoaded) {
-      this.onload();
+    const isOnStartLoaded = Object.values(this.track)
+      .filter((value) => value.preloadType === 'onStart')
+      .every((value) => value.onload);
+    if (isOnStartLoaded) {
+      this.onload('onStart');
+    }
+    const isOnGameLoaded = Object.values(this.track)
+      .filter((value) => value.preloadType === 'onGame')
+      .every((value) => value.onload);
+    if (isOnGameLoaded) {
+      this.onload('onGame');
     }
   }
 

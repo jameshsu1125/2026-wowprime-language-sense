@@ -117,14 +117,13 @@ const Examiner = memo(() => {
   return (
     <OnloadProvider
       onload={() => {
-        requestAnimationFrame(() => {
-          setTransition(true);
-          setContext({ type: ActionType.LoadingProcess, state: { enabled: false } });
-          const tracks = new Sounds({
-            onload: () => {},
-          });
-          setContext({ type: ActionType.Sounds, state: { tracks } });
+        const tracks = new Sounds({
+          onload: () => {
+            setContext({ type: ActionType.LoadingProcess, state: { enabled: false } });
+            setTransition(true);
+          },
         });
+        setContext({ type: ActionType.Sounds, state: { tracks } });
       }}
     >
       <div className='Examiner'>
@@ -153,7 +152,7 @@ const Examiner = memo(() => {
             </div>
           </div>
           <Frame transition={transition} isPlay={isPlay} />
-          {transition && <div className='font-preloader' />}
+          {transition && <div className='font-preloader' key='fonts' />}
         </div>
       </div>
     </OnloadProvider>

@@ -1,13 +1,22 @@
-import { IReactProps } from '@/settings/type';
-import { memo, useContext, useLayoutEffect, useRef, useState } from 'react';
-import './index.less';
-import { twMerge } from 'tailwind-merge';
 import { HomeContext, HomePageType } from '@/pages/home/config';
+import { IReactProps, TransitionType } from '@/settings/type';
+import OnloadProvider from 'lesca-react-onload';
+import useTween from 'lesca-use-tween';
+import { memo, useContext, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { twMerge } from 'tailwind-merge';
+import './index.less';
 
 const Contain = memo(({ children, imageURL }: IReactProps & { imageURL: string }) => {
   const frameRef = useRef<HTMLDivElement>(null);
   const [frame, setFrame] = useState({ width: 0, height: 0 });
   const [state] = useContext(HomeContext);
+
+  const [transition, setTransition] = useState(TransitionType.Unset);
+  const [style, setStyle] = useTween({ y: window.innerHeight });
+
+  useEffect(() => {
+    if (transition === TransitionType.FadeIn) setStyle({ y: 0 }, { duration: 500 });
+  }, [transition]);
 
   useLayoutEffect(() => {
     const image = new Image();
@@ -42,16 +51,19 @@ const Contain = memo(({ children, imageURL }: IReactProps & { imageURL: string }
   }, []);
   return (
     <div className='Contain' ref={frameRef}>
-      <div
-        className={twMerge('frame', state.page === HomePageType.Unset && 'opacity-0')}
-        style={{
-          width: `${frame.width}px`,
-          height: `${frame.height}px`,
-          backgroundImage: `url(${imageURL})`,
-        }}
-      >
-        {children}
-      </div>
+      <OnloadProvider onload={() => setTransition(TransitionType.FadeIn)}>
+        <div
+          className={twMerge('frame', state.page === HomePageType.Unset && 'opacity-0')}
+          style={{
+            ...style,
+            width: `${frame.width}px`,
+            height: `${frame.height}px`,
+            backgroundImage: `url(${imageURL})`,
+          }}
+        >
+          {children}
+        </div>
+      </OnloadProvider>
     </div>
   );
 });
