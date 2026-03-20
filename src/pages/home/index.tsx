@@ -17,7 +17,7 @@ const Home = memo(() => {
 
   useEffect(() => {
     if (reset.index) {
-      value[1](HomeState);
+      value[1]({ ...HomeState, page: HomePageType.Game });
       setContext({
         type: ActionType.Playing,
         state: {
