@@ -8,6 +8,8 @@ export const REST_PATH = {
   down: 'event/done',
   weeks: 'event/weeks',
   ranking: 'event/ranking',
+  upload: 'upload',
+  share: 'share/create',
 };
 
 export const SETTING = {

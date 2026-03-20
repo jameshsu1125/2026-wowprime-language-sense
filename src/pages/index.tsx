@@ -50,7 +50,9 @@ const App = () => {
 
   useEffect(() => {
     const textZoomLevel = screen.width / window.innerWidth;
-    if (textZoomLevel > 1) alert('建議使用100%以獲得最佳體驗');
+    if (window.location.hostname !== 'localhost' && textZoomLevel > 1) {
+      alert('建議使用100%以獲得最佳體驗');
+    }
   }, []);
 
   return (

@@ -24,6 +24,10 @@ export type SoundName =
   | 'correct'
   | 'incorrect';
 
+type SoundTrackProps = {
+  onload?: () => void;
+};
+
 export default class Sounds {
   public track: Record<
     string,
@@ -41,16 +45,28 @@ export default class Sounds {
     correct: { src: [correct], loop: false, onload: false, track: null },
     incorrect: { src: [incorrect], loop: false, onload: false, track: null },
   };
-  constructor() {
+
+  private onload: () => void;
+
+  constructor(props: SoundTrackProps) {
+    this.onload = props.onload || (() => {});
     Object.keys(this.track).forEach((key) => {
       this.track[key].track = new Howl({
         src: this.track[key].src,
         loop: this.track[key].loop,
         onload: () => {
           this.track[key]!.onload = true;
+          this.checkIsLoaded();
         },
       });
     });
+  }
+
+  checkIsLoaded() {
+    const isLoaded = Object.keys(this.track).every((key) => this.track[key].onload);
+    if (isLoaded) {
+      this.onload();
+    }
   }
 
   play(name: SoundName, volume = 1) {

@@ -120,7 +120,9 @@ const Examiner = memo(() => {
         requestAnimationFrame(() => {
           setTransition(true);
           setContext({ type: ActionType.LoadingProcess, state: { enabled: false } });
-          const tracks = new Sounds();
+          const tracks = new Sounds({
+            onload: () => {},
+          });
           setContext({ type: ActionType.Sounds, state: { tracks } });
         });
       }}
