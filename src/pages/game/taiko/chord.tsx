@@ -1,4 +1,5 @@
-import { SoundName } from '@/components/sounds';
+import { SoundName } from '@/components/sounds/type';
+import { HomeContext } from '@/pages/home/config';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
 import EnterFrame from 'lesca-enterframe';
@@ -8,7 +9,6 @@ import { TaikoBullseye, TaikoContext, TaikoTolerance } from './config';
 import Hole from './hole';
 import Metronome from './metronome';
 import Note from './note';
-import { HomeContext } from '@/pages/home/config';
 
 type Meter = {
   direction: 'left' | 'right' | 'middle';
