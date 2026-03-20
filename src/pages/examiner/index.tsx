@@ -5,10 +5,11 @@ import { ActionType } from '@/settings/type';
 import CharTransition from 'lesca-react-char-transition';
 import OnloadProvider from 'lesca-react-onload';
 import useTween, { Bezier } from 'lesca-use-tween';
-import { memo, useContext, useEffect, useRef, useState } from 'react';
+import { Fragment, memo, useContext, useEffect, useRef, useState } from 'react';
 import { HomeContext, HomePageType } from '../home/config';
 import './index.less';
 import videoURL from './vid/video-cover.mp4';
+import { subtitleSetting } from './config';
 
 const NextButton = memo(({ transition }: { transition: boolean }) => {
   const [style, setStyle] = useTween({ opacity: 0, x: -50 });
@@ -21,7 +22,7 @@ const NextButton = memo(({ transition }: { transition: boolean }) => {
 
   const [, setState] = useContext(HomeContext);
   return (
-    <div className='w-8/12' style={style}>
+    <div className='w-6/12' style={style}>
       <Button
         onClick={() => {
           setState((S) => ({ ...S, page: HomePageType.Login }));
@@ -37,6 +38,8 @@ const NextButton = memo(({ transition }: { transition: boolean }) => {
   );
 });
 
+let delay = 0;
+
 const Frame = memo(({ transition, isPlay }: { transition: boolean; isPlay: boolean }) => {
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });
 
@@ -46,38 +49,35 @@ const Frame = memo(({ transition, isPlay }: { transition: boolean; isPlay: boole
     }
   }, [transition]);
 
+  useEffect(() => {
+    delay = 0;
+  }, []);
+
   return (
     <div className='frame' style={style}>
       <div>
         <div>
           <div className='subtitle'>
-            <div>
-              {isPlay ? (
-                <CharTransition duration={1200} list={['　']} preChar='　' fps={30}>
-                  參加考試人人有獎，週週公佈排名，
-                </CharTransition>
-              ) : (
-                '　'
-              )}
-            </div>
-            <div>
-              {isPlay ? (
-                <CharTransition duration={500} delay={2000} list={['　']} preChar='　' fps={30}>
-                  分數愈高獎愈大
-                </CharTransition>
-              ) : (
-                '　'
-              )}
-            </div>
-            <div>
-              {isPlay ? (
-                <CharTransition duration={1200} delay={4000} list={['　']} preChar='　' fps={30}>
-                  歡迎來到《全民一起好好吃語感大會考》
-                </CharTransition>
-              ) : (
-                '　'
-              )}
-            </div>
+            {subtitleSetting.map((item, index) => {
+              const duration = item.text.length * 40;
+              // eslint-disable-next-line react-hooks/globals
+              delay = index === 0 ? 0 : delay + item.delay + duration;
+              return (
+                <Fragment key={item.text}>
+                  <CharTransition
+                    duration={duration}
+                    delay={delay}
+                    list={['　']}
+                    preChar='　'
+                    fps={30}
+                    easing={Bezier.linear}
+                  >
+                    {item.text}
+                  </CharTransition>
+                  <div className='w-2' />
+                </Fragment>
+              );
+            })}
           </div>
           <div className='flex w-full justify-end'>
             <NextButton transition={transition} />
