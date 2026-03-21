@@ -115,7 +115,7 @@ const Container = memo(({ children, className }: { className?: string } & IReact
       </div>
       {(isEnd || openRanking || menuState.enabled || openAnnouncement) && (
         <div className='pointer-events-none absolute top-0 left-0 flex h-full w-full flex-col items-center justify-center'>
-          <div className='flex w-full max-w-xl flex-col items-center justify-start p-[3%] md:p-[0%]'>
+          <div className='flex w-full max-w-xl flex-col items-center justify-start'>
             <div className='flex w-full flex-row items-center justify-between pt-0 md:pt-[3%]'>
               <div className='container-logo invisible' />
             </div>

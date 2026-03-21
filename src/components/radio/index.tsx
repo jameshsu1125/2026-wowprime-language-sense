@@ -13,7 +13,7 @@ const Radio = forwardRef(({ text, options, index }: TRadioProps, ref) => {
   const [context] = useContext(Context);
   const sounds = context[ActionType.Sounds]!;
 
-  const selectedRef = useRef<string>('');
+  const selectedRef = useRef<string>(options[0].label);
 
   useImperativeHandle(ref, () => ({
     check() {
@@ -21,7 +21,6 @@ const Radio = forwardRef(({ text, options, index }: TRadioProps, ref) => {
         .map((option, idx) => ({ ...option, idx }))
         .filter((option) => option.isAnswer);
       const currentIndex = currentAnswer?.idx ?? 0;
-
       document.querySelectorAll('.radio-group input').forEach((input, idx) => {
         if (idx === currentIndex) {
           input.classList.add('correct');
