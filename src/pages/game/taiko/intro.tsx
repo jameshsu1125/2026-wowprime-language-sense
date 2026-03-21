@@ -114,27 +114,31 @@ const TaikoIntro = memo(() => {
         <div className='flex w-full flex-col items-center justify-center gap-10'>
           <Headline transition={transition} />
           <div className='description min-h-14 text-center'>
-            <CharTransition
-              delay={500}
-              duration={727}
-              list={TonesMandarin}
-              preChar='　'
-              fps={60}
-              opacity={0.3}
-            >
-              請開啟手機聲音
-            </CharTransition>
-            <br />
-            <CharTransition
-              delay={500 + 727}
-              duration={1273}
-              list={TonesMandarin}
-              preChar='　'
-              fps={60}
-              opacity={0.3}
-            >
-              依照節奏提示，點擊畫面中的
-            </CharTransition>
+            {transition && (
+              <>
+                <CharTransition
+                  delay={500}
+                  duration={727}
+                  list={TonesMandarin}
+                  preChar='　'
+                  fps={60}
+                  opacity={0.3}
+                >
+                  請開啟手機聲音
+                </CharTransition>
+                <br />
+                <CharTransition
+                  delay={500 + 727}
+                  duration={1273}
+                  list={TonesMandarin}
+                  preChar='　'
+                  fps={60}
+                  opacity={0.3}
+                >
+                  依照節奏提示，點擊畫面中的
+                </CharTransition>
+              </>
+            )}
           </div>
           <Content ref={boxRef} transition={transition} />
           <div className='flex w-full flex-col items-center justify-center gap-4'>

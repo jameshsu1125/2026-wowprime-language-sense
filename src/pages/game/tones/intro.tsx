@@ -124,8 +124,10 @@ const TonesIntro = memo(() => {
   return (
     <OnloadProvider
       onload={() => {
-        setTransition(true);
-        setContext({ type: ActionType.LoadingProcess, state: { enabled: false } });
+        requestAnimationFrame(() => {
+          setTransition(true);
+          setContext({ type: ActionType.LoadingProcess, state: { enabled: false } });
+        });
       }}
     >
       <div className='TonesIntro'>
