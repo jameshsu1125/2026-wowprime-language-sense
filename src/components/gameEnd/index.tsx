@@ -4,12 +4,14 @@ import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
 import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect, useMemo, useState } from 'react';
+import Contain from '../contain';
+import Announcement from './announcement';
 import { GameEndContext, GameEndState, GameEndStepType } from './config';
 import './index.less';
 import EndLanding from './landing';
 import Ranking from './ranking';
 import EndResult from './result';
-import Announcement from './announcement';
+import frame from './result/img/frame.svg';
 
 const BG = memo(() => {
   const [style, setStyle] = useTween({ opacity: 0, backgroundColor: '#000000' });
@@ -97,7 +99,11 @@ const GameEnd = memo(() => {
     <GameEndContext.Provider value={value}>
       <div className='GameEnd'>
         {!openRanking && !openAnnouncement && (!menuState.enabled || isEnd) && <BG />}
-        <div className='ctx'>{page}</div>
+        <div className='ctx'>
+          <Contain imageURL={frame} IsHiddenDialogImage={true}>
+            {page}
+          </Contain>
+        </div>
         {modalPage}
       </div>
     </GameEndContext.Provider>

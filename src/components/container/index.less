@@ -2,13 +2,13 @@
 @import url('@/settings/config.less');
 
 .Container {
-  min-height: 900px;
+  min-height: @MINI_HEIGHT;
 
-  @apply relative w-full min-w-xl overflow-hidden;
+  @apply relative w-full min-w-md overflow-hidden;
 
   @media only screen and (max-width: 576px) {
     & {
-      min-height: 1050px;
+      min-height: @MINI_HEIGHT_MOBILE;
     }
   }
 

@@ -1,5 +1,5 @@
 import { ResetContext } from '@/pages/config';
-import { HomeContext } from '@/pages/home/config';
+import { HomeContext, HomePageType } from '@/pages/home/config';
 import { Context } from '@/settings/constant';
 import { ActionType, IReactProps } from '@/settings/type';
 import Click from 'lesca-click';
@@ -14,6 +14,7 @@ import Menu from '../menu';
 import MenuList from '../menu/list';
 import imageURL from './img/dialog.svg';
 import './index.less';
+import { MINI_HEIGHT } from '@/settings/config';
 
 const Background = memo(() => {
   const [{ level }] = useContext(HomeContext);
@@ -59,7 +60,7 @@ const Background = memo(() => {
 
 const Container = memo(({ children, className }: { className?: string } & IReactProps) => {
   const [, setReset] = useContext(ResetContext);
-
+  const [state] = useContext(HomeContext);
   const ref = useRef<HTMLDivElement>(null);
   const [context] = useContext(Context);
   const menuState = context[ActionType.Menu]!;
@@ -76,26 +77,15 @@ const Container = memo(({ children, className }: { className?: string } & IReact
     const resize = () => {
       if (ref.current) {
         const { height } = ref.current.getBoundingClientRect();
-        const currentHeight = window.innerWidth <= 576 ? 1050 : 900;
+        const currentHeight = window.innerWidth <= 576 ? MINI_HEIGHT.mobile : MINI_HEIGHT.desktop;
         if (height <= currentHeight) Click.setPreventDefault(false);
         else Click.setPreventDefault(true);
       }
     };
 
-    const resizeOnMobile = () => {
-      if (ref.current) {
-        const { width, height } = ref.current.getBoundingClientRect();
-        if (width > 577) {
-          const currentHeight = window.innerWidth <= 576 ? 1050 : 900;
-          if (height <= currentHeight) Click.setPreventDefault(false);
-          else Click.setPreventDefault(true);
-        }
-      }
-    };
-
     resize();
-    window.addEventListener('resize', resizeOnMobile);
-    return () => window.removeEventListener('resize', resizeOnMobile);
+    window.addEventListener('resize', resize);
+    return () => window.removeEventListener('resize', resize);
   }, []);
 
   return (
@@ -117,7 +107,9 @@ const Container = memo(({ children, className }: { className?: string } & IReact
           </div>
         </div>
         <div className='container-dialog pointer-events-auto relative w-full py-[2%] md:py-[2%]'>
-          <Contain imageURL={imageURL}>{children}</Contain>
+          <Contain imageURL={imageURL} hidden={state.page === HomePageType.Unset}>
+            {children}
+          </Contain>
         </div>
         <div className='h-12 w-full' />
       </div>

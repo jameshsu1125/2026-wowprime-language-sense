@@ -1,89 +1,87 @@
-import { HomeContext, HomePageType } from '@/pages/home/config';
+import { CONTAIN_RATIO } from '@/settings/config';
 import { IReactProps, TransitionType } from '@/settings/type';
 import OnloadProvider from 'lesca-react-onload';
 import useTween from 'lesca-use-tween';
-import { memo, useContext, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { memo, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import './index.less';
 
-const Contain = memo(({ children, imageURL }: IReactProps & { imageURL: string }) => {
-  const frameRef = useRef<HTMLDivElement>(null);
-  const [frame, setFrame] = useState({ width: 0, height: 0 });
-  const [state] = useContext(HomeContext);
+type ContainProps = IReactProps & {
+  imageURL: string;
+  hidden?: boolean;
+  IsHiddenDialogImage?: boolean;
+};
 
-  const [transition, setTransition] = useState(TransitionType.Unset);
-  const [style, setStyle] = useTween({ y: window.innerHeight });
+const Contain = memo(
+  ({ children, imageURL, hidden, IsHiddenDialogImage = false }: ContainProps) => {
+    const frameRef = useRef<HTMLDivElement>(null);
+    const [frame, setFrame] = useState({ width: 0, height: 0 });
+    const [scale, setScale] = useState(1);
 
-  useEffect(() => {
-    if (transition === TransitionType.FadeIn) setStyle({ y: 0 }, { duration: 500 });
-  }, [transition]);
+    const [transition, setTransition] = useState(TransitionType.Unset);
+    const [style, setStyle] = useTween({ y: window.innerHeight });
 
-  useLayoutEffect(() => {
-    const image = new Image();
-    const resize = () => {
-      const getSize = () => {
-        if (frameRef.current) {
-          const { height: frameHeight, width: frameWidth } =
-            frameRef.current.getBoundingClientRect();
-          if (frameHeight !== 0) {
-            const { width, height } = image;
-            const currentFrameHeight = frameHeight;
-            const ratio = height / width;
-            const frameRatio = currentFrameHeight / frameWidth;
-            if (ratio > frameRatio) {
-              setFrame({ width: frameHeight / ratio, height: frameHeight });
-            } else {
-              setFrame({ width: frameWidth, height: frameWidth * ratio });
-            }
+    useEffect(() => {
+      if (transition === TransitionType.FadeIn) setStyle({ y: 0 }, { duration: 500 });
+    }, [transition]);
+
+    useLayoutEffect(() => {
+      const image = new Image();
+      const resize = () => {
+        const getSize = () => {
+          if (frameRef.current) {
+            const { height: frameHeight, width: frameWidth } =
+              frameRef.current.getBoundingClientRect();
+            if (frameHeight !== 0) {
+              const { width, height } = image;
+              const currentFrameHeight = frameHeight;
+              const ratio = height / width;
+              const frameRatio = currentFrameHeight / frameWidth;
+              if (ratio > frameRatio) {
+                setFrame({ width: frameHeight / ratio, height: frameHeight });
+                setScale(frameHeight / ratio / CONTAIN_RATIO.width);
+              } else {
+                setFrame({ width: frameWidth, height: frameWidth * ratio });
+                setScale((frameWidth * ratio) / CONTAIN_RATIO.height);
+              }
+            } else requestAnimationFrame(() => getSize());
           } else requestAnimationFrame(() => getSize());
-        } else requestAnimationFrame(() => getSize());
+        };
+        requestAnimationFrame(() => getSize());
       };
-      requestAnimationFrame(() => getSize());
-    };
 
-    const resizeOnMobile = () => {
-      if (frameRef.current) {
-        const { height: frameHeight, width: frameWidth } = frameRef.current.getBoundingClientRect();
-        if (frameWidth > 577) {
-          if (frameHeight !== 0) {
-            const { width, height } = image;
-            const currentFrameHeight = frameHeight;
-            const ratio = height / width;
-            const frameRatio = currentFrameHeight / frameWidth;
-            if (ratio > frameRatio) {
-              setFrame({ width: frameHeight / ratio, height: frameHeight });
-            } else {
-              setFrame({ width: frameWidth, height: frameWidth * ratio });
-            }
-          } else requestAnimationFrame(() => resizeOnMobile());
-        }
-      } else requestAnimationFrame(() => resizeOnMobile());
-    };
+      image.onload = () => {
+        resize();
+        window.addEventListener('resize', resize);
+      };
+      image.src = imageURL;
 
-    image.onload = () => {
-      resize();
-      window.addEventListener('resize', resizeOnMobile);
-    };
-    image.src = imageURL;
-
-    return () => window.removeEventListener('resize', resizeOnMobile);
-  }, []);
-  return (
-    <div className='Contain' ref={frameRef}>
-      <OnloadProvider onload={() => setTransition(TransitionType.FadeIn)}>
-        <div
-          className={twMerge('frame', state.page === HomePageType.Unset && 'opacity-0')}
-          style={{
-            ...style,
-            width: `${frame.width}px`,
-            height: `${frame.height}px`,
-            backgroundImage: `url(${imageURL})`,
-          }}
-        >
-          {children}
-        </div>
-      </OnloadProvider>
-    </div>
-  );
-});
+      return () => window.removeEventListener('resize', resize);
+    }, []);
+    return (
+      <div className='Contain' ref={frameRef}>
+        <OnloadProvider onload={() => setTransition(TransitionType.FadeIn)}>
+          <div
+            className={twMerge('frame', hidden && 'opacity-0')}
+            style={{
+              ...style,
+              width: `${frame.width}px`,
+              height: `${frame.height}px`,
+            }}
+          >
+            <div
+              className='absolute top-1/2 left-1/2 h-197.5 w-120 bg-contain bg-center bg-no-repeat'
+              style={{
+                backgroundImage: IsHiddenDialogImage ? undefined : `url(${imageURL})`,
+                transform: `translate(-50%, -50%) scale(${scale})`,
+              }}
+            >
+              {children}
+            </div>
+          </div>
+        </OnloadProvider>
+      </div>
+    );
+  },
+);
 export default Contain;
