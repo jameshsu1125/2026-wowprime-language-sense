@@ -186,12 +186,16 @@ export default class Sounds {
   }
 
   preload(type: PreloadType, onload?: (type: PreloadType) => void) {
+    this.onload = onload || this.onload;
+
     const isLoadedBefore = Object.values(this.track)
       .filter((value) => value.preloadType === type)
       .every((value) => value.onload);
-    if (isLoadedBefore) return;
 
-    this.onload = onload || this.onload;
+    if (isLoadedBefore) {
+      this.checkIsLoaded(type);
+      return;
+    }
 
     Object.entries(this.track)
       .filter((track) => track[1].preloadType === type)
@@ -201,32 +205,39 @@ export default class Sounds {
           loop: value.loop,
           onload: () => {
             value.onload = true;
-            this.checkIsLoaded();
+            this.checkIsLoaded(type);
           },
         });
       });
   }
 
-  checkIsLoaded() {
-    const isOnStartLoaded = Object.values(this.track)
-      .filter((value) => value.preloadType === 'onStart')
-      .every((value) => value.onload);
-    if (isOnStartLoaded) {
-      this.onload('onStart');
-    }
-    const isOnGameLoaded = Object.values(this.track)
-      .filter((value) => value.preloadType === 'onGame')
-      .every((value) => value.onload);
-    if (isOnGameLoaded) {
-      this.onload('onGame');
+  checkIsLoaded(type: PreloadType) {
+    if (type === 'onStart') {
+      const isOnStartLoaded = Object.values(this.track)
+        .filter((value) => value.preloadType === 'onStart')
+        .every((value) => value.onload);
+      if (isOnStartLoaded) {
+        this.onload('onStart');
+      }
     }
 
-    const isOnListeningLoaded =
-      Object.values(this.track)
-        .filter((value) => value.preloadType === 'onListening')
-        .filter((value) => value.onload).length >= 3;
-    if (isOnListeningLoaded) {
-      this.onload('onListening');
+    if (type === 'onGame') {
+      const isOnGameLoaded = Object.values(this.track)
+        .filter((value) => value.preloadType === 'onGame')
+        .every((value) => value.onload);
+      if (isOnGameLoaded) {
+        this.onload('onGame');
+      }
+    }
+
+    if (type === 'onListening') {
+      const isOnListeningLoaded =
+        Object.values(this.track)
+          .filter((value) => value.preloadType === 'onListening')
+          .filter((value) => value.onload).length >= 3;
+      if (isOnListeningLoaded) {
+        this.onload('onListening');
+      }
     }
   }
 
