@@ -15,6 +15,7 @@ export type GameEndGameResult = {
   bestScore: number;
   currentScore: number;
   coupon: string;
+  rank: number;
 };
 
 export type TGameEndState = {
@@ -26,7 +27,7 @@ export type TGameEndContext = [TGameEndState, Dispatch<SetStateAction<TGameEndSt
 
 export const GameEndState = {
   step: GameEndStepType.unset,
-  result: { bestScore: 0, currentScore: 0, coupon: '' },
+  result: { bestScore: 0, currentScore: 0, coupon: '', rank: 0 },
   final: GameEndFinalType.card,
 };
 

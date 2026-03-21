@@ -1,5 +1,4 @@
 import Button from '@/components/button';
-import useRanking from '@/hooks/useRanking';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
 import { getMedalsIDByRanking } from '@/utils';
@@ -36,8 +35,8 @@ const Ranking = memo(({ transition, ranking }: { transition: boolean; ranking?: 
 
   return (
     <div>
-      本次排名：<span>{ranking ? Math.floor(Number(style.top)) : '未上榜'}</span>
-      {ranking ? '名' : ''}
+      本次排名：<span>{ranking !== '未上榜' ? Math.floor(Number(style.top)) : '未上榜'}</span>
+      {ranking !== '未上榜' ? '名' : ''}
     </div>
   );
 });
@@ -45,16 +44,9 @@ const Ranking = memo(({ transition, ranking }: { transition: boolean; ranking?: 
 const Card = memo(({ transition }: { transition: boolean }) => {
   const [context] = useContext(Context);
   const user = context[ActionType.User];
-  const [, setState] = useContext(GameEndContext);
-  const [rankingResponse, getRanking] = useRanking();
+  const [state, setState] = useContext(GameEndContext);
+  const ranking = state.result.rank === 0 ? '未上榜' : String(state.result.rank);
 
-  useEffect(() => {
-    getRanking();
-  }, []);
-
-  if (!rankingResponse) return null;
-  const rankings = rankingResponse.ranking!;
-  const ranking = rankings.find((r) => r.nickname === user?.nickname)?.ranking;
   const medalsID = getMedalsIDByRanking(ranking || '1000');
 
   return (

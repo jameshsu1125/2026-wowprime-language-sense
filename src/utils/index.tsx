@@ -55,6 +55,7 @@ export function shuffleArray<T>(array: T[]): T[] {
 }
 
 export function getMedalsIDByRanking(ranking: string): string {
+  if (ranking === '未上榜') return 'wood';
   const rank = Number(ranking);
   if (rank === 1) return 'gold';
   if (rank > 1 && rank <= 10) return 'silver';

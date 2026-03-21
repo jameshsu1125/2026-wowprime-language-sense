@@ -11,6 +11,7 @@ type TResponse = {
     currentScore: number;
     bestScore: number;
     coupon: string;
+    rank: number;
   };
   message?: string;
 };
