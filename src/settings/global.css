@@ -31,15 +31,13 @@
 }
 
 body {
-  margin: 0;
-
   text-size-adjust: none;
   overscroll-behavior: none;
 
   font-family:
     'Noto Sans TC', 'Microsoft JhengHei', 'PingFang TC', 'Helvetica Neue', Arial, sans-serif;
 
-  @apply bg-backgroundColor text-textColor;
+  @apply bg-backgroundColor text-textColor m-0;
 }
 
 .App {

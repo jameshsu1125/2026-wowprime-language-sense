@@ -23,10 +23,8 @@
     }
 
     .sounds {
-      width: 100%;
-
       @img: './img/content.svg';
-      @apply relative;
+      @apply relative w-full;
 
       &::before {
         padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
@@ -63,10 +61,10 @@
 
   .heading {
     padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
-    width: 100%;
     background-image: url(@img);
-    background-size: cover;
 
     @img: './img/heading.svg';
+
+    @apply w-full bg-cover;
   }
 }

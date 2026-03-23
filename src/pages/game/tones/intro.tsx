@@ -1,6 +1,7 @@
 import Button from '@/components/button';
 import Heading from '@/components/heading';
 import { Context } from '@/settings/constant';
+import { ActionType } from '@/settings/type';
 import CharTransition from 'lesca-react-char-transition';
 import OnloadProvider from 'lesca-react-onload';
 import useTween from 'lesca-use-tween';
@@ -16,7 +17,6 @@ import {
 import { GameContext, GameStepType } from '../config';
 import { TonesContext, TonesIntroSwitchBoxTime, TonesMandarin, TonesStepType } from './config';
 import './intro.less';
-import { ActionType } from '@/settings/type';
 
 const Headline = memo(({ transition }: { transition: boolean }) => {
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });

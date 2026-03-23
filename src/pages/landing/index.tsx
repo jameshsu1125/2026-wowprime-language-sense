@@ -5,7 +5,6 @@ import './index.less';
 
 const Landing = memo(() => {
   const [, setState] = useContext(HomeContext);
-
   return (
     <>
       <div className='Landing'>

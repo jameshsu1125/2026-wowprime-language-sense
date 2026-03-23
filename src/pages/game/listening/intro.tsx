@@ -13,9 +13,9 @@ import {
   useState,
 } from 'react';
 import { GameContext, GameStepType } from '../config';
-import './intro.less';
-import { ListeningContext, ListeningStepType } from './config';
 import { TonesMandarin } from '../tones/config';
+import { ListeningContext, ListeningStepType } from './config';
+import './intro.less';
 
 const Headline = memo(({ transition }: { transition: boolean }) => {
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });

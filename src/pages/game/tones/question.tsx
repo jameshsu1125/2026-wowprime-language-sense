@@ -2,6 +2,7 @@ import Button from '@/components/button';
 import Heading from '@/components/heading';
 import Literal from '@/components/literal';
 import { SETTING } from '@/settings/config';
+import { Context } from '@/settings/constant';
 import { ActionType, IReactProps } from '@/settings/type';
 import { shuffleArray } from '@/utils';
 import OnloadProvider from 'lesca-react-onload';
@@ -11,7 +12,6 @@ import { twMerge } from 'tailwind-merge';
 import { GameContext, GameStepType } from '../config';
 import { TonesContext, TonesQuestions } from './config';
 import './question.less';
-import { Context } from '@/settings/constant';
 
 type TQuestionProps = IReactProps & {
   transition: boolean;

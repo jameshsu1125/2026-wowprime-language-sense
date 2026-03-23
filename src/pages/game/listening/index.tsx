@@ -1,3 +1,5 @@
+import { Context } from '@/settings/constant';
+import { ActionType } from '@/settings/type';
 import { shuffleArray } from '@/utils';
 import { memo, useContext, useEffect, useMemo, useState } from 'react';
 import {
@@ -10,8 +12,6 @@ import {
 import './index.less';
 import ListeningIntro from './intro';
 import ListeningQuestion from './question';
-import { Context } from '@/settings/constant';
-import { ActionType } from '@/settings/type';
 
 const Listening = memo(() => {
   const [context] = useContext(Context);

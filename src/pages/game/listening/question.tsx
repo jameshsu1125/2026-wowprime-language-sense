@@ -1,18 +1,17 @@
 import Button from '@/components/button';
 import Heading from '@/components/heading';
+import Radio from '@/components/radio';
+import { SoundName } from '@/components/sounds/type';
 import { SETTING } from '@/settings/config';
+import { Context } from '@/settings/constant';
 import { ActionType, IReactProps } from '@/settings/type';
 import OnloadProvider from 'lesca-react-onload';
 import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect, useRef, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { GameContext, GameStepType } from '../config';
-
-import Radio from '@/components/radio';
 import { ListeningContext, ListeningQuestions } from './config';
 import './question.less';
-import { Context } from '@/settings/constant';
-import { SoundName } from '@/components/sounds/type';
 
 type TQuestionProps = IReactProps & {
   transition: boolean;

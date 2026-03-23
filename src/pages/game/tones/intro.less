@@ -32,10 +32,7 @@
     }
 
     & > div {
-      left: 0%;
-      width: 20%;
-
-      @apply absolute top-0;
+      @apply absolute top-0 left-0 w-1/5;
 
       &::before {
         padding-bottom: 73%;
@@ -53,9 +50,8 @@
   }
 
   .heading {
-    width: 100%;
-
     @img: './img/heading.svg';
+    @apply w-full;
 
     &::before {
       padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);

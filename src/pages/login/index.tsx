@@ -1,9 +1,11 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 import useLogin from '@/hooks/useLogin';
 import useVerify from '@/hooks/useVerify';
+import { IS_TEST, SECTION_DURATION } from '@/settings/config';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
 import Fetcher from 'lesca-fetcher';
+import Storage from 'lesca-local-storage';
 import OnloadProvider from 'lesca-react-onload';
 import useTween, { Bezier } from 'lesca-use-tween';
 import { ValidatePhone } from 'lesca-validate';
@@ -13,8 +15,6 @@ import { HomeContext, HomePageType } from '../home/config';
 import LoginButton from './button';
 import Heading, { Notice } from './heading';
 import './index.less';
-import { IS_TEST, SECTION_DURATION } from '@/settings/config';
-import Storage from 'lesca-local-storage';
 
 type TLoginButtonProps = {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
