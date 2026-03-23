@@ -1,5 +1,4 @@
-const char = `
-0123456789
+0123456789點擊播放觀看影片內容
 abcdefghijklmnopqrstuvwxyz佳
 ABCDEFGHIJKLMNOPQRSTUVWXYZ
 +-~!@#$%^&*|}{}][]';":?><>/.,學長與學弟
@@ -60,6 +59,3 @@ question:{sound:'sound11',text:'請問下列敘述何者正確？'},
 如果能跟他一起好好吃好不好吃都可以。
 最好好好一起跟好好吃的我，有好好的關係。ㄅ,
 ㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙ
-`;
-
-export const extractedCharacters = () => [...new Set(char)].join('');

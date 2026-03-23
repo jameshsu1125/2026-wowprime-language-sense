@@ -2,14 +2,15 @@ import Button from '@/components/button';
 import Sounds from '@/components/sounds';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
+import EnterFrame from 'lesca-enterframe';
 import CharTransition from 'lesca-react-char-transition';
 import OnloadProvider from 'lesca-react-onload';
 import useTween, { Bezier } from 'lesca-use-tween';
 import { Fragment, memo, useContext, useEffect, useRef, useState } from 'react';
 import { HomeContext, HomePageType } from '../home/config';
+import { subtitleSetting } from './config';
 import './index.less';
 import videoURL from './vid/video-cover.mp4';
-import { subtitleSetting } from './config';
 
 const NextButton = memo(({ transition }: { transition: boolean }) => {
   const [style, setStyle] = useTween({ opacity: 0, x: -50 });
@@ -40,8 +41,15 @@ const NextButton = memo(({ transition }: { transition: boolean }) => {
 
 let delay = 0;
 
-const Frame = memo(({ transition, isPlay }: { transition: boolean; isPlay: boolean }) => {
+type TFrameProps = {
+  transition: boolean;
+  isPlay: boolean;
+  video: React.RefObject<HTMLVideoElement | null>;
+};
+
+const Frame = memo(({ transition, isPlay, video }: TFrameProps) => {
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });
+  const [dataIndex, setDataIndex] = useState(0);
 
   useEffect(() => {
     if (transition) {
@@ -51,36 +59,53 @@ const Frame = memo(({ transition, isPlay }: { transition: boolean; isPlay: boole
 
   useEffect(() => {
     delay = 0;
+    EnterFrame.add(() => {
+      if (video && video.current) {
+        const [currentSubtitle] = subtitleSetting
+          .filter((item) => item.startTime <= video.current!.currentTime)
+          .reverse();
+
+        if (currentSubtitle) {
+          setDataIndex(currentSubtitle.index);
+        }
+      }
+    });
   }, []);
+
+  useEffect(() => {
+    if (isPlay) EnterFrame.play();
+    else EnterFrame.stop();
+  }, [isPlay]);
 
   return (
     <div className='frame' style={style}>
       <div>
         <div>
           <div className='subtitle'>
-            {isPlay &&
-              subtitleSetting.map((item, index) => {
-                const duration = item.text.length * 40;
-                // eslint-disable-next-line react-hooks/globals
-                delay = index === 0 ? 0 : delay + item.delay + duration;
-                return (
-                  <Fragment key={item.text}>
-                    <CharTransition
-                      duration={duration}
-                      delay={delay}
-                      list={['　']}
-                      preChar='　'
-                      fps={30}
-                      easing={Bezier.linear}
-                    >
-                      {item.text}
-                    </CharTransition>
-                    <div className='w-2' />
-                  </Fragment>
-                );
-              })}
+            {isPlay && video && dataIndex > 0
+              ? subtitleSetting[dataIndex - 1]?.data.map((item, index) => {
+                  const duration = item.text.length * 20;
+                  // eslint-disable-next-line react-hooks/globals
+                  delay = index === 0 ? 0 : delay + item.delay + duration;
+                  return (
+                    <Fragment key={item.text}>
+                      <CharTransition
+                        duration={duration}
+                        delay={delay}
+                        list={['　']}
+                        preChar='　'
+                        fps={30}
+                        easing={Bezier.linear}
+                      >
+                        {item.text}
+                      </CharTransition>
+                      <div className='w-2' />
+                    </Fragment>
+                  );
+                })
+              : '點擊播放觀看影片內容'}
           </div>
-          <div className='flex w-full justify-end'>
+          <div className='absolute right-5 bottom-5 flex h-fit w-full justify-end'>
             <NextButton transition={transition} />
           </div>
         </div>
@@ -152,7 +177,7 @@ const Examiner = memo(() => {
               </div>
             </div>
           </div>
-          <Frame transition={transition} isPlay={isPlay} />
+          <Frame transition={transition} isPlay={isPlay} video={ref} />
           {transition && <div className='font-preloader' key='fonts' />}
         </div>
       </div>
