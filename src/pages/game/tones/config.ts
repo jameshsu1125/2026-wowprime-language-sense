@@ -23,12 +23,13 @@ export const TonesIntroSwitchBoxTime = 800;
 
 export const TonesQuestions = [
   {
-    question: '愛好好吃的你，可以跟我一起好好吃好的嗎？',
+    question: '愛好好吃的你，可以跟我一起好好吃好吃的嗎？',
     answer: [
       { index: 1, tone: 4 },
       { index: 2, tone: 3 },
       { index: 13, tone: 3 },
       { index: 14, tone: 3 },
+      { index: 16, tone: 3 },
     ],
   },
   {

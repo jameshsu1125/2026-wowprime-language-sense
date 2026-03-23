@@ -127,18 +127,6 @@ const Examiner = memo(() => {
   useEffect(() => {
     setContext({ type: ActionType.LoadingProcess, state: { enabled: true } });
     const videoElement = ref.current;
-    if (videoElement) {
-      videoElement.onplay = () => {
-        setIsPlay(true);
-      };
-      videoElement.onpause = () => {
-        setIsPlay(false);
-      };
-      videoElement.onended = () => {
-        setIsPlay(false);
-        if (videoElement) videoElement.currentTime = 0;
-      };
-    }
     return () => {
       if (videoElement) videoElement.pause();
     };
@@ -163,7 +151,19 @@ const Examiner = memo(() => {
               <div>
                 <div className='cover'>
                   <div className='video-player'>
-                    <video ref={ref} className='h-full w-full' playsInline preload='auto'>
+                    <video
+                      ref={ref}
+                      className='h-full w-full'
+                      playsInline
+                      preload='auto'
+                      onPlay={() => {
+                        setIsPlay(true);
+                      }}
+                      onEnded={(e) => {
+                        setIsPlay(false);
+                        e.currentTarget.currentTime = 0;
+                      }}
+                    >
                       <source src={videoURL} type='video/mp4' />
                     </video>
                   </div>

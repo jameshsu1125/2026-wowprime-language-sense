@@ -89,6 +89,9 @@ const ListeningDescription = memo(({ transition, soundName }: TListeningDescript
     if (transition) {
       setStyle({ opacity: 1, y: 0 }, { duration: 500, delay: 300 });
     }
+    return () => {
+      sounds.tracks?.stop(soundName as SoundName);
+    };
   }, [transition]);
   return (
     <div className='w-[18%]' style={style}>
@@ -126,6 +129,7 @@ const ListeningQuestion = memo(({ questions }: { questions: typeof ListeningQues
   const [state, setState] = useContext(ListeningContext);
   const [, setGameState] = useContext(GameContext);
   const questionData = questions[state.index] ?? questions[0];
+
   if (!state.isSoundsLoaded) return null;
 
   return (
@@ -161,7 +165,8 @@ const ListeningQuestion = memo(({ questions }: { questions: typeof ListeningQues
               onClick={() => {
                 ref.current?.check();
                 setTimeout(() => {
-                  if (state.index >= 2) {
+                  // if (state.index >= 2) {
+                  if (state.index >= ListeningQuestions.length - 1) {
                     setGameState((S) => ({ ...S, step: GameStepType.Taiko }));
                   } else {
                     setState((S) => ({ ...S, index: S.index + 1 }));

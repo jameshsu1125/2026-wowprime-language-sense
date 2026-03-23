@@ -4,7 +4,7 @@ import Literal from '@/components/literal';
 import { SETTING } from '@/settings/config';
 import { Context } from '@/settings/constant';
 import { ActionType, IReactProps } from '@/settings/type';
-import { shuffleArray } from '@/utils';
+// import { shuffleArray } from '@/utils';
 import OnloadProvider from 'lesca-react-onload';
 import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect, useRef, useState } from 'react';
@@ -86,7 +86,8 @@ const TonesQuestion = memo(() => {
     const unselectedData = [...new Array(TonesQuestions.length).keys()].filter(
       (i) => !state.selected.includes(i),
     );
-    const [currentIndex] = shuffleArray(unselectedData);
+    // const [currentIndex] = shuffleArray(unselectedData);
+    const [currentIndex] = unselectedData;
     return currentIndex ?? 0;
   });
 
@@ -129,7 +130,8 @@ const TonesQuestion = memo(() => {
               onClick={() => {
                 ref.current?.check();
                 setTimeout(() => {
-                  if (state.index >= 2) {
+                  // if (state.index >= 2) {
+                  if (state.index >= TonesQuestions.length - 1) {
                     setGameState((S) => ({ ...S, step: GameStepType.Listening }));
                   } else {
                     setState((S) => ({ ...S, index: S.index + 1 }));
