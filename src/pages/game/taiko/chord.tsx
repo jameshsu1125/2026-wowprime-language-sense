@@ -92,7 +92,7 @@ const Chord = memo(() => {
         .forEach((m) => {
           const distance = Math.abs(m.top - TaikoBullseye);
           if (distance < TaikoTolerance) {
-            const score = Math.floor(Math.max(1, TaikoTolerance - distance));
+            const score = Math.ceil(Math.max(1, TaikoTolerance - distance));
             noteRefs.current[m.index].get();
             btnRefs.current[direct].get();
             scoreRef.current += score;

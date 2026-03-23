@@ -10,5 +10,5 @@ export type TTaikoContext = [TTaikoState, Dispatch<SetStateAction<TTaikoState>>]
 export const TaikoState: TTaikoState = { step: TaikoStepType.intro, heart: 3 };
 export const TaikoContext = createContext<TTaikoContext>([TaikoState, () => {}]);
 
-export const TaikoBullseye = 82.1; // 點擊位置%
+export const TaikoBullseye = 79.4; // 點擊位置%
 export const TaikoTolerance = 10; // 容錯率

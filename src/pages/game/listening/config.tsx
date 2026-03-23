@@ -219,7 +219,7 @@ export const ListeningHeyLongQuestions = [
     ],
   },
   {
-    question: { sound: 'heyLong1', text: '請問關於黑龍這段話，何者錯誤？' },
+    question: { sound: 'heyLong2', text: '請問關於黑龍這段話，何者錯誤？' },
     answer: [
       { label: '黑龍這次想獨享美食', isAnswer: false },
       { label: '台灣人很常講下次約，但都沒後續', isAnswer: false },

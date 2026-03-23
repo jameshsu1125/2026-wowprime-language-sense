@@ -1,7 +1,13 @@
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
 import { memo, useContext, useEffect, useMemo, useState } from 'react';
-import { ListeningContext, ListeningQuestions, ListeningState, ListeningStepType } from './config';
+import {
+  ListeningContext,
+  ListeningHeyLongQuestions,
+  ListeningQuestions,
+  ListeningState,
+  ListeningStepType,
+} from './config';
 import './index.less';
 import ListeningIntro from './intro';
 import ListeningQuestion from './question';
@@ -21,7 +27,7 @@ const Listening = memo(() => {
   //     : [...normalQuestion.slice(0, 3)];
   // }, []);
 
-  const questions = useMemo(() => ListeningQuestions, []);
+  const questions = useMemo(() => [...ListeningQuestions, ...ListeningHeyLongQuestions], []);
 
   useEffect(() => {
     sounds.tracks?.preloadByName(

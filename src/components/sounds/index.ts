@@ -33,6 +33,8 @@ import sound8 from './mp3/sound8.mp3';
 import sound9 from './mp3/sound9.mp3';
 import success from './mp3/success.mp3';
 import yiqi from './mp3/yiqi.mp3';
+import heyLong1 from './mp3/heyLong1.mp3';
+import heyLong2 from './mp3/heyLong2.mp3';
 import { SoundName } from './type';
 
 type SoundTrackProps = {
@@ -171,6 +173,20 @@ export default class Sounds {
     },
     sound23: {
       src: [sound23],
+      loop: false,
+      onload: false,
+      track: null,
+      preloadType: 'onListening',
+    },
+    heyLong1: {
+      src: [heyLong1],
+      loop: false,
+      onload: false,
+      track: null,
+      preloadType: 'onListening',
+    },
+    heyLong2: {
+      src: [heyLong2],
       loop: false,
       onload: false,
       track: null,
