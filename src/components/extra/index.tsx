@@ -4,13 +4,11 @@ import { memo, useContext, useEffect } from 'react';
 import './index.less';
 import useTween from 'lesca-use-tween';
 
-const UserName = memo(({ children }: IReactProps) => {
-  return (
-    <div className='nickname'>
-      <div className='truncate whitespace-nowrap'>{children}</div>
-    </div>
-  );
-});
+const UserName = memo(({ children }: IReactProps) => (
+  <div className='nickname'>
+    <div className='truncate whitespace-nowrap'>{children}</div>
+  </div>
+));
 
 export const Score = memo(({ score }: { score: number }) => {
   const [count, setCount] = useTween({ top: score });

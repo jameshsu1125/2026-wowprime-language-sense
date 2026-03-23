@@ -39,9 +39,7 @@ const Heading = memo(({ transition }: { transition: boolean }) => {
               { scale: 1 },
               {
                 duration: GameEndStayDuration,
-                onEnd: () => {
-                  sendScore({ score });
-                },
+                onEnd: () => sendScore({ score }),
               },
             );
           },

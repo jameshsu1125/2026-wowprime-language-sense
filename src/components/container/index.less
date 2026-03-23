@@ -46,9 +46,8 @@
       background-image: url('./img/texture.svg');
       background-position: center top;
       background-size: 1710px;
-      background-repeat: repeat-x;
       content: '';
-      @apply absolute top-0 h-full w-full;
+      @apply absolute top-0 h-full w-full bg-repeat-x;
     }
 
     .body {
@@ -63,15 +62,11 @@
       background-image: url('./img/red-grid.png');
       background-position: center bottom;
       background-size: @bgSize;
-      background-repeat: repeat-x;
-      @apply relative flex w-full items-end justify-center;
+      @apply relative flex w-full items-end justify-center bg-repeat-x;
 
       .footer-logo {
-        margin-bottom: 0%;
-        width: 20%;
-
         @img: './img/footer-logo.svg';
-        @apply relative;
+        @apply relative mb-0 w-1/5;
 
         &::before {
           padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
@@ -83,7 +78,6 @@
 
         @media only screen and (max-width: @SM) {
           & {
-            margin-bottom: 0%;
             width: 30%;
           }
         }

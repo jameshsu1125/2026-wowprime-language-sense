@@ -7,9 +7,7 @@ const Frag = memo(() => {
   const [style, setStyle] = useTween({ opacity: 0, y: -50 });
 
   useEffect(() => {
-    if (state.final === GameEndFinalType.award) {
-      setStyle({ opacity: 1, y: 0 }, 400);
-    }
+    if (state.final === GameEndFinalType.award) setStyle({ opacity: 1, y: 0 }, 400);
   }, [state.final]);
 
   return (

@@ -2,16 +2,16 @@ import Button from '@/components/button';
 import CountDown from '@/components/countDown';
 import Table from '@/components/table';
 import { TRankingResponse } from '@/hooks/useRanking';
+import { ResetContext } from '@/pages/config';
 import { HomeContext, HomePageType } from '@/pages/home/config';
 import { Context, PlayingState } from '@/settings/constant';
 import { ActionType, TransitionType } from '@/settings/type';
+import { shareURL } from '@/utils';
 import Click from 'lesca-click';
 import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect, useId, useMemo, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import './blockquote.less';
-import { shareURL } from '@/utils';
-import { ResetContext } from '@/pages/config';
 
 const IncreaseCount = memo(({ initCount, toCount }: { initCount: number; toCount: number }) => {
   const [count, setCount] = useState(initCount);

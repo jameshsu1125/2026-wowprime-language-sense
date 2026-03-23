@@ -10,9 +10,8 @@
     @apply relative w-1/2;
 
     & > div {
-      width: 100%;
-
       @img: './img/flag.svg';
+      @apply w-full;
 
       &::before {
         padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
@@ -33,6 +32,7 @@
 
 .HeadingH2 {
   @apply relative flex w-full justify-center;
+
   & > div {
     @apply w-1/2;
   }

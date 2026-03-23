@@ -1,4 +1,5 @@
 import { TonesContext } from '@/pages/game/tones/config';
+import { Context } from '@/settings/constant';
 import { ActionType, IReactProps } from '@/settings/type';
 import { isEqual } from 'lodash';
 import {
@@ -13,7 +14,6 @@ import {
 } from 'react';
 import { twMerge } from 'tailwind-merge';
 import './index.less';
-import { Context } from '@/settings/constant';
 
 type LiteralProps = {
   text: string;

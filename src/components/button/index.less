@@ -38,7 +38,6 @@ button:disabled {
 
   .btn-large {
     padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 50%);
-    width: 100%;
     background-image: url(@img);
     background-position-x: center;
     background-position-y: 0%;
@@ -46,8 +45,7 @@ button:disabled {
 
     @img: './img/lg.svg';
 
-    @apply flex w-full;
-    @apply relative;
+    @apply relative flex w-full;
 
     & > div {
       transform: translateX(-3%) translateY(-3%);

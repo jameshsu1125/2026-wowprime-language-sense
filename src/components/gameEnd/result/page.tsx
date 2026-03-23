@@ -26,9 +26,7 @@ const FrameBottom = memo(() => {
   const [style, setStyle] = useTween({ bottom: '18.1%' });
 
   useEffect(() => {
-    if (state.final === GameEndFinalType.award) {
-      setStyle({ bottom: '0%' }, 400);
-    }
+    if (state.final === GameEndFinalType.award) setStyle({ bottom: '0%' }, 400);
   }, [state.final]);
 
   return <div className='frame-bottom' style={style} />;

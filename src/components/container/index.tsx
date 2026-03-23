@@ -1,5 +1,6 @@
 import { ResetContext } from '@/pages/config';
 import { HomeContext, HomePageType } from '@/pages/home/config';
+import { MINI_HEIGHT } from '@/settings/config';
 import { Context } from '@/settings/constant';
 import { ActionType, IReactProps } from '@/settings/type';
 import Click from 'lesca-click';
@@ -14,7 +15,6 @@ import Menu from '../menu';
 import MenuList from '../menu/list';
 import imageURL from './img/dialog.svg';
 import './index.less';
-import { MINI_HEIGHT } from '@/settings/config';
 
 const Background = memo(() => {
   const [{ level }] = useContext(HomeContext);
@@ -71,9 +71,7 @@ const Container = memo(({ children, className }: { className?: string } & IReact
   } = context[ActionType.Playing]!;
 
   useEffect(() => {
-    Click.add('#logo', () => {
-      setReset((S) => ({ ...S, index: S.index + 1 }));
-    });
+    Click.add('#logo', () => setReset((S) => ({ ...S, index: S.index + 1 })));
     const resize = () => {
       if (ref.current) {
         const { height } = ref.current.getBoundingClientRect();

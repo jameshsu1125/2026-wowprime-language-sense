@@ -1,3 +1,4 @@
+import { Context } from '@/settings/constant';
 import { ActionType, IReactProps } from '@/settings/type';
 import Click from 'lesca-click';
 import { useContext, useEffect, useId } from 'react';
@@ -6,7 +7,6 @@ import './index.less';
 import Large from './large';
 import Rounded from './rounded';
 import Skip from './skip';
-import { Context } from '@/settings/constant';
 
 type TRegularProps = IReactProps & {
   className?: string;

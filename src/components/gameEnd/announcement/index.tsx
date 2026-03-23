@@ -3,10 +3,10 @@ import useRanking, { TRankingResponse } from '@/hooks/useRanking';
 import { Context } from '@/settings/constant';
 import { ActionType, TransitionType } from '@/settings/type';
 import Click from 'lesca-click';
+import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect, useId, useState } from 'react';
 import './index.less';
 import AnnouncementTable from './table';
-import useTween from 'lesca-use-tween';
 
 const Text = memo(({ transition }: { transition: TransitionType }) => {
   const id = useId();

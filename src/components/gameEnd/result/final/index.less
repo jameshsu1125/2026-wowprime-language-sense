@@ -64,8 +64,7 @@
       & > div {
         @apply relative flex w-full flex-row items-center justify-start;
         & > span {
-          line-height: 0;
-          @apply text-primary font-line-extraBold text-4xl md:text-4xl;
+          @apply text-primary font-line-extraBold text-4xl leading-0 md:text-4xl;
         }
 
         .join {
@@ -79,7 +78,6 @@
           }
 
           & > button {
-            height: 100%;
             @apply h-12 w-auto bg-black p-3 font-thin whitespace-nowrap text-white md:h-16;
           }
         }

@@ -1,9 +1,9 @@
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
+import Click from 'lesca-click';
 import { memo, useContext, useEffect, useId } from 'react';
 import Button from '../button';
 import './list.less';
-import Click from 'lesca-click';
 
 const MenuList = memo(() => {
   const id = useId();
