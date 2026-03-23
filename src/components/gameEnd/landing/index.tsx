@@ -5,6 +5,7 @@ import OnloadProvider from 'lesca-react-onload';
 import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect, useState } from 'react';
 import { GameEndContext, GameEndStayDuration, GameEndStepType } from '../config';
+import HeadingURL from './img/heading.png';
 import './index.less';
 
 const Heading = memo(({ transition }: { transition: boolean }) => {
@@ -59,10 +60,14 @@ const EndLanding = memo(() => {
   return (
     <OnloadProvider
       onload={() => {
-        requestAnimationFrame(() => {
-          setTransition(true);
-          sounds.tracks?.stop('bgm');
-        });
+        const heading = new Image();
+        heading.onload = () => {
+          requestAnimationFrame(() => {
+            setTransition(true);
+            sounds.tracks?.stop('bgm');
+          });
+        };
+        heading.src = HeadingURL;
       }}
     >
       <div className='EndLanding'>
