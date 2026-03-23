@@ -70,6 +70,10 @@ const Frame = memo(({ transition, isPlay, video }: TFrameProps) => {
         }
       }
     });
+    return () => {
+      EnterFrame.stop();
+      EnterFrame.reset();
+    };
   }, []);
 
   useEffect(() => {
