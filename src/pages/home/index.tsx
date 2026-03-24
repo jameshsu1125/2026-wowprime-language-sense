@@ -59,11 +59,11 @@ const Home = memo(() => {
     }
   }, [value[0].page]);
 
-  useEffect(() => {
-    window.addEventListener('blur', () => {
-      if (window.location.hostname !== 'localhost') window.location.reload();
-    });
-  }, []);
+  // useEffect(() => {
+  //   window.addEventListener('blur', () => {
+  //     if (window.location.hostname !== 'localhost') window.location.reload();
+  //   });
+  // }, []);
 
   return (
     <OnloadProvider
