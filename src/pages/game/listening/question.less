@@ -23,7 +23,7 @@
     }
 
     .sounds {
-      @img: './img/content.svg';
+      @img: './img/btn-bg.png';
       @apply relative w-full;
 
       &::before {
@@ -32,6 +32,16 @@
         content: '';
 
         @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+      }
+
+      &::after {
+        background-image: url(@img);
+        background-position: center calc(~'50% - 3px');
+        background-size: 60% auto;
+        content: '';
+
+        @img: './img/content.svg';
+        @apply absolute top-0 left-0 h-full w-full bg-no-repeat;
       }
     }
 

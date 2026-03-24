@@ -31,6 +31,11 @@ const Home = memo(() => {
           openAnnouncement: false,
         },
       });
+
+      setContext({
+        type: ActionType.User,
+        state: { nickname: '', phone: '', token: '' },
+      });
     }
   }, [reset]);
 
@@ -56,7 +61,7 @@ const Home = memo(() => {
 
   useEffect(() => {
     window.addEventListener('focus', () => {
-      window.location.reload();
+      if (window.location.hostname !== 'localhost') window.location.reload();
     });
   }, []);
 

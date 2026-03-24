@@ -1,10 +1,13 @@
 import { CONTAIN_RATIO } from '@/settings/config';
-import { IReactProps, TransitionType } from '@/settings/type';
+import { ActionType, IReactProps, TransitionType } from '@/settings/type';
 import OnloadProvider from 'lesca-react-onload';
 import useTween from 'lesca-use-tween';
-import { memo, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { memo, useContext, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import './index.less';
+import { HomeContext, HomePageType } from '@/pages/home/config';
+import { Context } from '@/settings/constant';
+import MoreInfo from './moreInfo';
 
 type ContainProps = IReactProps & {
   imageURL: string;
@@ -14,16 +17,28 @@ type ContainProps = IReactProps & {
 
 const Contain = memo(
   ({ children, imageURL, hidden, IsHiddenDialogImage = false }: ContainProps) => {
+    const [context] = useContext(Context);
+    const { openRanking, openAnnouncement } = context[ActionType.Playing]!;
+    const [state] = useContext(HomeContext);
+
     const frameRef = useRef<HTMLDivElement>(null);
     const [frame, setFrame] = useState({ width: 0, height: 0 });
     const [scale, setScale] = useState(1);
 
     const [transition, setTransition] = useState(TransitionType.Unset);
-    const [style, setStyle] = useTween({ y: window.innerHeight });
+    const [style, setStyle] = useTween({ y: window.innerHeight, scale: 1 });
 
     useEffect(() => {
-      if (transition === TransitionType.FadeIn) setStyle({ y: 0 }, { duration: 500 });
-    }, [transition]);
+      if (transition === TransitionType.FadeIn) {
+        if (state.page === HomePageType.Examiner || state.page === HomePageType.Login) {
+          if (openRanking || openAnnouncement) {
+            setStyle({ y: 0, scale: 1 }, { duration: 500 });
+          } else {
+            setStyle({ y: -60, scale: 0.92 }, { duration: 500 });
+          }
+        } else setStyle({ y: 0, scale: 1 }, { duration: 500 });
+      }
+    }, [transition, state, openRanking, openAnnouncement]);
 
     useLayoutEffect(() => {
       const image = new Image();
@@ -58,8 +73,10 @@ const Contain = memo(
 
       return () => window.removeEventListener('resize', resize);
     }, []);
+
     return (
       <div className='Contain' ref={frameRef}>
+        <MoreInfo />
         <OnloadProvider onload={() => setTransition(TransitionType.FadeIn)}>
           <div
             className={twMerge('frame', hidden && 'opacity-0')}
