@@ -40,7 +40,7 @@ const MenuList = memo(() => {
         <Button className='cursor-not-allowed'>
           <div className='btn-menu btn-secondary'>活動說明</div>
         </Button>
-        <Button>
+        <Button className='cursor-not-allowed'>
           <div className='btn-menu btn-secondary'>領獎辦法</div>
         </Button>
         <Button className='cursor-not-allowed'>

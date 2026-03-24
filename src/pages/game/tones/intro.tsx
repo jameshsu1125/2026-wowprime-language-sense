@@ -63,16 +63,21 @@ const StartButton = memo(({ transition }: { transition: boolean }) => {
   }, [transition]);
 
   return (
-    <div className='w-1/2' style={style}>
-      <Button
-        onClick={() => {
-          setState((S) => ({ ...S, step: TonesStepType.question }));
-        }}
-      >
-        <Button.large>
-          <div className='btn-start' />
-        </Button.large>
-      </Button>
+    <div className='flex w-full flex-col items-center'>
+      <div className='w-full pb-1 text-center'>
+        <span className='text-primary font-line-bold text-base'>小試身手，不計分。</span>
+      </div>
+      <div className='w-1/2' style={style}>
+        <Button
+          onClick={() => {
+            setState((S) => ({ ...S, step: TonesStepType.question }));
+          }}
+        >
+          <Button.large>
+            <div className='btn-start' />
+          </Button.large>
+        </Button>
+      </div>
     </div>
   );
 });

@@ -13,10 +13,17 @@ type ContainProps = IReactProps & {
   imageURL: string;
   hidden?: boolean;
   IsHiddenDialogImage?: boolean;
+  isMoreInfo?: boolean;
 };
 
 const Contain = memo(
-  ({ children, imageURL, hidden, IsHiddenDialogImage = false }: ContainProps) => {
+  ({
+    children,
+    imageURL,
+    hidden,
+    IsHiddenDialogImage = false,
+    isMoreInfo = false,
+  }: ContainProps) => {
     const [context] = useContext(Context);
     const { openRanking, openAnnouncement } = context[ActionType.Playing]!;
     const [state] = useContext(HomeContext);
@@ -76,7 +83,7 @@ const Contain = memo(
 
     return (
       <div className='Contain' ref={frameRef}>
-        <MoreInfo />
+        {isMoreInfo && <MoreInfo />}
         <OnloadProvider onload={() => setTransition(TransitionType.FadeIn)}>
           <div
             className={twMerge('frame', hidden && 'opacity-0')}

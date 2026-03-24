@@ -105,7 +105,7 @@ const Container = memo(({ children, className }: { className?: string } & IReact
           </div>
         </div>
         <div className='container-dialog pointer-events-auto relative w-full'>
-          <Contain imageURL={imageURL} hidden={state.page === HomePageType.Unset}>
+          <Contain imageURL={imageURL} hidden={state.page === HomePageType.Unset} isMoreInfo={true}>
             {children}
           </Contain>
         </div>
