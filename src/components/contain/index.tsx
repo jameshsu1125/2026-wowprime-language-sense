@@ -27,6 +27,7 @@ const Contain = memo(
     const [context] = useContext(Context);
     const { openRanking, openAnnouncement } = context[ActionType.Playing]!;
     const [state] = useContext(HomeContext);
+    const pageRef = useRef<HomePageType>(state.page);
 
     const frameRef = useRef<HTMLDivElement>(null);
     const [frame, setFrame] = useState({ width: 0, height: 0 });
@@ -34,6 +35,10 @@ const Contain = memo(
 
     const [transition, setTransition] = useState(TransitionType.Unset);
     const [style, setStyle] = useTween({ y: window.innerHeight, scale: 1 });
+
+    useEffect(() => {
+      pageRef.current = state.page;
+    }, [state.page]);
 
     useEffect(() => {
       if (transition === TransitionType.FadeIn) {
@@ -59,6 +64,12 @@ const Contain = memo(
               const currentFrameHeight = frameHeight;
               const ratio = height / width;
               const frameRatio = currentFrameHeight / frameWidth;
+              if (pageRef.current) {
+                if (pageRef.current === HomePageType.Login) {
+                  requestAnimationFrame(() => getSize());
+                  return;
+                }
+              }
               if (ratio > frameRatio) {
                 setFrame({ width: frameHeight / ratio, height: frameHeight });
                 setScale(frameHeight / ratio / CONTAIN_RATIO.width);
@@ -83,7 +94,7 @@ const Contain = memo(
 
     return (
       <div className='Contain' ref={frameRef}>
-        {isMoreInfo && <MoreInfo />}
+        {isMoreInfo && <MoreInfo scale={scale} />}
         <OnloadProvider onload={() => setTransition(TransitionType.FadeIn)}>
           <div
             className={twMerge('frame', hidden && 'opacity-0')}

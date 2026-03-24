@@ -2,26 +2,31 @@
 
 .MoreInfo {
   @apply absolute bottom-0 left-0 h-auto w-full bg-black pt-32 pb-5;
-  @apply flex flex-col items-center justify-center gap-1;
 
-  & > div:nth-child(1) {
-    @apply text-primary font-line-extraBold text-2xl;
-  }
+  & > div {
+    transform-origin: center bottom;
+    @apply w-full;
+    @apply flex flex-col items-center justify-center gap-1;
 
-  & > div:nth-child(2) {
-    @apply text-primary font-line-extraBold flex flex-row items-baseline text-2xl;
+    & > div:nth-child(1) {
+      @apply text-primary font-line-extraBold text-2xl;
+    }
 
-    & > div {
-      @apply text-white;
+    & > div:nth-child(2) {
+      @apply text-primary font-line-extraBold flex flex-row items-baseline text-2xl;
 
-      & > span {
-        line-height: 0;
-        @apply text-4xl;
+      & > div {
+        @apply text-white;
+
+        & > span {
+          line-height: 0;
+          @apply text-4xl;
+        }
       }
     }
-  }
 
-  & > div:nth-child(3) {
-    @apply text-sm text-white;
+    & > div:nth-child(3) {
+      @apply text-sm text-white;
+    }
   }
 }
