@@ -65,6 +65,22 @@ const Home = memo(() => {
   //   });
   // }, []);
 
+  useEffect(() => {
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') {
+        Howler.ctx?.resume();
+      }
+    });
+
+    document.addEventListener(
+      'touchstart',
+      () => {
+        Howler.ctx?.resume();
+      },
+      { once: true },
+    );
+  }, []);
+
   return (
     <OnloadProvider
       key={reset.index}
