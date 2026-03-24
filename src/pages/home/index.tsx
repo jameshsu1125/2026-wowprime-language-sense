@@ -59,28 +59,6 @@ const Home = memo(() => {
     }
   }, [value[0].page]);
 
-  // useEffect(() => {
-  //   window.addEventListener('blur', () => {
-  //     if (window.location.hostname !== 'localhost') window.location.reload();
-  //   });
-  // }, []);
-
-  useEffect(() => {
-    document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'visible') {
-        Howler.ctx?.resume();
-      }
-    });
-
-    document.addEventListener(
-      'touchstart',
-      () => {
-        Howler.ctx?.resume();
-      },
-      { once: true },
-    );
-  }, []);
-
   return (
     <OnloadProvider
       key={reset.index}

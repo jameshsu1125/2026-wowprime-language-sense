@@ -1,4 +1,6 @@
 import { Howl } from 'howler';
+// 添加 Howler 全局音頻解鎖
+import './mobile-audio-unlock';
 import bgm from './mp3/bgm.mp3';
 import button from './mp3/button.mp3';
 import chi from './mp3/chi.mp3';
@@ -199,6 +201,95 @@ export default class Sounds {
   constructor(props: SoundTrackProps) {
     this.onload = props.onload || (() => {});
     this.preload('onStart');
+    this.initMobileSupport();
+  }
+
+  private initMobileSupport(): void {
+    // 等待用戶交互以解鎖音頻
+    const events = ['touchstart', 'click', 'tap', 'keydown'];
+    const unlock = () => {
+      this.unlockAllTracks();
+      events.forEach((event) => {
+        document.removeEventListener(event, unlock, { capture: true });
+      });
+    };
+
+    events.forEach((event) => {
+      document.addEventListener(event, unlock, { capture: true, once: true });
+    });
+
+    // 處理頁面可見性變化
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) {
+        setTimeout(() => this.restoreAudio(), 300);
+      }
+    });
+  }
+
+  private unlockAllTracks(): void {
+    // 為每個已載入的音軌播放極短的靜音來解鎖
+    Object.values(this.track).forEach((trackInfo) => {
+      if (trackInfo.track && trackInfo.onload) {
+        try {
+          const currentVolume = trackInfo.track.volume();
+          trackInfo.track.volume(0);
+          trackInfo.track.play();
+          setTimeout(() => {
+            trackInfo.track?.stop();
+            trackInfo.track?.volume(currentVolume);
+          }, 1);
+        } catch {
+          console.warn('音頻解鎖失敗');
+        }
+      }
+    });
+  }
+
+  private restoreAudio(): void {
+    // 重新初始化可能失效的音軌
+    Object.entries(this.track).forEach(([name, trackInfo]) => {
+      if (trackInfo.track && trackInfo.onload) {
+        // 檢查音軌是否還能正常工作
+        const testVolume = trackInfo.track.volume();
+        try {
+          trackInfo.track.volume(testVolume);
+        } catch {
+          // 如果出錯，重新創建音軌
+          console.log(`重新創建音軌: ${name}`);
+          this.recreateTrack(name);
+        }
+      }
+    });
+  }
+
+  private recreateTrack(name: string): void {
+    const trackInfo = this.track[name];
+    if (!trackInfo) return;
+
+    // 停止並清理舊的音軌
+    if (trackInfo.track) {
+      try {
+        trackInfo.track.stop();
+        trackInfo.track.unload();
+      } catch (error) {
+        console.warn(`清理音軌 ${name} 失敗:`, error);
+      }
+    }
+
+    // 創建新的音軌
+    trackInfo.track = new Howl({
+      src: trackInfo.src,
+      loop: trackInfo.loop,
+      html5: false, // 在移動設備上，Web Audio API 通常更穩定
+      preload: true,
+      onload: () => {
+        trackInfo.onload = true;
+        console.log(`音軌 ${name} 重新載入完成`);
+      },
+      onloaderror: (_id: any, error: any) => {
+        console.error(`音軌 ${name} 重新載入失敗:`, error);
+      },
+    });
   }
 
   preload(type: PreloadType, onload?: (type: PreloadType) => void) {
@@ -274,10 +365,39 @@ export default class Sounds {
   }
 
   play(name: SoundName, volume = 1, canPlayTwice = true) {
-    if (this.track[name] && this.track[name].onload && this.track[name].track) {
-      if (!canPlayTwice && this.track[name].track!.playing()) return;
-      this.track[name].track!.volume(volume);
-      this.track[name].track!.play();
+    const trackInfo = this.track[name];
+
+    if (!trackInfo || !trackInfo.onload || !trackInfo.track) {
+      console.warn(`音頻 ${name} 尚未載入或不存在`);
+      return;
+    }
+
+    const track = trackInfo.track;
+
+    if (!canPlayTwice && track.playing()) {
+      return;
+    }
+
+    try {
+      // 設定音量並播放
+      track.volume(volume);
+      track.play();
+    } catch (error) {
+      console.warn(`播放音頻 ${name} 失敗，嘗試重新創建:`, error);
+      // 如果播放失敗，嘗試重新創建音軌
+      this.recreateTrack(name);
+
+      // 重新嘗試播放
+      setTimeout(() => {
+        if (this.track[name].track) {
+          try {
+            this.track[name].track!.volume(volume);
+            this.track[name].track!.play();
+          } catch (retryError) {
+            console.error(`重試播放 ${name} 也失敗:`, retryError);
+          }
+        }
+      }, 100);
     }
   }
 
@@ -285,5 +405,19 @@ export default class Sounds {
     if (this.track[name] && this.track[name].onload && this.track[name].track) {
       this.track[name].track!.stop();
     }
+  }
+
+  // 檢查音頻狀態的方法
+  public checkAudioStatus(): { available: boolean; context: string } {
+    const sampleTrack = Object.values(this.track).find((track) => track.track);
+    if (!sampleTrack || !sampleTrack.track) {
+      return { available: false, context: 'no_tracks' };
+    }
+
+    const ctx = (sampleTrack.track as any)._context;
+    return {
+      available: !document.hidden && ctx?.state !== 'suspended',
+      context: ctx?.state || 'unknown',
+    };
   }
 }
