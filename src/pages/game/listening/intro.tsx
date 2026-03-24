@@ -48,9 +48,22 @@ const Content = forwardRef(({ transition }: { transition: boolean }, ref) => {
   return <div className='content' style={style} />;
 });
 
+const PS = memo(({ transition }: { transition: boolean }) => {
+  const [style, setStyle] = useTween({ opacity: 0, scale: 2 });
+
+  useEffect(() => {
+    if (transition) setStyle({ opacity: 1, scale: 1 }, { duration: 200, delay: 2300 });
+  }, [transition]);
+
+  return (
+    <div className='w-full pb-1 text-center' style={style}>
+      <span className='text-primary font-line-bold text-base'>小試身手，不計分。</span>
+    </div>
+  );
+});
+
 const StartButton = memo(({ transition }: { transition: boolean }) => {
   const [, setState] = useContext(ListeningContext);
-
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });
 
   useEffect(() => {
@@ -58,16 +71,19 @@ const StartButton = memo(({ transition }: { transition: boolean }) => {
   }, [transition]);
 
   return (
-    <div className='w-1/2' style={style}>
-      <Button
-        onClick={() => {
-          setState((S) => ({ ...S, step: ListeningStepType.question }));
-        }}
-      >
-        <Button.large>
-          <div className='btn-start' />
-        </Button.large>
-      </Button>
+    <div className='flex w-full flex-col items-center'>
+      <PS transition={transition} />
+      <div className='w-1/2' style={style}>
+        <Button
+          onClick={() => {
+            setState((S) => ({ ...S, step: ListeningStepType.question }));
+          }}
+        >
+          <Button.large>
+            <div className='btn-start' />
+          </Button.large>
+        </Button>
+      </div>
     </div>
   );
 });

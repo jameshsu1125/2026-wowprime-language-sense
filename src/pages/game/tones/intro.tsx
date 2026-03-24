@@ -17,6 +17,7 @@ import {
 import { GameContext, GameStepType } from '../config';
 import { TonesContext, TonesIntroSwitchBoxTime, TonesMandarin, TonesStepType } from './config';
 import './intro.less';
+import headingURL from './img/heading.svg';
 
 const Headline = memo(({ transition }: { transition: boolean }) => {
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });
@@ -53,9 +54,22 @@ const Content = forwardRef(({ transition }: { transition: boolean }, ref) => {
   );
 });
 
+const PS = memo(({ transition }: { transition: boolean }) => {
+  const [style, setStyle] = useTween({ opacity: 0, scale: 2 });
+
+  useEffect(() => {
+    if (transition) setStyle({ opacity: 1, scale: 1 }, { duration: 200, delay: 2300 });
+  }, [transition]);
+
+  return (
+    <div className='w-full pb-1 text-center' style={style}>
+      <span className='text-primary font-line-bold text-base'>小試身手，不計分。</span>
+    </div>
+  );
+});
+
 const StartButton = memo(({ transition }: { transition: boolean }) => {
   const [, setState] = useContext(TonesContext);
-
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });
 
   useEffect(() => {
@@ -64,9 +78,7 @@ const StartButton = memo(({ transition }: { transition: boolean }) => {
 
   return (
     <div className='flex w-full flex-col items-center'>
-      <div className='w-full pb-1 text-center'>
-        <span className='text-primary font-line-bold text-base'>小試身手，不計分。</span>
-      </div>
+      <PS transition={transition} />
       <div className='w-1/2' style={style}>
         <Button
           onClick={() => {
@@ -129,10 +141,14 @@ const TonesIntro = memo(() => {
   return (
     <OnloadProvider
       onload={() => {
-        requestAnimationFrame(() => {
-          setTransition(true);
-          setContext({ type: ActionType.LoadingProcess, state: { enabled: false } });
-        });
+        const img = new Image();
+        img.onload = () => {
+          requestAnimationFrame(() => {
+            setTransition(true);
+            setContext({ type: ActionType.LoadingProcess, state: { enabled: false } });
+          });
+        };
+        img.src = headingURL;
       }}
     >
       <div className='TonesIntro'>
