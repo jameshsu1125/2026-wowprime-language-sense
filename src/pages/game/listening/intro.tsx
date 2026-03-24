@@ -58,7 +58,7 @@ const PS = memo(({ transition }: { transition: boolean }) => {
 
   return (
     <div className='w-full pb-1 text-center' style={style}>
-      <span className='text-primary font-line-bold text-base'>小試身手，不計分。</span>
+      <span className='text-primary font-line-bold text-base'>先抓感覺，不計分。</span>
     </div>
   );
 });
