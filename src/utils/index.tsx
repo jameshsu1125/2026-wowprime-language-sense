@@ -36,7 +36,7 @@ export function shareURL() {
       .then(() => console.log('Image shared successfully'))
       .catch((error) => console.error('Error sharing image:', error));
   } else {
-    alert('我們目前只支援行動裝置的分享功能，請使用手機開啟此頁面進行分享！');
+    alert('不支援分享功能，請使用支援 Web Share API 的瀏覽器。');
   }
 }
 

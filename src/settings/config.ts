@@ -20,5 +20,5 @@ export const IS_TEST = false;
 
 export const SECTION_DURATION = 24 * 60 * 60 * 1000; // 1 day
 
-export const CONTAIN_RATIO = { width: 480, height: 790 };
+export const CONTAIN_RATIO = { width: 490, height: 790 };
 export const MINI_HEIGHT = { mobile: 900, desktop: 700 };

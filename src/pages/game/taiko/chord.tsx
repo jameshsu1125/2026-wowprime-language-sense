@@ -151,6 +151,7 @@ const Chord = memo(() => {
           </div>
           {meter
             .filter((m) => m.direction === 'left')
+            .reverse()
             .map((m) => (
               <Note
                 type={m.type}
@@ -177,6 +178,7 @@ const Chord = memo(() => {
           </div>
           {meter
             .filter((m) => m.direction === 'middle')
+            .reverse()
             .map((m) => (
               <Note
                 type={m.type}
@@ -203,6 +205,7 @@ const Chord = memo(() => {
           </div>
           {meter
             .filter((m) => m.direction === 'right')
+            .reverse()
             .map((m) => (
               <Note
                 type={m.type}

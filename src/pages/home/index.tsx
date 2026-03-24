@@ -54,6 +54,12 @@ const Home = memo(() => {
     }
   }, [value[0].page]);
 
+  useEffect(() => {
+    window.addEventListener('focus', () => {
+      window.location.reload();
+    });
+  }, []);
+
   return (
     <OnloadProvider
       key={reset.index}

@@ -37,12 +37,14 @@ const MenuList = memo(() => {
         >
           <div className='btn-menu btn-secondary'>得獎公告</div>
         </Button>
-        <Button
-          onClick={() => {
-            setContext({ type: ActionType.Menu, state: { enabled: false } });
-          }}
-        >
+        <Button className='cursor-not-allowed'>
+          <div className='btn-menu btn-secondary'>活動說明</div>
+        </Button>
+        <Button>
           <div className='btn-menu btn-secondary'>領獎辦法</div>
+        </Button>
+        <Button className='cursor-not-allowed'>
+          <div className='btn-menu btn-secondary'>一起看影片</div>
         </Button>
       </div>
     </>
