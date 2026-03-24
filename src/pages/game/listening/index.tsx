@@ -2,6 +2,7 @@ import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
 import { memo, useContext, useEffect, useMemo, useState } from 'react';
 import {
+  isHeyLongQuestion,
   ListeningContext,
   ListeningHeyLongQuestions,
   ListeningQuestions,
@@ -11,6 +12,7 @@ import {
 import './index.less';
 import ListeningIntro from './intro';
 import ListeningQuestion from './question';
+import { shuffleArray } from '@/utils';
 
 const Listening = memo(() => {
   const [context] = useContext(Context);
@@ -18,16 +20,16 @@ const Listening = memo(() => {
 
   const [state, setState] = useState(ListeningState);
 
-  // const normalQuestion = shuffleArray([...ListeningQuestions]);
-  // const heyLongQuestion = shuffleArray([...ListeningQuestions]);
+  const normalQuestion = shuffleArray([...ListeningQuestions]);
+  const heyLongQuestion = shuffleArray([...ListeningHeyLongQuestions]);
 
-  // const questions = useMemo(() => {
-  //   return isHeyLongQuestion
-  //     ? [...normalQuestion.slice(0, 2), ...heyLongQuestion.slice(0, 1)]
-  //     : [...normalQuestion.slice(0, 3)];
-  // }, []);
+  const questions = useMemo(() => {
+    return isHeyLongQuestion
+      ? [...normalQuestion.slice(0, 2), ...heyLongQuestion.slice(0, 1)]
+      : [...normalQuestion.slice(0, 3)];
+  }, []);
 
-  const questions = useMemo(() => [...ListeningQuestions, ...ListeningHeyLongQuestions], []);
+  // const questions = useMemo(() => [...ListeningQuestions, ...ListeningHeyLongQuestions], []);
 
   useEffect(() => {
     sounds.tracks?.preloadByName(

@@ -10,7 +10,7 @@ import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect, useRef, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { GameContext, GameStepType } from '../config';
-import { ListeningContext, ListeningHeyLongQuestions, ListeningQuestions } from './config';
+import { ListeningContext, ListeningQuestions } from './config';
 import './question.less';
 
 type TQuestionProps = IReactProps & {
@@ -165,11 +165,8 @@ const ListeningQuestion = memo(({ questions }: { questions: typeof ListeningQues
               onClick={() => {
                 ref.current?.check();
                 setTimeout(() => {
-                  // if (state.index >= 2) {
-                  if (
-                    state.index >=
-                    ListeningQuestions.length + ListeningHeyLongQuestions.length - 1
-                  ) {
+                  if (state.index >= 2) {
+                    // if ( state.index >= ListeningQuestions.length + ListeningHeyLongQuestions.length - 1 ) {
                     setGameState((S) => ({ ...S, step: GameStepType.Taiko }));
                   } else {
                     setState((S) => ({ ...S, index: S.index + 1 }));
