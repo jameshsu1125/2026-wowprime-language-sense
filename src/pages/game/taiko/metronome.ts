@@ -1,5 +1,5 @@
 import EnterFrame from 'lesca-enterframe';
-import { TaikoLevelChangeInterval, TaikoMinGap } from './config';
+import { TaikoInitInterval, TaikoLevelChangeInterval, TaikoMinGap } from './config';
 
 type Props = {
   onFire: () => void;
@@ -7,7 +7,7 @@ type Props = {
 };
 
 export default class Metronome {
-  private interval = 1000;
+  private interval = TaikoInitInterval;
   private minInterval = TaikoMinGap;
   private index = 0;
   private levelIndex = 0;
