@@ -1,6 +1,7 @@
 import useTween, { Bezier } from 'lesca-use-tween';
 import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
 import './note.less';
+import { TaikoNoteSpeed } from './config';
 
 type NoteProps = {
   index: number;
@@ -26,7 +27,7 @@ const Note = forwardRef(({ index, type, onEnd, onUpdate, onMiss }: NoteProps, re
       // { top: `${TaikoBullseye}%` },
       { top: '105%' },
       {
-        duration: 4000,
+        duration: TaikoNoteSpeed,
         easing: Bezier.linear,
         onUpdate: (style: { top: number }) => {
           onUpdate(index, style.top);

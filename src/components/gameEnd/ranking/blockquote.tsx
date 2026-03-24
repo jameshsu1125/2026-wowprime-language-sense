@@ -81,7 +81,7 @@ const InTheRanking = memo(({ ranking, score, transition }: TInTheRankingProps) =
         <div className='w-1/2'>
           <Button
             onClick={() => {
-              setReset((S) => ({ ...S, index: S.index + 1 }));
+              setReset((S) => ({ ...S, index: S.index + 1, navto: 'game' }));
             }}
           >
             <Button.large>

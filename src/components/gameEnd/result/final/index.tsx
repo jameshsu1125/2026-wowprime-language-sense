@@ -118,7 +118,7 @@ const Final = memo(() => {
               <TweenerProvider className='w-1/2' transition={transition} type='3' delay={650}>
                 <Button
                   onClick={() => {
-                    setReset((S) => ({ ...S, index: S.index + 1 }));
+                    setReset((S) => ({ ...S, index: S.index + 1, navto: 'game' }));
                   }}
                 >
                   <Button.large>

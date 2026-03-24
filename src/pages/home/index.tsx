@@ -16,8 +16,11 @@ const Home = memo(() => {
   const [reset] = useContext(ResetContext);
 
   useEffect(() => {
-    if (reset.index) {
-      value[1]({ ...HomeState, page: HomePageType.Game });
+    const { index, navto } = reset;
+    if (index > 0) {
+      if (navto === 'home') value[1]({ ...HomeState, page: HomePageType.Examiner });
+      else value[1]({ ...HomeState, page: HomePageType.Game });
+
       setContext({
         type: ActionType.Playing,
         state: {
@@ -29,7 +32,7 @@ const Home = memo(() => {
         },
       });
     }
-  }, [reset.index]);
+  }, [reset]);
 
   const Page = useMemo(() => {
     if (!value[0].page) return null;

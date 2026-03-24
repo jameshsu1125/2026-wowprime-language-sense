@@ -12,3 +12,7 @@ export const TaikoContext = createContext<TTaikoContext>([TaikoState, () => {}])
 
 export const TaikoBullseye = 79.4; // 點擊位置%
 export const TaikoTolerance = 10; // 容錯率
+
+export const TaikoNoteSpeed = 4000;
+export const TaikoMinGap = 280;
+export const TaikoLevelChangeInterval = 50;

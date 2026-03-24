@@ -71,7 +71,7 @@ const Container = memo(({ children, className }: { className?: string } & IReact
   } = context[ActionType.Playing]!;
 
   useEffect(() => {
-    Click.add('#logo', () => setReset((S) => ({ ...S, index: S.index + 1 })));
+    Click.add('#logo', () => setReset((S) => ({ ...S, index: S.index + 1, navto: 'home' })));
     const resize = () => {
       if (ref.current) {
         const { height } = ref.current.getBoundingClientRect();
