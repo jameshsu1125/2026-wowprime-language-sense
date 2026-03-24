@@ -60,7 +60,7 @@ const Home = memo(() => {
   }, [value[0].page]);
 
   useEffect(() => {
-    window.addEventListener('focus', () => {
+    window.addEventListener('blur', () => {
       if (window.location.hostname !== 'localhost') window.location.reload();
     });
   }, []);

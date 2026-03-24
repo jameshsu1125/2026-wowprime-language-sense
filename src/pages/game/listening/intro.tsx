@@ -16,6 +16,7 @@ import { GameContext, GameStepType } from '../config';
 import { TonesMandarin } from '../tones/config';
 import { ListeningContext, ListeningStepType } from './config';
 import './intro.less';
+import headingURL from './img/heading.svg';
 
 const Headline = memo(({ transition }: { transition: boolean }) => {
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });
@@ -116,7 +117,13 @@ const ListeningIntro = memo(() => {
   return (
     <OnloadProvider
       onload={() => {
-        setTransition(true);
+        const img = new Image();
+        img.onload = () => {
+          requestAnimationFrame(() => {
+            setTransition(true);
+          });
+        };
+        img.src = headingURL;
       }}
     >
       <div className='ListeningIntro'>
