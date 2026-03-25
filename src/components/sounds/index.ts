@@ -255,7 +255,7 @@ export default class Sounds {
           trackInfo.track.volume(testVolume);
         } catch {
           // 如果出錯，重新創建音軌
-          console.log(`重新創建音軌: ${name}`);
+          // console.log(`重新創建音軌: ${name}`);
           this.recreateTrack(name);
         }
       }
@@ -284,7 +284,7 @@ export default class Sounds {
       preload: true,
       onload: () => {
         trackInfo.onload = true;
-        console.log(`音軌 ${name} 重新載入完成`);
+        // console.log(`音軌 ${name} 重新載入完成`);
       },
       onloaderror: (_id: any, error: any) => {
         console.error(`音軌 ${name} 重新載入失敗:`, error);

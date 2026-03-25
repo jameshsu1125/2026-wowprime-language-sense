@@ -70,7 +70,7 @@ const Final = memo(({ user }: { user?: { nickname: string; phone: string } }) =>
             </TweenerProvider>
             <TweenerProvider transition={transition} delay={150} type='1'>
               <div className='join'>
-                <input defaultValue={result?.coupon || ''} />
+                <input defaultValue={result?.coupon || '未配發'} />
                 <Button
                   onClick={() => {
                     copy(result?.coupon || '');

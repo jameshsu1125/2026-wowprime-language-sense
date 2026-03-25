@@ -53,7 +53,7 @@ function unlockAudio(): Promise<void> {
       // 嘗試播放靜音音頻來解鎖
       source.onended = (): void => {
         isUnlocked = true;
-        console.log('音頻已解鎖');
+        // console.log('音頻已解鎖');
         resolve();
       };
 
