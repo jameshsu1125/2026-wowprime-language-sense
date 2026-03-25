@@ -148,27 +148,24 @@ const Group = memo((props: TGroupProps) => {
 const Login = memo(() => {
   const [, setContext] = useContext(Context);
   const [, setState] = useContext(HomeContext);
+
   const [userData, setUserData] = useState({ nickname: '', phone: '', otp: '', isAgree: false });
   const [passed, setPassed] = useState(false);
+  const [transition, setTransition] = useState(false);
+
   const [loginRes, login] = useLogin();
   const [verifyRes, verify] = useVerify();
-
-  const [transition, setTransition] = useState(false);
 
   useEffect(() => {
     if (verifyRes) {
       if (verifyRes.status === 'success' && verifyRes.message === '註冊與驗證成功！') {
         setState((S) => ({ ...S, page: HomePageType.Game }));
-
-        Fetcher.setJWT(verifyRes.token || '');
-        setContext({
-          type: ActionType.User,
-          state: {
-            nickname: userData.nickname,
-            phone: userData.phone,
-            token: verifyRes.token || '',
-          },
-        });
+        const token = verifyRes.token || '';
+        const { nickname, phone } = userData;
+        console.log(nickname, phone, token);
+        Fetcher.setJWT(token);
+        setContext({ type: ActionType.User, state: { nickname, phone, token } });
+        Storage.set('token', { token, nickname, phone });
       }
       if (verifyRes.status === 'error') {
         alert(verifyRes.message || '驗證失敗，請重新輸入驗證碼，請查閱手機簡訊');
@@ -182,22 +179,13 @@ const Login = memo(() => {
         alert('請輸入簡訊驗證碼，請查閱手機簡訊');
         setPassed(true);
       } else if (loginRes.status === 'success') {
-        Fetcher.setJWT(loginRes.token || '');
-        setContext({
-          type: ActionType.User,
-          state: {
-            nickname: userData.nickname,
-            phone: userData.phone,
-            token: loginRes.token || '',
-          },
-        });
+        const token = loginRes.token || '';
+        const { nickname, phone } = userData;
+        console.log(nickname, phone, token);
 
-        Storage.set('token', {
-          token: loginRes.token || '',
-          nickname: userData.nickname,
-          phone: userData.phone,
-        });
-
+        Fetcher.setJWT(token);
+        setContext({ type: ActionType.User, state: { nickname, phone, token } });
+        Storage.set('token', { token, nickname, phone });
         setState((S) => ({ ...S, page: HomePageType.Game }));
       } else {
         alert(loginRes.message);
@@ -229,22 +217,22 @@ const Login = memo(() => {
       const isValid = data && timestamp < SECTION_DURATION;
 
       if (isValid) {
-        Fetcher.setJWT(data.token || '');
+        const { nickname, phone, token } = data;
+        console.log(nickname, phone, token);
+
+        Fetcher.setJWT(token);
         setContext({
           type: ActionType.User,
-          state: {
-            nickname: data.nickname,
-            phone: data.phone,
-            token: data.token || '',
-          },
+          state: { nickname, phone, token },
         });
 
         // TODO: test
         if (IS_TEST) {
-          setContext({
-            type: ActionType.Playing,
-            state: { enabled: true, score: 0, isEnd: true, openRanking: false },
-          });
+          // setContext({
+          //   type: ActionType.Playing,
+          //   state: { enabled: true, score: 0, isEnd: true, openRanking: false },
+          // });
+          setState((S) => ({ ...S, page: HomePageType.Game }));
         } else {
           setState((S) => ({ ...S, page: HomePageType.Game }));
         }

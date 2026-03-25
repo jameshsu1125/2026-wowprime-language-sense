@@ -41,9 +41,8 @@ const TweenerProvider = memo(
   },
 );
 
-const Final = memo(() => {
-  const [context, setContext] = useContext(Context);
-  const user = context[ActionType.User]!;
+const Final = memo(({ user }: { user?: { nickname: string; phone: string } }) => {
+  const [, setContext] = useContext(Context);
   const [copiedText, copy] = useCopyToClipboard();
   const [{ result }] = useContext(GameEndContext);
   const [, setReset] = useContext(ResetContext);
@@ -61,7 +60,7 @@ const Final = memo(() => {
         <div>
           <div>
             <TweenerProvider transition={transition} type='1'>
-              恭喜{user.nickname}獲得
+              恭喜{user?.nickname || '某某某'}獲得
             </TweenerProvider>
             <TweenerProvider transition={transition} delay={50} type='1'>
               參加獎瘋美食點數<span>50點</span>

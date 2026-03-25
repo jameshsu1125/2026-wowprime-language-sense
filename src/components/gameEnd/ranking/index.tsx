@@ -1,8 +1,8 @@
 import Button from '@/components/button';
 import useRanking from '@/hooks/useRanking';
+import useStatus from '@/hooks/useStatus';
 import { Context } from '@/settings/constant';
 import { ActionType, TransitionType } from '@/settings/type';
-import Storage from 'lesca-local-storage';
 import OnloadProvider from 'lesca-react-onload';
 import { memo, useContext, useEffect, useState } from 'react';
 import Blockquote from './blockquote';
@@ -12,6 +12,7 @@ const Ranking = memo(() => {
   const [, setContext] = useContext(Context);
 
   const [rankingResponse, getRanking] = useRanking();
+  const [status] = useStatus();
   const [transition, setTransition] = useState(TransitionType.Unset);
 
   useEffect(() => {
@@ -19,17 +20,14 @@ const Ranking = memo(() => {
   }, []);
 
   if (!rankingResponse) return null;
+  if (!status) return null;
 
-  const storage = Storage.get('token');
-  const userData = storage && storage.data ? storage.data : null;
   const data = rankingResponse.ranking!;
+  const { user } = status;
 
-  const ranking = userData
-    ? data.find((r) => r.nickname === userData.nickname)?.ranking
-    : undefined;
+  const ranking = user ? data.find((r) => r.nickname === user.nickname)?.ranking : undefined;
   // const ranking = '1000';
-
-  const score = userData ? data.find((r) => r.nickname === userData.nickname)?.score : undefined;
+  const score = user ? data.find((r) => r.nickname === user.nickname)?.score : undefined;
 
   return (
     <OnloadProvider onload={() => setTransition(TransitionType.FadeIn)}>

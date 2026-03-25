@@ -7,6 +7,7 @@ import Card from './card/card';
 import Final from './final';
 import Frag from './frag';
 import './index.less';
+import useStatus from '@/hooks/useStatus';
 
 const Dialog = memo(
   ({ children, transition, onEnd }: IReactProps & { transition: boolean; onEnd: () => void }) => {
@@ -37,18 +38,22 @@ const Page = memo(({ transition }: { transition: boolean }) => {
   const [transitionEnd, setTransitionEnd] = useState(false);
   const [, setHomeState] = useContext(HomeContext);
 
+  const [statusRes] = useStatus();
+
   const page = useMemo(() => {
     switch (state.final) {
       case GameEndFinalType.card:
-        return <Card transition={transitionEnd} />;
+        return <Card transition={transitionEnd} user={statusRes?.user} />;
 
       case GameEndFinalType.award:
-        return <Final />;
+        return <Final user={statusRes?.user} />;
 
       default:
         return null;
     }
-  }, [state.final, transitionEnd]);
+  }, [state.final, transitionEnd, statusRes]);
+
+  if (statusRes?.status !== 'success') return null;
 
   return (
     <Dialog

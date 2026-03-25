@@ -41,66 +41,65 @@ const Ranking = memo(({ transition, ranking }: { transition: boolean; ranking?: 
   );
 });
 
-const Card = memo(({ transition }: { transition: boolean }) => {
-  const [context] = useContext(Context);
-  const user = context[ActionType.User];
-  const [state, setState] = useContext(GameEndContext);
-  const ranking = state.result.rank === 0 ? '未上榜' : String(state.result.rank);
+const Card = memo(
+  ({ transition, user }: { transition: boolean; user?: { nickname: string; phone: string } }) => {
+    const [state, setState] = useContext(GameEndContext);
+    const ranking = state.result.rank === 0 ? '未上榜' : String(state.result.rank);
+    const medalsID = getMedalsIDByRanking(ranking || '1000');
 
-  const medalsID = getMedalsIDByRanking(ranking || '1000');
-
-  return (
-    <div className='Card'>
-      <div className='box'>
-        <div>
+    return (
+      <div className='Card'>
+        <div className='box'>
           <div>
             <div>
-              <div className={twMerge('medals', medalsID)} />
-              <div className='box-content'>
-                <div>考生：{user?.nickname || '某某某'}</div>
-                <Score transition={transition} />
-                <Ranking transition={transition} ranking={ranking} />
-              </div>
-              <div className='award-content'>
-                <div className='dash-line' />
-                <div>
-                  恭喜你獲得瘋美食點數
-                  <span>50點</span>
+              <div>
+                <div className={twMerge('medals', medalsID)} />
+                <div className='box-content'>
+                  <div>考生：{user?.nickname || '某某某'}</div>
+                  <Score transition={transition} />
+                  <Ranking transition={transition} ranking={ranking} />
                 </div>
-                <div>快分享結果並依步驟領取獎勵!</div>
-                <div className='dash-line' />
+                <div className='award-content'>
+                  <div className='dash-line' />
+                  <div>
+                    恭喜你獲得瘋美食點數
+                    <span>50點</span>
+                  </div>
+                  <div>快分享結果並依步驟領取獎勵!</div>
+                  <div className='dash-line' />
+                </div>
+                <div className='logo' />
               </div>
-              <div className='logo' />
+            </div>
+          </div>
+          <div className='card-buttons'>
+            <div>
+              <Button onClick={() => {}}>
+                <Button.large>
+                  <div className='share-btn' />
+                </Button.large>
+              </Button>
+            </div>
+            <div>
+              <Button
+                onClick={() => {
+                  setState((S) => ({ ...S, final: GameEndFinalType.award }));
+                }}
+              >
+                <Button.large>
+                  <div className='award-btn' />
+                </Button.large>
+              </Button>
             </div>
           </div>
         </div>
-        <div className='card-buttons'>
-          <div>
-            <Button onClick={() => {}}>
-              <Button.large>
-                <div className='share-btn' />
-              </Button.large>
-            </Button>
-          </div>
-          <div>
-            <Button
-              onClick={() => {
-                setState((S) => ({ ...S, final: GameEndFinalType.award }));
-              }}
-            >
-              <Button.large>
-                <div className='award-btn' />
-              </Button.large>
-            </Button>
-          </div>
+        <div className='note'>
+          <div>週週關注榜單，每週名次最高</div>
+          <div>可直接獲得瘋美食點數</div>
+          <span>17,000點</span>
         </div>
       </div>
-      <div className='note'>
-        <div>週週關注榜單，每週名次最高</div>
-        <div>可直接獲得瘋美食點數</div>
-        <span>17,000點</span>
-      </div>
-    </div>
-  );
-});
+    );
+  },
+);
 export default Card;
