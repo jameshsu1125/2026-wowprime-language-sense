@@ -11,6 +11,7 @@ import { HomeContext, HomePageType } from '../home/config';
 import { subtitleSetting } from './config';
 import './index.less';
 import videoURL from './vid/video-cover.mp4';
+import posterURL from './img/video-cover.jpg';
 
 const NextButton = memo(({ transition }: { transition: boolean }) => {
   const [style, setStyle] = useTween({ opacity: 0, x: -50 });
@@ -153,6 +154,7 @@ const Examiner = memo(() => {
                 <div className='cover'>
                   <div className='video-player'>
                     <video
+                      poster={posterURL}
                       ref={ref}
                       className='object-fill'
                       playsInline
