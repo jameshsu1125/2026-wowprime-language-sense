@@ -33,11 +33,11 @@ const Extra = memo(() => {
 
   return (
     <div className='Extra'>
-      {enabled && <Score score={score || 0} />}
       {state.page !== HomePageType.Examiner && state.page !== HomePageType.Login ? (
-        nickname === '' ? null : (
-          <UserName>{nickname}</UserName>
-        )
+        <>
+          {enabled && <Score score={score || 0} />}
+          {nickname === '' ? null : <UserName>{nickname}</UserName>}
+        </>
       ) : null}
     </div>
   );
