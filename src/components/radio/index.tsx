@@ -13,7 +13,7 @@ const Radio = forwardRef(({ text, options, index }: TRadioProps, ref) => {
   const [context] = useContext(Context);
   const sounds = context[ActionType.Sounds]!;
 
-  const selectedRef = useRef<string>(options[0].label);
+  const selectedRef = useRef<string>(null);
 
   useImperativeHandle(ref, () => ({
     check() {
@@ -45,7 +45,6 @@ const Radio = forwardRef(({ text, options, index }: TRadioProps, ref) => {
                 type='radio'
                 id={`option${idx}`}
                 name='radio-group'
-                defaultChecked={idx === 0}
                 onChange={() => {
                   selectedRef.current = option.label;
                 }}

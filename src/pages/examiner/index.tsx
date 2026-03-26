@@ -154,7 +154,7 @@ const Examiner = memo(() => {
                   <div className='video-player'>
                     <video
                       ref={ref}
-                      className='h-full w-full object-fill'
+                      className='object-fill'
                       playsInline
                       preload='auto'
                       onPlay={() => {

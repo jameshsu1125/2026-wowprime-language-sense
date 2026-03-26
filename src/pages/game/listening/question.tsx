@@ -37,9 +37,7 @@ const Question = memo(({ children, transition }: TQuestionProps) => {
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });
 
   useEffect(() => {
-    if (transition) {
-      setStyle({ opacity: 1, y: 0 }, { duration: 500, delay: 400 });
-    }
+    if (transition) setStyle({ opacity: 1, y: 0 }, { duration: 500, delay: 400 });
   }, [transition]);
 
   return <div style={style}>{children}</div>;
@@ -50,9 +48,7 @@ const NextButton = memo(({ transition, onClick }: { transition: boolean; onClick
   const [clicked, setClicked] = useState(false);
 
   useEffect(() => {
-    if (transition) {
-      setStyle({ opacity: 1, x: 0 }, { duration: 500, delay: 1000 });
-    }
+    if (transition) setStyle({ opacity: 1, x: 0 }, { duration: 500, delay: 1000 });
   }, [transition]);
 
   return (
@@ -82,13 +78,10 @@ type TListeningDescriptionProps = {
 const ListeningDescription = memo(({ transition, soundName }: TListeningDescriptionProps) => {
   const [context] = useContext(Context);
   const sounds = context[ActionType.Sounds]!;
-
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });
 
   useEffect(() => {
-    if (transition) {
-      setStyle({ opacity: 1, y: 0 }, { duration: 500, delay: 300 });
-    }
+    if (transition) setStyle({ opacity: 1, y: 0 }, { duration: 500, delay: 300 });
     return () => {
       sounds.tracks?.stop(soundName as SoundName);
     };
@@ -110,9 +103,7 @@ const ListeningCFA = memo(({ transition }: { transition: boolean }) => {
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });
 
   useEffect(() => {
-    if (transition) {
-      setStyle({ opacity: 1, y: 0 }, { duration: 500, delay: 200 });
-    }
+    if (transition) setStyle({ opacity: 1, y: 0 }, { duration: 500, delay: 200 });
   }, [transition]);
   return (
     <div className='w-full text-xl font-black tracking-wide md:text-xl' style={style}>
@@ -133,11 +124,7 @@ const ListeningQuestion = memo(({ questions }: { questions: typeof ListeningQues
   if (!state.isSoundsLoaded) return null;
 
   return (
-    <OnloadProvider
-      onload={() => {
-        setTransition(true);
-      }}
-    >
+    <OnloadProvider onload={() => setTransition(true)}>
       <div className='ListeningQuestion'>
         <Headline transition={transition} />
         <div className='body'>
@@ -158,7 +145,6 @@ const ListeningQuestion = memo(({ questions }: { questions: typeof ListeningQues
               />
             </Question>
           </div>
-
           <div className='flex w-full justify-end'>
             <NextButton
               transition={transition}
