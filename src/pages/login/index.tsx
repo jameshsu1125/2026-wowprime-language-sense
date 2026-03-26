@@ -175,7 +175,6 @@ const Login = memo(() => {
   useEffect(() => {
     if (loginRes) {
       if (loginRes.status === 'needsVerification') {
-        alert('請輸入簡訊驗證碼，請查閱手機簡訊');
         setPassed(true);
         setState((S) => ({ ...S, isFirstVisit: true }));
       } else if (loginRes.status === 'success') {
