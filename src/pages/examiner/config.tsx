@@ -1,6 +1,6 @@
 export const subtitleSetting = [
   {
-    startTime: 0,
+    startTime: 0.01,
     index: 1,
     data: [
       {
