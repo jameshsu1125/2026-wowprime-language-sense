@@ -162,7 +162,6 @@ const Login = memo(() => {
         setState((S) => ({ ...S, page: HomePageType.Game }));
         const token = verifyRes.token || '';
         const { nickname, phone } = userData;
-        // console.log(nickname, phone, token);
         Fetcher.setJWT(token);
         setContext({ type: ActionType.User, state: { nickname, phone, token } });
         Storage.set('token', { token, nickname, phone });
@@ -182,8 +181,6 @@ const Login = memo(() => {
       } else if (loginRes.status === 'success') {
         const token = loginRes.token || '';
         const { nickname, phone } = userData;
-        // console.log(nickname, phone, token);
-
         Fetcher.setJWT(token);
         setContext({ type: ActionType.User, state: { nickname, phone, token } });
         Storage.set('token', { token, nickname, phone });
