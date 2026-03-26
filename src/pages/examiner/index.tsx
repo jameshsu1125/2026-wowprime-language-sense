@@ -88,13 +88,14 @@ const Frame = memo(({ transition, isPlay, video }: TFrameProps) => {
           <div className='subtitle'>
             {isPlay && video && dataIndex > 0
               ? subtitleSetting[dataIndex - 1]?.data.map((item, index) => {
-                  const duration = item.text.length * 20;
+                  const duration = item.text.length * 150;
+                  const displayDuration = item.text.length * 50;
                   // eslint-disable-next-line react-hooks/globals
                   delay = index === 0 ? 0 : delay + item.delay + duration;
                   return (
                     <Fragment key={item.text}>
                       <CharTransition
-                        duration={duration}
+                        duration={displayDuration}
                         delay={delay}
                         list={['　']}
                         preChar='　'
@@ -153,7 +154,7 @@ const Examiner = memo(() => {
                   <div className='video-player'>
                     <video
                       ref={ref}
-                      className='h-full w-full'
+                      className='h-full w-full object-fill'
                       playsInline
                       preload='auto'
                       onPlay={() => {

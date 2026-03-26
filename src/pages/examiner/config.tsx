@@ -9,7 +9,7 @@ export const subtitleSetting = [
       },
       {
         text: '各位考生好，我是你們的主考官，沈春華。',
-        delay: 200,
+        delay: 2200,
       },
       {
         text: '歡迎參加《全民一起好好吃語感大會考》',
@@ -18,7 +18,7 @@ export const subtitleSetting = [
     ],
   },
   {
-    startTime: 3.02,
+    startTime: 12.1,
     index: 2,
     data: [
       {
@@ -27,15 +27,15 @@ export const subtitleSetting = [
       },
       {
         text: '在週排名公布前，可持續重新挑戰測驗，力拚高分！',
-        delay: 200,
+        delay: 2000,
       },
       {
         text: '最高可獨得17,000點瘋點數！',
-        delay: 200,
+        delay: 2800,
       },
       {
         text: '準備好了嗎？祝各位考生應試順利！',
-        delay: 200,
+        delay: 1000,
       },
     ],
   },
