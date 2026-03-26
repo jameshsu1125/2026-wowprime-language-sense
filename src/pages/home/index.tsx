@@ -9,6 +9,7 @@ import Game from '../game';
 import Landing from '../landing';
 import Login from '../login';
 import { HomeContext, HomePageType, HomeState, HomeStepType, THomeState } from './config';
+import Click from 'lesca-click';
 
 const Home = memo(() => {
   const [, setContext] = useContext(Context);
@@ -58,6 +59,21 @@ const Home = memo(() => {
         return <Game />;
     }
   }, [value[0].page]);
+
+  useEffect(() => {
+    const checkMobileZoom = () => {
+      if (window.innerWidth / window.devicePixelRatio !== window.innerWidth) {
+        Click.setPreventDefault(true);
+      } else {
+        Click.setPreventDefault(false);
+      }
+    };
+
+    checkMobileZoom();
+    window.addEventListener('resize', checkMobileZoom);
+
+    return () => window.removeEventListener('resize', checkMobileZoom);
+  }, []);
 
   return (
     <OnloadProvider

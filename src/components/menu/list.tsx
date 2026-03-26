@@ -27,7 +27,7 @@ const MenuList = memo(() => {
             setContext({ type: ActionType.Playing, state: { openRanking: true } });
           }}
         >
-          <div className='btn-menu btn-primary'>本週榜單</div>
+          <div className='btn-menu'>本週榜單</div>
         </Button>
         <Button
           onClick={() => {
@@ -35,16 +35,16 @@ const MenuList = memo(() => {
             setContext({ type: ActionType.Playing, state: { openAnnouncement: true } });
           }}
         >
-          <div className='btn-menu btn-secondary'>得獎公告</div>
+          <div className='btn-menu'>得獎公告</div>
         </Button>
         <Button className='cursor-not-allowed'>
-          <div className='btn-menu btn-secondary'>活動說明</div>
+          <div className='btn-menu'>活動說明</div>
         </Button>
         <Button className='cursor-not-allowed'>
-          <div className='btn-menu btn-secondary'>領獎辦法</div>
+          <div className='btn-menu'>領獎辦法</div>
         </Button>
         <Button className='cursor-not-allowed'>
-          <div className='btn-menu btn-secondary'>一起看影片</div>
+          <div className='btn-menu'>一起看影片</div>
         </Button>
       </div>
     </>

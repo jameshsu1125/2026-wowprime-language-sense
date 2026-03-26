@@ -9,10 +9,9 @@
   .btn {
     &:hover,
     &:active {
-      .btn-primary,
-      .btn-secondary {
+      .btn-menu {
         & {
-          @apply bg-secondary text-white;
+          @apply bg-black text-white;
         }
       }
     }
@@ -20,13 +19,6 @@
 
   .btn-menu {
     @apply pointer-events-none flex w-full items-center justify-end p-5 text-3xl font-black;
-  }
-
-  .btn-primary {
-    @apply bg-black text-white;
-  }
-
-  .btn-secondary {
     @apply bg-tertiary text-tertiary-content;
   }
 }

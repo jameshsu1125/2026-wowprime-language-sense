@@ -1,0 +1,63 @@
+@import url('@/settings/global.css');
+
+.burger {
+  @apply relative flex h-20 w-20 cursor-pointer flex-col justify-center px-2 duration-200;
+
+  & > div {
+    margin: 7px 0;
+    height: 5px;
+    @apply w-full rounded-l-full rounded-r-full bg-black duration-200;
+  }
+
+  &:hover {
+    @apply bg-black;
+
+    & > div {
+      @apply bg-white;
+    }
+
+    & > div:nth-child(2) {
+      @apply w-full;
+    }
+  }
+}
+
+.burger-revert {
+  @apply border-white bg-black;
+
+  & > div {
+    @apply bg-white;
+  }
+
+  & > div:nth-child(2) {
+    @apply w-0;
+  }
+
+  & > div:nth-child(1) {
+    transform: translateY(19px) rotate(45deg + 180deg);
+  }
+
+  & > div:nth-child(3) {
+    transform: translateY(-19px) rotate(-45deg - 180deg);
+  }
+
+  &:hover {
+    @apply bg-white;
+
+    & > div {
+      @apply bg-black;
+    }
+
+    & > div:nth-child(2) {
+      @apply w-0;
+    }
+
+    & > div:nth-child(1) {
+      transform: translateY(19px) rotate(-45deg - 180deg) scale(1.5, 1);
+    }
+
+    & > div:nth-child(3) {
+      transform: translateY(-19px) rotate(45deg + 180deg) scale(1.5, 1);
+    }
+  }
+}
