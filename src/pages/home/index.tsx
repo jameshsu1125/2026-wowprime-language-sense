@@ -1,6 +1,7 @@
 import Container from '@/components/container';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
+import Click from 'lesca-click';
 import OnloadProvider from 'lesca-react-onload';
 import { memo, useContext, useEffect, useMemo, useState } from 'react';
 import { ResetContext } from '../config';
@@ -9,7 +10,8 @@ import Game from '../game';
 import Landing from '../landing';
 import Login from '../login';
 import { HomeContext, HomePageType, HomeState, HomeStepType, THomeState } from './config';
-import Click from 'lesca-click';
+
+const initZoomLevel = ((window.outerWidth - 10) / window.innerWidth) * 100;
 
 const Home = memo(() => {
   const [, setContext] = useContext(Context);
@@ -62,17 +64,25 @@ const Home = memo(() => {
 
   useEffect(() => {
     const checkMobileZoom = () => {
-      if (window.innerWidth / window.devicePixelRatio !== window.innerWidth) {
-        Click.setPreventDefault(true);
-      } else {
+      const zoomLevel = ((window.outerWidth - 10) / window.innerWidth) * 100;
+      if (initZoomLevel !== zoomLevel) {
         Click.setPreventDefault(false);
+      } else {
+        Click.setPreventDefault(true);
       }
     };
 
+    const visualViewport = window.visualViewport;
     checkMobileZoom();
     window.addEventListener('resize', checkMobileZoom);
+    visualViewport?.addEventListener('resize', checkMobileZoom);
+    visualViewport?.addEventListener('scroll', checkMobileZoom);
 
-    return () => window.removeEventListener('resize', checkMobileZoom);
+    return () => {
+      window.removeEventListener('resize', checkMobileZoom);
+      visualViewport?.removeEventListener('resize', checkMobileZoom);
+      visualViewport?.removeEventListener('scroll', checkMobileZoom);
+    };
   }, []);
 
   return (
