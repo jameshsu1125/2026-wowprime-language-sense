@@ -355,6 +355,7 @@ export default class Sounds {
         this.track[n].track = new Howl({
           src: this.track[n].src,
           loop: this.track[n].loop,
+          html5: true,
           onload: () => {
             this.track[n].onload = true;
             if (onload) onload(preload);
