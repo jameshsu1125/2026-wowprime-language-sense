@@ -37,8 +37,6 @@ body {
   font-family:
     'Noto Sans TC', 'Microsoft JhengHei', 'PingFang TC', 'Helvetica Neue', Arial, sans-serif;
 
-  touch-action: pan-x pan-y;
-
   @apply bg-backgroundColor text-textColor m-0;
 }
 
