@@ -34,11 +34,6 @@ const Home = memo(() => {
           openAnnouncement: false,
         },
       });
-
-      setContext({
-        type: ActionType.User,
-        state: { nickname: '', phone: '', token: '' },
-      });
     }
   }, [reset]);
 

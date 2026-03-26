@@ -3,6 +3,7 @@ import { ActionType, IReactProps } from '@/settings/type';
 import { memo, useContext, useEffect } from 'react';
 import './index.less';
 import useTween from 'lesca-use-tween';
+import { HomeContext, HomePageType } from '@/pages/home/config';
 
 const UserName = memo(({ children }: IReactProps) => (
   <div className='nickname'>
@@ -28,11 +29,16 @@ const Extra = memo(() => {
   const [context] = useContext(Context);
   const { nickname } = context[ActionType.User]!;
   const { enabled, score } = context[ActionType.Playing]!;
+  const [state] = useContext(HomeContext);
 
   return (
     <div className='Extra'>
       {enabled && <Score score={score || 0} />}
-      {nickname === '' ? null : <UserName>{nickname}</UserName>}
+      {state.page !== HomePageType.Examiner && state.page !== HomePageType.Login ? (
+        nickname === '' ? null : (
+          <UserName>{nickname}</UserName>
+        )
+      ) : null}
     </div>
   );
 });
