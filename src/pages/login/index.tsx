@@ -178,6 +178,7 @@ const Login = memo(() => {
       if (loginRes.status === 'needsVerification') {
         alert('請輸入簡訊驗證碼，請查閱手機簡訊');
         setPassed(true);
+        setState((S) => ({ ...S, isFirstVisit: true }));
       } else if (loginRes.status === 'success') {
         const token = loginRes.token || '';
         const { nickname, phone } = userData;
@@ -218,8 +219,6 @@ const Login = memo(() => {
 
       if (isValid) {
         const { nickname, phone, token } = data;
-        // console.log(nickname, phone, token);
-
         Fetcher.setJWT(token);
         setContext({
           type: ActionType.User,

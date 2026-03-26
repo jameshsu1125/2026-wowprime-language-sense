@@ -20,7 +20,7 @@ export const ListeningState: TListeningState = {
 };
 export const ListeningContext = createContext<TListeningContext>([ListeningState, () => {}]);
 
-export const isHeyLongQuestion: boolean = true;
+export const isHeyLongQuestion: boolean = false;
 
 export const ListeningQuestions = [
   {

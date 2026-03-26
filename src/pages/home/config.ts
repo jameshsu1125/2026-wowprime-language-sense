@@ -13,12 +13,18 @@ export enum HomeStepType {
   loaded,
 }
 
-export type THomeState = { step: HomeStepType; page: HomePageType; level: number };
+export type THomeState = {
+  step: HomeStepType;
+  page: HomePageType;
+  level: number;
+  isFirstVisit: boolean;
+};
 export type THomeContext = [THomeState, Dispatch<SetStateAction<THomeState>>];
 
 export const HomeState: THomeState = {
   step: HomeStepType.unset,
   page: HomePageType.Examiner,
   level: 0,
+  isFirstVisit: false,
 };
 export const HomeContext = createContext<THomeContext>([HomeState, () => {}]);

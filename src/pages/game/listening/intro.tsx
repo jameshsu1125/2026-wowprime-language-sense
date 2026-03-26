@@ -17,6 +17,7 @@ import { TonesMandarin } from '../tones/config';
 import { ListeningContext, ListeningStepType } from './config';
 import './intro.less';
 import headingURL from './img/heading.svg';
+import { HomeContext } from '@/pages/home/config';
 
 const Headline = memo(({ transition }: { transition: boolean }) => {
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });
@@ -111,6 +112,7 @@ const SkipButton = memo(({ transition }: { transition: boolean }) => {
 });
 
 const ListeningIntro = memo(() => {
+  const [state] = useContext(HomeContext);
   const [transition, setTransition] = useState(false);
   const boxRef = useRef<{ getBox: () => HTMLDivElement | null }>(null);
 
@@ -155,7 +157,7 @@ const ListeningIntro = memo(() => {
           <Content ref={boxRef} transition={transition} />
           <div className='flex w-full flex-col items-center justify-center gap-4'>
             <StartButton transition={transition} />
-            <SkipButton transition={transition} />
+            {!state.isFirstVisit && <SkipButton transition={transition} />}
           </div>
         </div>
       </div>

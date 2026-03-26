@@ -18,6 +18,7 @@ import { GameContext, GameStepType } from '../config';
 import { TonesContext, TonesIntroSwitchBoxTime, TonesMandarin, TonesStepType } from './config';
 import './intro.less';
 import headingURL from './img/heading.svg';
+import { HomeContext } from '@/pages/home/config';
 
 const Headline = memo(({ transition }: { transition: boolean }) => {
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });
@@ -117,6 +118,7 @@ const SkipButton = memo(({ transition }: { transition: boolean }) => {
 
 const TonesIntro = memo(() => {
   const [, setContext] = useContext(Context);
+  const [state] = useContext(HomeContext);
   const [transition, setTransition] = useState(false);
   const boxRef = useRef<{ getBox: () => HTMLDivElement | null }>(null);
 
@@ -169,7 +171,7 @@ const TonesIntro = memo(() => {
           <Content ref={boxRef} transition={transition} />
           <div className='mt-10 flex w-full flex-col items-center justify-center gap-4 md:mt-20'>
             <StartButton transition={transition} />
-            <SkipButton transition={transition} />
+            {!state.isFirstVisit && <SkipButton transition={transition} />}
           </div>
         </div>
       </div>
