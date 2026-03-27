@@ -121,7 +121,7 @@ const Container = memo(({ children, className }: { className?: string } & IReact
               {menuState?.enabled && <MenuList />}
             </div>
           </div>
-          <div className='container-dialog pointer-events-auto relative z-30 h-full w-full'>
+          <div className='container-dialog2 pointer-events-auto relative z-30 h-full w-full'>
             <GameEnd />
           </div>
           <div className='h-12 w-full md:h-10' />

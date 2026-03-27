@@ -10,7 +10,7 @@ const MoreInfo = memo(({ scale }: { scale: number }) => {
   return (
     <div className='MoreInfo'>
       <div style={{ transform: `scale(${scale})` }}>
-        <div>2026/5/3為止</div>
+        <div>2026/5/17為止</div>
         <div>
           每週分數最高
           <div>

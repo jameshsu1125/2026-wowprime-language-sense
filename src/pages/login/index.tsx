@@ -189,6 +189,11 @@ const Login = memo(() => {
         setContext({ type: ActionType.User, state: { nickname, phone, token } });
         Storage.set('token', { token, nickname, phone });
         setState((S) => ({ ...S, page: HomePageType.Game }));
+      } else if (
+        loginRes.status === 'error' &&
+        decodeURIComponent(loginRes.message) === '手機號碼與暱稱不符'
+      ) {
+        alert('可查閱先前收到之驗證碼簡訊，確認所登記的暱稱');
       } else {
         alert(loginRes.message);
       }

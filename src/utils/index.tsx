@@ -27,8 +27,8 @@ export function shareImage(image: string) {
 export function shareURL() {
   if (navigator.share) {
     const shareData = {
-      title: 'this is a title',
-      text: 'Some additional text',
+      title: '快來挑戰看看！',
+      text: '你能打敗我嗎？',
       url: window.location.href,
     };
     navigator
