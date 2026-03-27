@@ -8,6 +8,7 @@ export enum ActionType {
   Menu = 'menu',
   Playing = 'playing',
   Sounds = 'sounds',
+  Modal = 'modal',
 }
 
 export enum LoadingProcessType {
@@ -63,6 +64,13 @@ export type TSounds = {
   tracks?: Sounds;
 };
 
+export type TModal = {
+  enabled?: boolean;
+  title?: string;
+  content?: ReactNode;
+  Label?: string[];
+};
+
 export interface IState {
   page?: string;
   loadingProcess?: TLoadingProcessState;
@@ -70,10 +78,11 @@ export interface IState {
   menu?: TMenu;
   playing?: TPlaying;
   sounds?: TSounds;
+  modal?: TModal;
 }
 
 export interface IAction {
-  state: IState | TLoadingProcessState | TUser | TMenu | TPlaying | TSounds;
+  state: IState | TLoadingProcessState | TUser | TMenu | TPlaying | TSounds | TModal;
   type: ActionType;
 }
 

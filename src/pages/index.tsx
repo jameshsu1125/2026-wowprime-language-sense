@@ -8,6 +8,7 @@ import Fetcher, { contentType, formatType } from 'lesca-fetcher';
 import { Suspense, lazy, memo, useContext, useMemo, useReducer, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import { ResetContext, ResetState } from './config';
+import Modal from '@/components/modal';
 
 Click.install();
 
@@ -54,6 +55,7 @@ const App = () => {
         <ResetContext.Provider value={resetValue}>
           <Pages />
           {state[ActionType.LoadingProcess]?.enabled && <LoadingProcess />}
+          {state[ActionType.Modal]?.enabled && <Modal />}
         </ResetContext.Provider>
       </Context.Provider>
     </div>

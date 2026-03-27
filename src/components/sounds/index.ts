@@ -239,7 +239,7 @@ export default class Sounds {
             trackInfo.track?.volume(currentVolume);
           }, 1);
         } catch {
-          alert('音頻解鎖失敗');
+          // alert('音頻解鎖失敗');
         }
       }
     });
@@ -271,8 +271,8 @@ export default class Sounds {
       try {
         trackInfo.track.stop();
         trackInfo.track.unload();
-      } catch (error) {
-        alert(`清理音軌 ${name} 失敗: ${error}`);
+      } catch {
+        // alert(`清理音軌 ${name} 失敗: ${error}`);
       }
     }
 
@@ -286,8 +286,8 @@ export default class Sounds {
         trackInfo.onload = true;
         // console.log(`音軌 ${name} 重新載入完成`);
       },
-      onloaderror: (_id: any, error: any) => {
-        alert(`音軌 ${name} 重新載入失敗: ${error}`);
+      onloaderror: () => {
+        //alert(`音軌 ${name} 重新載入失敗: ${error}`);
       },
     });
   }
@@ -369,14 +369,14 @@ export default class Sounds {
     const trackInfo = this.track[name];
 
     if (!trackInfo || !trackInfo.onload || !trackInfo.track) {
-      alert(`音頻 ${name} 尚未載入或不存在`);
+      // alert(`音頻 ${name} 尚未載入或不存在`);
       return;
     }
 
     const track = trackInfo.track;
 
     if (!canPlayTwice && track.playing()) {
-      alert(`音頻 ${name} 已在播放中，無法重複播放`);
+      // alert(`音頻 ${name} 已在播放中，無法重複播放`);
       return;
     }
 
@@ -384,8 +384,8 @@ export default class Sounds {
       // 設定音量並播放
       track.volume(volume);
       track.play();
-    } catch (error) {
-      alert(`播放音頻 ${name} 失敗，嘗試重新創建:${error}`);
+    } catch {
+      // alert(`播放音頻 ${name} 失敗，嘗試重新創建:${error}`);
       // 如果播放失敗，嘗試重新創建音軌
       this.recreateTrack(name);
 
@@ -395,8 +395,8 @@ export default class Sounds {
           try {
             this.track[name].track!.volume(volume);
             this.track[name].track!.play();
-          } catch (retryError) {
-            alert(`重試播放 ${name} 也失敗: ${retryError}`);
+          } catch {
+            // alert(`重試播放 ${name} 也失敗: ${retryError}`);
           }
         }
       }, 100);

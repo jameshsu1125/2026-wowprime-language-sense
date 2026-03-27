@@ -72,7 +72,12 @@ const TelValidate = memo(({ onChange, onAgree, onResend }: TLoginButtonProps) =>
         <div className='flex flex-row items-center gap-2 text-base whitespace-nowrap md:text-base'>
           <input type='checkbox' id='agree' name='agree' onChange={onAgree} className='h-4 w-4' />
           我已詳閱並同意
-          <a href='#' className='text-blue-500 underline underline-offset-2'>
+          <a
+            href='https://www.wowfms.com/privacy.php'
+            target='_blank'
+            rel='noreferrer'
+            className='text-blue-500 underline underline-offset-2'
+          >
             《個資告知事項暨同意書》
           </a>
         </div>

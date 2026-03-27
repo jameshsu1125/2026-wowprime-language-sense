@@ -8,6 +8,7 @@ import {
   TContext,
   TLoadingProcessState,
   TMenu,
+  TModal,
   TPlaying,
   TSounds,
   TUser,
@@ -40,6 +41,13 @@ export const SoundsState: TSounds = {
   tracks: undefined,
 };
 
+export const ModalState: TModal = {
+  enabled: false,
+  title: 'title',
+  content: 'body',
+  Label: ['confirm'],
+};
+
 export const InitialState: IState = {
   [ActionType.Page]: PAGE.home,
   [ActionType.LoadingProcess]: LoadingProcessState,
@@ -47,6 +55,7 @@ export const InitialState: IState = {
   [ActionType.Menu]: MenuState,
   [ActionType.Playing]: PlayingState,
   [ActionType.Sounds]: SoundsState,
+  [ActionType.Modal]: ModalState,
 };
 
 export const Context = createContext<TContext>([InitialState, () => {}]);
