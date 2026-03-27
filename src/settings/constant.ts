@@ -43,9 +43,10 @@ export const SoundsState: TSounds = {
 
 export const ModalState: TModal = {
   enabled: false,
-  title: 'title',
-  content: 'body',
-  Label: ['confirm'],
+  title: '',
+  content: '',
+  Label: ['確認'],
+  closeOnOverlay: true,
 };
 
 export const InitialState: IState = {

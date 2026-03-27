@@ -69,6 +69,9 @@ export type TModal = {
   title?: string;
   content?: ReactNode;
   Label?: string[];
+  onConfirm?: () => void;
+  onCancel?: () => void;
+  closeOnOverlay?: boolean;
 };
 
 export interface IState {
