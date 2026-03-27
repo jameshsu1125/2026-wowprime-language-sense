@@ -9,12 +9,6 @@ import './index.less';
 import AnnouncementTable from './table';
 
 const Text = memo(({ transition }: { transition: TransitionType }) => {
-  const id = useId();
-
-  useEffect(() => {
-    Click.addPreventExcept(`#${id}`);
-  }, [id]);
-
   const [style, setStyle] = useTween({ opacity: 0, y: 20 });
 
   useEffect(() => {
@@ -24,7 +18,7 @@ const Text = memo(({ transition }: { transition: TransitionType }) => {
   }, [transition]);
 
   return (
-    <div id={id} className='text' style={style}>
+    <div className='text' style={style}>
       <span>
         恭喜以下得獎者，
         <br />
@@ -39,6 +33,8 @@ const Text = memo(({ transition }: { transition: TransitionType }) => {
 });
 
 const Dialog = memo(() => {
+  const id = useId();
+
   const [response, getRanking] = useRanking();
   const [transition, setTransition] = useState(TransitionType.Unset);
 
@@ -52,10 +48,14 @@ const Dialog = memo(() => {
     }
   }, [response]);
 
+  useEffect(() => {
+    Click.addPreventExcept(`#${id}`);
+  }, [id]);
+
   const rankingDate = (response?.rankingDate || []) as TRankingResponse['rankingDate'];
 
   return (
-    <div className='dialog'>
+    <div id={id} className='dialog'>
       <Text transition={transition} />
       <AnnouncementTable rankingDate={rankingDate} transition={transition} />
     </div>
