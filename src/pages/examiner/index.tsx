@@ -134,10 +134,22 @@ const Examiner = memo(() => {
     };
   }, []);
 
+  const onError = (message: string) => {
+    setContext({
+      type: ActionType.Modal,
+      state: {
+        enabled: true,
+        content: message,
+        Label: ['確定'],
+      },
+    });
+  };
+
   return (
     <OnloadProvider
       onload={() => {
         const tracks = new Sounds({
+          onError,
           onload: () => {
             setContext({ type: ActionType.LoadingProcess, state: { enabled: false } });
             setTransition(true);

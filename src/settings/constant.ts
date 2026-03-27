@@ -43,7 +43,7 @@ export const SoundsState: TSounds = {
 
 export const ModalState: TModal = {
   enabled: false,
-  title: '',
+  title: '系統訊息',
   content: '',
   Label: ['確認'],
   closeOnOverlay: true,

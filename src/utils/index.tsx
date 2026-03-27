@@ -24,7 +24,7 @@ export function shareImage(image: string) {
   }
 }
 
-export function shareURL() {
+export function shareURL({ onError }: { onError?: () => void }) {
   if (navigator.share) {
     const shareData = {
       title: '快來挑戰看看！',
@@ -33,10 +33,10 @@ export function shareURL() {
     };
     navigator
       .share(shareData)
-      .then(() => console.log('Image shared successfully'))
-      .catch((error) => console.error('Error sharing image:', error));
+      .then(() => console.log('URL shared successfully'))
+      .catch((error) => console.error('Error sharing URL:', error));
   } else {
-    alert('不支援分享功能，請使用支援 Web Share API 的瀏覽器。');
+    onError?.();
   }
 }
 

@@ -41,6 +41,7 @@ import { SoundName } from './type';
 
 type SoundTrackProps = {
   onload?: (type: PreloadType) => void;
+  onError?: (message: string) => void;
 };
 
 type PreloadType = 'onStart' | 'onGame' | 'onListening';
@@ -197,9 +198,12 @@ export default class Sounds {
   };
 
   private onload: (type: PreloadType) => void;
+  private onError: (message: string) => void;
 
   constructor(props: SoundTrackProps) {
     this.onload = props.onload || (() => {});
+    this.onError = props.onError || (() => {});
+
     this.preload('onStart');
     this.initMobileSupport();
   }
@@ -239,7 +243,7 @@ export default class Sounds {
             trackInfo.track?.volume(currentVolume);
           }, 1);
         } catch {
-          // alert('音頻解鎖失敗');
+          this.onError('音頻解鎖失敗');
         }
       }
     });
@@ -272,7 +276,7 @@ export default class Sounds {
         trackInfo.track.stop();
         trackInfo.track.unload();
       } catch {
-        // alert(`清理音軌 ${name} 失敗: ${error}`);
+        this.onError(`清理音軌 ${name} 失敗`);
       }
     }
 
@@ -287,7 +291,7 @@ export default class Sounds {
         // console.log(`音軌 ${name} 重新載入完成`);
       },
       onloaderror: () => {
-        //alert(`音軌 ${name} 重新載入失敗: ${error}`);
+        this.onError(`音軌 ${name} 重新載入失敗`);
       },
     });
   }
@@ -360,6 +364,9 @@ export default class Sounds {
             this.track[n].onload = true;
             if (onload) onload(preload);
           },
+          onloaderror: () => {
+            this.onError(`音軌 ${n} 重新載入失敗`);
+          },
         });
       }
     });
@@ -369,14 +376,14 @@ export default class Sounds {
     const trackInfo = this.track[name];
 
     if (!trackInfo || !trackInfo.onload || !trackInfo.track) {
-      // alert(`音頻 ${name} 尚未載入或不存在`);
+      this.onError(`音頻 ${name} 尚未載入或不存在`);
       return;
     }
 
     const track = trackInfo.track;
 
     if (!canPlayTwice && track.playing()) {
-      // alert(`音頻 ${name} 已在播放中，無法重複播放`);
+      this.onError(`音頻 ${name} 已在播放中，無法重複播放`);
       return;
     }
 
@@ -385,7 +392,7 @@ export default class Sounds {
       track.volume(volume);
       track.play();
     } catch {
-      // alert(`播放音頻 ${name} 失敗，嘗試重新創建:${error}`);
+      this.onError(`播放音頻 ${name} 失敗，嘗試重新創建`);
       // 如果播放失敗，嘗試重新創建音軌
       this.recreateTrack(name);
 
@@ -395,8 +402,8 @@ export default class Sounds {
           try {
             this.track[name].track!.volume(volume);
             this.track[name].track!.play();
-          } catch {
-            // alert(`重試播放 ${name} 也失敗: ${retryError}`);
+          } catch (retryError) {
+            this.onError(`重試播放 ${name} 也失敗: ${retryError}`);
           }
         }
       }, 100);

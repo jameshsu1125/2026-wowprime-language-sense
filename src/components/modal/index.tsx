@@ -15,7 +15,7 @@ const Modal = memo(() => {
 
   if (!modal?.enabled) return null;
 
-  const title = modal.title || '提醒';
+  const title = modal.title || '';
   const content = modal.content || '';
   const labels = modal.Label?.length ? modal.Label : ['確認'];
 
@@ -32,7 +32,7 @@ const Modal = memo(() => {
           event.stopPropagation();
         }}
       >
-        <h3 className='font-line-bold text-xl text-slate-900'>{title}</h3>
+        {title && <h3 className='font-line-bold text-xl text-slate-900'>{title}</h3>}
         <div className='font-line-regular mt-3 text-base leading-7 text-slate-700'>{content}</div>
 
         <div className='mt-6 flex items-center justify-end gap-3'>

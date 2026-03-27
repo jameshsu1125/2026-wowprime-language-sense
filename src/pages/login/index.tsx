@@ -172,7 +172,14 @@ const Login = memo(() => {
         Storage.set('token', { token, nickname, phone });
       }
       if (verifyRes.status === 'error') {
-        alert(verifyRes.message || '驗證失敗，請重新輸入驗證碼，請查閱手機簡訊');
+        setContext({
+          type: ActionType.Modal,
+          state: {
+            enabled: true,
+            content: verifyRes.message || '驗證失敗，請重新輸入驗證碼，請查閱手機簡訊',
+            Label: ['確定'],
+          },
+        });
       }
     }
   }, [verifyRes]);
@@ -193,9 +200,25 @@ const Login = memo(() => {
         loginRes.status === 'error' &&
         decodeURIComponent(loginRes.message) === '手機號碼與暱稱不符'
       ) {
-        alert('可查閱先前收到之驗證碼簡訊，確認所登記的暱稱');
+        setContext({
+          type: ActionType.Modal,
+          state: {
+            title: '',
+            enabled: true,
+            content: '可查閱先前收到之驗證碼簡訊，確認所登記的暱稱',
+            Label: ['確定'],
+          },
+        });
       } else {
-        alert(loginRes.message);
+        setContext({
+          type: ActionType.Modal,
+          state: {
+            title: '',
+            enabled: true,
+            content: loginRes.message,
+            Label: ['確定'],
+          },
+        });
       }
     }
   }, [loginRes]);
@@ -204,7 +227,14 @@ const Login = memo(() => {
     if (!passed) {
       const isPhoneNumber = ValidatePhone(userData.phone);
       if (!isPhoneNumber) {
-        alert('請輸入正確的手機號碼');
+        setContext({
+          type: ActionType.Modal,
+          state: {
+            enabled: true,
+            content: '請輸入正確的手機號碼',
+            Label: ['確定'],
+          },
+        });
         return;
       }
       login(userData);
@@ -212,7 +242,14 @@ const Login = memo(() => {
       if (userData.otp !== '' && userData.isAgree) {
         verify(userData);
       } else {
-        alert('請輸入驗證碼並同意相關條款');
+        setContext({
+          type: ActionType.Modal,
+          state: {
+            enabled: true,
+            content: '請輸入驗證碼並同意相關條款',
+            Label: ['確定'],
+          },
+        });
       }
     }
   }, [userData, passed, setState, setContext, login, verify]);

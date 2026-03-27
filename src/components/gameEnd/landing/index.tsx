@@ -11,7 +11,7 @@ import './index.less';
 const Heading = memo(({ transition }: { transition: boolean }) => {
   const [style, setStyle] = useTween({ opacity: 0, scale: 3 });
 
-  const [context] = useContext(Context);
+  const [context, setContext] = useContext(Context);
   const sounds = context[ActionType.Sounds]!;
   const { score = 0, openRanking = false } = context[ActionType.Playing]!;
   const [downRes, sendScore] = useDown();
@@ -21,7 +21,16 @@ const Heading = memo(({ transition }: { transition: boolean }) => {
     if (downRes) {
       if (downRes.status === 'success') {
         setState((S) => ({ ...S, result: downRes.data, step: GameEndStepType.result }));
-      } else alert(downRes.message);
+      } else {
+        setContext({
+          type: ActionType.Modal,
+          state: {
+            enabled: true,
+            content: downRes.message,
+            Label: ['確定'],
+          },
+        });
+      }
     }
   }, [downRes]);
 

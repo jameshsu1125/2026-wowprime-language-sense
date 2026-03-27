@@ -39,7 +39,7 @@ type TInTheRankingProps = {
 const InTheRanking = memo(({ ranking, score, transition }: TInTheRankingProps) => {
   const [style, setStyle] = useTween({ opacity: 0, y: 50 });
   const [, setReset] = useContext(ResetContext);
-  const [context] = useContext(Context);
+  const [context, setContext] = useContext(Context);
   const user = context[ActionType.User]!;
 
   useEffect(() => {
@@ -72,7 +72,22 @@ const InTheRanking = memo(({ ranking, score, transition }: TInTheRankingProps) =
       </blockquote>
       <div className='flex w-full flex-row gap-5 px-10'>
         <div className='w-1/2'>
-          <Button onClick={() => shareURL()}>
+          <Button
+            onClick={() =>
+              shareURL({
+                onError: () => {
+                  setContext({
+                    type: ActionType.Modal,
+                    state: {
+                      enabled: true,
+                      content: '不支援分享功能，請使用支援 Web Share API 的瀏覽器。',
+                      Label: ['確定'],
+                    },
+                  });
+                },
+              })
+            }
+          >
             <Button.large>
               <div className='btn-invite' />
             </Button.large>

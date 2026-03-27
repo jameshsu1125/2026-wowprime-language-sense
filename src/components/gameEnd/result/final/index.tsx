@@ -50,7 +50,14 @@ const Final = memo(({ user }: { user?: { nickname: string; phone: string } }) =>
 
   useEffect(() => {
     if (copiedText) {
-      alert('專屬兌換序號已複製成功');
+      setContext({
+        type: ActionType.Modal,
+        state: {
+          enabled: true,
+          content: '專屬兌換序號已複製成功',
+          Label: ['確定'],
+        },
+      });
     }
   }, [copiedText]);
 
