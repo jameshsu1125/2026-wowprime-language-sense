@@ -284,7 +284,7 @@ export default class Sounds {
     trackInfo.track = new Howl({
       src: trackInfo.src,
       loop: trackInfo.loop,
-      html5: false, // 在移動設備上，Web Audio API 通常更穩定
+      // html5: false, // 在移動設備上，Web Audio API 通常更穩定
       preload: true,
       onload: () => {
         trackInfo.onload = true;
@@ -383,7 +383,7 @@ export default class Sounds {
     const track = trackInfo.track;
 
     if (!canPlayTwice && track.playing()) {
-      this.onError(`音頻 ${name} 已在播放中，無法重複播放`);
+      this.onError(`該語音已在播放中，無法重複播放`);
       return;
     }
 
@@ -392,7 +392,7 @@ export default class Sounds {
       track.volume(volume);
       track.play();
     } catch {
-      this.onError(`播放音頻 ${name} 失敗，嘗試重新創建`);
+      this.onError(`播放 ${name} 失敗，嘗試重新創建`);
       // 如果播放失敗，嘗試重新創建音軌
       this.recreateTrack(name);
 
