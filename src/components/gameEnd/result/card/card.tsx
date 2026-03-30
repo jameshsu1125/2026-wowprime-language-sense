@@ -1,12 +1,13 @@
 import Button from '@/components/button';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
-import { getMedalsIDByRanking } from '@/utils';
+import { getMedalsIDByRanking, shareImage } from '@/utils';
 import useTween from 'lesca-use-tween';
-import { memo, useContext, useEffect } from 'react';
+import { memo, useContext, useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { GameEndContext, GameEndFinalType } from '../../config';
 import './card.less';
+import Share from '@/components/share';
 
 const Score = memo(({ transition }: { transition: boolean }) => {
   const [context] = useContext(Context);
@@ -43,9 +44,11 @@ const Ranking = memo(({ transition, ranking }: { transition: boolean; ranking?: 
 
 const Card = memo(
   ({ transition, user }: { transition: boolean; user?: { nickname: string; phone: string } }) => {
+    const [, setContext] = useContext(Context);
     const [state, setState] = useContext(GameEndContext);
     const ranking = state.result.rank === 0 ? '未上榜' : String(state.result.rank);
     const medalsID = getMedalsIDByRanking(ranking || '1000');
+    const [isShare, setIsShare] = useState(false);
 
     return (
       <div className='Card'>
@@ -74,7 +77,11 @@ const Card = memo(
           </div>
           <div className='card-buttons'>
             <div>
-              <Button onClick={() => {}}>
+              <Button
+                onClick={() => {
+                  setIsShare(true);
+                }}
+              >
                 <Button.large>
                   <div className='share-btn' />
                 </Button.large>
@@ -98,6 +105,26 @@ const Card = memo(
           <div>可直接獲得瘋美食點數</div>
           <span>17,000點</span>
         </div>
+        {isShare && (
+          <Share
+            onUploaded={(shareUrl) => {
+              shareImage({
+                image: shareUrl,
+                onError: () => {
+                  setContext({
+                    type: ActionType.Modal,
+                    state: {
+                      enabled: true,
+                      content: '不支援分享功能，請使用支援 Web Share API 的瀏覽器。',
+                      Label: ['確定'],
+                    },
+                  });
+                },
+              });
+              setIsShare(false);
+            }}
+          />
+        )}
       </div>
     );
   },

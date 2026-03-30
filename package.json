@@ -19,7 +19,7 @@
     "lesca-atobtoa": "^2.0.0",
     "lesca-click": "^5.0.1",
     "lesca-enterframe": "^2.0.0",
-    "lesca-fetcher": "^2.0.2",
+    "lesca-fetcher": "^2.1.0",
     "lesca-local-storage": "^2.0.0",
     "lesca-react-char-transition": "^1.1.3",
     "lesca-react-onload": "^2.0.10",

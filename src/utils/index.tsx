@@ -1,9 +1,9 @@
-export function shareImage(image: string) {
+export function shareImage({ image, onError }: { image: string; onError?: () => void }) {
   if (navigator.share && navigator.canShare({ files: [new File([], 'share')] })) {
     fetch(image)
       .then((response) => response.blob())
       .then((blob) => {
-        const file = new File([blob], 'picture.jpg', { type: 'image/jpeg' });
+        const file = new File([blob], 'WOW_PRIME.jpg', { type: 'image/jpeg' });
         const filesArray = [file];
 
         const shareData = {
@@ -20,7 +20,7 @@ export function shareImage(image: string) {
       })
       .catch((error) => console.error('Error fetching image:', error));
   } else {
-    console.log('Web Share API not supported or cannot share files.');
+    onError?.();
   }
 }
 
