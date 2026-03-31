@@ -117,7 +117,7 @@ const Container = memo(({ children, className }: { className?: string } & IReact
             <div className='flex w-full flex-row items-center justify-between pt-0 md:pt-[3%]'>
               <div className='container-logo invisible' />
             </div>
-            <div className='container-extra pointer-events-auto relative z-40 h-15'>
+            <div className='container-extra pointer-events-auto relative z-40 h-0'>
               {menuState?.enabled && <MenuList />}
             </div>
           </div>

@@ -31,12 +31,15 @@ const Extra = memo(() => {
   const { enabled, score, openAnnouncement, openRanking } = context[ActionType.Playing]!;
   const [state] = useContext(HomeContext);
 
+  console.log(openAnnouncement);
+
   return (
     <div className='Extra'>
       {state.page !== HomePageType.Examiner &&
       state.page !== HomePageType.Login &&
       !openAnnouncement &&
-      !openRanking ? (
+      !openRanking &&
+      !enabled ? (
         <>
           {enabled && <Score score={score || 0} />}
           {nickname === '' ? null : <UserName>{nickname}</UserName>}
