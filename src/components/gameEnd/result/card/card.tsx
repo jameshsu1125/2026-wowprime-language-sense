@@ -8,6 +8,7 @@ import { memo, useContext, useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { GameEndContext, GameEndFinalType } from '../../config';
 import './card.less';
+import { getDetailsByMedals } from './config';
 
 const Score = memo(({ transition }: { transition: boolean }) => {
   const [context] = useContext(Context);
@@ -44,8 +45,10 @@ const Ranking = memo(({ transition, ranking }: { transition: boolean; ranking?: 
 
 const Card = memo(
   ({ transition, user }: { transition: boolean; user?: { nickname: string; phone: string } }) => {
-    const [, setContext] = useContext(Context);
+    const [context, setContext] = useContext(Context);
     const [state, setState] = useContext(GameEndContext);
+
+    const { score } = context[ActionType.Playing]!;
     const ranking = state.result.rank === 0 ? '未上榜' : String(state.result.rank);
     const medalsID = getMedalsIDByRanking(ranking || '1000');
     const [isShare, setIsShare] = useState(false);
@@ -67,11 +70,7 @@ const Card = memo(
                   <div className={twMerge('step', `step-${medalsID}`)} />
                 </div>
               </div>
-              <div className='box-below'>
-                一定是學習太孤單了!
-                <br />
-                徵求學伴和我一起加油
-              </div>
+              <div className='box-below'>{getDetailsByMedals(medalsID)}</div>
             </div>
           </div>
           <div className='card-buttons'>
@@ -82,6 +81,8 @@ const Card = memo(
                   else {
                     shareImage({
                       image: url,
+                      nickname: user?.nickname || '某某某',
+                      score: score || 0,
                       onError: () => {
                         setContext({
                           type: ActionType.Modal,
@@ -121,10 +122,16 @@ const Card = memo(
         </div>
         {isShare && (
           <Share
-            onUploaded={(shareUrl) => {
+            medalsID={medalsID}
+            ranking={ranking}
+            score={score || 0}
+            nickname={user?.nickname || '某某某'}
+            onUploaded={(shareUrl, base64) => {
               setURL(shareUrl);
               shareImage({
-                image: shareUrl,
+                image: base64,
+                nickname: user?.nickname || '某某某',
+                score: score || 0,
                 onError: () => {
                   setContext({
                     type: ActionType.Modal,
@@ -136,7 +143,7 @@ const Card = memo(
                   });
                 },
               });
-              setIsShare(false);
+              // setIsShare(false);
             }}
           />
         )}

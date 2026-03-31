@@ -1,4 +1,11 @@
-export function shareImage({ image, onError }: { image: string; onError?: () => void }) {
+type TShareProps = {
+  image: string;
+  score: number;
+  nickname: string;
+  onError?: () => void;
+};
+
+export function shareImage({ image, onError, score, nickname }: TShareProps) {
   if (navigator.share && navigator.canShare({ files: [new File([], 'share')] })) {
     fetch(image)
       .then((response) => response.blob())
@@ -8,8 +15,8 @@ export function shareImage({ image, onError }: { image: string; onError?: () => 
 
         const shareData = {
           files: filesArray,
-          title: 'Check out this image!',
-          text: 'Some additional text',
+          title: `${nickname}已獲得${score}分，你能超越他嗎？`,
+          text: '加入「全民一起好好吃語感大會考」看看你能得幾分？',
           url: window.location.href,
         };
 
@@ -57,4 +64,13 @@ export function getMedalsIDByRanking(ranking: string): string {
   if (rank > 10 && rank <= 50) return 'bronze';
   if (rank > 50 && rank <= 100) return 'iron';
   return 'wood';
+}
+
+export function preloadImage(src: string): Promise<HTMLImageElement> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = (err) => reject(err);
+    img.src = src;
+  });
 }
