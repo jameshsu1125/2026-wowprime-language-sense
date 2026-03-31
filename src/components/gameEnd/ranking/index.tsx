@@ -26,7 +26,7 @@ const Ranking = memo(() => {
   const { user } = status;
 
   const ranking = user ? data.find((r) => r.nickname === user.nickname)?.ranking : undefined;
-  // const ranking = '1000';
+  // const ranking = '0';
   const score = user ? data.find((r) => r.nickname === user.nickname)?.score : undefined;
 
   return (

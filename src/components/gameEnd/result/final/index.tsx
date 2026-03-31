@@ -1,4 +1,5 @@
 import Button from '@/components/button';
+import useStatus from '@/hooks/useStatus';
 import { ResetContext } from '@/pages/config';
 import { Context } from '@/settings/constant';
 import { ActionType, IReactProps, TransitionType } from '@/settings/type';
@@ -7,7 +8,6 @@ import OnloadProvider from 'lesca-react-onload';
 import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { GameEndContext } from '../../config';
 import './index.less';
 
 type TweenerProviderProps = IReactProps & {
@@ -44,9 +44,9 @@ const TweenerProvider = memo(
 const Final = memo(({ user }: { user?: { nickname: string; phone: string } }) => {
   const [, setContext] = useContext(Context);
   const [copiedText, copy] = useCopyToClipboard();
-  const [{ result }] = useContext(GameEndContext);
   const [, setReset] = useContext(ResetContext);
   const [transition, setTransition] = useState(TransitionType.Unset);
+  const [status] = useStatus();
 
   useEffect(() => {
     if (copiedText) {
@@ -60,6 +60,8 @@ const Final = memo(({ user }: { user?: { nickname: string; phone: string } }) =>
       });
     }
   }, [copiedText]);
+
+  if (!status) return null;
 
   return (
     <OnloadProvider onload={() => setTransition(TransitionType.FadeIn)}>
@@ -77,10 +79,10 @@ const Final = memo(({ user }: { user?: { nickname: string; phone: string } }) =>
             </TweenerProvider>
             <TweenerProvider transition={transition} delay={150} type='1'>
               <div className='join'>
-                <input defaultValue={result?.coupon || '未配發'} />
+                <input defaultValue={status?.coupon || '未配發'} />
                 <Button
                   onClick={() => {
-                    copy(result?.coupon || '');
+                    copy(status?.coupon || '');
                   }}
                 >
                   複製

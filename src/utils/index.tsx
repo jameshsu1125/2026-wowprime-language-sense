@@ -36,7 +36,7 @@ export function shareURL({ onError }: { onError?: () => void }) {
   if (navigator.share) {
     const shareData = {
       title: '快來挑戰看看！',
-      text: '你能打敗我嗎？',
+      text: '快來挑戰看看！\n你能打敗我嗎？',
       url: window.location.href,
     };
     navigator
