@@ -78,7 +78,7 @@ const Card = memo(
             });
           },
         });
-        // setIsShare(false);
+        setIsShare(false);
       },
       [user, score, setContext],
     );
@@ -86,8 +86,6 @@ const Card = memo(
     const onClick = useCallback(() => {
       if (!url) setIsShare(true);
       else {
-        console.log('aasd');
-
         shareImage({
           image: url,
           nickname: user?.nickname || '某某某',
