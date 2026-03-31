@@ -25,7 +25,7 @@ const Contain = memo(
     isMoreInfo = false,
   }: ContainProps) => {
     const [context] = useContext(Context);
-    const { openRanking, openAnnouncement } = context[ActionType.Playing]!;
+    const { openRanking, openAnnouncement, openMyAward } = context[ActionType.Playing]!;
     const [state] = useContext(HomeContext);
     const pageRef = useRef<HomePageType>(state.page);
 
@@ -43,14 +43,14 @@ const Contain = memo(
     useEffect(() => {
       if (transition === TransitionType.FadeIn) {
         if (state.page === HomePageType.Examiner || state.page === HomePageType.Login) {
-          if (openRanking || openAnnouncement) {
+          if (openRanking || openAnnouncement || openMyAward) {
             setStyle({ y: 0, scale: 1 }, { duration: 500 });
           } else {
             setStyle({ y: -60, scale: 0.92 }, { duration: 500 });
           }
         } else setStyle({ y: 0, scale: 1 }, { duration: 500 });
       }
-    }, [transition, state, openRanking, openAnnouncement]);
+    }, [transition, state, openRanking, openAnnouncement, openMyAward]);
 
     useLayoutEffect(() => {
       const image = new Image();

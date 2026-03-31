@@ -28,7 +28,8 @@ export const Score = memo(({ score }: { score: number }) => {
 const Extra = memo(() => {
   const [context] = useContext(Context);
   const { nickname } = context[ActionType.User]!;
-  const { enabled, score, openAnnouncement, openRanking } = context[ActionType.Playing]!;
+  const { enabled, score, openAnnouncement, openRanking, openMyAward } =
+    context[ActionType.Playing]!;
   const [state] = useContext(HomeContext);
 
   return (
@@ -37,6 +38,7 @@ const Extra = memo(() => {
       state.page !== HomePageType.Login &&
       !openAnnouncement &&
       !openRanking &&
+      !openMyAward &&
       !enabled ? (
         <>
           {enabled && <Score score={score || 0} />}

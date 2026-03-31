@@ -6,6 +6,7 @@ import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect, useMemo, useState } from 'react';
 import Contain from '../contain';
 import Announcement from './announcement';
+import Award from './award';
 import { GameEndContext, GameEndState, GameEndStepType } from './config';
 import './index.less';
 import EndLanding from './landing';
@@ -24,9 +25,11 @@ const BG = memo(() => {
 
 const GameEnd = memo(() => {
   const [context, setContext] = useContext(Context);
-  const { openRanking, isEnd, openAnnouncement } = context[ActionType.Playing]!;
+  const { openRanking, isEnd, openAnnouncement, openMyAward } = context[ActionType.Playing]!;
   const menuState = context[ActionType.Menu]!;
-  const [pageState, setPageState] = useState<'unset' | 'ranking' | 'announcement'>('unset');
+  const [pageState, setPageState] = useState<'unset' | 'ranking' | 'announcement' | 'myAward'>(
+    'unset',
+  );
 
   const value = useState(GameEndState);
   const [reset] = useContext(ResetContext);
@@ -48,10 +51,16 @@ const GameEnd = memo(() => {
   }, [openAnnouncement]);
 
   useEffect(() => {
-    if (!openRanking && !openAnnouncement) {
+    if (openMyAward) {
+      setPageState('myAward');
+    }
+  }, [openMyAward]);
+
+  useEffect(() => {
+    if (!openRanking && !openAnnouncement && !openMyAward) {
       setPageState('unset');
     }
-  }, [openRanking, openAnnouncement]);
+  }, [openRanking, openAnnouncement, openMyAward]);
 
   useEffect(() => {
     if (isEnd) {
@@ -80,6 +89,9 @@ const GameEnd = memo(() => {
       case 'announcement':
         return <Announcement />;
 
+      case 'myAward':
+        return <Award />;
+
       default:
         return null;
     }
@@ -91,6 +103,10 @@ const GameEnd = memo(() => {
     }
 
     if (pageState === 'announcement') {
+      setContext({ type: ActionType.Playing, state: { openRanking: false } });
+    }
+
+    if (pageState === 'myAward') {
       setContext({ type: ActionType.Playing, state: { openRanking: false } });
     }
   }, [pageState, setContext]);

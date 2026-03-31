@@ -32,6 +32,7 @@ const Home = memo(() => {
           score: 0,
           openRanking: false,
           openAnnouncement: false,
+          openMyAward: false,
         },
       });
     }
