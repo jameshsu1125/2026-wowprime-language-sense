@@ -7,7 +7,8 @@ import './list.less';
 
 const MenuList = memo(() => {
   const id = useId();
-  const [, setContext] = useContext(Context);
+  const [context, setContext] = useContext(Context);
+  const { token } = context[ActionType.User]!;
 
   useEffect(() => {
     Click.add(`#${id}`, () => {
@@ -46,14 +47,16 @@ const MenuList = memo(() => {
         <Button className='cursor-not-allowed'>
           <div className='btn-menu'>一起看影片</div>
         </Button>
-        <Button
-          onClick={() => {
-            setContext({ type: ActionType.Menu, state: { enabled: false } });
-            setContext({ type: ActionType.Playing, state: { openMyAward: true } });
-          }}
-        >
-          <div className='btn-menu'>我的參加獎</div>
-        </Button>
+        {token && (
+          <Button
+            onClick={() => {
+              setContext({ type: ActionType.Menu, state: { enabled: false } });
+              setContext({ type: ActionType.Playing, state: { openMyAward: true } });
+            }}
+          >
+            <div className='btn-menu'>我的參加獎</div>
+          </Button>
+        )}
       </div>
     </>
   );

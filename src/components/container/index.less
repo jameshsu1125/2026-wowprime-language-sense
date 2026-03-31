@@ -107,5 +107,13 @@
 
   .container-dialog2 {
     height: calc(~'100% - 166px');
+    transform: translateY(0%);
+
+    @media only screen and (max-width: 768px) {
+      & {
+        height: calc(~'97% - 76.13px - 48px');
+        transform: translateY(2%);
+      }
+    }
   }
 }

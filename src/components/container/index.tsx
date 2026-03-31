@@ -101,7 +101,7 @@ const Container = memo(({ children, className }: { className?: string } & IReact
               <Menu />
             </div>
           </div>
-          <div className='container-extra pointer-events-auto relative z-40 h-15'>
+          <div className='container-extra pointer-events-none relative z-40 h-15'>
             <Extra />
           </div>
         </div>
@@ -122,7 +122,7 @@ const Container = memo(({ children, className }: { className?: string } & IReact
               {menuState?.enabled && <MenuList />}
             </div>
           </div>
-          <div className='container-dialog2 pointer-events-auto relative z-30 h-full w-full'>
+          <div className='container-dialog2 pointer-events-auto relative z-30 w-full'>
             <GameEnd />
           </div>
           <div className='h-12 w-full md:h-10' />

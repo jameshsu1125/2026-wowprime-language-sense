@@ -1,0 +1,98 @@
+@import url('@/settings/global.css');
+
+.MyAward {
+  @apply absolute h-full w-full;
+
+  .bg {
+    @apply absolute top-0 h-full w-full bg-white;
+  }
+
+  & > .ctx {
+    @apply relative flex h-full w-full justify-center pt-8;
+
+    .content {
+      @apply relative flex h-full w-full max-w-lg flex-col items-center justify-start gap-5;
+
+      .dialog {
+        @apply flex h-full w-full flex-col items-center justify-between overflow-y-scroll px-5 pb-5;
+
+        & > div {
+          @apply font-line-bold flex w-full flex-col items-start gap-5 py-5 text-center text-3xl leading-snug;
+
+          .join {
+            @apply relative flex flex-row items-center justify-start;
+
+            & > input {
+              width: 75%;
+
+              padding-inline: 4%;
+              @apply bg-tertiary font-line-regular h-16 text-xl;
+            }
+
+            & > button {
+              @apply h-16 w-auto bg-black p-3 font-thin whitespace-nowrap text-white md:h-16;
+            }
+          }
+
+          & > div > span {
+            @apply text-primary font-line-extraBold text-5xl leading-0;
+          }
+          & > div > a {
+            @apply text-blue-500 underline underline-offset-2;
+          }
+        }
+
+        & > div:nth-child(2) {
+          @apply font-default text-left text-xl;
+
+          .btn-ranking {
+            width: 55%;
+
+            @img: './img/btn-ranking.svg';
+            @apply relative;
+
+            &::before {
+              padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+              background-image: url(@img);
+              content: '';
+
+              @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+            }
+          }
+
+          .btn-again {
+            width: 55%;
+
+            @img: './img/btn-again.svg';
+            @apply relative;
+
+            &::before {
+              padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+              background-image: url(@img);
+              content: '';
+
+              @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+            }
+          }
+        }
+      }
+
+      .header {
+        @apply font-line-bold relative w-full text-center text-3xl tracking-widest md:text-3xl;
+
+        .back {
+          @img: './img/back.svg';
+          @apply absolute top-0 left-0 w-10;
+
+          &::before {
+            padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+            background-image: url(@img);
+            content: '';
+
+            @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+          }
+        }
+      }
+    }
+  }
+}

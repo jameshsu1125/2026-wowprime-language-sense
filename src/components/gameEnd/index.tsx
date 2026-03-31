@@ -6,7 +6,7 @@ import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect, useMemo, useState } from 'react';
 import Contain from '../contain';
 import Announcement from './announcement';
-import Award from './award';
+import MyAward from './myAward';
 import { GameEndContext, GameEndState, GameEndStepType } from './config';
 import './index.less';
 import EndLanding from './landing';
@@ -90,7 +90,7 @@ const GameEnd = memo(() => {
         return <Announcement />;
 
       case 'myAward':
-        return <Award />;
+        return <MyAward />;
 
       default:
         return null;
