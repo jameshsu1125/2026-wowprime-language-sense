@@ -46,6 +46,9 @@ const MenuList = memo(() => {
         <Button className='cursor-not-allowed'>
           <div className='btn-menu'>一起看影片</div>
         </Button>
+        <Button className='cursor-not-allowed'>
+          <div className='btn-menu'>我的參加獎</div>
+        </Button>
       </div>
     </>
   );

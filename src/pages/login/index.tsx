@@ -276,11 +276,13 @@ const Login = memo(() => {
 
         // TODO: test
         if (IS_TEST) {
-          // setContext({
-          //   type: ActionType.Playing,
-          //   state: { enabled: true, score: 1000, isEnd: true, openRanking: false },
-          // });
-          setState((S) => ({ ...S, page: HomePageType.Game }));
+          const isGotoEnd = true;
+          if (isGotoEnd) {
+            setContext({
+              type: ActionType.Playing,
+              state: { enabled: true, score: 1000, isEnd: true, openRanking: false },
+            });
+          } else setState((S) => ({ ...S, page: HomePageType.Game }));
         } else {
           setState((S) => ({ ...S, page: HomePageType.Game }));
         }
