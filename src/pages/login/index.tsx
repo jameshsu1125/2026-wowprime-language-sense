@@ -203,7 +203,6 @@ const Login = memo(() => {
         setContext({
           type: ActionType.Modal,
           state: {
-            title: '',
             enabled: true,
             content: (
               <>
@@ -219,7 +218,6 @@ const Login = memo(() => {
         setContext({
           type: ActionType.Modal,
           state: {
-            title: '',
             enabled: true,
             content: loginRes.message,
             Label: ['確定'],

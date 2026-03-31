@@ -12,6 +12,7 @@ import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect, useId, useMemo, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import './blockquote.less';
+import { useCopyToClipboard } from '@uidotdev/usehooks';
 
 const IncreaseCount = memo(({ initCount, toCount }: { initCount: number; toCount: number }) => {
   const [count, setCount] = useState(initCount);
@@ -41,12 +42,26 @@ const InTheRanking = memo(({ ranking, score, transition }: TInTheRankingProps) =
   const [, setReset] = useContext(ResetContext);
   const [context, setContext] = useContext(Context);
   const user = context[ActionType.User]!;
+  const [text, copy] = useCopyToClipboard();
 
   useEffect(() => {
     if (transition === TransitionType.FadeIn) {
       setStyle({ opacity: 1, y: 0 }, { duration: 600, delay: 200 });
     }
   }, [transition]);
+
+  useEffect(() => {
+    if (text) {
+      setContext({
+        type: ActionType.Modal,
+        state: {
+          enabled: true,
+          content: '網址已複製，快邀請朋友來挑戰吧！',
+          Label: ['確定'],
+        },
+      });
+    }
+  }, [text]);
 
   return (
     <div className='font-default flex w-full flex-col gap-5' style={style}>
@@ -76,14 +91,7 @@ const InTheRanking = memo(({ ranking, score, transition }: TInTheRankingProps) =
             onClick={() =>
               shareURL({
                 onError: () => {
-                  setContext({
-                    type: ActionType.Modal,
-                    state: {
-                      enabled: true,
-                      content: '不支援分享功能，請使用支援 Web Share API 的瀏覽器。',
-                      Label: ['確定'],
-                    },
-                  });
+                  copy(window.location.href);
                 },
               })
             }
