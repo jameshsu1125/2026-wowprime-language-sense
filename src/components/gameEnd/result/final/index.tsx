@@ -89,7 +89,13 @@ const Final = memo(({ user }: { user?: { nickname: string; phone: string } }) =>
             </TweenerProvider>
             <TweenerProvider transition={transition} delay={200} type='1'>
               請到
-              <a href='#'>王品瘋美食</a>
+              <a
+                href='https://www.wowfms.com/event/eattogether50points'
+                target='_blank'
+                rel='noreferrer'
+              >
+                王品瘋美食
+              </a>
               輸入序號兌換
             </TweenerProvider>
           </div>

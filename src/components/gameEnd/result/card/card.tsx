@@ -1,4 +1,5 @@
 import Button from '@/components/button';
+import Share from '@/components/share';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
 import { getMedalsIDByRanking, shareImage } from '@/utils';
@@ -7,7 +8,6 @@ import { memo, useContext, useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { GameEndContext, GameEndFinalType } from '../../config';
 import './card.less';
-import Share from '@/components/share';
 
 const Score = memo(({ transition }: { transition: boolean }) => {
   const [context] = useContext(Context);
@@ -49,6 +49,7 @@ const Card = memo(
     const ranking = state.result.rank === 0 ? '未上榜' : String(state.result.rank);
     const medalsID = getMedalsIDByRanking(ranking || '1000');
     const [isShare, setIsShare] = useState(false);
+    const [url, setURL] = useState('');
 
     return (
       <div className='Card'>
@@ -79,7 +80,22 @@ const Card = memo(
             <div>
               <Button
                 onClick={() => {
-                  setIsShare(true);
+                  if (!url) setIsShare(true);
+                  else {
+                    shareImage({
+                      image: url,
+                      onError: () => {
+                        setContext({
+                          type: ActionType.Modal,
+                          state: {
+                            enabled: true,
+                            content: '不支援分享功能，請使用支援 Web Share API 的瀏覽器。',
+                            Label: ['確定'],
+                          },
+                        });
+                      },
+                    });
+                  }
                 }}
               >
                 <Button.large>
@@ -108,6 +124,7 @@ const Card = memo(
         {isShare && (
           <Share
             onUploaded={(shareUrl) => {
+              setURL(shareUrl);
               shareImage({
                 image: shareUrl,
                 onError: () => {

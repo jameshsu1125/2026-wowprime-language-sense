@@ -205,7 +205,13 @@ const Login = memo(() => {
           state: {
             title: '',
             enabled: true,
-            content: '可查閱先前收到之驗證碼簡訊，確認所登記的暱稱',
+            content: (
+              <>
+                手機號碼與暱稱不符
+                <br />
+                *可查閱先前收到之驗證碼簡訊，確認所登記的暱稱
+              </>
+            ),
             Label: ['確定'],
           },
         });
@@ -270,11 +276,11 @@ const Login = memo(() => {
 
         // TODO: test
         if (IS_TEST) {
-          setContext({
-            type: ActionType.Playing,
-            state: { enabled: true, score: 1000, isEnd: true, openRanking: false },
-          });
-          // setState((S) => ({ ...S, page: HomePageType.Game }));
+          // setContext({
+          //   type: ActionType.Playing,
+          //   state: { enabled: true, score: 1000, isEnd: true, openRanking: false },
+          // });
+          setState((S) => ({ ...S, page: HomePageType.Game }));
         } else {
           setState((S) => ({ ...S, page: HomePageType.Game }));
         }
