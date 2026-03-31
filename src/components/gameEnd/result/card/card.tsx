@@ -64,6 +64,7 @@ const Card = memo(
                     <Score transition={transition} />
                     <Ranking transition={transition} ranking={ranking} />
                   </div>
+                  <div className={twMerge('step', `step-${medalsID}`)} />
                 </div>
               </div>
               <div className='box-below'>
@@ -71,15 +72,6 @@ const Card = memo(
                 <br />
                 徵求學伴和我一起加油
               </div>
-              {/* <div>
-                
-                <div className='box-content'>
-                  <div>考生：{user?.nickname || '某某某'}</div>
-                  <Score transition={transition} />
-                  <Ranking transition={transition} ranking={ranking} />
-                </div>
-                <div className='award-content'>asd</div>
-              </div> */}
             </div>
           </div>
           <div className='card-buttons'>

@@ -67,6 +67,7 @@
           @apply relative h-fit w-full overflow-hidden;
 
           & > div {
+            padding: 4%;
             @apply relative z-10 h-full w-full;
 
             .gold {
@@ -100,7 +101,8 @@
 
           .box-content {
             margin-top: -4%;
-            padding-left: 2%;
+
+            padding-inline: 5%;
             @apply relative flex w-full flex-col items-start justify-center;
 
             & > div {
@@ -109,6 +111,66 @@
               & > span {
                 @apply text-primary font-line-extraBold text-3xl font-black tracking-widest md:text-3xl;
               }
+            }
+          }
+
+          .step-gold {
+            @img: './img/step-gold.svg';
+
+            &::before {
+              padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+              background-image: url(@img);
+            }
+          }
+
+          .step-silver {
+            @img: './img/step-silver.svg';
+            @apply py-3;
+
+            &::before {
+              padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+              background-image: url(@img);
+            }
+          }
+
+          .step-bronze {
+            @img: './img/step-bronze.svg';
+
+            @apply pt-3;
+
+            &::before {
+              padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+              background-image: url(@img);
+            }
+          }
+
+          .step-iron {
+            @img: './img/step-iron.svg';
+            @apply py-1;
+
+            &::before {
+              padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+              background-image: url(@img);
+            }
+          }
+
+          .step-wood {
+            @img: './img/step-wood.svg';
+            @apply py-1;
+
+            &::before {
+              padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+              background-image: url(@img);
+            }
+          }
+
+          .step {
+            padding-inline: 5%;
+            @apply w-full;
+
+            &::before {
+              content: '';
+              @apply inline-block w-full bg-contain bg-center bg-no-repeat;
             }
           }
 
@@ -136,7 +198,9 @@
         }
 
         .box-below {
-          @apply w-full;
+          padding-bottom: 5%;
+
+          @apply font-line-bold w-full text-center text-3xl;
         }
 
         // & > div {
