@@ -40,7 +40,10 @@ const Ranking = memo(() => {
               <Button
                 className='back'
                 onClick={() => {
-                  setContext({ type: ActionType.Playing, state: { openRanking: false } });
+                  setContext({
+                    type: ActionType.Playing,
+                    state: { openRanking: false, openAnnouncement: false, openMyAward: false },
+                  });
                 }}
               >
                 <div />

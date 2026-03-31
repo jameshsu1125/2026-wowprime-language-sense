@@ -75,7 +75,10 @@ const Announcement = memo(() => {
             <Button
               className='back'
               onClick={() => {
-                setContext({ type: ActionType.Playing, state: { openAnnouncement: false } });
+                setContext({
+                  type: ActionType.Playing,
+                  state: { openAnnouncement: false, openMyAward: false, openRanking: false },
+                });
               }}
             >
               <div />
