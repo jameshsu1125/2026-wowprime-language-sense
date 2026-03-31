@@ -2,10 +2,11 @@ type TShareProps = {
   image: string;
   score: number;
   nickname: string;
+  url: string;
   onError?: () => void;
 };
 
-export function shareImage({ image, onError, score, nickname }: TShareProps) {
+export function shareImage({ image, onError, score, nickname, url }: TShareProps) {
   if (navigator.share && navigator.canShare({ files: [new File([], 'share')] })) {
     fetch(image)
       .then((response) => response.blob())
@@ -16,8 +17,8 @@ export function shareImage({ image, onError, score, nickname }: TShareProps) {
         const shareData = {
           files: filesArray,
           title: `${nickname}已獲得${score}分，你能超越他嗎？`,
-          text: '加入「全民一起好好吃語感大會考」看看你能得幾分？',
-          url: window.location.href,
+          text: `${nickname}已獲得${score}分，你能超越他嗎？\n加入「全民一起好好吃語感大會考」看看你能得幾分？`,
+          url: url,
         };
 
         navigator

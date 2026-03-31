@@ -53,14 +53,17 @@ const Card = memo(
     const medalsID = getMedalsIDByRanking(ranking || '1000');
     const [isShare, setIsShare] = useState(false);
     const [url, setURL] = useState('');
+    const [base64, setBase64] = useState('');
 
     const onUploaded = useCallback(
       (shareUrl: string, base64: string) => {
         setURL(shareUrl);
+        setBase64(base64);
         shareImage({
           image: base64,
           nickname: user?.nickname || '某某某',
           score: score || 0,
+          url: shareUrl,
           onError: () => {
             setContext({
               type: ActionType.Modal,
@@ -87,9 +90,10 @@ const Card = memo(
       if (!url) setIsShare(true);
       else {
         shareImage({
-          image: url,
+          image: base64,
           nickname: user?.nickname || '某某某',
           score: score || 0,
+          url: url,
           onError: () => {
             setContext({
               type: ActionType.Modal,
@@ -108,7 +112,7 @@ const Card = memo(
           },
         });
       }
-    }, [url, user, score, setContext]);
+    }, [url, user, score, base64, setContext]);
 
     return (
       <div className='Card'>
