@@ -31,8 +31,6 @@ const Extra = memo(() => {
   const { enabled, score, openAnnouncement, openRanking } = context[ActionType.Playing]!;
   const [state] = useContext(HomeContext);
 
-  console.log(openAnnouncement);
-
   return (
     <div className='Extra'>
       {state.page !== HomePageType.Examiner &&
