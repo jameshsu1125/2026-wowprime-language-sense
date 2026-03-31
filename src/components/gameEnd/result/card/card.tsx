@@ -56,24 +56,30 @@ const Card = memo(
         <div className='box'>
           <div>
             <div>
-              <div>
-                <div className={twMerge('medals', medalsID)} />
+              <div className='box-inner'>
+                <div>
+                  <div className={twMerge('medals', medalsID)} />
+                  <div className='box-content'>
+                    <div>考生：{user?.nickname || '某某某'}</div>
+                    <Score transition={transition} />
+                    <Ranking transition={transition} ranking={ranking} />
+                  </div>
+                </div>
+              </div>
+              <div className='box-below'>
+                一定是學習太孤單了!
+                <br />
+                徵求學伴和我一起加油
+              </div>
+              {/* <div>
+                
                 <div className='box-content'>
                   <div>考生：{user?.nickname || '某某某'}</div>
                   <Score transition={transition} />
                   <Ranking transition={transition} ranking={ranking} />
                 </div>
-                <div className='award-content'>
-                  <div className='dash-line' />
-                  <div>
-                    恭喜你獲得瘋美食點數
-                    <span>50點</span>
-                  </div>
-                  <div>快分享結果並依步驟領取獎勵!</div>
-                  <div className='dash-line' />
-                </div>
-                <div className='logo' />
-              </div>
+                <div className='award-content'>asd</div>
+              </div> */}
             </div>
           </div>
           <div className='card-buttons'>

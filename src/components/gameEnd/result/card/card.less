@@ -7,7 +7,7 @@
     margin-top: 2%;
 
     padding-inline: 2%;
-    @apply w-full;
+    @apply relative w-full;
 
     .card-buttons {
       margin-top: 3.5%;
@@ -59,60 +59,43 @@
       @apply relative w-full bg-contain;
 
       & > div {
-        @apply absolute top-0 right-0 bottom-0 left-0;
+        padding: 3%;
+        @apply absolute top-0 right-0 bottom-0 left-0 flex flex-col items-center justify-between;
 
-        & > div {
-          padding-inline: 8%;
-          padding-block: 6%;
-          @apply relative flex h-full w-full flex-col items-center justify-start;
+        .box-inner {
+          min-height: 70%;
+          @apply relative h-fit w-full overflow-hidden;
 
-          .logo {
-            margin-top: 14%;
-            width: 57%;
+          & > div {
+            @apply relative z-10 h-full w-full;
 
-            @img: './img/logo.svg';
-
-            @media only screen and (max-width: 768px) {
-              & {
-                margin-top: 15%;
-              }
+            .gold {
+              background-image: url('./img/gold.png');
             }
 
-            &::before {
+            .silver {
+              background-image: url('./img/silver.png');
+            }
+
+            .bronze {
+              background-image: url('./img/bronze.png');
+            }
+
+            .iron {
+              background-image: url('./img/iron.png');
+            }
+
+            .wood {
+              background-image: url('./img/wood.png');
+            }
+
+            .medals {
               padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
-              background-image: url(@img);
-              content: '';
 
-              @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+              @img: './img/gold.png';
+
+              @apply w-full bg-contain bg-no-repeat;
             }
-          }
-
-          .gold {
-            background-image: url('./img/gold.png');
-          }
-
-          .silver {
-            background-image: url('./img/silver.png');
-          }
-
-          .bronze {
-            background-image: url('./img/bronze.png');
-          }
-
-          .iron {
-            background-image: url('./img/iron.png');
-          }
-
-          .wood {
-            background-image: url('./img/wood.png');
-          }
-
-          .medals {
-            padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
-
-            @img: './img/gold.png';
-
-            @apply w-full bg-contain bg-no-repeat;
           }
 
           .box-content {
@@ -129,31 +112,84 @@
             }
           }
 
-          .award-content {
-            margin-top: 4%;
-            padding-left: 2%;
+          &::before {
+            padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+            background-image: url(@img);
+            content: '';
 
-            @apply text-tertiary flex w-full flex-col items-start justify-center text-justify text-lg leading-relaxed font-bold tracking-widest md:text-lg;
+            @img: './img/box-inner-top.svg';
+            @apply absolute top-0 w-full;
 
-            .dash-line {
-              @apply border-tertiary w-full border-t-2 border-dashed;
-            }
+            @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+          }
 
-            & > .dash-line:nth-child(1) {
-              margin-bottom: 5%;
-            }
+          &::after {
+            padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+            background-image: url(@img);
+            content: '';
 
-            & > .dash-line:last-child {
-              margin-top: 5%;
-            }
+            @img: './img/box-inner-bottom.svg';
+            @apply absolute bottom-0 w-full;
 
-            & > div {
-              span {
-                @apply text-primary font-line-extraBold text-2xl font-black md:text-2xl;
-              }
-            }
+            @apply inline-block w-full bg-contain bg-center bg-no-repeat;
           }
         }
+
+        .box-below {
+          @apply w-full;
+        }
+
+        // & > div {
+        //   padding-inline: 8%;
+        //   padding-block: 6%;
+        //   @apply relative flex h-full w-full flex-col items-center justify-start;
+
+        //   .logo {
+        //     margin-top: 14%;
+        //     width: 57%;
+
+        //     @img: './img/logo.svg';
+
+        //     @media only screen and (max-width: 768px) {
+        //       & {
+        //         margin-top: 15%;
+        //       }
+        //     }
+
+        //     &::before {
+        //       padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+        //       background-image: url(@img);
+        //       content: '';
+
+        //       @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+        //     }
+        //   }
+
+        //   .award-content {
+        //     margin-top: 4%;
+        //     padding-left: 2%;
+
+        //     @apply text-tertiary flex w-full flex-col items-start justify-center text-justify text-lg leading-relaxed font-bold tracking-widest md:text-lg;
+
+        //     .dash-line {
+        //       @apply border-tertiary w-full border-t-2 border-dashed;
+        //     }
+
+        //     & > .dash-line:nth-child(1) {
+        //       margin-bottom: 5%;
+        //     }
+
+        //     & > .dash-line:last-child {
+        //       margin-top: 5%;
+        //     }
+
+        //     & > div {
+        //       span {
+        //         @apply text-primary font-line-extraBold text-2xl font-black md:text-2xl;
+        //       }
+        //     }
+        //   }
+        // }
       }
     }
   }
