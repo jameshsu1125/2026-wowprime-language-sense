@@ -4,7 +4,7 @@ import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
 import { getMedalsIDByRanking, shareImage } from '@/utils';
 import useTween from 'lesca-use-tween';
-import { memo, useContext, useEffect, useState } from 'react';
+import { memo, useCallback, useContext, useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { GameEndContext, GameEndFinalType } from '../../config';
 import './card.less';
@@ -54,6 +54,64 @@ const Card = memo(
     const [isShare, setIsShare] = useState(false);
     const [url, setURL] = useState('');
 
+    const onUploaded = useCallback(
+      (shareUrl: string, base64: string) => {
+        setURL(shareUrl);
+        shareImage({
+          image: base64,
+          nickname: user?.nickname || '某某某',
+          score: score || 0,
+          onError: () => {
+            setContext({
+              type: ActionType.Modal,
+              state: {
+                enabled: true,
+                content: (
+                  <>
+                    您的瀏覽器不支援分享功能，建議可直接手機截圖分享唷！
+                    <br />
+                    *溫馨提醒，建議改用預設瀏覽器可獲得最佳遊戲體驗！
+                  </>
+                ),
+                Label: ['確定'],
+              },
+            });
+          },
+        });
+        // setIsShare(false);
+      },
+      [user, score, setContext],
+    );
+
+    const onClick = useCallback(() => {
+      if (!url) setIsShare(true);
+      else {
+        console.log('aasd');
+
+        shareImage({
+          image: url,
+          nickname: user?.nickname || '某某某',
+          score: score || 0,
+          onError: () => {
+            setContext({
+              type: ActionType.Modal,
+              state: {
+                enabled: true,
+                content: (
+                  <>
+                    您的瀏覽器不支援分享功能，建議可直接手機截圖分享唷！
+                    <br />
+                    *溫馨提醒，建議改用預設瀏覽器可獲得最佳遊戲體驗！
+                  </>
+                ),
+                Label: ['確定'],
+              },
+            });
+          },
+        });
+      }
+    }, [url, user, score, setContext]);
+
     return (
       <div className='Card'>
         <div className='box'>
@@ -75,28 +133,7 @@ const Card = memo(
           </div>
           <div className='card-buttons'>
             <div>
-              <Button
-                onClick={() => {
-                  if (!url) setIsShare(true);
-                  else {
-                    shareImage({
-                      image: url,
-                      nickname: user?.nickname || '某某某',
-                      score: score || 0,
-                      onError: () => {
-                        setContext({
-                          type: ActionType.Modal,
-                          state: {
-                            enabled: true,
-                            content: '不支援分享功能，請使用支援 Web Share API 的瀏覽器。',
-                            Label: ['確定'],
-                          },
-                        });
-                      },
-                    });
-                  }
-                }}
-              >
+              <Button onClick={onClick}>
                 <Button.large>
                   <div className='share-btn' />
                 </Button.large>
@@ -126,25 +163,7 @@ const Card = memo(
             ranking={ranking}
             score={score || 0}
             nickname={user?.nickname || '某某某'}
-            onUploaded={(shareUrl, base64) => {
-              setURL(shareUrl);
-              shareImage({
-                image: base64,
-                nickname: user?.nickname || '某某某',
-                score: score || 0,
-                onError: () => {
-                  setContext({
-                    type: ActionType.Modal,
-                    state: {
-                      enabled: true,
-                      content: '不支援分享功能，請使用支援 Web Share API 的瀏覽器。',
-                      Label: ['確定'],
-                    },
-                  });
-                },
-              });
-              // setIsShare(false);
-            }}
+            onUploaded={onUploaded}
           />
         )}
       </div>

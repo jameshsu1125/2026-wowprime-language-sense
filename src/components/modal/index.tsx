@@ -27,7 +27,7 @@ const Modal = memo(() => {
       }}
     >
       <div
-        className='w-full max-w-md rounded-2xl border border-black/10 bg-white p-6 shadow-2xl'
+        className='w-full max-w-lg rounded-2xl border border-black/10 bg-white p-6 shadow-2xl'
         onClick={(event) => {
           event.stopPropagation();
         }}
