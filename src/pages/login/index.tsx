@@ -80,7 +80,7 @@ const TelValidate = memo(({ onChange, onAgree, onResend }: TLoginButtonProps) =>
       <ResendButton onClick={onResend} />
       <div className='flex w-full justify-center py-2'>
         <div className='flex flex-row items-center gap-2 text-base whitespace-nowrap md:text-base'>
-          <input type='checkbox' id='agree' name='agree' onChange={onAgree} className='h-4 w-4' />
+          <input type='checkbox' id='agree' name='agree' onChange={onAgree} className='h-8 w-8' />
           我已詳閱並同意
           <a
             href='https://www.wowfms.com/privacy.php'

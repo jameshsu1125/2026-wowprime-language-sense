@@ -43,7 +43,9 @@ const Page = memo(({ transition }: { transition: boolean }) => {
   const page = useMemo(() => {
     switch (state.final) {
       case GameEndFinalType.card:
-        return <Card transition={transitionEnd} user={statusRes?.user} />;
+        return (
+          <Card transition={transitionEnd} user={statusRes?.user} coupon={statusRes?.coupon} />
+        );
 
       case GameEndFinalType.award:
         return <Final user={statusRes?.user} />;

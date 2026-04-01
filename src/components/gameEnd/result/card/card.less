@@ -47,6 +47,21 @@
             @apply inline-block w-full bg-contain bg-center bg-no-repeat;
           }
         }
+
+        .again-btn {
+          width: 70%;
+
+          @img: './img/btn-again.svg';
+          @apply relative;
+
+          &::before {
+            padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+            background-image: url(@img);
+            content: '';
+
+            @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+          }
+        }
       }
     }
 
