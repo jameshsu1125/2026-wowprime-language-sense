@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 import useLogin from '@/hooks/useLogin';
 import useVerify from '@/hooks/useVerify';
-import { IS_TEST, SECTION_DURATION } from '@/settings/config';
+import { IS_TEST, LOGIN_SECTION_DURATION, SMS_RESEND_DURATION } from '@/settings/config';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
 import Fetcher from 'lesca-fetcher';
@@ -26,7 +26,7 @@ const ResendButton = memo(({ onClick }: { onClick: () => void }) => {
   const [count, setCount] = useTween({ top: 300 });
 
   useEffect(() => {
-    setCount({ top: 0 }, { duration: 300000, easing: Bezier.linear });
+    setCount({ top: 0 }, { duration: SMS_RESEND_DURATION, easing: Bezier.linear });
   }, []);
 
   return (
@@ -262,7 +262,7 @@ const Login = memo(() => {
     const storage = Storage.get('token');
     if (storage) {
       const { data, timestamp } = storage;
-      const isValid = data && timestamp < SECTION_DURATION;
+      const isValid = data && timestamp < LOGIN_SECTION_DURATION;
 
       if (isValid) {
         const { nickname, phone, token } = data;
