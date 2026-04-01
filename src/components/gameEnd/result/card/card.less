@@ -117,7 +117,7 @@
               @apply flex flex-row items-center justify-start leading-relaxed font-black text-white;
 
               & > span {
-                @apply text-primary font-line-extraBold text-3xl font-black tracking-widest md:text-4xl;
+                @apply text-primary font-line-extraBold px-1 text-3xl font-black tracking-widest md:text-5xl;
               }
             }
           }
@@ -151,6 +151,7 @@
 
           .step-gold {
             @img: './img/step-gold.svg';
+            @apply py-5;
 
             &::before {
               padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
@@ -160,7 +161,7 @@
 
           .step-silver {
             @img: './img/step-silver.svg';
-            @apply py-3;
+            @apply py-5;
 
             &::before {
               padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
@@ -171,7 +172,7 @@
           .step-bronze {
             @img: './img/step-bronze.svg';
 
-            @apply pt-3;
+            @apply pt-6;
 
             &::before {
               padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
@@ -181,7 +182,7 @@
 
           .step-iron {
             @img: './img/step-iron.svg';
-            @apply py-1;
+            @apply py-5;
 
             &::before {
               padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
@@ -191,7 +192,7 @@
 
           .step-wood {
             @img: './img/step-wood.svg';
-            @apply py-1;
+            @apply py-5;
 
             &::before {
               padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
@@ -200,7 +201,7 @@
           }
 
           .step {
-            padding-inline: 5%;
+            padding-inline: 1%;
             @apply w-full;
 
             &::before {

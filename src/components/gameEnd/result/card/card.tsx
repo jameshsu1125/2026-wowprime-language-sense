@@ -8,7 +8,6 @@ import { memo, useCallback, useContext, useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { GameEndContext, GameEndFinalType } from '../../config';
 import './card.less';
-import { getDetailsByMedals } from './config';
 
 const Score = memo(({ transition }: { transition: boolean }) => {
   const [context] = useContext(Context);
@@ -130,15 +129,7 @@ const Card = memo(
                     <Score transition={transition} />
                     <Ranking transition={transition} ranking={ranking} />
                   </div>
-                  <div className='box-dash'>
-                    <div>
-                      <div>
-                        恭喜你獲得瘋美食點數<span>50點</span>
-                      </div>
-                      <div>快分享結果並依步驟領取獎勵!</div>
-                    </div>
-                  </div>
-                  <div className='box-below'>{getDetailsByMedals(medalsID)}</div>
+                  <div className={twMerge('step', `step-${medalsID}`)} />
                 </div>
               </div>
             </div>
