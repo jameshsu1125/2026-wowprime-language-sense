@@ -37,3 +37,19 @@
     @apply w-1/2;
   }
 }
+
+.HeadingLI {
+  @apply font-line-extraBold relative flex flex-row items-start justify-start text-2xl text-white;
+
+  & > div:nth-child(1) {
+    @apply bg-primary pr-1 pl-4;
+  }
+
+  & > div:nth-child(2) {
+    @apply bg-black px-4;
+  }
+
+  & > div {
+    @apply py-2 tracking-widest;
+  }
+}

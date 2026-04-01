@@ -55,6 +55,8 @@ export type TPlaying = {
   openRanking?: boolean;
   openAnnouncement?: boolean;
   openMyAward?: boolean;
+  openDescription?: boolean;
+  openProcedures?: boolean;
 };
 
 export type TReset = {

@@ -40,7 +40,16 @@ const MyAward = memo(() => {
             <Button
               className='back'
               onClick={() => {
-                setContext({ type: ActionType.Playing, state: { openMyAward: false } });
+                setContext({
+                  type: ActionType.Playing,
+                  state: {
+                    openMyAward: false,
+                    openRanking: false,
+                    openAnnouncement: false,
+                    openDescription: false,
+                    openProcedures: false,
+                  },
+                });
               }}
             >
               <div />
@@ -91,7 +100,13 @@ const MyAward = memo(() => {
                     onClick={() => {
                       setContext({
                         type: ActionType.Playing,
-                        state: { openRanking: true, openMyAward: false, openAnnouncement: false },
+                        state: {
+                          openRanking: true,
+                          openMyAward: false,
+                          openAnnouncement: false,
+                          openDescription: false,
+                          openProcedures: false,
+                        },
                       });
                     }}
                   >

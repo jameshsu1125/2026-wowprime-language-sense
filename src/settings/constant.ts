@@ -36,6 +36,8 @@ export const PlayingState: TPlaying = {
   openRanking: false, // 是否開啟排行榜
   openAnnouncement: false,
   openMyAward: false,
+  openDescription: false,
+  openProcedures: false,
 };
 
 export const SoundsState: TSounds = {

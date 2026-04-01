@@ -28,8 +28,16 @@ export const Score = memo(({ score }: { score: number }) => {
 const Extra = memo(() => {
   const [context] = useContext(Context);
   const { nickname } = context[ActionType.User]!;
-  const { enabled, score, openAnnouncement, openRanking, openMyAward, isEnd } =
-    context[ActionType.Playing]!;
+  const {
+    enabled,
+    score,
+    openAnnouncement,
+    openRanking,
+    openMyAward,
+    isEnd,
+    openDescription,
+    openProcedures,
+  } = context[ActionType.Playing]!;
   const [state] = useContext(HomeContext);
 
   return (
@@ -39,7 +47,9 @@ const Extra = memo(() => {
       !isEnd &&
       !openAnnouncement &&
       !openRanking &&
-      !openMyAward ? (
+      !openMyAward &&
+      !openDescription &&
+      !openProcedures ? (
         <>
           {enabled && <Score score={score || 0} />}
           {nickname === '' ? null : <UserName>{nickname}</UserName>}

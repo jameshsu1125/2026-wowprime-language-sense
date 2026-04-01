@@ -13,11 +13,20 @@ const Procedures = memo(() => {
       <div className='ctx'>
         <div className='content'>
           <div className='header'>
-            我的參加獎
+            領獎辦法
             <Button
               className='back'
               onClick={() => {
-                setContext({ type: ActionType.Playing, state: { openMyAward: false } });
+                setContext({
+                  type: ActionType.Playing,
+                  state: {
+                    openRanking: false,
+                    openMyAward: false,
+                    openAnnouncement: false,
+                    openDescription: false,
+                    openProcedures: false,
+                  },
+                });
               }}
             >
               <div />

@@ -13,6 +13,8 @@ import EndLanding from './landing';
 import Ranking from './ranking';
 import EndResult from './result';
 import frame from './result/img/frame.svg';
+import Description from './description';
+import Procedures from './procedures';
 
 const BG = memo(() => {
   const [style, setStyle] = useTween({ opacity: 0, backgroundColor: '#000000' });
@@ -25,11 +27,12 @@ const BG = memo(() => {
 
 const GameEnd = memo(() => {
   const [context, setContext] = useContext(Context);
-  const { openRanking, isEnd, openAnnouncement, openMyAward } = context[ActionType.Playing]!;
+  const { openRanking, isEnd, openAnnouncement, openMyAward, openDescription, openProcedures } =
+    context[ActionType.Playing]!;
   const menuState = context[ActionType.Menu]!;
-  const [pageState, setPageState] = useState<'unset' | 'ranking' | 'announcement' | 'myAward'>(
-    'unset',
-  );
+  const [pageState, setPageState] = useState<
+    'unset' | 'ranking' | 'announcement' | 'myAward' | 'description' | 'procedures'
+  >('unset');
 
   const value = useState(GameEndState);
   const [reset] = useContext(ResetContext);
@@ -57,10 +60,22 @@ const GameEnd = memo(() => {
   }, [openMyAward]);
 
   useEffect(() => {
-    if (!openRanking && !openAnnouncement && !openMyAward) {
+    if (openDescription) {
+      setPageState('description');
+    }
+  }, [openDescription]);
+
+  useEffect(() => {
+    if (openProcedures) {
+      setPageState('procedures');
+    }
+  }, [openProcedures]);
+
+  useEffect(() => {
+    if (!openRanking && !openAnnouncement && !openMyAward && !openDescription && !openProcedures) {
       setPageState('unset');
     }
-  }, [openRanking, openAnnouncement, openMyAward]);
+  }, [openRanking, openAnnouncement, openMyAward, openDescription, openProcedures]);
 
   useEffect(() => {
     if (isEnd) {
@@ -92,6 +107,12 @@ const GameEnd = memo(() => {
       case 'myAward':
         return <MyAward />;
 
+      case 'description':
+        return <Description />;
+
+      case 'procedures':
+        return <Procedures />;
+
       default:
         return null;
     }
@@ -109,12 +130,24 @@ const GameEnd = memo(() => {
     if (pageState === 'myAward') {
       setContext({ type: ActionType.Playing, state: { openRanking: false } });
     }
+
+    if (pageState === 'description') {
+      setContext({ type: ActionType.Playing, state: { openRanking: false } });
+    }
+
+    if (pageState === 'procedures') {
+      setContext({ type: ActionType.Playing, state: { openRanking: false } });
+    }
   }, [pageState, setContext]);
 
   return (
     <GameEndContext.Provider value={value}>
       <div className='GameEnd'>
-        {!openRanking && !openAnnouncement && (!menuState.enabled || isEnd) && <BG />}
+        {!openRanking &&
+          !openAnnouncement &&
+          !openDescription &&
+          !openProcedures &&
+          (!menuState.enabled || isEnd) && <BG />}
         <div className='ctx'>
           <Contain imageURL={frame} IsHiddenDialogImage={true}>
             {page}

@@ -1,10 +1,10 @@
+import useStatus from '@/hooks/useStatus';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
 import Click from 'lesca-click';
 import { memo, useContext, useEffect, useId } from 'react';
 import Button from '../button';
 import './list.less';
-import useStatus from '@/hooks/useStatus';
 
 const MenuList = memo(() => {
   const id = useId();
@@ -32,7 +32,16 @@ const MenuList = memo(() => {
         <Button
           onClick={() => {
             setContext({ type: ActionType.Menu, state: { enabled: false } });
-            setContext({ type: ActionType.Playing, state: { openRanking: true } });
+            setContext({
+              type: ActionType.Playing,
+              state: {
+                openRanking: true,
+                openAnnouncement: false,
+                openDescription: false,
+                openMyAward: false,
+                openProcedures: false,
+              },
+            });
           }}
         >
           <div className='btn-menu'>本週榜單</div>
@@ -40,15 +49,52 @@ const MenuList = memo(() => {
         <Button
           onClick={() => {
             setContext({ type: ActionType.Menu, state: { enabled: false } });
-            setContext({ type: ActionType.Playing, state: { openAnnouncement: true } });
+            setContext({
+              type: ActionType.Playing,
+              state: {
+                openAnnouncement: true,
+                openDescription: false,
+                openMyAward: false,
+                openProcedures: false,
+                openRanking: false,
+              },
+            });
           }}
         >
           <div className='btn-menu'>得獎公告</div>
         </Button>
-        <Button className='cursor-not-allowed'>
-          <div className='btn-menu'>活動說明</div>
+        <Button
+          onClick={() => {
+            setContext({ type: ActionType.Menu, state: { enabled: false } });
+            setContext({
+              type: ActionType.Playing,
+              state: {
+                openDescription: true,
+                openAnnouncement: false,
+                openMyAward: false,
+                openProcedures: false,
+                openRanking: false,
+              },
+            });
+          }}
+        >
+          <div className='btn-menu'>玩法說明</div>
         </Button>
-        <Button className='cursor-not-allowed'>
+        <Button
+          onClick={() => {
+            setContext({ type: ActionType.Menu, state: { enabled: false } });
+            setContext({
+              type: ActionType.Playing,
+              state: {
+                openProcedures: true,
+                openDescription: false,
+                openAnnouncement: false,
+                openMyAward: false,
+                openRanking: false,
+              },
+            });
+          }}
+        >
           <div className='btn-menu'>領獎辦法</div>
         </Button>
         <Button className='cursor-not-allowed'>
@@ -58,7 +104,16 @@ const MenuList = memo(() => {
           <Button
             onClick={() => {
               setContext({ type: ActionType.Menu, state: { enabled: false } });
-              setContext({ type: ActionType.Playing, state: { openMyAward: true } });
+              setContext({
+                type: ActionType.Playing,
+                state: {
+                  openMyAward: true,
+                  openDescription: false,
+                  openAnnouncement: false,
+                  openProcedures: false,
+                  openRanking: false,
+                },
+              });
             }}
           >
             <div className='btn-menu'>我的參加獎</div>

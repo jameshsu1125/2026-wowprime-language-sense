@@ -42,7 +42,13 @@ const Ranking = memo(() => {
                 onClick={() => {
                   setContext({
                     type: ActionType.Playing,
-                    state: { openRanking: false, openAnnouncement: false, openMyAward: false },
+                    state: {
+                      openRanking: false,
+                      openAnnouncement: false,
+                      openMyAward: false,
+                      openDescription: false,
+                      openProcedures: false,
+                    },
                   });
                 }}
               >

@@ -77,7 +77,13 @@ const Announcement = memo(() => {
               onClick={() => {
                 setContext({
                   type: ActionType.Playing,
-                  state: { openAnnouncement: false, openMyAward: false, openRanking: false },
+                  state: {
+                    openAnnouncement: false,
+                    openMyAward: false,
+                    openRanking: false,
+                    openDescription: false,
+                    openProcedures: false,
+                  },
                 });
               }}
             >

@@ -69,6 +69,8 @@ const Container = memo(({ children, className }: { className?: string } & IReact
     openRanking = false,
     openAnnouncement = false,
     openMyAward = false,
+    openDescription = false,
+    openProcedures = false,
   } = context[ActionType.Playing]!;
 
   useEffect(() => {
@@ -112,7 +114,13 @@ const Container = memo(({ children, className }: { className?: string } & IReact
         </div>
         <div className='h-12 w-full' />
       </div>
-      {(isEnd || openRanking || menuState.enabled || openAnnouncement || openMyAward) && (
+      {(isEnd ||
+        openRanking ||
+        menuState.enabled ||
+        openAnnouncement ||
+        openMyAward ||
+        openDescription ||
+        openProcedures) && (
         <div className='pointer-events-none absolute top-0 left-0 flex h-full w-full flex-col items-center justify-center'>
           <div className='flex w-full max-w-xl flex-col items-center justify-start'>
             <div className='flex w-full flex-row items-center justify-between pt-0 md:pt-[3%]'>
