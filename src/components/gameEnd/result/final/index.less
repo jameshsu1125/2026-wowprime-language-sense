@@ -55,7 +55,7 @@
 
     & > div:nth-child(1) {
       gap: 5%;
-      @apply font-line-bold flex flex-col items-start justify-start text-xl md:text-xl;
+      @apply font-line-bold flex flex-col items-start justify-start gap-3 text-xl;
 
       & > div:last-child {
         margin-top: 8%;
@@ -64,7 +64,7 @@
       & > div {
         @apply relative flex w-full flex-row items-center justify-start;
         & > span {
-          @apply text-primary font-line-extraBold text-4xl leading-0 md:text-4xl;
+          @apply text-primary font-line-extraBold text-4xl leading-0;
         }
 
         .join {
@@ -74,11 +74,11 @@
             width: 75%;
 
             padding-inline: 4%;
-            @apply bg-tertiary font-line-regular h-12 text-xl md:h-16 md:text-xl;
+            @apply bg-tertiary font-line-regular h-16 text-xl;
           }
 
           & > button {
-            @apply h-12 w-auto bg-black p-3 font-thin whitespace-nowrap text-white md:h-16;
+            @apply h-16 w-auto bg-black p-3 font-thin whitespace-nowrap text-white;
           }
         }
 
