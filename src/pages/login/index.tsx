@@ -209,6 +209,7 @@ const Login = memo(() => {
           type: ActionType.Modal,
           state: {
             enabled: true,
+            title: '系統訊息',
             content: verifyRes.message || '驗證失敗，請重新輸入驗證碼，請查閱手機簡訊',
             Label: ['確定'],
           },
@@ -237,6 +238,7 @@ const Login = memo(() => {
           type: ActionType.Modal,
           state: {
             enabled: true,
+            title: '系統訊息',
             content: (
               <>
                 手機號碼與暱稱不符
@@ -252,6 +254,7 @@ const Login = memo(() => {
           type: ActionType.Modal,
           state: {
             enabled: true,
+            title: '系統訊息',
             content: loginRes.message,
             Label: ['確定'],
           },
@@ -268,6 +271,7 @@ const Login = memo(() => {
           type: ActionType.Modal,
           state: {
             enabled: true,
+            title: '系統訊息',
             content: '請輸入正確的手機號碼',
             Label: ['確定'],
           },
@@ -282,6 +286,7 @@ const Login = memo(() => {
           type: ActionType.Modal,
           state: {
             enabled: true,
+            title: '系統訊息',
             content: '暱稱包含敏感詞，請重新輸入',
             Label: ['確定'],
           },
@@ -297,6 +302,7 @@ const Login = memo(() => {
           type: ActionType.Modal,
           state: {
             enabled: true,
+            title: '系統訊息',
             content: '請輸入驗證碼並同意相關條款',
             Label: ['確定'],
           },

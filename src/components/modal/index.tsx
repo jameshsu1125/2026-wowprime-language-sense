@@ -27,18 +27,18 @@ const Modal = memo(() => {
       }}
     >
       <div
-        className='w-full max-w-lg rounded-2xl border border-black/10 bg-white p-6 shadow-2xl'
+        className='w-fit max-w-lg min-w-sm rounded-2xl border border-black/10 bg-white p-6 shadow-2xl'
         onClick={(event) => {
           event.stopPropagation();
         }}
       >
-        {title && <h3 className='font-line-bold text-xl text-slate-900'>{title}</h3>}
-        <div className='font-line-regular mt-3 text-base leading-7 text-slate-700'>{content}</div>
+        {title && <h3 className='font-line-bold text-2xl text-slate-900'>{title}</h3>}
+        <div className='font-line-regular mt-3 text-lg leading-7 text-slate-700'>{content}</div>
 
         <div className='mt-6 flex items-center justify-end gap-3'>
           {labels.length > 1 && (
             <button
-              className='font-line-bold rounded-lg border border-slate-300 bg-white px-4 py-2 text-slate-700 transition-colors hover:bg-slate-50'
+              className='font-line-bold cursor-pointer rounded-lg border border-slate-300 bg-white px-4 py-2 text-slate-700 transition-colors hover:bg-slate-50'
               onClick={() => {
                 modal.onCancel?.();
                 closeModal();
@@ -50,7 +50,7 @@ const Modal = memo(() => {
           )}
 
           <button
-            className='bg-primary font-line-bold rounded-lg px-4 py-2 text-white transition-opacity hover:opacity-90'
+            className='bg-primary font-line-bold cursor-pointer rounded-lg px-4 py-2 text-white transition-opacity hover:opacity-90'
             onClick={() => {
               modal.onConfirm?.();
               closeModal();

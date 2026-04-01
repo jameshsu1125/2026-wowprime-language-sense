@@ -56,6 +56,7 @@ const InTheRanking = memo(({ ranking, score, transition }: TInTheRankingProps) =
         type: ActionType.Modal,
         state: {
           enabled: true,
+          title: '系統訊息',
           content: '網址已複製，快邀請朋友來挑戰吧！',
           Label: ['確定'],
         },

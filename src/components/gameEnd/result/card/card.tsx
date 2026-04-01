@@ -68,6 +68,7 @@ const Card = memo(
               type: ActionType.Modal,
               state: {
                 enabled: true,
+                title: '系統訊息',
                 content: (
                   <>
                     您的瀏覽器不支援分享功能，建議可直接手機截圖分享唷！
@@ -98,6 +99,7 @@ const Card = memo(
               type: ActionType.Modal,
               state: {
                 enabled: true,
+                title: '系統訊息',
                 content: (
                   <>
                     您的瀏覽器不支援分享功能，建議可直接手機截圖分享唷！

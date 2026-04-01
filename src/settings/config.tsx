@@ -37,6 +37,23 @@ export const ANNOUNCEMENT_TIMES = [
   new Date('2026-05-18T10:00:00+08:00'),
 ];
 
+export const PARTICIPATION_AWARD_HAVE_ALL_BEEN_SENT_OUT_MESSAGE = (
+  <>
+    <p className='py-2'>
+      感謝支持！🎉
+      <br />
+      本會考的參加獎50點瘋點數
+      <br />
+      已全數發送完畢
+    </p>
+    <p className='py-2'>
+      週百大排名獎持續進行中！
+      <br />
+      敬請繼續拚積分拿點數💪
+    </p>
+  </>
+);
+
 export const EXCLUDED_CHARACTERS = [
   '幹',
   '靠北',

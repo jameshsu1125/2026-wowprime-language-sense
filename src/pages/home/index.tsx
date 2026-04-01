@@ -10,6 +10,7 @@ import Game from '../game';
 import Landing from '../landing';
 import Login from '../login';
 import { HomeContext, HomePageType, HomeState, HomeStepType, THomeState } from './config';
+import { PARTICIPATION_AWARD_HAVE_ALL_BEEN_SENT_OUT_MESSAGE } from '@/settings/config';
 
 const initZoomLevel = ((window.outerWidth - 10) / window.innerWidth) * 100;
 
@@ -79,6 +80,18 @@ const Home = memo(() => {
       visualViewport?.removeEventListener('resize', checkMobileZoom);
       visualViewport?.removeEventListener('scroll', checkMobileZoom);
     };
+  }, []);
+
+  useEffect(() => {
+    setContext({
+      type: ActionType.Modal,
+      state: {
+        enabled: true,
+        title: '活動訊息',
+        content: PARTICIPATION_AWARD_HAVE_ALL_BEEN_SENT_OUT_MESSAGE,
+        Label: ['確定'],
+      },
+    });
   }, []);
 
   return (

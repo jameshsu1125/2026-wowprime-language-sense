@@ -25,6 +25,7 @@ const Heading = memo(({ transition }: { transition: boolean }) => {
         setContext({
           type: ActionType.Modal,
           state: {
+            title: '系統訊息',
             enabled: true,
             content: downRes.message,
             Label: ['確定'],

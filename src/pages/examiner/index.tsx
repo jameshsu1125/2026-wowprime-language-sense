@@ -139,6 +139,7 @@ const Examiner = memo(() => {
       type: ActionType.Modal,
       state: {
         enabled: true,
+        title: '系統訊息',
         content: message,
         Label: ['確定'],
       },

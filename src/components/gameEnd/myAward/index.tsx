@@ -19,6 +19,7 @@ const MyAward = memo(() => {
       setContext({
         type: ActionType.Modal,
         state: {
+          title: '系統訊息',
           enabled: true,
           content: '專屬兌換序號已複製成功',
           Label: ['確定'],

@@ -54,6 +54,7 @@ const Final = memo(({ user }: { user?: { nickname: string; phone: string } }) =>
         type: ActionType.Modal,
         state: {
           enabled: true,
+          title: '系統訊息',
           content: '專屬兌換序號已複製成功',
           Label: ['確定'],
         },
