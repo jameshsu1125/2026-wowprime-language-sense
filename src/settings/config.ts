@@ -20,7 +20,10 @@ export const SETTING = {
 export const IS_TEST = false;
 
 export const LOGIN_SECTION_DURATION = 24 * 60 * 60 * 1000; // 1 day
-export const SMS_RESEND_DURATION = 2 * 60 * 1000; // 2 minutes
+export const SMS_RESEND_DURATION = {
+  relaxed: 2 * 60 * 1000, // 2 minutes
+  strict: 3 * 60 * 1000, // 3 minutes
+};
 
 export const CONTAIN_RATIO = { width: 490, height: 790 };
 export const MINI_HEIGHT = { mobile: 900, desktop: 700 };

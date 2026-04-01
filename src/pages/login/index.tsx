@@ -24,10 +24,16 @@ type TLoginButtonProps = {
 
 const ResendButton = memo(({ onClick }: { onClick: () => void }) => {
   const [count, setCount] = useTween({ top: 300 });
+  const [resendTime, setResendTime] = useState(0);
+
+  const currentDuration = useMemo(() => {
+    if (resendTime < 2) return SMS_RESEND_DURATION.relaxed;
+    return SMS_RESEND_DURATION.strict;
+  }, [resendTime]);
 
   useEffect(() => {
-    setCount({ top: 0 }, { duration: SMS_RESEND_DURATION, easing: Bezier.linear });
-  }, []);
+    setCount({ top: 0 }, { duration: currentDuration, easing: Bezier.linear });
+  }, [currentDuration]);
 
   return (
     <div className='mt-[4%] flex w-full justify-end'>
@@ -36,6 +42,8 @@ const ResendButton = memo(({ onClick }: { onClick: () => void }) => {
           onClick={() => {
             if (Math.floor(Number(count.top)) === 0) {
               onClick();
+              setResendTime((prev) => prev + 1);
+              setCount({ top: 300 }, { duration: currentDuration, easing: Bezier.linear });
             }
           }}
           disabled={Math.floor(Number(count.top)) > 0}
