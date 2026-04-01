@@ -126,7 +126,7 @@ const Share = memo(({ onUploaded, medalsID, ranking, score, nickname }: TSharePr
   }, []);
 
   return (
-    <div className='invisible fixed top-0 left-0 z-20'>
+    <div className='fixed top-0 left-0 z-20'>
       <canvas
         style={{ transform: `scale(0.45)`, transformOrigin: 'top left' }}
         ref={canvasRef}
