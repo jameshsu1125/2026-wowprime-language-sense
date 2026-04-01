@@ -29,7 +29,7 @@ export const CONTAIN_RATIO = { width: 490, height: 790 };
 export const MINI_HEIGHT = { mobile: 900, desktop: 700 };
 
 export const ANNOUNCEMENT_TIMES = [
-  // new Date('2026-03-29T10:00:00+08:00'),
+  new Date('2026-03-29T10:00:00+08:00'),
   new Date('2026-04-20T10:00:00+08:00'),
   new Date('2026-04-27T10:00:00+08:00'),
   new Date('2026-05-04T10:00:00+08:00'),

@@ -2,13 +2,13 @@
 import useLogin from '@/hooks/useLogin';
 import useVerify from '@/hooks/useVerify';
 import { EXCLUDED_CHARACTERS } from '@/settings/character';
-import { IS_TEST, LOGIN_SECTION_DURATION, SMS_RESEND_DURATION } from '@/settings/config';
+import { IS_TEST, LOGIN_SECTION_DURATION } from '@/settings/config';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
 import Fetcher from 'lesca-fetcher';
 import Storage from 'lesca-local-storage';
 import OnloadProvider from 'lesca-react-onload';
-import useTween, { Bezier } from 'lesca-use-tween';
+import useTween from 'lesca-use-tween';
 import { ValidatePhone } from 'lesca-validate';
 import { memo, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
@@ -24,40 +24,18 @@ type TLoginButtonProps = {
   onResend: () => void;
 };
 
-const ResendButton = memo(({ onClick }: { onClick: () => void }) => {
-  const [count, setCount] = useTween({ top: 300 });
-  const [resendTime, setResendTime] = useState(0);
-
-  const currentDuration = useMemo(() => {
-    if (resendTime < 2) return SMS_RESEND_DURATION.relaxed;
-    return SMS_RESEND_DURATION.strict;
-  }, [resendTime]);
-
-  useEffect(() => {
-    setCount({ top: 0 }, { duration: currentDuration, easing: Bezier.linear });
-  }, [currentDuration]);
-
-  return (
-    <div className='mt-[4%] flex w-full justify-end'>
-      <div>
-        <button
-          onClick={() => {
-            if (Math.floor(Number(count.top)) === 0) {
-              onClick();
-              setResendTime((prev) => prev + 1);
-              setCount({ top: 300 }, { duration: currentDuration, easing: Bezier.linear });
-            }
-          }}
-          disabled={Math.floor(Number(count.top)) > 0}
-          className='active:bg-primary w-full cursor-pointer rounded-lg bg-black px-4 py-2 text-lg text-white select-none hover:bg-gray-800 md:text-lg'
-        >
-          重發驗證碼
-          {`(${Math.floor(Number(count.top))})`}
-        </button>
-      </div>
+const ResendButton = memo(({ onClick }: { onClick: () => void }) => (
+  <div className='mt-[4%] flex w-full justify-end'>
+    <div>
+      <button
+        onClick={onClick}
+        className='active:bg-primary w-full cursor-pointer rounded-lg bg-black px-4 py-2 text-lg text-white select-none hover:bg-gray-800 md:text-lg'
+      >
+        重發驗證碼
+      </button>
     </div>
-  );
-});
+  </div>
+));
 
 const TelValidate = memo(({ onChange, onAgree, onResend }: TLoginButtonProps) => {
   const [style, setStyle] = useTween({ opacity: 0 });

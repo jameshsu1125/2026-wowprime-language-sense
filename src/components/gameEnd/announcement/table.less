@@ -16,7 +16,7 @@
     @apply flex flex-row items-center justify-between;
 
     .tab {
-      background-color: #c9c9c9;
+      background-color: #e4e4e4;
       @apply font-line-regular pointer-events-none flex-1 rounded-t-xl pt-1 pb-0 text-white;
     }
 
@@ -30,8 +30,9 @@
 
     thead,
     tfoot {
-      color: #666;
-      @apply bg-tertiary text-base md:text-base;
+      background-color: #919191;
+      color: #e4e4e4;
+      @apply text-base md:text-base;
 
       th {
         @apply py-2;
@@ -44,10 +45,10 @@
       }
 
       & > tr:nth-child(odd) {
-        background-color: #c9c9c9;
+        background-color: #e4e4e4;
       }
       & > tr:nth-child(even) {
-        background-color: #919191;
+        background-color: #c9c9c9;
       }
     }
   }

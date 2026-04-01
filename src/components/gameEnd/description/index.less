@@ -1,0 +1,42 @@
+@import url('@/settings/global.css');
+
+.Description {
+  @apply absolute h-full w-full;
+
+  .bg {
+    @apply absolute top-0 h-full w-full bg-white;
+  }
+
+  & > .ctx {
+    @apply relative flex h-full w-full justify-center pt-8;
+
+    .content {
+      @apply relative flex h-full w-full max-w-lg flex-col items-center justify-start gap-5;
+
+      .dialog {
+        @apply flex h-full w-full flex-col items-center justify-between overflow-y-scroll px-5 pb-5;
+
+        & > div {
+          @apply font-line-bold flex w-full flex-col items-start gap-3 py-5 text-center text-xl leading-snug;
+        }
+      }
+
+      .header {
+        @apply font-line-bold relative w-full text-center text-3xl tracking-widest md:text-3xl;
+
+        .back {
+          @img: './img/back.svg';
+          @apply absolute top-0 left-0 w-10;
+
+          &::before {
+            padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+            background-image: url(@img);
+            content: '';
+
+            @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+          }
+        }
+      }
+    }
+  }
+}
