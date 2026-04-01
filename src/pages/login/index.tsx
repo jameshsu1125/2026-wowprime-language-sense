@@ -1,12 +1,7 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 import useLogin from '@/hooks/useLogin';
 import useVerify from '@/hooks/useVerify';
-import {
-  EXCLUDED_CHARACTERS,
-  IS_TEST,
-  LOGIN_SECTION_DURATION,
-  SMS_RESEND_DURATION,
-} from '@/settings/config';
+import { IS_TEST, LOGIN_SECTION_DURATION, SMS_RESEND_DURATION } from '@/settings/config';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
 import Fetcher from 'lesca-fetcher';
@@ -21,6 +16,7 @@ import LoginButton from './button';
 import Heading, { Notice } from './heading';
 import './index.less';
 import { useDebounce } from 'use-debounce';
+import { EXCLUDED_CHARACTERS } from '@/settings/character';
 
 type TLoginButtonProps = {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
