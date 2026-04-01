@@ -17,7 +17,7 @@ export const SETTING = {
   checkAnswerReactDuration: 2000,
 };
 
-export const IS_TEST = true;
+export const IS_TEST = false;
 
 export const LOGIN_SECTION_DURATION = 24 * 60 * 60 * 1000; // 1 day
 export const SMS_RESEND_DURATION = {
@@ -29,10 +29,59 @@ export const CONTAIN_RATIO = { width: 490, height: 790 };
 export const MINI_HEIGHT = { mobile: 900, desktop: 700 };
 
 export const ANNOUNCEMENT_TIMES = [
-  new Date('2026-03-29T10:00:00+08:00'),
+  // new Date('2026-03-29T10:00:00+08:00'),
   new Date('2026-04-20T10:00:00+08:00'),
   new Date('2026-04-27T10:00:00+08:00'),
   new Date('2026-05-04T10:00:00+08:00'),
   new Date('2026-05-11T10:00:00+08:00'),
   new Date('2026-05-18T10:00:00+08:00'),
+];
+
+export const EXCLUDED_CHARACTERS = [
+  '幹',
+  '靠北',
+  '媽的',
+  'fuck',
+  'shit',
+  'f*ck',
+  'f@ck',
+  'phuck',
+  'sh1t',
+  '$h!t',
+  '做愛',
+  'AV',
+  'porn',
+  '淫',
+  '屌',
+  'p0rn',
+  'pr0n',
+  '黑鬼',
+  '支那',
+  'nazi',
+  'NAZI',
+  'nAzI',
+  '支-那',
+  'kaobei',
+  '殺人',
+  '炸彈',
+  '恐攻',
+  'ISIS',
+  '代購',
+  '六合彩',
+  '免費下載',
+  'daigou',
+  'lotto',
+  'free dl',
+  '大麻',
+  '冰毒',
+  'K粉',
+  '毒品天堂',
+  'weed',
+  'w33d',
+  'meth',
+  'k-fen',
+  '饗賓',
+  '築間',
+  '鼎泰豐',
+  '瓦城',
 ];

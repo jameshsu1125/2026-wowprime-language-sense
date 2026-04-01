@@ -1,7 +1,12 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 import useLogin from '@/hooks/useLogin';
 import useVerify from '@/hooks/useVerify';
-import { IS_TEST, LOGIN_SECTION_DURATION, SMS_RESEND_DURATION } from '@/settings/config';
+import {
+  EXCLUDED_CHARACTERS,
+  IS_TEST,
+  LOGIN_SECTION_DURATION,
+  SMS_RESEND_DURATION,
+} from '@/settings/config';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
 import Fetcher from 'lesca-fetcher';
@@ -9,12 +14,13 @@ import Storage from 'lesca-local-storage';
 import OnloadProvider from 'lesca-react-onload';
 import useTween, { Bezier } from 'lesca-use-tween';
 import { ValidatePhone } from 'lesca-validate';
-import { memo, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { memo, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { HomeContext, HomePageType } from '../home/config';
 import LoginButton from './button';
 import Heading, { Notice } from './heading';
 import './index.less';
+import { useDebounce } from 'use-debounce';
 
 type TLoginButtonProps = {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -102,6 +108,7 @@ type TGroupProps = {
   transition: boolean;
   delay: number;
   noTransition?: boolean;
+  shouldExcludeCharacters?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
@@ -115,9 +122,21 @@ const Group = memo((props: TGroupProps) => {
     maxLength = 10,
     delay = 0,
     noTransition = false,
+    shouldExcludeCharacters = false,
   } = props;
 
+  const inputRef = useRef<HTMLInputElement>(null);
   const [style, setStyle] = useTween({ opacity: noTransition ? 1 : 0, y: noTransition ? 0 : 50 });
+  const [text, setText] = useState(defaultValue || '');
+  const [value] = useDebounce(text, 1000);
+
+  useEffect(() => {
+    if (!shouldExcludeCharacters) return;
+    if (inputRef.current) {
+      const currentValue = EXCLUDED_CHARACTERS.reduce((acc, cur) => acc.split(cur).join(''), value);
+      inputRef.current.value = currentValue;
+    }
+  }, [value]);
 
   useEffect(() => {
     if (transition && !noTransition) {
@@ -146,11 +165,17 @@ const Group = memo((props: TGroupProps) => {
       </div>
       <div className='flex-1'>
         <input
+          ref={inputRef}
           type={type}
           placeholder={name === 'otp' ? '請輸入簡訊驗證碼(OTP)' : ''}
           name={name}
           defaultValue={defaultValue || ''}
-          onChange={onChange}
+          onChange={(e) => {
+            onChange?.(e);
+            if (shouldExcludeCharacters) {
+              setText(e.target.value);
+            }
+          }}
           maxLength={maxLength}
         />
       </div>
@@ -249,6 +274,20 @@ const Login = memo(() => {
         });
         return;
       }
+      const hasExcludedCharacter = EXCLUDED_CHARACTERS.some((char) =>
+        userData.nickname.includes(char),
+      );
+      if (hasExcludedCharacter) {
+        setContext({
+          type: ActionType.Modal,
+          state: {
+            enabled: true,
+            content: '暱稱包含敏感詞，請重新輸入',
+            Label: ['確定'],
+          },
+        });
+        return;
+      }
       login(userData);
     } else {
       if (userData.otp !== '' && userData.isAgree) {
@@ -315,6 +354,7 @@ const Login = memo(() => {
             maxLength={10}
             transition={transition}
             delay={300}
+            shouldExcludeCharacters
           />
 
           <Group
