@@ -14,10 +14,87 @@
       @apply relative flex h-full w-full max-w-lg flex-col items-center justify-start gap-5;
 
       .dialog {
-        @apply flex h-full w-full flex-col items-center justify-between overflow-y-scroll px-5 pb-5;
+        @apply flex h-full w-full flex-col items-center justify-start overflow-y-scroll p-5;
 
         & > div {
-          @apply font-line-bold flex w-full flex-col items-start gap-3 py-5 text-center text-xl leading-snug;
+          @apply font-line-bold flex w-full flex-col items-start gap-3 py-5 text-start text-xl leading-snug;
+
+          .arrow {
+            @apply font-line-bold flex flex-1 flex-row items-center justify-between bg-black px-4 text-left text-2xl tracking-widest text-white;
+
+            &::after {
+              width: image-width(@img) * @scale;
+              height: image-height(@img) * @scale;
+              background-image: url(@img);
+              background-size: 100%;
+              content: '';
+
+              @scale: 0.35;
+              @img: './img/arrow.svg';
+
+              @apply mr-3 bg-no-repeat;
+            }
+          }
+
+          .arrow-2 {
+            width: fit-content;
+            @apply font-line-bold flex flex-row items-center justify-end bg-black px-4 text-2xl tracking-widest text-white;
+
+            &::after {
+              width: image-width(@img) * @scale;
+              height: image-height(@img) * @scale;
+              background-image: url(@img);
+              background-size: 100%;
+              content: '';
+
+              @scale: 0.35;
+              @img: './img/arrow.svg';
+
+              @apply mx-4 inline-block bg-no-repeat;
+            }
+          }
+
+          ol {
+            li {
+              gap: 6px;
+              padding-block: 2px;
+              @apply font-line-regular flex flex-row items-start justify-start;
+
+              &::before {
+                @apply font-line-bold inline-block h-fit w-7;
+              }
+            }
+          }
+
+          a {
+            @apply font-line-bold text-blue-500 underline underline-offset-3;
+          }
+
+          .d1 {
+            @img: './img/d1.png';
+            @apply relative w-full;
+
+            &::before {
+              padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+              background-image: url(@img);
+              content: '';
+
+              @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+            }
+          }
+
+          .d2 {
+            @img: './img/d2.png';
+            @apply relative w-full;
+
+            &::before {
+              padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);
+              background-image: url(@img);
+              content: '';
+
+              @apply inline-block w-full bg-contain bg-center bg-no-repeat;
+            }
+          }
         }
       }
 
