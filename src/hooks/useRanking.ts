@@ -1,4 +1,4 @@
-import { IS_TEST, REST_PATH } from '@/settings/config';
+import { ANNOUNCEMENT_TIMES, IS_TEST, REST_PATH } from '@/settings/config';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
 import Fetcher from 'lesca-fetcher';
@@ -44,30 +44,51 @@ const useRanking = () => {
       const nextWeek = weekResponse.availableWeeks
         .sort()
         .find((week) => new Date(week).getTime() > Date.now());
+
       if (weekResponse.status === 'success') {
         try {
           if (isAllDate) {
-            const allRankingResponse = (await Promise.all(
-              weekResponse.availableWeeks.map((week) =>
-                Fetcher.get(`${REST_PATH.ranking}?week=${week}`),
-              ),
-            )) as TRankingResponse[];
-            response = {
-              status: 'success',
-              message: '排行榜獲取成功！',
-              rankingDate: allRankingResponse.reduce(
-                (acc, res, index) => {
-                  acc[String(weekResponse.availableWeeks[index])] = res.ranking || [];
-                  return acc;
-                },
-                {} as Record<
-                  string,
-                  { nickname: string; phone: string; ranking: string; score: string }[]
-                >,
-              ),
-              selectedWeek: '',
-              nextWeek: nextWeek || '',
-            };
+            if (IS_TEST) console.log(weekResponse);
+
+            const whichIsLatestWeekIndexForNow =
+              ANNOUNCEMENT_TIMES.findIndex((time) => time.getTime() >= Date.now()) - 1;
+
+            if (whichIsLatestWeekIndexForNow < 0) {
+              // no week has been announced yet, return empty data
+              response = {
+                status: 'success',
+                message: '排行榜獲取成功！',
+                rankingDate: {},
+                selectedWeek: '',
+                nextWeek: nextWeek || '',
+              };
+            } else {
+              // only fetch the weeks that have been announced
+              const currentNextWeek = ANNOUNCEMENT_TIMES[whichIsLatestWeekIndexForNow];
+              const weekShouldFetch = weekResponse.availableWeeks.filter(
+                (week) => new Date(week).getTime() < currentNextWeek.getTime(),
+              );
+              const allRankingResponse = (await Promise.all(
+                weekShouldFetch.map((week) => Fetcher.get(`${REST_PATH.ranking}?week=${week}`)),
+              )) as TRankingResponse[];
+
+              response = {
+                status: 'success',
+                message: '排行榜獲取成功！',
+                rankingDate: allRankingResponse.reduce(
+                  (acc, res, index) => {
+                    acc[String(weekResponse.availableWeeks[index])] = res.ranking || [];
+                    return acc;
+                  },
+                  {} as Record<
+                    string,
+                    { nickname: string; phone: string; ranking: string; score: string }[]
+                  >,
+                ),
+                selectedWeek: '',
+                nextWeek: nextWeek || '',
+              };
+            }
             setState(response);
             setContext({ type: ActionType.LoadingProcess, state: { enabled: false } });
             return;

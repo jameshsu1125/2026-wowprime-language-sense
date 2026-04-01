@@ -106,7 +106,7 @@ const Final = memo(({ user }: { user?: { nickname: string; phone: string } }) =>
               ※兌換點數前，請先註冊成為王品瘋美食會員。
             </TweenerProvider>
             <TweenerProvider transition={transition} type='2' delay={1050}>
-              ※兌換時間：需於 2026/05/03 前完成兌換。
+              ※兌換時間：需於 2026/05/17 前完成兌換。
             </TweenerProvider>
             <TweenerProvider transition={transition} type='2' delay={1100}>
               ※一名玩家限領一次，不得重複領取
