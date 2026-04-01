@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 import useLogin from '@/hooks/useLogin';
 import useVerify from '@/hooks/useVerify';
+import { EXCLUDED_CHARACTERS } from '@/settings/character';
 import { IS_TEST, LOGIN_SECTION_DURATION, SMS_RESEND_DURATION } from '@/settings/config';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
@@ -11,12 +12,11 @@ import useTween, { Bezier } from 'lesca-use-tween';
 import { ValidatePhone } from 'lesca-validate';
 import { memo, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
+import { useDebounce } from 'use-debounce';
 import { HomeContext, HomePageType } from '../home/config';
 import LoginButton from './button';
 import Heading, { Notice } from './heading';
 import './index.less';
-import { useDebounce } from 'use-debounce';
-import { EXCLUDED_CHARACTERS } from '@/settings/character';
 
 type TLoginButtonProps = {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
