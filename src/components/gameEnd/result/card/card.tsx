@@ -123,14 +123,24 @@ const Card = memo(
                 <div>
                   <div className={twMerge('medals', medalsID)} />
                   <div className='box-content'>
-                    <div>考生：{user?.nickname || '某某某'}</div>
+                    <div>
+                      考生：
+                      {(user?.nickname || '某某某').substring(0, 10)}
+                    </div>
                     <Score transition={transition} />
                     <Ranking transition={transition} ranking={ranking} />
                   </div>
-                  <div className={twMerge('step', `step-${medalsID}`)} />
+                  <div className='box-dash'>
+                    <div>
+                      <div>
+                        恭喜你獲得瘋美食點數<span>50點</span>
+                      </div>
+                      <div>快分享結果並依步驟領取獎勵!</div>
+                    </div>
+                  </div>
+                  <div className='box-below'>{getDetailsByMedals(medalsID)}</div>
                 </div>
               </div>
-              <div className='box-below'>{getDetailsByMedals(medalsID)}</div>
             </div>
           </div>
           <div className='card-buttons'>

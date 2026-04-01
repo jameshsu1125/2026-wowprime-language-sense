@@ -63,7 +63,7 @@
         @apply absolute top-0 right-0 bottom-0 left-0 flex flex-col items-center justify-between;
 
         .box-inner {
-          min-height: 78%;
+          min-height: 100%;
           @apply relative h-fit w-full overflow-hidden;
 
           & > div {
@@ -100,13 +100,13 @@
           }
 
           .box-content {
-            margin-top: -4%;
+            margin-top: -0%;
 
             padding-inline: 5%;
             @apply relative flex w-full flex-col items-start justify-center;
 
             & > div:nth-child(1) {
-              @apply text-2xl;
+              font-size: 27px;
             }
 
             & > div:not(:nth-child(1)) {
@@ -114,10 +114,37 @@
             }
 
             & > div {
-              @apply flex flex-row items-center justify-start leading-relaxed font-black tracking-widest text-white;
+              @apply flex flex-row items-center justify-start leading-relaxed font-black text-white;
 
               & > span {
                 @apply text-primary font-line-extraBold text-3xl font-black tracking-widest md:text-4xl;
+              }
+            }
+          }
+
+          .box-below {
+            padding-bottom: 5%;
+
+            padding-inline: 5%;
+
+            @apply font-line-bold w-full text-justify text-2xl leading-relaxed text-white;
+          }
+
+          .box-dash {
+            padding-inline: 5%;
+            @apply w-full;
+
+            & > div {
+              padding-block: 5%;
+              margin-block: 5%;
+              @apply flex w-full flex-col items-start justify-start border-t-2 border-b-2 border-dashed border-white;
+
+              & > div {
+                @apply text-tertiary font-line-bold text-justify text-2xl;
+
+                & > span {
+                  @apply text-primary font-line-extraBold text-3xl;
+                }
               }
             }
           }
@@ -203,12 +230,6 @@
 
             @apply inline-block w-full bg-contain bg-center bg-no-repeat;
           }
-        }
-
-        .box-below {
-          padding-bottom: 5%;
-
-          @apply font-line-bold w-full text-center text-2xl;
         }
       }
     }
