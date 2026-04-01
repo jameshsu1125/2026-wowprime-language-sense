@@ -48,8 +48,9 @@ const MyAward = memo(() => {
           <div className='dialog'>
             <div>
               <div>恭喜{status.user.nickname || '某某某'}獲得</div>
-              <div>
-                參加獎瘋美食點數<span>50點</span>
+              <div className='flex flex-row items-center justify-start'>
+                <div>參加獎瘋美食點數</div>
+                <span>50點</span>
               </div>
               <div>您的專屬兌換序號加下：</div>
               <div className='join'>
@@ -62,7 +63,7 @@ const MyAward = memo(() => {
                   複製
                 </Button>
               </div>
-              <div>
+              <div className='mt-5'>
                 請到
                 <a
                   href='https://www.wowfms.com/event/eattogether50points'
