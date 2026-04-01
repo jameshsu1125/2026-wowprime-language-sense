@@ -4,11 +4,18 @@ import Click from 'lesca-click';
 import { memo, useContext, useEffect, useId } from 'react';
 import Button from '../button';
 import './list.less';
+import useStatus from '@/hooks/useStatus';
 
 const MenuList = memo(() => {
   const id = useId();
   const [context, setContext] = useContext(Context);
   const { token } = context[ActionType.User]!;
+
+  const [status, getStatus] = useStatus({ auto: false, backgroundAppProcess: true });
+
+  useEffect(() => {
+    if (token) getStatus();
+  }, [token]);
 
   useEffect(() => {
     Click.add(`#${id}`, () => {
@@ -47,7 +54,7 @@ const MenuList = memo(() => {
         <Button className='cursor-not-allowed'>
           <div className='btn-menu'>一起看影片</div>
         </Button>
-        {token && (
+        {token && status?.coupon && (
           <Button
             onClick={() => {
               setContext({ type: ActionType.Menu, state: { enabled: false } });
