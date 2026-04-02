@@ -93,10 +93,15 @@ const Share = memo(({ onUploaded, medalsID, ranking, score, nickname }: TSharePr
       ctx.font = '56px line-bold';
       ctx.fillStyle = '#fff';
       ctx.letterSpacing = '0px';
-      ctx.fillText(`考生：${nickname}`, 210, 630);
+      ctx.fillText(`考生：`, 210, 630);
 
       ctx.fillText(`你的分數：`, 210, 720);
       ctx.fillText(`目前排名：`, 210, 810);
+
+      // nickname：
+      ctx.font =
+        '900 56px Noto Sans TC, "Microsoft JhengHei", "PingFang TC", "Helvetica Neue", Arial, sans-serif';
+      ctx.fillText(`${nickname}`, 380, 630);
 
       // 名
       if (ranking !== '未上榜') {
