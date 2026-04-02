@@ -26,13 +26,11 @@
         }
 
         .flag {
-          top: 0%;
-          left: 50%;
           margin-left: -81%/2;
           width: 81%;
 
           @img: './img/heading-bg.svg';
-          @apply font-line-bold absolute;
+          @apply font-line-bold absolute top-0 left-1/2;
 
           & > div {
             padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);

@@ -1,15 +1,15 @@
 import useShare from '@/hooks/useShare';
-import { memo, useContext, useEffect, useMemo, useRef } from 'react';
-import { SHARE_SIZE } from './config';
-import gold from './img/gold.png';
-import silver from './img/silver.png';
-import bronze from './img/bronze.png';
-import iron from './img/iron.png';
-import wood from './img/wood.png';
-import { preloadImage } from '@/utils';
-import bg from './img/bg.jpg';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
+import { preloadImage } from '@/utils';
+import { memo, useContext, useEffect, useMemo, useRef } from 'react';
+import { SHARE_SIZE } from './config';
+import bg from './img/bg.jpg';
+import bronze from './img/bronze.png';
+import gold from './img/gold.png';
+import iron from './img/iron.png';
+import silver from './img/silver.png';
+import wood from './img/wood.png';
 
 type TShareProps = {
   medalsID: string;

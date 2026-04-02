@@ -1,3 +1,4 @@
+import useStatus from '@/hooks/useStatus';
 import { HomeContext, HomePageType } from '@/pages/home/config';
 import { IReactProps } from '@/settings/type';
 import useTween from 'lesca-use-tween';
@@ -7,7 +8,6 @@ import Card from './card/card';
 import Final from './final';
 import Frag from './frag';
 import './index.less';
-import useStatus from '@/hooks/useStatus';
 
 const Dialog = memo(
   ({ children, transition, onEnd }: IReactProps & { transition: boolean; onEnd: () => void }) => {
@@ -37,7 +37,6 @@ const Page = memo(({ transition }: { transition: boolean }) => {
   const [state] = useContext(GameEndContext);
   const [transitionEnd, setTransitionEnd] = useState(false);
   const [, setHomeState] = useContext(HomeContext);
-
   const [statusRes] = useStatus();
 
   const page = useMemo(() => {

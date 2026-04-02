@@ -1,5 +1,6 @@
 import Button from '@/components/button';
 import Share from '@/components/share';
+import { ResetContext } from '@/pages/config';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
 import { getMedalsIDByRanking, shareImage } from '@/utils';
@@ -8,7 +9,6 @@ import { memo, useCallback, useContext, useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { GameEndContext, GameEndFinalType } from '../../config';
 import './card.less';
-import { ResetContext } from '@/pages/config';
 
 const Score = memo(({ transition }: { transition: boolean }) => {
   const [context] = useContext(Context);

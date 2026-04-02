@@ -1,8 +1,8 @@
+import { TRankingResponse } from '@/hooks/useRanking';
+import { TransitionType } from '@/settings/type';
+import useTween from 'lesca-use-tween';
 import { memo, useEffect } from 'react';
 import './index.less';
-import { TRankingResponse } from '@/hooks/useRanking';
-import useTween from 'lesca-use-tween';
-import { TransitionType } from '@/settings/type';
 
 type TableProps = {
   data: TRankingResponse['ranking'];

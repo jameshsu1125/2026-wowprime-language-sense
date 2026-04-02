@@ -7,12 +7,12 @@ import { HomeContext, HomePageType } from '@/pages/home/config';
 import { Context, PlayingState } from '@/settings/constant';
 import { ActionType, TransitionType } from '@/settings/type';
 import { shareURL } from '@/utils';
+import { useCopyToClipboard } from '@uidotdev/usehooks';
 import Click from 'lesca-click';
 import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect, useId, useMemo, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import './blockquote.less';
-import { useCopyToClipboard } from '@uidotdev/usehooks';
 
 const IncreaseCount = memo(({ initCount, toCount }: { initCount: number; toCount: number }) => {
   const [count, setCount] = useState(initCount);

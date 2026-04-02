@@ -6,15 +6,15 @@ import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect, useMemo, useState } from 'react';
 import Contain from '../contain';
 import Announcement from './announcement';
-import MyAward from './myAward';
 import { GameEndContext, GameEndState, GameEndStepType } from './config';
+import Description from './description';
 import './index.less';
 import EndLanding from './landing';
+import MyAward from './myAward';
+import Procedures from './procedures';
 import Ranking from './ranking';
 import EndResult from './result';
 import frame from './result/img/frame.svg';
-import Description from './description';
-import Procedures from './procedures';
 
 const BG = memo(() => {
   const [style, setStyle] = useTween({ opacity: 0, backgroundColor: '#000000' });

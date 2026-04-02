@@ -1,17 +1,1 @@
-<!-- Generator: Adobe Illustrator 25.0.0, SVG Export Plug-In  -->
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="874.6px"
-	 height="597.4px" viewBox="0 0 874.6 597.4" style="overflow:visible;enable-background:new 0 0 874.6 597.4;"
-	 xml:space="preserve">
-<style type="text/css">
-	.st0{fill:#FFFFFF;}
-</style>
-<defs>
-</defs>
-<rect x="60.4" y="577.2" width="753.8" height="20.2"/>
-<rect x="40.2" y="556.1" width="20.2" height="20.2"/>
-<rect x="814.2" y="556.1" width="20.2" height="20.2"/>
-<polygon class="st0" points="19.9,0 19.9,535.9 40.2,535.9 40.2,556.1 60.4,556.1 60.4,576.4 814.2,576.4 814.2,556.1 834.4,556.1 
-	834.4,535.9 854.7,535.9 854.7,0 "/>
-<polygon points="854.4,0 854.4,535.9 834.4,535.9 834.4,556.1 854.7,556.1 874.6,556.1 874.6,0 "/>
-<polygon points="20.2,0 0,0 0,556.1 14.9,556.1 20.2,556.1 40.2,556.1 40.2,535.9 20.2,535.9 "/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="874.6" height="597.4" style="overflow:visible" viewBox="0 0 874.6 597.4"><path d="M60.4 577.2h753.8v20.2H60.4zm-20.2-21.1h20.2v20.2H40.2zm774 0h20.2v20.2h-20.2z"/><path d="M19.9 0v535.9h20.3v20.2h20.2v20.3h753.8v-20.3h20.2v-20.2h20.3V0z" style="fill:#fff"/><path d="M854.4 0v535.9h-20v20.2h40.2V0zM20.2 0H0v556.1h40.2v-20.2h-20z"/></svg>

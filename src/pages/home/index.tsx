@@ -82,6 +82,20 @@ const Home = memo(() => {
     };
   }, []);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setContext({
+        type: ActionType.Modal,
+        state: {
+          enabled: true,
+          title: '活動訊息',
+          content: PARTICIPATION_AWARD_HAVE_ALL_BEEN_SENT_OUT_MESSAGE,
+          Label: ['確定'],
+        },
+      });
+    }, 1000);
+  }, []);
+
   return (
     <OnloadProvider
       key={reset.index}
@@ -89,17 +103,6 @@ const Home = memo(() => {
       onload={() => {
         value[1]((S) => ({ ...S, step: HomeStepType.loaded }));
         setContext({ type: ActionType.LoadingProcess, state: { enabled: false } });
-        setTimeout(() => {
-          setContext({
-            type: ActionType.Modal,
-            state: {
-              enabled: true,
-              title: '活動訊息',
-              content: PARTICIPATION_AWARD_HAVE_ALL_BEEN_SENT_OUT_MESSAGE,
-              Label: ['確定'],
-            },
-          });
-        }, 1000);
       }}
     >
       <div>

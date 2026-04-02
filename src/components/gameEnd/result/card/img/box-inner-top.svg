@@ -1,9 +1,1 @@
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="826.8px"
-	 height="487px" viewBox="0 0 826.8 487" style="overflow:visible;enable-background:new 0 0 826.8 487;" xml:space="preserve">
-<style type="text/css">
-	.st0{fill:#070707;}
-</style>
-<defs>
-</defs>
-<path class="st0" d="M783.5,0H43.3C40.9,23,22.9,41.5,0,44.4V487h826.8V44.4C803.9,41.5,785.9,23,783.5,0z"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="826.8" height="487" style="overflow:visible" viewBox="0 0 826.8 487"><path d="M783.5 0H43.3C40.9 23 22.9 41.5 0 44.4V487h826.8V44.4C803.9 41.5 785.9 23 783.5 0" style="fill:#070707"/></svg>

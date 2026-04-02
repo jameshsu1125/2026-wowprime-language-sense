@@ -7,6 +7,8 @@ import chi from './mp3/chi.mp3';
 import click from './mp3/click.mp3';
 import correct from './mp3/correct.mp3';
 import hao from './mp3/hao.mp3';
+import heyLong1 from './mp3/heyLong1.mp3';
+import heyLong2 from './mp3/heyLong2.mp3';
 import incorrect from './mp3/incorrect.mp3';
 import levelup from './mp3/levelup.mp3';
 import miss from './mp3/miss.mp3';
@@ -35,8 +37,6 @@ import sound8 from './mp3/sound8.mp3';
 import sound9 from './mp3/sound9.mp3';
 import success from './mp3/success.mp3';
 import yiqi from './mp3/yiqi.mp3';
-import heyLong1 from './mp3/heyLong1.mp3';
-import heyLong2 from './mp3/heyLong2.mp3';
 import { SoundName } from './type';
 
 type SoundTrackProps = {
