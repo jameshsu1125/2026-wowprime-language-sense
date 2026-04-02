@@ -1,0 +1,41 @@
+@import url('@/settings/global.css');
+
+.Collapse {
+  .head {
+    @apply relative flex h-12 w-full cursor-pointer flex-row items-center justify-start;
+
+    & > * {
+      @apply pointer-events-none select-none;
+    }
+
+    & > div:nth-child(1) {
+      @apply font-line-extraBold bg-primary flex h-full items-center justify-start px-4 text-2xl text-white;
+    }
+
+    .open {
+      &::after {
+        transform: scale(1, -1);
+      }
+    }
+
+    & > div:nth-child(2) {
+      @apply flex h-full flex-row items-center justify-between bg-black px-8 -indent-4 text-2xl text-white;
+
+      &::after {
+        width: image-width(@img) * @scale;
+        height: image-height(@img) * @scale;
+        background-image: url(@img);
+        background-size: 100%;
+        content: '';
+
+        @scale: 0.3;
+        @img: './img/arrow.svg';
+        @apply inline-block bg-center bg-no-repeat;
+      }
+    }
+  }
+
+  .body {
+    @apply bg-quaternary w-full overflow-hidden duration-500 ease-in-out;
+  }
+}

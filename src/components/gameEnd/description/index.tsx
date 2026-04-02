@@ -5,6 +5,7 @@ import { ActionType } from '@/settings/type';
 import Click from 'lesca-click';
 import { memo, useContext, useEffect, useId } from 'react';
 import './index.less';
+import Collapse from '@/components/collapse';
 
 const Description = memo(() => {
   const id = useId();
@@ -82,44 +83,34 @@ const Description = memo(() => {
               </div>
             </div>
             <div className='w-full'>
-              <div className='flex w-full flex-col items-start justify-start gap-0'>
-                <div className='flex w-full flex-row'>
-                  <div className='font-line-extraBold bg-primary flex flex-1 items-center justify-start px-4 text-2xl text-white'>
-                    作答相關FAQ
-                  </div>
-                  <div className='arrow' />
+              <Collapse head='作答相關FAQ'>
+                <div className='text-primary text-xl'>Q：為什麼我收不到驗證碼簡訊？</div>
+                <div className='mb-5'>
+                  A：請依照步驟調整相關設定
+                  <br />
+                  {'iOS手機：設定>APP>訊息>關閉「過濾未知的寄件人」。'}
+                  <br />
+                  {'Android手機：Google訊息>點擊右上角頭像>訊息設定>保護與安全>關閉垃圾訊息阻擋。'}
+                  <br />
+                  {'或可於「垃圾訊息」查看。'}
                 </div>
-                <div className='bg-quaternary w-full p-4'>
-                  <div className='text-primary text-xl'>Q：為什麼我收不到驗證碼簡訊？</div>
-                  <div className='mb-5'>
-                    A：請依照步驟調整相關設定
-                    <br />
-                    {'iOS手機：設定>APP>訊息>關閉「過濾未知的寄件人」。'}
-                    <br />
-                    {
-                      'Android手機：Google訊息>點擊右上角頭像>訊息設定>保護與安全>關閉垃圾訊息阻擋。'
-                    }
-                    <br />
-                    {'或可於「垃圾訊息」查看。'}
-                  </div>
-                  <div className='text-primary text-xl'>Q：手機聽不到聲音怎麼辦？</div>
-                  <div className='mb-5'>
-                    A：除了使用音量鍵控制聲音大小外，也請關閉手機靜音功能，就可以聽到聲音囉！
-                  </div>
-                  <div className='text-primary text-xl'>Q：為什麼我玩起來會有點卡卡的？</div>
-                  <div className='mb-5'>
-                    A：網路狀態會影響遊戲體驗，建議於網路順暢的地方開啟遊戲唷！
-                  </div>
-                  <div className='text-primary text-xl'>
-                    Q：為什麼系統顯示我的暱稱不正確不能進行遊戲？
-                  </div>
-                  <div className='mb-5'>
-                    A：系統會於您第一次登錄遊戲時紀錄您的暱稱與手機號碼，一組手機號碼僅能綁定一組暱稱，不得修改。派送驗證碼簡訊時，會同時紀錄您的暱稱，如遺忘可查找；可於每週一到週五10:00-18:00來電聯繫活動小組查詢(02)2517-6608#865。
-                  </div>
-                  <div className='text-primary text-xl'>Q：請問獲得高分的秘密？</div>
-                  <div>A：持續練習，一定會有回報的！</div>
+                <div className='text-primary text-xl'>Q：手機聽不到聲音怎麼辦？</div>
+                <div className='mb-5'>
+                  A：除了使用音量鍵控制聲音大小外，也請關閉手機靜音功能，就可以聽到聲音囉！
                 </div>
-              </div>
+                <div className='text-primary text-xl'>Q：為什麼我玩起來會有點卡卡的？</div>
+                <div className='mb-5'>
+                  A：網路狀態會影響遊戲體驗，建議於網路順暢的地方開啟遊戲唷！
+                </div>
+                <div className='text-primary text-xl'>
+                  Q：為什麼系統顯示我的暱稱不正確不能進行遊戲？
+                </div>
+                <div className='mb-5'>
+                  A：系統會於您第一次登錄遊戲時紀錄您的暱稱與手機號碼，一組手機號碼僅能綁定一組暱稱，不得修改。派送驗證碼簡訊時，會同時紀錄您的暱稱，如遺忘可查找；可於每週一到週五10:00-18:00來電聯繫活動小組查詢(02)2517-6608#865。
+                </div>
+                <div className='text-primary text-xl'>Q：請問獲得高分的秘密？</div>
+                <div>A：持續練習，一定會有回報的！</div>
+              </Collapse>
             </div>
           </div>
         </div>

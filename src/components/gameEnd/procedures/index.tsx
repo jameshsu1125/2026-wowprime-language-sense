@@ -5,6 +5,7 @@ import { memo, useContext, useEffect, useId } from 'react';
 import './index.less';
 import Click from 'lesca-click';
 import { LINKS } from '@/settings/config';
+import Collapse from '@/components/collapse';
 
 const Procedures = memo(() => {
   const id = useId();
@@ -79,15 +80,8 @@ const Procedures = memo(() => {
 
             <div className='w-full'>
               <div className='flex w-full flex-col gap-2'>
-                {/* 考生福利－參加獎 */}
-                <div className='flex w-full flex-col items-start justify-start gap-0'>
-                  <div className='flex w-full flex-row'>
-                    <div className='bg-primary font-line-extraBold px-4 py-2 text-2xl tracking-widest text-white'>
-                      領獎辦法
-                    </div>
-                    <div className='arrow'>考生福利－參加獎</div>
-                  </div>
-                  <div className='bg-quaternary flex flex-col gap-5 p-4'>
+                <Collapse head='領獎辦法' title='考生福利－參加獎' defaultOpen>
+                  <div className='flex w-full flex-col gap-5'>
                     <div>獎項內容：考生完成遊戲後即可獲得50點(1點=1元)王品瘋美食點數。</div>
                     <div>
                       領獎資格：
@@ -141,16 +135,9 @@ const Procedures = memo(() => {
                       </ol>
                     </div>
                   </div>
-                </div>
-                {/* 百大排名獎 */}
-                <div className='flex w-full flex-col items-start justify-start gap-0'>
-                  <div className='flex w-full flex-row'>
-                    <div className='bg-primary font-line-extraBold px-4 py-2 text-2xl tracking-widest text-white'>
-                      領獎辦法
-                    </div>
-                    <div className='arrow'>百大排名獎</div>
-                  </div>
-                  <div className='bg-quaternary flex flex-col gap-5 p-4'>
+                </Collapse>
+                <Collapse head='領獎辦法' title='百大排名獎' defaultOpen>
+                  <div className='flex w-full flex-col gap-5'>
                     <div>
                       <div>獎項內容：考生完成遊戲後即可獲得50點(1點=1元)王品瘋美食點數。</div>
                       <div className='font-line-regular text-justify text-lg'>
@@ -255,16 +242,9 @@ const Procedures = memo(() => {
                       </ol>
                     </div>
                   </div>
-                </div>
-                {/* FAQ */}
-                <div className='flex w-full flex-col items-start justify-start gap-0'>
-                  <div className='flex w-full flex-row'>
-                    <div className='bg-primary font-line-extraBold flex-1 px-4 py-2 text-2xl tracking-widest text-white'>
-                      FAQ
-                    </div>
-                    <div className='arrow-2' />
-                  </div>
-                  <div className='bg-quaternary flex flex-col gap-5 p-4'>
+                </Collapse>
+                <Collapse head='FAQ'>
+                  <div className='flex w-full flex-col gap-5'>
                     <div>
                       <div>獎項內容：考生完成遊戲後即可獲得50點(1點=1元)王品瘋美食點數。</div>
                     </div>
@@ -281,14 +261,12 @@ const Procedures = memo(() => {
                         <div className='text-primary text-xl'>Q：考生福利－參加獎可以領幾次？</div>
                         <div className='mb-5'>A：每人限領1次。</div>
                       </div>
-
                       <div>
                         <div className='text-primary text-xl'>Q：排行榜每週都會重算嗎？</div>
                         <div className='mb-5'>
                           A：會。每週日晚間23:59:59結算，週一00:00:00重新計算。若不同週次皆有上榜，可重複領獎。
                         </div>
                       </div>
-
                       <div>
                         <div className='text-primary text-xl'>
                           Q：第2–100名如果每週四下午14:00前沒註冊會員怎麼辦？
@@ -297,14 +275,12 @@ const Procedures = memo(() => {
                           A：若派點當下仍非王品瘋美食會員，將視同放棄領獎，恕不補發。
                         </div>
                       </div>
-
                       <div>
                         <div className='text-primary text-xl'>Q：第1名為什麼要提供身分證件？</div>
                         <div className='mb-5'>
                           A：因獎項價值高於新臺幣1,000元，需依中華民國相關法令辦理領獎程序。
                         </div>
                       </div>
-
                       <div>
                         <div className='text-primary text-xl'>
                           Q：為什麼我在排行榜上，但沒收到通知簡訊？
@@ -321,7 +297,6 @@ const Procedures = memo(() => {
                           如仍未收到通知簡訊，可於每週一到週五10:00-18:00來電聯繫活動小組查詢(02）2517-6608#865。
                         </div>
                       </div>
-
                       <div>
                         <div className='text-primary text-xl'>
                           Q：要如何確認我有順利完成兌領50點參加獎？
@@ -332,16 +307,9 @@ const Procedures = memo(() => {
                       </div>
                     </div>
                   </div>
-                </div>
-                {/* 注意事項 */}
-                <div className='flex w-full flex-col items-start justify-start gap-0'>
-                  <div className='flex w-full flex-row'>
-                    <div className='bg-primary font-line-extraBold flex-1 px-4 py-2 text-2xl tracking-widest text-white'>
-                      注意事項
-                    </div>
-                    <div className='arrow-2' />
-                  </div>
-                  <div className='bg-quaternary flex flex-col gap-5 p-4'>
+                </Collapse>
+                <Collapse head='注意事項'>
+                  <div className='flex w-full flex-col gap-5'>
                     <div>
                       <div>獎項內容：考生完成遊戲後即可獲得50點(1點=1元)王品瘋美食點數。</div>
                     </div>
@@ -390,7 +358,7 @@ const Procedures = memo(() => {
                       </ol>
                     </div>
                   </div>
-                </div>
+                </Collapse>
               </div>
             </div>
           </div>
