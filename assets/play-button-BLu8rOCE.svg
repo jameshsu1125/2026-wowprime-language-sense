@@ -1,0 +1,22 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="83.6px" height="83.6px" viewBox="0 0 83.6 83.6" style="overflow:visible;enable-background:new 0 0 83.6 83.6;" xml:space="preserve">
+    <style type="text/css">
+        .st0{clip-path:url(#SVGID_2_);fill:#FFFFFF;}
+	.st1{clip-path:url(#SVGID_2_);fill:none;stroke:#000000;stroke-width:5;stroke-miterlimit:10;}
+	.st2{clip-path:url(#SVGID_2_);}
+	.st3{clip-path:url(#SVGID_4_);fill:#FFFFFF;}
+	.st4{clip-path:url(#SVGID_4_);fill:none;stroke:#000000;stroke-width:5;stroke-miterlimit:10;}
+	.st5{clip-path:url(#SVGID_4_);}
+    </style>
+    <defs/>
+    <g>
+        <defs>
+            <rect id="SVGID_1_" width="83.6" height="83.6"/>
+        </defs>
+        <clipPath id="SVGID_2_">
+            <use xlink:href="#SVGID_1_" style="overflow:visible;"/>
+        </clipPath>
+        <path class="st0" d="M81.1,41.8c0,21.7-17.6,39.3-39.3,39.3S2.5,63.5,2.5,41.8S20.1,2.5,41.8,2.5S81.1,20.1,81.1,41.8"/>
+        <circle class="st1" cx="41.8" cy="41.8" r="39.3"/>
+        <polygon class="st2" points="27.9,66.8 27.9,16.8 69.1,41.8 	"/>
+    </g>
+</svg>
