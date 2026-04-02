@@ -24,9 +24,7 @@ const Button = ({ children, className, style, onClick, disabled }: TRegularProps
     if (onClick)
       Click.add(`#${id}`, () => {
         onClick();
-        if (sounds && sounds.tracks) {
-          sounds.tracks.play('click', 0.3);
-        }
+        if (sounds && sounds.tracks) sounds.tracks.play('click', 0.3);
       });
     return () => {
       if (onClick) Click.remove(`#${id}`);
@@ -47,6 +45,6 @@ const Button = ({ children, className, style, onClick, disabled }: TRegularProps
 
 Button.large = Large;
 Button.rounded = Rounded;
-Button.Skip = Skip;
+Button.skip = Skip;
 
 export default Button;

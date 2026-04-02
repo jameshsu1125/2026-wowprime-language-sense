@@ -106,7 +106,7 @@ const SkipButton = memo(({ transition }: { transition: boolean }) => {
         setState((S) => ({ ...S, step: GameStepType.Taiko }));
       }}
     >
-      <Button.Skip>略過此關</Button.Skip>
+      <Button.skip>略過此關</Button.skip>
     </Button>
   );
 });
