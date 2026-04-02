@@ -5,6 +5,7 @@ import Click from 'lesca-click';
 import { memo, useContext, useEffect, useId } from 'react';
 import Button from '../button';
 import './list.less';
+import useRanking, { TRankingResponse } from '@/hooks/useRanking';
 
 const MenuList = memo(() => {
   const id = useId();
@@ -12,12 +13,16 @@ const MenuList = memo(() => {
   const { token } = context[ActionType.User]!;
 
   const [status, getStatus] = useStatus({ auto: false, backgroundAppProcess: true });
+  const [response, getRanking] = useRanking();
+
+  const rankingDate = (response?.rankingDate || []) as TRankingResponse['rankingDate'];
 
   useEffect(() => {
     if (token) getStatus();
   }, [token]);
 
   useEffect(() => {
+    getRanking();
     Click.add(`#${id}`, () => {
       setContext({ type: ActionType.Menu, state: { enabled: false } });
     });
@@ -46,23 +51,25 @@ const MenuList = memo(() => {
         >
           <div className='btn-menu'>本週榜單</div>
         </Button>
-        <Button
-          onClick={() => {
-            setContext({ type: ActionType.Menu, state: { enabled: false } });
-            setContext({
-              type: ActionType.Playing,
-              state: {
-                openAnnouncement: true,
-                openDescription: false,
-                openMyAward: false,
-                openProcedures: false,
-                openRanking: false,
-              },
-            });
-          }}
-        >
-          <div className='btn-menu'>得獎公告</div>
-        </Button>
+        {rankingDate && Object.keys(rankingDate).length !== 0 && (
+          <Button
+            onClick={() => {
+              setContext({ type: ActionType.Menu, state: { enabled: false } });
+              setContext({
+                type: ActionType.Playing,
+                state: {
+                  openAnnouncement: true,
+                  openDescription: false,
+                  openMyAward: false,
+                  openProcedures: false,
+                  openRanking: false,
+                },
+              });
+            }}
+          >
+            <div className='btn-menu'>得獎公告</div>
+          </Button>
+        )}
         <Button
           onClick={() => {
             setContext({ type: ActionType.Menu, state: { enabled: false } });
