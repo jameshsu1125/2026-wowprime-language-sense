@@ -51,9 +51,11 @@ const Share = memo(({ onUploaded, medalsID, ranking, score, nickname }: TSharePr
 
   const onCapture = (base64: string | undefined) => {
     captureRef.current = base64 || '';
+
+    // TODO: 這裡的 host 需要根據實際部署環境調整
     const host =
       window.location.hostname === 'localhost'
-        ? 'https://wowprime-eattogether.netlify.app'
+        ? 'https://www.wowfms.com/event/eattogether/'
         : window.location.origin;
 
     const imageUrl = `${host}/img/meta-img.jpg`;
