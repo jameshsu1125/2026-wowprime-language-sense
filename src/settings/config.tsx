@@ -52,3 +52,9 @@ export const PARTICIPATION_AWARD_HAVE_ALL_BEEN_SENT_OUT_MESSAGE = (
     </p>
   </>
 );
+
+export const LINKS = {
+  瘋點數兌領網站: 'https://www.wowfms.com/event/eattogether50points',
+  立即註冊王品瘋美食會員: 'https://wowfoods.cc/web_index',
+  王品瘋美食Facebook官方粉絲專頁: 'https://www.facebook.com/app.wowfoods',
+};

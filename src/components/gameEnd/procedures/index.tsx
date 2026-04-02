@@ -4,6 +4,7 @@ import { ActionType } from '@/settings/type';
 import { memo, useContext, useEffect, useId } from 'react';
 import './index.less';
 import Click from 'lesca-click';
+import { LINKS } from '@/settings/config';
 
 const Procedures = memo(() => {
   const id = useId();
@@ -102,9 +103,13 @@ const Procedures = memo(() => {
                         <li className='before:content-["②"]'>
                           <div>
                             複製序號後，至
-                            <a href='#'>「瘋點數兌領網站」</a>
+                            <a target='_blank' href={LINKS.瘋點數兌領網站}>
+                              「瘋點數兌領網站」
+                            </a>
                             進行兌換，兌換前需先成為
-                            <a href='#'>王品瘋美食會員</a>
+                            <a target='_blank' href={LINKS.立即註冊王品瘋美食會員}>
+                              王品瘋美食會員
+                            </a>
                             ，點數歸戶將以會員註冊手機門號為主。
                           </div>
                         </li>
@@ -117,7 +122,9 @@ const Procedures = memo(() => {
                       <ol>
                         <li className='before:content-["▶"]'>
                           <div>
-                            <a href='#'>瘋點數兌領網站</a>
+                            <a target='_blank' href={LINKS.瘋點數兌領網站}>
+                              瘋點數兌領網站
+                            </a>
                           </div>
                         </li>
                       </ol>
@@ -126,7 +133,9 @@ const Procedures = memo(() => {
                       <ol>
                         <li className='before:content-["▶"]'>
                           <div>
-                            <a href='#'>立即註冊王品瘋美食會員</a>
+                            <a target='_blank' href={LINKS.立即註冊王品瘋美食會員}>
+                              立即註冊王品瘋美食會員
+                            </a>
                           </div>
                         </li>
                       </ol>
@@ -167,7 +176,9 @@ const Procedures = memo(() => {
                           <div>
                             <span className='font-line-bold'>
                               於排名公布7天內私訊
-                              <a href='#'>王品瘋美食FB官方粉絲專頁</a>
+                              <a target='_blank' href={LINKS.王品瘋美食Facebook官方粉絲專頁}>
+                                王品瘋美食FB官方粉絲專頁
+                              </a>
                               ，並提供：得獎收件資料
                               —【姓名】、【遊戲登入電話】、【遊戲登入暱稱】及【Email】
                             </span>
@@ -198,7 +209,9 @@ const Procedures = memo(() => {
                       <ol>
                         <li className='before:content-["▶"]'>
                           <div>
-                            <a href='#'>立即註冊王品瘋美食會員</a>
+                            <a target='_blank' href={LINKS.立即註冊王品瘋美食會員}>
+                              立即註冊王品瘋美食會員
+                            </a>
                           </div>
                         </li>
                       </ol>
@@ -234,7 +247,9 @@ const Procedures = memo(() => {
                       <ol>
                         <li className='before:content-["▶"]'>
                           <div>
-                            <a href='#'>立即註冊王品瘋美食會員</a>
+                            <a target='_blank' href={LINKS.立即註冊王品瘋美食會員}>
+                              立即註冊王品瘋美食會員
+                            </a>
                           </div>
                         </li>
                       </ol>

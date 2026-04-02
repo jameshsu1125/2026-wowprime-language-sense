@@ -55,8 +55,13 @@ const Share = memo(({ onUploaded, medalsID, ranking, score, nickname }: TSharePr
     // TODO: 這裡的 host 需要根據實際部署環境調整
     const host =
       window.location.hostname === 'localhost'
-        ? 'https://www.wowfms.com/event/eattogether/'
+        ? 'https://wowprime-eattogether.netlify.app' // ? 'https://www.wowfms.com/event/eattogether/'
         : window.location.origin;
+
+    // const host =
+    //   window.location.hostname === 'localhost'
+    //     ? 'https://www.wowfms.com/event/eattogether/' // 'https://wowprime-eattogether.netlify.app' // ? 'https://www.wowfms.com/event/eattogether/'
+    //     : window.location.origin;
 
     const imageUrl = `${host}/img/meta-img.jpg`;
     const meta = {

@@ -123,7 +123,6 @@ const Chord = memo(() => {
   }, []);
 
   useEffect(() => {
-    // TODO => END
     if (state.heart <= 0) {
       EnterFrame.stop();
       EnterFrame.reset();
