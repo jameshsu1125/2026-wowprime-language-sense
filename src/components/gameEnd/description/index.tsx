@@ -1,10 +1,10 @@
 import Button from '@/components/button';
+import Heading from '@/components/heading';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
+import Click from 'lesca-click';
 import { memo, useContext, useEffect, useId } from 'react';
 import './index.less';
-import Heading from '@/components/heading';
-import Click from 'lesca-click';
 
 const Description = memo(() => {
   const id = useId();

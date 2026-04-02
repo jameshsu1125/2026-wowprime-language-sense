@@ -43,9 +43,7 @@ const Dialog = memo(() => {
   }, []);
 
   useEffect(() => {
-    if (response) {
-      setTransition(TransitionType.FadeIn);
-    }
+    if (response) setTransition(TransitionType.FadeIn);
   }, [response]);
 
   useEffect(() => {
@@ -57,7 +55,13 @@ const Dialog = memo(() => {
   return (
     <div id={id} className='dialog'>
       <Text transition={transition} />
-      <AnnouncementTable rankingDate={rankingDate} transition={transition} />
+      {response && response.rankingDate && Object.keys(response.rankingDate).length === 0 ? (
+        <div className='text-primary font-line-bold text-xl'>
+          暫無得獎者，將於下個週一上午10:00公布
+        </div>
+      ) : (
+        <AnnouncementTable rankingDate={rankingDate} transition={transition} />
+      )}
     </div>
   );
 });

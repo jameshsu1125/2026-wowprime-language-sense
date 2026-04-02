@@ -1,9 +1,9 @@
+import { HomeContext, HomePageType } from '@/pages/home/config';
 import { Context } from '@/settings/constant';
 import { ActionType, IReactProps } from '@/settings/type';
+import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect } from 'react';
 import './index.less';
-import useTween from 'lesca-use-tween';
-import { HomeContext, HomePageType } from '@/pages/home/config';
 
 const UserName = memo(({ children }: IReactProps) => (
   <div className='nickname'>

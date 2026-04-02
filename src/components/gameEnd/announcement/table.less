@@ -31,8 +31,7 @@
     thead,
     tfoot {
       background-color: #919191;
-      color: #e4e4e4;
-      @apply text-base md:text-base;
+      @apply text-quaternary text-base md:text-base;
 
       th {
         @apply py-2;
@@ -45,7 +44,7 @@
       }
 
       & > tr:nth-child(odd) {
-        background-color: #e4e4e4;
+        @apply bg-quaternary;
       }
       & > tr:nth-child(even) {
         background-color: #c9c9c9;
