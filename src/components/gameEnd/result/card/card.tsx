@@ -1,6 +1,5 @@
 import Button from '@/components/button';
 import Share from '@/components/share';
-import { ResetContext } from '@/pages/config';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
 import { getMedalsIDByRanking, shareImage } from '@/utils';
@@ -9,6 +8,7 @@ import { memo, useCallback, useContext, useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { GameEndContext, GameEndFinalType } from '../../config';
 import './card.less';
+import { ResetContext } from '@/pages/config';
 
 const Score = memo(({ transition }: { transition: boolean }) => {
   const [context] = useContext(Context);
@@ -133,7 +133,9 @@ const Card = memo(({ transition, user, coupon }: ICardProps) => {
                 <div className='box-content'>
                   <div>
                     考生：
-                    {(user?.nickname || '某某某').substring(0, 10)}
+                    <div className='font-default font-black'>
+                      {(user?.nickname || '某某某').substring(0, 10)}
+                    </div>
                   </div>
                   <Score transition={transition} />
                   <Ranking transition={transition} ranking={ranking} />

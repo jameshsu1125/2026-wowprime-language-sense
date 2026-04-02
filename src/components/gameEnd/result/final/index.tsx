@@ -70,7 +70,9 @@ const Final = memo(({ user }: { user?: { nickname: string; phone: string } }) =>
         <div>
           <div>
             <TweenerProvider transition={transition} type='1'>
-              恭喜{user?.nickname || '某某某'}獲得
+              恭喜
+              <div className='font-default font-black'>{user?.nickname || '某某某'}</div>
+              獲得
             </TweenerProvider>
             <TweenerProvider transition={transition} delay={50} type='1'>
               參加獎瘋美食點數<span>50點</span>
@@ -118,7 +120,7 @@ const Final = memo(({ user }: { user?: { nickname: string; phone: string } }) =>
             <TweenerProvider transition={transition} type='2' delay={1200}>
               ※一組序號僅限兌換一次，不得重複使用
             </TweenerProvider>
-            <div className='flex w-full flex-row items-center justify-between gap-4 pb-14'>
+            <div className='mt-3 flex w-full flex-row items-center justify-between gap-4 pb-14'>
               <TweenerProvider className='w-1/2' transition={transition} type='3' delay={500}>
                 <Button
                   onClick={() => {

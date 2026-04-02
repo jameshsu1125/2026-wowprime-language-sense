@@ -67,7 +67,9 @@ const InTheRanking = memo(({ ranking, score, transition }: TInTheRankingProps) =
   return (
     <div className='font-default flex w-full flex-col gap-5' style={style}>
       <blockquote>
-        <div>考生：{user.nickname}</div>
+        <div>
+          考生：<div className='font-default font-black'>{user.nickname}</div>
+        </div>
         <div>
           最佳分數：
           <span>

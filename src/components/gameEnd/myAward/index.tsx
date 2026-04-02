@@ -57,7 +57,11 @@ const MyAward = memo(() => {
           </div>
           <div className='dialog'>
             <div>
-              <div>恭喜{status.user.nickname || '某某某'}獲得</div>
+              <div className='flex flex-row'>
+                恭喜
+                <div className='font-default font-black'>{status.user.nickname || '某某某'}</div>
+                獲得
+              </div>
               <div className='flex flex-row items-center justify-start'>
                 <div>參加獎瘋美食點數</div>
                 <span>50點</span>
