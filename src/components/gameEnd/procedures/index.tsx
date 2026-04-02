@@ -1,11 +1,17 @@
 import Button from '@/components/button';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
-import { memo, useContext } from 'react';
+import { memo, useContext, useEffect, useId } from 'react';
 import './index.less';
+import Click from 'lesca-click';
 
 const Procedures = memo(() => {
+  const id = useId();
   const [, setContext] = useContext(Context);
+
+  useEffect(() => {
+    Click.addPreventExcept(`#${id}`);
+  }, [id]);
 
   return (
     <div className='Procedures'>
@@ -32,7 +38,7 @@ const Procedures = memo(() => {
               <div />
             </Button>
           </div>
-          <div className='dialog'>
+          <div id={id} className='dialog'>
             <div>
               <div className='text-justify'>
                 參加並完成測驗即可獲得考生福利－參加獎，每週排行榜前100名可獲得百大排名獎！每週排行榜公佈前，可持續重新挑戰測驗，力拚高分！
