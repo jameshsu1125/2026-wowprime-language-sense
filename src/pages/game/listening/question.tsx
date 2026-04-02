@@ -152,7 +152,6 @@ const ListeningQuestion = memo(({ questions }: { questions: typeof ListeningQues
                 ref.current?.check();
                 setTimeout(() => {
                   if (state.index >= 2) {
-                    // if ( state.index >= ListeningQuestions.length + ListeningHeyLongQuestions.length - 1 ) {
                     setGameState((S) => ({ ...S, step: GameStepType.Taiko }));
                   } else {
                     setState((S) => ({ ...S, index: S.index + 1 }));

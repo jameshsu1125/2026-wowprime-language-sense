@@ -51,9 +51,8 @@
   }
 
   .heading {
-    width: 100%;
-
     @img: './img/heading.svg';
+    @apply w-full;
 
     &::before {
       padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * 100%);

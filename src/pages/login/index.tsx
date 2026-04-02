@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/set-state-in-effect */
 import useLogin from '@/hooks/useLogin';
 import useVerify from '@/hooks/useVerify';
 import { EXCLUDED_CHARACTERS } from '@/settings/character';

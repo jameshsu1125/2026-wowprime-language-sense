@@ -59,7 +59,6 @@ const Chord = memo(() => {
 
   useEffect(() => {
     if (count > 0) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setMeter((S) => [
         ...S,
         {

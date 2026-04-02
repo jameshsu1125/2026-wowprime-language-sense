@@ -1,7 +1,7 @@
 import useTween, { Bezier } from 'lesca-use-tween';
 import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
-import './note.less';
 import { TaikoNoteSpeed } from './config';
+import './note.less';
 
 type NoteProps = {
   index: number;
@@ -24,14 +24,11 @@ const Note = forwardRef(({ index, type, onEnd, onUpdate, onMiss }: NoteProps, re
 
   useEffect(() => {
     setStyle(
-      // { top: `${TaikoBullseye}%` },
       { top: '105%' },
       {
         duration: TaikoNoteSpeed,
         easing: Bezier.linear,
-        onUpdate: (style: { top: number }) => {
-          onUpdate(index, style.top);
-        },
+        onUpdate: (style: { top: number }) => onUpdate(index, style.top),
         onEnd: (style: { top: number }) => {
           onUpdate(index, style.top);
           onEnd(index);
@@ -39,15 +36,12 @@ const Note = forwardRef(({ index, type, onEnd, onUpdate, onMiss }: NoteProps, re
         },
       },
     );
-    return () => {
-      destroy();
-    };
+    return () => destroy();
   }, []);
 
   useImperativeHandle(ref, () => ({
     get: () => {
       if (noteRef.current) {
-        // noteRef.current.style.visibility = 'hidden';
         const degree = -135 + Math.random() * 90;
         const radius = 400;
 
@@ -59,16 +53,12 @@ const Note = forwardRef(({ index, type, onEnd, onUpdate, onMiss }: NoteProps, re
           { opacity: 0, scale: 0, x, y, rotate },
           {
             duration: 1200,
-            onEnd: () => {
-              onEnd(index);
-            },
+            onEnd: () => onEnd(index),
           },
         );
       }
     },
-    stop: () => {
-      destroy();
-    },
+    stop: () => destroy(),
   }));
 
   return (

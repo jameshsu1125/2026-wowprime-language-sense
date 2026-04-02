@@ -1,3 +1,4 @@
+import { Context } from '@/settings/constant';
 import { ActionType, IReactProps } from '@/settings/type';
 import Click from 'lesca-click';
 import useTween from 'lesca-use-tween';
@@ -14,7 +15,6 @@ import {
 import Effect from './effect';
 import './index.less';
 import Telegraphing from './telegraphing';
-import { Context } from '@/settings/constant';
 
 const HoleClick = forwardRef(({ id, children }: IReactProps & { id: string }, ref) => {
   const [style, setStyle] = useTween({ opacity: 1, scale: 1 });
@@ -88,7 +88,6 @@ const Hole = forwardRef(({ onClick, direct }: HoleProps, ref) => {
           index: clickIndex,
         },
       ];
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setEffects((effects) => [...effects, ...element]);
     }
   }, [clickIndex]);

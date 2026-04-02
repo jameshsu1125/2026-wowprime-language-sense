@@ -1,4 +1,5 @@
 import Container from '@/components/container';
+import { PARTICIPATION_AWARD_HAVE_ALL_BEEN_SENT_OUT_MESSAGE } from '@/settings/config';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
 import Click from 'lesca-click';
@@ -10,7 +11,6 @@ import Game from '../game';
 import Landing from '../landing';
 import Login from '../login';
 import { HomeContext, HomePageType, HomeState, HomeStepType, THomeState } from './config';
-import { PARTICIPATION_AWARD_HAVE_ALL_BEEN_SENT_OUT_MESSAGE } from '@/settings/config';
 
 const initZoomLevel = ((window.outerWidth - 10) / window.innerWidth) * 100;
 
