@@ -33,6 +33,8 @@ const Home = memo(() => {
           openRanking: false,
           openAnnouncement: false,
           openMyAward: false,
+          openDescription: false,
+          openProcedures: false,
         },
       });
     }
