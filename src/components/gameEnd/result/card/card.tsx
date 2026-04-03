@@ -9,6 +9,7 @@ import { twMerge } from 'tailwind-merge';
 import { GameEndContext, GameEndFinalType } from '../../config';
 import './card.less';
 import { ResetContext } from '@/pages/config';
+import OnloadProvider from 'lesca-react-onload';
 
 const Score = memo(({ transition }: { transition: boolean }) => {
   const [context] = useContext(Context);
@@ -47,9 +48,10 @@ type ICardProps = {
   transition: boolean;
   user?: { nickname: string; phone: string };
   coupon?: string;
+  onCardLoadEnd: () => void;
 };
 
-const Card = memo(({ transition, user, coupon }: ICardProps) => {
+const Card = memo(({ transition, user, coupon, onCardLoadEnd }: ICardProps) => {
   const [context, setContext] = useContext(Context);
   const [state, setState] = useContext(GameEndContext);
   const [, setReset] = useContext(ResetContext);
@@ -123,76 +125,78 @@ const Card = memo(({ transition, user, coupon }: ICardProps) => {
   }, [url, user, score, base64, setContext]);
 
   return (
-    <div className='Card'>
-      <div className='box'>
-        <div>
+    <OnloadProvider onload={() => onCardLoadEnd()}>
+      <div className='Card'>
+        <div className='box'>
           <div>
-            <div className='box-inner'>
-              <div>
-                <div className={twMerge('medals', medalsID)} />
-                <div className='box-content'>
-                  <div>
-                    考生：
-                    <div className='font-default font-black'>
-                      {(user?.nickname || '某某某').substring(0, 10)}
+            <div>
+              <div className='box-inner'>
+                <div>
+                  <div className={twMerge('medals', medalsID)} />
+                  <div className='box-content'>
+                    <div>
+                      考生：
+                      <div className='font-default font-black'>
+                        {(user?.nickname || '某某某').substring(0, 10)}
+                      </div>
                     </div>
+                    <Score transition={transition} />
+                    <Ranking transition={transition} ranking={ranking} />
                   </div>
-                  <Score transition={transition} />
-                  <Ranking transition={transition} ranking={ranking} />
+                  <div className={twMerge('step', `step-${medalsID}`)} />
                 </div>
-                <div className={twMerge('step', `step-${medalsID}`)} />
               </div>
             </div>
           </div>
-        </div>
-        <div className='card-buttons'>
-          <div>
-            <Button onClick={onClick}>
-              <Button.large>
-                <div className='share-btn' />
-              </Button.large>
-            </Button>
-          </div>
-          <div>
-            {coupon ? (
-              <Button
-                onClick={() => {
-                  setState((S) => ({ ...S, final: GameEndFinalType.award }));
-                }}
-              >
+          <div className='card-buttons'>
+            <div>
+              <Button onClick={onClick}>
                 <Button.large>
-                  <div className='award-btn' />
+                  <div className='share-btn' />
                 </Button.large>
               </Button>
-            ) : (
-              <Button
-                onClick={() => {
-                  setReset((S) => ({ ...S, index: S.index + 1, navto: 'game' }));
-                }}
-              >
-                <Button.large>
-                  <div className='again-btn' />
-                </Button.large>
-              </Button>
-            )}
+            </div>
+            <div>
+              {coupon ? (
+                <Button
+                  onClick={() => {
+                    setState((S) => ({ ...S, final: GameEndFinalType.award }));
+                  }}
+                >
+                  <Button.large>
+                    <div className='award-btn' />
+                  </Button.large>
+                </Button>
+              ) : (
+                <Button
+                  onClick={() => {
+                    setReset((S) => ({ ...S, index: S.index + 1, navto: 'game' }));
+                  }}
+                >
+                  <Button.large>
+                    <div className='again-btn' />
+                  </Button.large>
+                </Button>
+              )}
+            </div>
           </div>
         </div>
+        <div className='note'>
+          <div>週週關注榜單，每週名次最高</div>
+          <div>可直接獲得瘋美食點數</div>
+          <span>17,000點</span>
+        </div>
+        {isShare && (
+          <Share
+            medalsID={medalsID}
+            ranking={ranking}
+            score={score || 0}
+            nickname={user?.nickname || '某某某'}
+            onUploaded={onUploaded}
+          />
+        )}
       </div>
-      <div className='note'>
-        <div>週週關注榜單，每週名次最高</div>
-        <div>可直接獲得瘋美食點數</div>
-        <span>17,000點</span>
-      </div>
-      {isShare && (
-        <Share
-          medalsID={medalsID}
-          ranking={ranking}
-          score={score || 0}
-          nickname={user?.nickname || '某某某'}
-          onUploaded={onUploaded}
-        />
-      )}
-    </div>
+    </OnloadProvider>
   );
 });
 export default Card;
