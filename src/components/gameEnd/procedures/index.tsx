@@ -91,10 +91,10 @@ const Procedures = memo(() => {
                     <div>
                       領獎方式：
                       <ol>
-                        <li className='before:content-["①"]'>
+                        <li className='font-default font-black before:content-["①"]'>
                           遊戲結束後，可於活動頁面領取專屬序號。登入狀態下點擊menu可查找「我的參加獎」。
                         </li>
-                        <li className='before:content-["②"]'>
+                        <li className='font-default font-black before:content-["②"]'>
                           <div>
                             複製序號後，至
                             <a target='_blank' href={LINKS.瘋點數兌領網站}>
@@ -107,7 +107,7 @@ const Procedures = memo(() => {
                             ，點數歸戶將以會員註冊手機門號為主。
                           </div>
                         </li>
-                        <li className='before:content-["③"]'>
+                        <li className='font-default font-black before:content-["③"]'>
                           <div>輸入王品瘋美食會員手機號碼+專屬序號，完成兌獎！</div>
                         </li>
                       </ol>
@@ -159,7 +159,7 @@ const Procedures = memo(() => {
                     </div>
                     <div>
                       <ol>
-                        <li className='before:content-["①"]'>
+                        <li className='font-default font-black before:content-["①"]'>
                           <div>
                             <span className='font-line-bold'>
                               於排名公布7天內私訊
@@ -172,7 +172,7 @@ const Procedures = memo(() => {
                             ，由活動主辦方進行身分核對。
                           </div>
                         </li>
-                        <li className='before:content-["②"]'>
+                        <li className='font-default font-black before:content-["②"]'>
                           <div>
                             得獎者身分核對無誤後，活動主辦方將於收到回覆後5個工作天以電子郵件方式提供領獎憑證；
                             <span className='font-line-bold'>
@@ -180,12 +180,12 @@ const Procedures = memo(() => {
                             </span>
                           </div>
                         </li>
-                        <li className='before:content-["③"]'>
+                        <li className='font-default font-black before:content-["③"]'>
                           <div>
                             活動主辦方將於收到郵寄掛號信件，確認無誤後，將於14個工作天內發送17,000點至得獎者的王品瘋美食會員帳戶。
                           </div>
                         </li>
-                        <li className='before:content-["④"]'>
+                        <li className='font-default font-black before:content-["④"]'>
                           <div>
                             本活動規範領奬資料未寄回、逾期寄回或資料不完整者，將視同自動放棄得奬權益，喪失得獎資格，且不再進行得獎名單遞補。
                           </div>
@@ -212,15 +212,15 @@ const Procedures = memo(() => {
                     <div>
                       領獎方式：
                       <ol>
-                        <li className='before:content-["①"]'>
+                        <li className='font-default font-black before:content-["①"]'>
                           <div>
                             每週一得獎者將收到簡訊通知，請得獎者同步檢核是否已成為王品瘋美食會員。
                           </div>
                         </li>
-                        <li className='before:content-["②"]'>
+                        <li className='font-default font-black before:content-["②"]'>
                           <div>點數將於每週四下午14:00前，發送至符合資格之得獎者會員帳號。</div>
                         </li>
-                        <li className='before:content-["③"]'>
+                        <li className='font-default font-black before:content-["③"]'>
                           <div>
                             <span className='font-line-bold'>
                               得獎者須於每週四下午14:00前完成王品瘋美食會員註冊，始具領獎資格
@@ -316,43 +316,43 @@ const Procedures = memo(() => {
                     <div>
                       領獎方式：
                       <ol>
-                        <li className='before:content-["①"]'>
+                        <li className='font-default font-black before:content-["①"]'>
                           本活動獎項不得要求更換、轉讓或折換現金。
                         </li>
-                        <li className='before:content-["②"]'>
+                        <li className='font-default font-black before:content-["②"]'>
                           領獎相關資料(包括但不限於姓名、電話、email等)，將作為本活動之聯繫、公告、領獎、後續處理、統計分析及紀錄等目的使用。為行銷、進行本活動及提供各項抽獎商品訊息之目的範圍內，將依法令規定蒐集、處理及利用參加本活動者之個人資料。
                         </li>
-                        <li className='before:content-["③"]'>
+                        <li className='font-default font-black before:content-["③"]'>
                           依中華民國稅法規定，中獎者若為中華民國境內居住之個人，中獎價值超過新台幣1
                           ,000
                           元者，需繳交身分證正反面影本供報稅使用，年度報稅時將計個人所得，次年初執行單位將依稅法相關規定辦理開立扣繳憑單。
                         </li>
-                        <li className='before:content-["④"]'>
+                        <li className='font-default font-black before:content-["④"]'>
                           中獎者若非中華民國境內居住之個人，不論中獎金額，須先就中獎所得扣繳20%機會中獎稅後，始發予中獎獎項，執行單位皆會開立扣繳憑單。中獎者若為未成年，應檢附戶籍謄本並提出法定代理人同意書。若中獎者不願提供資料或未依法預先繳納稅額，即視為放棄中獎資格，不得異議。前述稅法如有變動者，依當時之最新稅法規定辦理。
                         </li>
-                        <li className='before:content-["⑤"]'>
+                        <li className='font-default font-black before:content-["⑤"]'>
                           瘋美食點數可用於王品集團旗下實體餐廳。
                         </li>
-                        <li className='before:content-["⑥"]'>
+                        <li className='font-default font-black before:content-["⑥"]'>
                           活動贈送王品瘋美食點數使用效期為領取日期+45天。
                         </li>
-                        <li className='before:content-["⑦"]'>
+                        <li className='font-default font-black before:content-["⑦"]'>
                           有效期間屆滿，未使用的點數將於到期日 23:59:59
                           自動失效，失效的點數恕不提供展延服務。
                         </li>
-                        <li className='before:content-["⑧"]'>
+                        <li className='font-default font-black before:content-["⑧"]'>
                           若提供不實或錯誤資料、採用不正當手法（包含但不限於以機器人程式或其他影響公平機會獲獎），或有其他違反本活動辦法者，主辦單位有權取消其抽獎或中獎資格。獎項如已寄發，中獎者應自費返還主辦單位，並承擔相關法律責任。
                         </li>
-                        <li className='before:content-["⑨"]'>
+                        <li className='font-default font-black before:content-["⑨"]'>
                           如遇不可抗力因素，主辦單位保有隨時修改活動辦法及獎項、終止本活動或變更同等價值商品等權利，且不須作出任何事前通知。其它未盡事宜，悉以本活動網站公告及主辦單位規定為準，王品瘋美食保留本活動之最終解釋權利。
                         </li>
-                        <li className='before:content-["⑩"]'>
+                        <li className='font-default font-black before:content-["⑩"]'>
                           凡參加活動者，均視為遵守本領獎須知之各項規定。
                         </li>
-                        <li className='before:content-["⑪"]'>
+                        <li className='font-default font-black before:content-["⑪"]'>
                           主辦單位擁有保留修改活動內容之權利，主辦單位得於粉絲專頁及官網公告調整活動內容，不另行通知。其他未盡事宜，以主辦單位解釋為準。
                         </li>
-                        <li className='before:content-["⑫"]'>
+                        <li className='font-default font-black before:content-["⑫"]'>
                           瘋美食點數折抵辦法、折抵限制、餐點退貨後瘋點數計算辦法，請詳見2026瘋點數回饋活動內注意事項。
                         </li>
                       </ol>

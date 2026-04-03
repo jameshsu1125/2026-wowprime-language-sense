@@ -23,7 +23,7 @@ const TweenerProvider = memo(
       type === '1'
         ? { opacity: 0, y: 50, scale: 1 }
         : type === '2'
-          ? { opacity: 0, y: 30, scale: 1 }
+          ? { opacity: 0, y: 0, scale: 1 }
           : { opacity: 0, y: 0, scale: 3 },
     );
 
