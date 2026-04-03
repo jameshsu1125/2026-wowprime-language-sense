@@ -62,4 +62,22 @@
     }
     @apply bg-black px-6 pt-3 pb-2;
   }
+
+  .preloader {
+    & > div {
+      @apply invisible;
+    }
+    & > div:nth-child(1) {
+      background-image: url('../../../components/literal/img/s0.svg');
+    }
+    & > div:nth-child(2) {
+      background-image: url('../../../components/literal/img/s1.svg');
+    }
+    & > div:nth-child(3) {
+      background-image: url('../../../components/literal/img/s2.svg');
+    }
+    & > div:nth-child(4) {
+      background-image: url('../../../components/literal/img/s3.svg');
+    }
+  }
 }

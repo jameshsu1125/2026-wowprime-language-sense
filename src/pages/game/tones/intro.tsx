@@ -174,6 +174,12 @@ const TonesIntro = memo(() => {
             {!state.isFirstVisit && <SkipButton transition={transition} />}
           </div>
         </div>
+        <div className='preloader'>
+          <div />
+          <div />
+          <div />
+          <div />
+        </div>
       </div>
     </OnloadProvider>
   );
