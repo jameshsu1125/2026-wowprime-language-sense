@@ -1,5 +1,4 @@
 import Container from '@/components/container';
-import { PARTICIPATION_AWARD_HAVE_ALL_BEEN_SENT_OUT_MESSAGE } from '@/settings/config';
 import { Context } from '@/settings/constant';
 import { ActionType } from '@/settings/type';
 import Click from 'lesca-click';
@@ -82,19 +81,19 @@ const Home = memo(() => {
     };
   }, []);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setContext({
-        type: ActionType.Modal,
-        state: {
-          enabled: true,
-          title: '活動訊息',
-          content: PARTICIPATION_AWARD_HAVE_ALL_BEEN_SENT_OUT_MESSAGE,
-          Label: ['確定'],
-        },
-      });
-    }, 1000);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setContext({
+  //       type: ActionType.Modal,
+  //       state: {
+  //         enabled: true,
+  //         title: '活動訊息',
+  //         content: PARTICIPATION_AWARD_HAVE_ALL_BEEN_SENT_OUT_MESSAGE,
+  //         Label: ['確定'],
+  //       },
+  //     });
+  //   }, 1000);
+  // }, []);
 
   return (
     <OnloadProvider
