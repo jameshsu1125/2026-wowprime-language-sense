@@ -41,8 +41,4 @@ export const EXCLUDED_CHARACTERS = [
   'w33d',
   'meth',
   'k-fen',
-  '饗賓',
-  '築間',
-  '鼎泰豐',
-  '瓦城',
 ];
